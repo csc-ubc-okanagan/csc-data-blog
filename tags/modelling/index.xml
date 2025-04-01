@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Modelling on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/modelling/</link><description>Recent content in Modelling on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Tue, 01 Aug 2023 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/modelling/index.xml" rel="self" type="application/rss+xml"/><item><title>Basic Model Fitting in R</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-model-fitting-in-r/</link><pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-model-fitting-in-r/</guid><description>&lt;p>In previous categories we have looked at cleaning, summarizing, and subsetting data, with some minor calculations, but we haven’t yet looked at analyzing our data.&lt;/p>
+&lt;p>R is a very powerful tool for data analysis. We can fit linear models and view graphs. First, we will look at some basic data analysis processes in R.&lt;/p>
+&lt;p>Let’s re-load in our Gapminder data:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">link&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">read.csv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">url&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">link&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="linear-modelling">Linear Modelling
+&lt;/h1>&lt;p>Let’s say we want to fit a linear model to see if there is a relationship between population and time. First, let’s do this with the entire dataset with all countries.&lt;/p>
+&lt;p>We know that there is Simple Linear Regression (SLR) and Multiple Linear Regression (MLR). See the pseudocode below for a layout on how to form both in R.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Simple Linear Regression&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># model_name &amp;lt;- lm(Y ~ X, data = dataframe)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Multiple Linear Regression&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># model_name &amp;lt;- lm(Y ~ X1 + X2 + ..., data = dataframe)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># model_name &amp;lt;- lm(Y ~ ., data = dataframe) to use all variables except Y&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now that we have the layout of the code down, let&amp;rsquo;s use Y as population and X as year for an SLR model.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">model1&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">lm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pop&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">year&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">model1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Call:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## lm(formula = pop ~ year, data = df)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Residuals:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Min 1Q Median 3Q Max
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## -43318856 -27548179 -18558743 -9628265 1275164661
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Coefficients:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Estimate Std. Error t value Pr(&amp;gt;|t|)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## (Intercept) -972185807 294031308 -3.306 0.000965 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## year 506081 148532 3.407 0.000672 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ---
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Residual standard error: 105800000 on 1702 degrees of freedom
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Multiple R-squared: 0.006775, Adjusted R-squared: 0.006191
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## F-statistic: 11.61 on 1 and 1702 DF, p-value: 0.0006716
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now, let&amp;rsquo;s perform MLR with two variables, year and lifeExp.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">model2&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">lm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pop&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">year&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">lifeExp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">model2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Call:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## lm(formula = pop ~ year + lifeExp, data = df)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Residuals:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Min 1Q Median 3Q Max
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## -47148304 -27382074 -18454446 -8444157 1273829226
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Coefficients:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Estimate Std. Error t value Pr(&amp;gt;|t|)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## (Intercept) -799315581 321078589 -2.489 0.0129 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## year 409882 164973 2.485 0.0131 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## lifeExp 295176 220507 1.339 0.1809
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ---
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Residual standard error: 105800000 on 1701 degrees of freedom
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Multiple R-squared: 0.00782, Adjusted R-squared: 0.006653
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## F-statistic: 6.703 on 2 and 1701 DF, p-value: 0.00126
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Finally, let&amp;rsquo;s perform MLR with all variables in the dataset.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">model3&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">lm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pop&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="n">.,&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">model3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;span class="lnt">141
+&lt;/span>&lt;span class="lnt">142
+&lt;/span>&lt;span class="lnt">143
+&lt;/span>&lt;span class="lnt">144
+&lt;/span>&lt;span class="lnt">145
+&lt;/span>&lt;span class="lnt">146
+&lt;/span>&lt;span class="lnt">147
+&lt;/span>&lt;span class="lnt">148
+&lt;/span>&lt;span class="lnt">149
+&lt;/span>&lt;span class="lnt">150
+&lt;/span>&lt;span class="lnt">151
+&lt;/span>&lt;span class="lnt">152
+&lt;/span>&lt;span class="lnt">153
+&lt;/span>&lt;span class="lnt">154
+&lt;/span>&lt;span class="lnt">155
+&lt;/span>&lt;span class="lnt">156
+&lt;/span>&lt;span class="lnt">157
+&lt;/span>&lt;span class="lnt">158
+&lt;/span>&lt;span class="lnt">159
+&lt;/span>&lt;span class="lnt">160
+&lt;/span>&lt;span class="lnt">161
+&lt;/span>&lt;span class="lnt">162
+&lt;/span>&lt;span class="lnt">163
+&lt;/span>&lt;span class="lnt">164
+&lt;/span>&lt;span class="lnt">165
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Call:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## lm(formula = pop ~ ., data = df)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Residuals:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Min 1Q Median 3Q Max
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## -375691051 -5548380 -604356 4854327 391492520
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Coefficients: (4 not defined because of singularities)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Estimate Std. Error t value Pr(&amp;gt;|t|)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## (Intercept) -2.211e+08 1.677e+08 -1.319 0.187435
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryAlbania -5.423e+07 1.431e+07 -3.789 0.000157 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryAlgeria -2.412e+07 1.347e+07 -1.790 0.073575 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryAngola -8.521e+06 1.259e+07 -0.677 0.498532
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryArgentina -2.796e+07 1.449e+07 -1.930 0.053788 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryAustralia -4.731e+07 1.550e+07 -3.053 0.002304 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryAustria -5.220e+07 1.533e+07 -3.405 0.000678 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBahrain -4.982e+07 1.443e+07 -3.453 0.000568 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBangladesh 5.839e+07 1.287e+07 4.538 6.10e-06 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBelgium -5.088e+07 1.537e+07 -3.310 0.000954 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBenin -2.687e+07 1.282e+07 -2.096 0.036235 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBolivia -2.992e+07 1.302e+07 -2.299 0.021637 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBosnia and Herzegovina -5.198e+07 1.424e+07 -3.650 0.000271 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBotswana -3.697e+07 1.316e+07 -2.808 0.005043 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBrazil 7.429e+07 1.376e+07 5.400 7.68e-08 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBulgaria -4.978e+07 1.450e+07 -3.432 0.000614 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBurkina Faso -1.793e+07 1.268e+07 -1.414 0.157468
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryBurundi -2.106e+07 1.268e+07 -1.661 0.096887 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCambodia -2.130e+07 1.278e+07 -1.666 0.095911 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCameroon -2.008e+07 1.280e+07 -1.569 0.116755
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCanada -3.735e+07 1.563e+07 -2.389 0.017010 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCentral African Republic -2.179e+07 1.266e+07 -1.722 0.085353 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryChad -2.287e+07 1.274e+07 -1.795 0.072860 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryChile -4.360e+07 1.427e+07 -3.056 0.002279 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryChina 9.099e+08 1.366e+07 66.602 &amp;lt; 2e-16 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryColombia -2.330e+07 1.388e+07 -1.679 0.093446 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryComoros -3.532e+07 1.300e+07 -2.718 0.006646 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCongo, Dem. Rep. 7.368e+06 1.267e+07 0.581 0.561055
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCongo, Rep. -3.354e+07 1.302e+07 -2.576 0.010080 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCosta Rica -5.633e+07 1.453e+07 -3.876 0.000111 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCote d&amp;#39;Ivoire -2.113e+07 1.281e+07 -1.650 0.099208 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCroatia -5.353e+07 1.460e+07 -3.666 0.000255 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCuba -5.049e+07 1.464e+07 -3.448 0.000580 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryCzech Republic -4.891e+07 1.490e+07 -3.283 0.001050 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryDenmark -5.625e+07 1.554e+07 -3.620 0.000304 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryDjibouti -2.712e+07 1.274e+07 -2.129 0.033376 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryDominican Republic -4.194e+07 1.366e+07 -3.071 0.002169 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryEcuador -4.060e+07 1.381e+07 -2.941 0.003322 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryEgypt 6.005e+06 1.325e+07 0.453 0.650446
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryEl Salvador -4.046e+07 1.352e+07 -2.993 0.002807 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryEquatorial Guinea -2.252e+07 1.264e+07 -1.781 0.075048 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryEritrea -2.446e+07 1.271e+07 -1.924 0.054538 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryEthiopia 1.638e+07 1.267e+07 1.293 0.196194
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryFinland -5.543e+07 1.520e+07 -3.648 0.000273 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryFrance -8.804e+06 1.541e+07 -0.571 0.567874
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryGabon -3.138e+07 1.310e+07 -2.396 0.016694 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryGambia -2.432e+07 1.267e+07 -1.920 0.055049 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryGermany 1.733e+07 1.538e+07 1.127 0.259883
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryGhana -2.306e+07 1.299e+07 -1.775 0.076090 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryGreece -5.244e+07 1.515e+07 -3.460 0.000555 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryGuatemala -3.413e+07 1.329e+07 -2.567 0.010339 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryGuinea -1.818e+07 1.264e+07 -1.438 0.150520
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryGuinea-Bissau -1.729e+07 1.258e+07 -1.374 0.169663
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryHaiti -2.725e+07 1.288e+07 -2.115 0.034566 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryHonduras -3.889e+07 1.337e+07 -2.909 0.003672 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryHong Kong, China -5.631e+07 1.521e+07 -3.703 0.000220 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryHungary -4.642e+07 1.457e+07 -3.186 0.001473 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryIceland -6.410e+07 1.575e+07 -4.071 4.91e-05 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryIndia 6.643e+08 1.304e+07 50.949 &amp;lt; 2e-16 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryIndonesia 1.101e+08 1.311e+07 8.396 &amp;lt; 2e-16 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryIran -6.002e+05 1.349e+07 -0.045 0.964511
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryIraq -2.588e+07 1.334e+07 -1.939 0.052645 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryIreland -5.722e+07 1.513e+07 -3.781 0.000162 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryIsrael -5.786e+07 1.515e+07 -3.819 0.000139 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryItaly -7.265e+06 1.527e+07 -0.476 0.634287
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryJamaica -5.453e+07 1.439e+07 -3.789 0.000157 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryJapan 4.916e+07 1.542e+07 3.187 0.001465 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryJordan -4.258e+07 1.351e+07 -3.151 0.001656 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryKenya -1.790e+07 1.301e+07 -1.376 0.169170
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryKorea, Dem. Rep. -3.402e+07 1.383e+07 -2.459 0.014037 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryKorea, Rep. -1.476e+07 1.406e+07 -1.050 0.293722
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryKuwait -4.441e+07 1.832e+07 -2.424 0.015450 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryLebanon -4.982e+07 1.412e+07 -3.528 0.000431 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryLesotho -3.122e+07 1.287e+07 -2.425 0.015431 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryLiberia -2.074e+07 1.263e+07 -1.643 0.100642
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryLibya -3.974e+07 1.365e+07 -2.911 0.003652 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMadagascar -1.960e+07 1.278e+07 -1.534 0.125294
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMalawi -1.672e+07 1.264e+07 -1.322 0.186342
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMalaysia -3.626e+07 1.393e+07 -2.602 0.009349 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMali -1.668e+07 1.264e+07 -1.319 0.187231
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMauritania -3.379e+07 1.299e+07 -2.600 0.009400 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMauritius -5.093e+07 1.399e+07 -3.641 0.000280 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMexico 1.651e+07 1.409e+07 1.172 0.241337
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMongolia -3.857e+07 1.321e+07 -2.919 0.003558 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMontenegro -5.799e+07 1.458e+07 -3.977 7.29e-05 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMorocco -2.191e+07 1.334e+07 -1.642 0.100692
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMozambique -7.711e+06 1.259e+07 -0.612 0.540438
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryMyanmar -3.676e+06 1.305e+07 -0.282 0.778138
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryNamibia -3.556e+07 1.308e+07 -2.719 0.006626 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryNepal -1.469e+07 1.283e+07 -1.145 0.252448
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryNetherlands -4.915e+07 1.569e+07 -3.132 0.001769 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryNew Zealand -5.847e+07 1.530e+07 -3.821 0.000138 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryNicaragua -4.023e+07 1.340e+07 -3.001 0.002732 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryNiger -1.845e+07 1.267e+07 -1.456 0.145611
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryNigeria 4.984e+07 1.265e+07 3.940 8.51e-05 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryNorway -5.822e+07 1.597e+07 -3.646 0.000275 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryOman -4.030e+07 1.359e+07 -2.965 0.003069 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryPakistan 5.468e+07 1.315e+07 4.159 3.37e-05 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryPanama -5.350e+07 1.429e+07 -3.745 0.000187 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryParaguay -5.108e+07 1.415e+07 -3.611 0.000315 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryPeru -2.598e+07 1.347e+07 -1.928 0.054039 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryPhilippines 5.621e+06 1.360e+07 0.413 0.679421
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryPoland -2.383e+07 1.459e+07 -1.633 0.102628
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryPortugal -4.834e+07 1.470e+07 -3.289 0.001028 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryPuerto Rico -5.801e+07 1.494e+07 -3.882 0.000108 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryReunion -5.358e+07 1.415e+07 -3.785 0.000159 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryRomania -3.503e+07 1.437e+07 -2.438 0.014885 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryRwanda -1.591e+07 1.261e+07 -1.262 0.207196
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySao Tome and Principe -4.295e+07 1.335e+07 -3.217 0.001324 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySaudi Arabia -2.802e+07 1.391e+07 -2.015 0.044058 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySenegal -2.684e+07 1.291e+07 -2.080 0.037702 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySerbia -4.703e+07 1.444e+07 -3.257 0.001151 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySierra Leone -1.122e+07 1.258e+07 -0.892 0.372703
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySingapore -5.517e+07 1.499e+07 -3.680 0.000241 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySlovak Republic -5.370e+07 1.470e+07 -3.653 0.000268 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySlovenia -5.719e+07 1.491e+07 -3.835 0.000130 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySomalia -1.526e+07 1.260e+07 -1.211 0.226045
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySouth Africa -6.780e+06 1.316e+07 -0.515 0.606543
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySpain -2.663e+07 1.521e+07 -1.750 0.080268 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySri Lanka -3.997e+07 1.410e+07 -2.834 0.004649 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySudan -8.692e+06 1.281e+07 -0.679 0.497470
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySwaziland -3.013e+07 1.284e+07 -2.346 0.019114 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySweden -5.577e+07 1.568e+07 -3.557 0.000386 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySwitzerland -5.543e+07 1.595e+07 -3.475 0.000525 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countrySyria -3.750e+07 1.364e+07 -2.749 0.006043 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryTaiwan -4.115e+07 1.466e+07 -2.808 0.005049 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryTanzania -9.287e+06 1.278e+07 -0.726 0.467660
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryThailand -3.539e+06 1.371e+07 -0.258 0.796393
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryTogo -3.164e+07 1.295e+07 -2.443 0.014670 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryTrinidad and Tobago -5.277e+07 1.423e+07 -3.709 0.000216 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryTunisia -3.975e+07 1.359e+07 -2.924 0.003502 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryTurkey 1.033e+06 1.352e+07 0.076 0.939115
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryUganda -1.504e+07 1.277e+07 -1.178 0.239162
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryUnited Kingdom -4.993e+06 1.538e+07 -0.325 0.745519
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryUnited States 1.690e+08 1.566e+07 10.794 &amp;lt; 2e-16 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryUruguay -5.631e+07 1.463e+07 -3.848 0.000124 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryVenezuela -3.789e+07 1.426e+07 -2.658 0.007945 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryVietnam 1.200e+07 1.332e+07 0.901 0.367650
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryWest Bank and Gaza -4.401e+07 1.356e+07 -3.245 0.001201 **
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryYemen, Rep. -1.729e+07 1.274e+07 -1.357 0.175082
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryZambia -2.077e+07 1.272e+07 -1.633 0.102627
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## countryZimbabwe -2.855e+07 1.301e+07 -2.194 0.028351 *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## continentAmericas NA NA NA NA
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## continentAsia NA NA NA NA
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## continentEurope NA NA NA NA
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## continentOceania NA NA NA NA
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## year 9.442e+04 8.804e+04 1.072 0.283681
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## lifeExp 1.339e+06 2.189e+05 6.118 1.19e-09 ***
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## gdpPercap -1.908e+02 1.655e+02 -1.153 0.248975
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ---
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Signif. codes: 0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Residual standard error: 30810000 on 1559 degrees of freedom
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Multiple R-squared: 0.9229, Adjusted R-squared: 0.9158
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## F-statistic: 129.6 on 144 and 1559 DF, p-value: &amp;lt; 2.2e-16
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Note that the outputs give us a lot of information. We see the default hypotheses tested, with p-values for each coefficient and for the model as a whole. We see the RSE and the degrees of freedom, F-test, R-squared values, and much more! There are a lot of insights that we can extract from this simple output.&lt;/p></description></item></channel></rss>

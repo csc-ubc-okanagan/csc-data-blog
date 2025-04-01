@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Figures on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/figures/</link><description>Recent content in Figures on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Sat, 11 Feb 2023 10:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/figures/index.xml" rel="self" type="application/rss+xml"/><item><title>Making Colorblind-Friendly Figures</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/</link><pubDate>Sat, 11 Feb 2023 10:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/</guid><description>&lt;!-- https://chirpy.cotes.page/posts/write-a-new-post/ -->
+&lt;p>The default color palettes &lt;code>ggplot2&lt;/code> provides are generally good enough for a quick check, but they are overused and do not have very high contrast:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;ggplot2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># for fancy figures&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;khroma&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># for fancy palettes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;cowplot&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># for fancy multi-panel figures&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;colorspace&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># required by colorblindr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;colorblindr&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># to simulate colorblind vision&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">theme_set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">theme_bw&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1"># change default ggplot theme&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">p&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">ggplot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">aes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">disp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mpg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">factor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">carb&lt;/span>&lt;span class="p">)))&lt;/span> &lt;span class="o">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">geom_point&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">labs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;Displacement (cubic inches)&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;Miles per gallon (US)&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;Carburetors&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">p&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+&lt;p>Additionally, they are not colorblind-friendly:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">cvd_grid&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+&lt;p>While &lt;code>ggplot2&lt;/code> offers additional color palettes with more contrast, many of them are still not colorblind-friendly:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">p&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nf">scale_color_brewer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;qual&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">palette&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">6&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">cvd_grid&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nf">scale_color_brewer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;qual&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">palette&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">6&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+&lt;p>And while the &lt;code>viridis&lt;/code> palette (from the &lt;code>viridisLite&lt;/code> package and included in the &lt;code>ggplot2&lt;/code> package) can be a good option for continuous palettes, it can still be hard to distinguish between colors in qualitative palettes:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">p&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nf">scale_color_viridis_d&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">cvd_grid&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nf">scale_color_viridis_d&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-4-2.png" width="672" />
+&lt;p>The &lt;code>khroma&lt;/code> package provides multiple high-contrast, colorblind-friendly palettes for qualitative, diverging and sequential data, based on the work of Paul Tol (&lt;a class="link" href="https://personal.sron.nl/~pault/" target="_blank" rel="noopener"
+>https://personal.sron.nl/~pault/&lt;/a>) and Fabio Crameri (&lt;a class="link" href="https://www.fabiocrameri.ch/%29" target="_blank" rel="noopener"
+>https://www.fabiocrameri.ch/)&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">p&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">khroma&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">scale_color_bright&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">cvd_grid&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nf">scale_color_bright&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-5-2.png" width="672" />
+&lt;p>However, it is best to also use different shapes (in addition to different colors), when possible, to ensure people are able to distinguish between each legend item (which can be difficult with many colors &amp;ndash; compare colors for 3 and 8 for deutan and protan versions, as well as the desaturated version). We can do this by specifying the &lt;code>shape&lt;/code> argument. Note that we also need to change the name of the shape legend to ensure we get a single legend:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">p_sh&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">ggplot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mtcars&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">aes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">disp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mpg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">factor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">carb&lt;/span>&lt;span class="p">)))&lt;/span> &lt;span class="o">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">geom_point&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">aes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shape&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">factor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">carb&lt;/span>&lt;span class="p">)))&lt;/span> &lt;span class="o">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">labs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;Displacement (cubic inches)&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;Miles per gallon (US)&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;Carburetors&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">shape&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#39;Carburetors&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">p_sh&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">cvd_grid&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p_sh&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-6-2.png" width="672" />
+&lt;h3 id="continuous-vs-discrete-khroma-color-palettes">Continuous vs discrete &lt;code>khroma&lt;/code> color palettes
+&lt;/h3>&lt;p>Unlike with the &lt;code>ggplot&lt;/code> functions for color palettes, the &lt;code>khroma&lt;/code> function names do not specify whether the function will produce a continuous or discrete color palette. To avoid confusion, you can type &lt;code>khroma::scale_color_&lt;/code> and press &lt;code>Tab&lt;/code> to see what functions the package offers, and a helpful window should show up beside the function suggestion:&lt;/p>
+&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/images/khroma-function-help.png"
+width="1349"
+height="323"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/images/khroma-function-help_hu_b72756982453879.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/images/khroma-function-help_hu_c47156ce2a155c34.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="417"
+data-flex-basis="1002px"
+>&lt;/p>
+&lt;p>(&lt;em>If you want to change your RStudio theme, see &lt;a class="link" href="https://csc-ubc-okanagan.github.io/R-Python-Blog/posts/changing-rstudio-theme/" target="_blank" rel="noopener"
+>this tutorial&lt;/a>.&lt;/em>)&lt;/p>
+&lt;h3 id="installing-the-necessary-packages">Installing the necessary packages
+&lt;/h3>&lt;p>To install &lt;code>colorblindr&lt;/code>, you will first need to install the &lt;code>cowplot&lt;/code> and &lt;code>colorspace&lt;/code> packages:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">remotes&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">install_github&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;wilkelab/cowplot&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">install.packages&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;colorspace&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">repos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;http://R-Forge.R-project.org&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">remotes&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">install_github&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;clauswilke/colorblindr&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">install.packages&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;khroma&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>To read the help files for any of the functions in the packages, use the &lt;code>?&lt;/code> function, e.g. &lt;code>?scale_color_bright&lt;/code>.&lt;/p></description></item></channel></rss>

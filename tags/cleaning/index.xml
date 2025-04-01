@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cleaning on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/cleaning/</link><description>Recent content in Cleaning on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Tue, 01 Aug 2023 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/cleaning/index.xml" rel="self" type="application/rss+xml"/><item><title>Creating Variables in R</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/creating-variables-in-r/</link><pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/creating-variables-in-r/</guid><description>&lt;p>Occasionally we need to derive variables form existing information. A good example of this is conversion between scales. If we wanted to change a measurement from metres to kilometres or weight in pounds to kilograms, we could do this simply by performing a basic operation on an entire column. In this situation, let’s start by multiplying two columns together to create a new column. Recall the GDP dataset from previous articles. Let’s say we want to know the total GDP for the country. This could be calculated by multiplying the population by the GDP_per_Cap.&lt;/p>
+&lt;p>If you are just starting here, let’s re-load in the Gapminder data that we have been using in previous posts:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">link&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">read.csv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">url&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">link&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Total_GDP&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">pop&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">gdpPercap&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap Total_GDP
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6567086330
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7585448670
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8758855797
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9648014150
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9678553274
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11697659231
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Since the number is too large to actually interpret, let’s divide it by 1 billion so that the unit of measure is in billions. We will also rename the column to represent this change.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Total_GDP&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Total_GDP&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="m">1000000000&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># names(df)[names(df) == &amp;#39;old.var.name&amp;#39;] &amp;lt;- &amp;#39;new.var.name&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">names&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="nf">[names&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#39;Total_GDP&amp;#39;&lt;/span>&lt;span class="n">]&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#39;TotalGDP_Bil&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Note that if you were to run this multiple times, it would keep dividing by 1 billion each time, so we want to ensure it is only run once.&lt;/p>
+&lt;p>Now, let’s say we want to create a new column that contains both the country and continent information together. This is a useful tool if you had information where a first name and last name were separated, or even there was a username and you wanted to create a new column by combining the username and an email extension. Let’s take a look at our example.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Country_Cont&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">country&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#39;_&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">continent&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Country_Cont
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>There are so many different ways to perform an operation like this.&lt;/p>
+&lt;p>As an exercise, try creating your own column using either a basic mathematical operation on an existing column, or by combining two columns, or anything else you can think of!&lt;/p>
+&lt;p>Some examples:&lt;/p>
+&lt;ol>
+&lt;li>Create a new column with the first three letters of the country name&lt;/li>
+&lt;li>Create a column to show TRUE if the &lt;code>TotalGDP_Bil&lt;/code> is greater than 5, FALSE if not.&lt;/li>
+&lt;li>Combine the country name with the year.&lt;/li>
+&lt;/ol>
+&lt;p>Here are the solutions to the examples provided above.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Solution to #1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">first_3_letters&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">substr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">country&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Country_Cont first_3_letters
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Solution to #2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">GDP_Bool&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">ifelse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">TotalGDP_Bil&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="m">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;TRUE&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;FALSE&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Country_Cont first_3_letters GDP_Bool
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Solution to #3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Country_Year&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">country&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#39;_&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">year&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Country_Cont first_3_letters GDP_Bool Country_Year
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan _ Asia Afg TRUE Afghanistan _ 1952
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan _ Asia Afg TRUE Afghanistan _ 1957
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan _ Asia Afg TRUE Afghanistan _ 1962
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan _ Asia Afg TRUE Afghanistan _ 1967
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan _ Asia Afg TRUE Afghanistan _ 1972
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan _ Asia Afg TRUE Afghanistan _ 1977
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

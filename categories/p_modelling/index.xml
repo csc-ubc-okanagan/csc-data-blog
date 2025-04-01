@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>P_Modelling on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/p_modelling/</link><description>Recent content in P_Modelling on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Thu, 06 Jul 2023 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/p_modelling/index.xml" rel="self" type="application/rss+xml"/><item><title>Basic Model Fitting in Python</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-model-fitting-in-python/</link><pubDate>Thu, 06 Jul 2023 09:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-model-fitting-in-python/</guid><description>&lt;p>In previous categories we have looked at cleaning, summarizing, and subsetting data, with some minor calculations, but we haven’t yet looked at analyzing our data.&lt;/p>
+&lt;p>Python is a very powerful tool for data analysis. Similarly to R, we can fit linear models and view graphs. First, we will look at some basic data analysis processes in Python.&lt;/p>
+&lt;p>Let’s re-load in our Gapminder data:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">pandas&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">pd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read_csv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Let’s say we want to fit a linear model to see if there is a relationship between population and time. First, let’s do this with the entire dataset with all countries.&lt;/p>
+&lt;p>Note that OLS stands for ordinary least squares.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">statsmodels.api&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">sm&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># define our x and y variables for clarity&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pop&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;year&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sm&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_constant&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">model&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sm&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">OLS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">fit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">model&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">summary&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table class="simpletable">
+&lt;caption>OLS Regression Results&lt;/caption>
+&lt;tr>
+&lt;th>Dep. Variable:&lt;/th> &lt;td>pop&lt;/td> &lt;th> R-squared: &lt;/th> &lt;td> 0.007&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Model:&lt;/th> &lt;td>OLS&lt;/td> &lt;th> Adj. R-squared: &lt;/th> &lt;td> 0.006&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Method:&lt;/th> &lt;td>Least Squares&lt;/td> &lt;th> F-statistic: &lt;/th> &lt;td> 11.61&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Date:&lt;/th> &lt;td>Mon, 24 Mar 2025&lt;/td> &lt;th> Prob (F-statistic):&lt;/th> &lt;td>0.000672&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Time:&lt;/th> &lt;td>16:47:02&lt;/td> &lt;th> Log-Likelihood: &lt;/th> &lt;td> -33902.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>No. Observations:&lt;/th> &lt;td> 1704&lt;/td> &lt;th> AIC: &lt;/th> &lt;td>6.781e+04&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Df Residuals:&lt;/th> &lt;td> 1702&lt;/td> &lt;th> BIC: &lt;/th> &lt;td>6.782e+04&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Df Model:&lt;/th> &lt;td> 1&lt;/td> &lt;th> &lt;/th> &lt;td> &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Covariance Type:&lt;/th> &lt;td>nonrobust&lt;/td> &lt;th> &lt;/th> &lt;td> &lt;/td>
+&lt;/tr>
+&lt;/table>
+&lt;table class="simpletable">
+&lt;tr>
+&lt;td>&lt;/td> &lt;th>coef&lt;/th> &lt;th>std err&lt;/th> &lt;th>t&lt;/th> &lt;th>P>|t|&lt;/th> &lt;th>[0.025&lt;/th> &lt;th>0.975]&lt;/th>
+&lt;/tr>
+&lt;tr>
+&lt;th>const&lt;/th> &lt;td>-9.722e+08&lt;/td> &lt;td> 2.94e+08&lt;/td> &lt;td> -3.306&lt;/td> &lt;td> 0.001&lt;/td> &lt;td>-1.55e+09&lt;/td> &lt;td>-3.95e+08&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>year&lt;/th> &lt;td> 5.061e+05&lt;/td> &lt;td> 1.49e+05&lt;/td> &lt;td> 3.407&lt;/td> &lt;td> 0.001&lt;/td> &lt;td> 2.15e+05&lt;/td> &lt;td> 7.97e+05&lt;/td>
+&lt;/tr>
+&lt;/table>
+&lt;table class="simpletable">
+&lt;tr>
+&lt;th>Omnibus:&lt;/th> &lt;td>2403.823&lt;/td> &lt;th> Durbin-Watson: &lt;/th> &lt;td> 0.187&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Prob(Omnibus):&lt;/th> &lt;td> 0.000&lt;/td> &lt;th> Jarque-Bera (JB): &lt;/th> &lt;td>438354.240&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Skew:&lt;/th> &lt;td> 8.286&lt;/td> &lt;th> Prob(JB): &lt;/th> &lt;td> 0.00&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Kurtosis:&lt;/th> &lt;td>79.807&lt;/td> &lt;th> Cond. No. &lt;/th> &lt;td>2.27e+05&lt;/td>
+&lt;/tr>
+&lt;/table>&lt;br/>&lt;br/>Notes:&lt;br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.&lt;br/>[2] The condition number is large, 2.27e+05. This might indicate that there are&lt;br/>strong multicollinearity or other numerical problems.
+&lt;p>Let’s try fitting another linear model, but using only data from Africa.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">df_AF&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;continent&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;Africa&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df_AF&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">head&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;pre>&lt;code>## country continent year lifeExp pop gdpPercap
+## 24 Algeria Africa 1952 43.077 9279525 2449.008185
+## 25 Algeria Africa 1957 45.685 10270856 3013.976023
+## 26 Algeria Africa 1962 48.303 11000948 2550.816880
+## 27 Algeria Africa 1967 51.407 12760499 3246.991771
+## 28 Algeria Africa 1972 54.518 14760787 4182.663766
+&lt;/code>&lt;/pre>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df_AF&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pop&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df_AF&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;year&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sm&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_constant&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">model1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sm&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">OLS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">fit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">model1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">summary&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table class="simpletable">
+&lt;caption>OLS Regression Results&lt;/caption>
+&lt;tr>
+&lt;th>Dep. Variable:&lt;/th> &lt;td>pop&lt;/td> &lt;th> R-squared: &lt;/th> &lt;td> 0.074&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Model:&lt;/th> &lt;td>OLS&lt;/td> &lt;th> Adj. R-squared: &lt;/th> &lt;td> 0.072&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Method:&lt;/th> &lt;td>Least Squares&lt;/td> &lt;th> F-statistic: &lt;/th> &lt;td> 49.66&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Date:&lt;/th> &lt;td>Mon, 24 Mar 2025&lt;/td> &lt;th> Prob (F-statistic):&lt;/th> &lt;td>4.87e-12&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Time:&lt;/th> &lt;td>16:47:02&lt;/td> &lt;th> Log-Likelihood: &lt;/th> &lt;td> -11192.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>No. Observations:&lt;/th> &lt;td> 624&lt;/td> &lt;th> AIC: &lt;/th> &lt;td>2.239e+04&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Df Residuals:&lt;/th> &lt;td> 622&lt;/td> &lt;th> BIC: &lt;/th> &lt;td>2.240e+04&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Df Model:&lt;/th> &lt;td> 1&lt;/td> &lt;th> &lt;/th> &lt;td> &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Covariance Type:&lt;/th> &lt;td>nonrobust&lt;/td> &lt;th> &lt;/th> &lt;td> &lt;/td>
+&lt;/tr>
+&lt;/table>
+&lt;table class="simpletable">
+&lt;tr>
+&lt;td>&lt;/td> &lt;th>coef&lt;/th> &lt;th>std err&lt;/th> &lt;th>t&lt;/th> &lt;th>P>|t|&lt;/th> &lt;th>[0.025&lt;/th> &lt;th>0.975]&lt;/th>
+&lt;/tr>
+&lt;tr>
+&lt;th>const&lt;/th> &lt;td>-4.728e+08&lt;/td> &lt;td> 6.85e+07&lt;/td> &lt;td> -6.902&lt;/td> &lt;td> 0.000&lt;/td> &lt;td>-6.07e+08&lt;/td> &lt;td>-3.38e+08&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>year&lt;/th> &lt;td> 2.438e+05&lt;/td> &lt;td> 3.46e+04&lt;/td> &lt;td> 7.047&lt;/td> &lt;td> 0.000&lt;/td> &lt;td> 1.76e+05&lt;/td> &lt;td> 3.12e+05&lt;/td>
+&lt;/tr>
+&lt;/table>
+&lt;table class="simpletable">
+&lt;tr>
+&lt;th>Omnibus:&lt;/th> &lt;td>477.344&lt;/td> &lt;th> Durbin-Watson: &lt;/th> &lt;td> 0.284&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Prob(Omnibus):&lt;/th> &lt;td> 0.000&lt;/td> &lt;th> Jarque-Bera (JB): &lt;/th> &lt;td>7771.738&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Skew:&lt;/th> &lt;td> 3.336&lt;/td> &lt;th> Prob(JB): &lt;/th> &lt;td> 0.00&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;th>Kurtosis:&lt;/th> &lt;td>18.950&lt;/td> &lt;th> Cond. No. &lt;/th> &lt;td>2.27e+05&lt;/td>
+&lt;/tr>
+&lt;/table>&lt;br/>&lt;br/>Notes:&lt;br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.&lt;br/>[2] The condition number is large, 2.27e+05. This might indicate that there are&lt;br/>strong multicollinearity or other numerical problems.</description></item></channel></rss>

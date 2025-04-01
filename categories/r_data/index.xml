@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>R_Data on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_data/</link><description>Recent content in R_Data on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Tue, 01 Aug 2023 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_data/index.xml" rel="self" type="application/rss+xml"/><item><title>Creating Variables in R</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/creating-variables-in-r/</link><pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/creating-variables-in-r/</guid><description>&lt;p>Occasionally we need to derive variables form existing information. A good example of this is conversion between scales. If we wanted to change a measurement from metres to kilometres or weight in pounds to kilograms, we could do this simply by performing a basic operation on an entire column. In this situation, let’s start by multiplying two columns together to create a new column. Recall the GDP dataset from previous articles. Let’s say we want to know the total GDP for the country. This could be calculated by multiplying the population by the GDP_per_Cap.&lt;/p>
+&lt;p>If you are just starting here, let’s re-load in the Gapminder data that we have been using in previous posts:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">link&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">read.csv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">url&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">link&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Total_GDP&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">pop&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">gdpPercap&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap Total_GDP
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6567086330
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7585448670
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8758855797
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9648014150
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9678553274
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11697659231
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Since the number is too large to actually interpret, let’s divide it by 1 billion so that the unit of measure is in billions. We will also rename the column to represent this change.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Total_GDP&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Total_GDP&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="m">1000000000&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># names(df)[names(df) == &amp;#39;old.var.name&amp;#39;] &amp;lt;- &amp;#39;new.var.name&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">names&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="nf">[names&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#39;Total_GDP&amp;#39;&lt;/span>&lt;span class="n">]&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#39;TotalGDP_Bil&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Note that if you were to run this multiple times, it would keep dividing by 1 billion each time, so we want to ensure it is only run once.&lt;/p>
+&lt;p>Now, let’s say we want to create a new column that contains both the country and continent information together. This is a useful tool if you had information where a first name and last name were separated, or even there was a username and you wanted to create a new column by combining the username and an email extension. Let’s take a look at our example.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Country_Cont&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">country&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#39;_&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">continent&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Country_Cont
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan _ Asia
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>There are so many different ways to perform an operation like this.&lt;/p>
+&lt;p>As an exercise, try creating your own column using either a basic mathematical operation on an existing column, or by combining two columns, or anything else you can think of!&lt;/p>
+&lt;p>Some examples:&lt;/p>
+&lt;ol>
+&lt;li>Create a new column with the first three letters of the country name&lt;/li>
+&lt;li>Create a column to show TRUE if the &lt;code>TotalGDP_Bil&lt;/code> is greater than 5, FALSE if not.&lt;/li>
+&lt;li>Combine the country name with the year.&lt;/li>
+&lt;/ol>
+&lt;p>Here are the solutions to the examples provided above.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Solution to #1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">first_3_letters&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">substr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">country&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Country_Cont first_3_letters
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan _ Asia Afg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Solution to #2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">GDP_Bool&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">ifelse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">TotalGDP_Bil&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="m">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;TRUE&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;FALSE&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Country_Cont first_3_letters GDP_Bool
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan _ Asia Afg TRUE
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Solution to #3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">Country_Year&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">country&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#39;_&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">year&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap TotalGDP_Bil
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 6.567086
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 7.585449
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 8.758856
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 9.648014
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 9.678553
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 11.697659
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Country_Cont first_3_letters GDP_Bool Country_Year
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 Afghanistan _ Asia Afg TRUE Afghanistan _ 1952
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 Afghanistan _ Asia Afg TRUE Afghanistan _ 1957
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 Afghanistan _ Asia Afg TRUE Afghanistan _ 1962
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 Afghanistan _ Asia Afg TRUE Afghanistan _ 1967
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 Afghanistan _ Asia Afg TRUE Afghanistan _ 1972
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 Afghanistan _ Asia Afg TRUE Afghanistan _ 1977
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Data Structures in R</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/data-structures-in-r/</link><pubDate>Tue, 07 Mar 2023 11:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/data-structures-in-r/</guid><description>&lt;p>\usepackage{amsmath}&lt;/p>
+&lt;p>There are many different data structure types in &lt;code>R&lt;/code>, each with varying levels of complexity and uses. The simplest data structure in &lt;code>R&lt;/code> is a vector. Vectors are one-dimensional arrays (i.e., sets of values) of a single class (such as characters, numbers, dates, etc.), and they have a similar structure to the mathematical concept of vectors. For example, the vector $\vec v$ with values 1, 4, 6, 2 would be:&lt;/p>
+$$\vec v = \begin{bmatrix}1 \\ 4 \\ 6 \\ 2\end{bmatrix}.$$&lt;p>In &lt;code>R&lt;/code> we can create vectors using the &lt;code>c()&lt;/code> function, as follows:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">v&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">6&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">v&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] 1 4 6 2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>(&lt;code>R&lt;/code> prints vectors in a line rather than as columns to improve readability.)&lt;/p>
+&lt;p>Since vectors can only contain elements of a common type, &lt;code>c()&lt;/code> will force all elements to be of a single class. In the example below, I create a vector with the number 1, the letter &amp;ldquo;a&amp;rdquo;, today&amp;rsquo;s date, and the value &lt;code>TRUE&lt;/code> (a boolean value), but &lt;code>c()&lt;/code> coerces all values to be characters:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">Sys.Date&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;1&amp;#34; &amp;#34;a&amp;#34; &amp;#34;20167&amp;#34; &amp;#34;TRUE&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If we place two vectors (of the same class) side by side, we can create a matrix. Matrices are thus two-dimensional arrays&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2D arrays: matrices&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">8&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">nrow&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [,1] [,2] [,3] [,4]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1,] 1 3 5 7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2,] 2 4 6 8
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">8&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ncol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [,1] [,2]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1,] 1 5
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2,] 2 6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3,] 3 7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [4,] 4 8
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">8&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ncol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">byrow&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [,1] [,2]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1,] 1 2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2,] 3 4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3,] 5 6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [4,] 7 8
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># matrix operations&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">9&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ncol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [,1] [,2] [,3]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1,] 1 4 7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2,] 2 5 8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3,] 3 6 9
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">9&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ncol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="m">3&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [,1] [,2] [,3]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1,] 4 7 10
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2,] 5 8 11
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3,] 6 9 12
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">9&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ncol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="c1"># NOT matrix multiplication&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [,1] [,2] [,3]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1,] 2 8 14
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2,] 4 10 16
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3,] 6 12 18
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">9&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ncol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%*%&lt;/span> &lt;span class="m">6&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">8&lt;/span> &lt;span class="c1"># matrix multiplication&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [,1]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1,] 90
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2,] 111
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3,] 132
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">9&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ncol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%*%&lt;/span> &lt;span class="nf">matrix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">6&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ncol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [,1] [,2]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1,] 30 66
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2,] 36 81
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3,] 42 96
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If we want to create an object that has different data types, a matrix or vector won&amp;rsquo;t work because &lt;code>R&lt;/code> will force all items to be of the same type.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">class&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;numeric&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">class&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># coerces all items to text&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;character&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Instead, we need to use a list.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># grouping objects with different and types: lists&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">l&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">letters&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#39;b&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#39;c&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">numbers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">today&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">Sys.Date&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">l&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## $letters
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;a&amp;#34; &amp;#34;b&amp;#34; &amp;#34;c&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $numbers
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] 1 2 3 4 5 6 7 8 9 10
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $today
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;2025-03-20&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">l&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="kc">letters&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;a&amp;#34; &amp;#34;b&amp;#34; &amp;#34;c&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">l&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">today&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;2025-03-20&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If we want a list that has a table-like structure (which will likely be the case for a lot of the data you use in &lt;code>R&lt;/code>), we can use a data frame.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">data.frame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">abc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">LETTERS&lt;/span>&lt;span class="n">[1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="n">]&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## num abc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 1 A
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 2 B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 3 C
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 4 D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 5 E
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 6 F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 7 7 G
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 8 8 H
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 9 9 I
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 10 10 J
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">data.frame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">5&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">abc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">LETTERS&lt;/span>&lt;span class="n">[1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="n">]&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## num abc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 1 A
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 2 B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 3 C
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 4 D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 5 E
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 1 F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 7 2 G
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 8 3 H
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 9 4 I
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 10 5 J
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">data.frame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">abc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">LETTERS&lt;/span>&lt;span class="n">[1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">9&lt;/span>&lt;span class="n">]&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Error in data.frame(num = 1:10, abc = LETTERS[1:9]): arguments imply differing number of rows: 10, 9
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The tidyverse set of packages provides a &amp;ldquo;fancy data frame&amp;rdquo; that does not recycle elements (unless they are a single value), and allows you to reference other columns you previously created:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;tibble&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">abc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">LETTERS&lt;/span>&lt;span class="n">[num]&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## # A tibble: 10 × 2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## num abc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 1 A
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 2 2 B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 3 3 C
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 4 4 D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 5 5 E
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 6 6 F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 7 7 G
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 8 8 H
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 9 9 I
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 10 10 J
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">tibble&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">5&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">abc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">LETTERS&lt;/span>&lt;span class="n">[1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="n">]&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## Error in `tibble()`:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ! Tibble columns must have compatible sizes.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Size 5: Existing data.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## • Size 10: Column `abc`.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">## ℹ Only values of size one are recycled.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

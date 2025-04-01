@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>P_Visualization on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/p_visualization/</link><description>Recent content in P_Visualization on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Thu, 15 Jun 2023 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/p_visualization/index.xml" rel="self" type="application/rss+xml"/><item><title>Basic Visualizations in Python</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/</link><pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/</guid><description>&lt;p>You can use base Python to perform basic visualizations with a dataset. Let&amp;rsquo;s take a look at a few examples.&lt;/p>
+&lt;p>Let’s re-load in our Gapminder data:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">pandas&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">pd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read_csv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">matplotlib.pyplot&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">plt&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">scatter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;year&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pop&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png"
+width="577"
+height="415"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="139"
+data-flex-basis="333px"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">df_AF&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;continent&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;Africa&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df_AF&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">head&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## country continent year lifeExp pop gdpPercap
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 24 Algeria Africa 1952 43.077 9279525 2449.008185
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 25 Algeria Africa 1957 45.685 10270856 3013.976023
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 26 Algeria Africa 1962 48.303 11000948 2550.816880
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 27 Algeria Africa 1967 51.407 12760499 3246.991771
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 28 Algeria Africa 1972 54.518 14760787 4182.663766
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">scatter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df_AF&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;year&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">df_AF&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;pop&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png"
+width="577"
+height="415"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="139"
+data-flex-basis="333px"
+>&lt;/p>
+&lt;p>Base Python works well for simple visualizations, but Altair is a package that helps to create personalized and detailed visualizations to suit any task. See the article titled &amp;lsquo;Visualizing with Altair in Python&amp;rsquo; to learn more about it.&lt;/p></description></item></channel></rss>

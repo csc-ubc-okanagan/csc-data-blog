@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>P_IDE on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/p_ide/</link><description>Recent content in P_IDE on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Wed, 26 Jul 2023 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/p_ide/index.xml" rel="self" type="application/rss+xml"/><item><title>Using Python in RStudio with Reticulate Package</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</link><pubDate>Wed, 26 Jul 2023 09:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</guid><description>&lt;p>As we know, Jupyter Notebook can be used easily with our UBC login information via &lt;a class="link" href="https://ubc.syzygy.ca/" target="_blank" rel="noopener"
+>Syzygy&lt;/a>. Jupyter Notebook can also be downloaded to a computer and used via Anaconda. There are many different interfaces that allow us to use Python. One of the more interesting ones to note is actually RStudio. There is a package in R called &lt;em>reticulate&lt;/em> that allows us to create an RMarkdown file and use both R and Python code chunks within the same file. This is actually how this blog is able to show both R and Python content! Let&amp;rsquo;s get started on how &lt;em>reticulate&lt;/em> is used in RStudio to include Python code.&lt;/p>
+&lt;h2 id="installation">Installation
+&lt;/h2>&lt;p>First, installation is required. To install the reticulate package in RStudio from CRAN, type the following:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">install.packages(&amp;#34;reticulate&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="python-version">Python Version
+&lt;/h2>&lt;p>Next, we need to access the version of Python desired. Reticulate will, by default, find and use the version of Python via &lt;code>PATH&lt;/code>. To check this, type &lt;code>Sys.which(&amp;quot;python&amp;quot;)&lt;/code>.&lt;/p>
+&lt;p>If you would like to change the version to something other than what is found in &lt;code>PATH&lt;/code>, try the &lt;code>use_python()&lt;/code> function. Here is an example of how to call the package from the library, and then use a different path to get to the desired Python version.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">library(reticulate)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">use_python(&amp;#34;/my/file/path/python&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="getting-started">Getting Started
+&lt;/h1>&lt;p>Now that the &lt;em>reticulate&lt;/em> package has been installed, we can start using Python within an RMarkdown document.&lt;/p>
+&lt;p>Once an RMarkdown file has been started, create a new code block. Note that on a Windows, a shortcut for adding a new code block is Ctrl+alt+i. Once a new code block appears, it should look like this:&lt;/p>
+&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png"
+width="361"
+height="67"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="538"
+data-flex-basis="1293px"
+>&lt;/p>
+&lt;p>If you were to type code here, it would be in R. To change it to Python, simply replace the &amp;lsquo;r&amp;rsquo; with &amp;lsquo;python&amp;rsquo;. Then it will look like this:&lt;/p>
+&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png"
+width="409"
+height="58"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="705"
+data-flex-basis="1692px"
+>&lt;/p>
+&lt;p>Now, the console below will change to show Python code once something in this block is run. You can easily switch back and forth between R and Python from code chunk to code chunk.&lt;/p>
+&lt;p>You can also see your saved variables in the environment, separated between R and Python. Note that when you do something such as import a dataset, if you wanted to perform manipulations on the dataset in both R and Python, you will have to load the dataset in using both R and Python, and it will create separate variables which do not override each other. They will stay speparate in the environment.&lt;/p>
+&lt;p>To change between R and Python environments, go to the Environment window and click the dropdown arrow. It should look like this:&lt;/p>
+&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment.png"
+width="654"
+height="597"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="109"
+data-flex-basis="262px"
+>&lt;/p>
+&lt;p>If you would like to see some examples, take a look at the &lt;code>_src&lt;/code> folder in the GitHub repo for this blog to see how each of the posts are created in both R and Python. The link to the backend content for this blog can be found &lt;a class="link" href="https://github.com/csc-ubc-okanagan/R-Python-Blog" target="_blank" rel="noopener"
+>here&lt;/a>.&lt;/p></description></item><item><title>Jupyter Notebook</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/jupyter-notebook/</link><pubDate>Mon, 05 Jun 2023 18:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/jupyter-notebook/</guid><description>&lt;p>Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python. You can even use both R and Python within the same document.&lt;/p>
+&lt;p>Think of Python (or R) as the language you are writing in, and Jupyter as the pen and pencil. This is how Python and Jupyter are used together.&lt;/p>
+&lt;h3 id="note">Note:
+&lt;/h3>&lt;p>There are many different IDEs (integrated development environment) for Python. To name a few, Programiz, Atom, Visual Studio Code, Spyder, and many more. If a Jupyter install is causing trouble, or if you do not like the interface and want something similar to R Studio, Spyder is a good option because it is a very familiar interface for R Studio users. Programiz is also great because it doesn&amp;rsquo;t require an install.&lt;/p>
+&lt;h2 id="syzygy">Syzygy
+&lt;/h2>&lt;p>Syzygy (pronunciation up for debate) is a great way to use Jupyter without having to download it to your local computer. However, it does require your UBC login to use. It also can access your local files as well as UBC OneDrive files. To use, simply follow this &lt;a class="link" href="https://ubc.syzygy.ca/" target="_blank" rel="noopener"
+>link&lt;/a>, click the sign on button in the top right, and use your UBC login to sign in. You will be able to creat files, view existing files, and enjoy all of the functionalities that Jupyter has to offer.&lt;/p>
+&lt;h2 id="downloading-jupyter">Downloading Jupyter
+&lt;/h2>&lt;p>If you prefer to download Jupyter, it can be done with Anaconda. This &lt;a class="link" href="https://www.youtube.com/watch?v=WUeBzT43JyY" target="_blank" rel="noopener"
+>video&lt;/a> is a great resource explaining how to download both Jupyter and Anaconda, as well as how to get started using Jupyter.&lt;/p>
+&lt;p>Alternatively, you can follow the instructions on this &lt;a class="link" href="https://www.codecademy.com/article/setting-up-jupyter-notebook" target="_blank" rel="noopener"
+>webpage&lt;/a> to do the same install. Note that it has slightly different instructions for Windows and Mac users.&lt;/p></description></item></channel></rss>

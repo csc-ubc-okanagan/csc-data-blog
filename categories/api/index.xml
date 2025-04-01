@@ -1,0 +1,1385 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>API on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/api/</link><description>Recent content in API on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Fri, 14 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/api/index.xml" rel="self" type="application/rss+xml"/><item><title>Abacus API</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/</link><pubDate>Fri, 14 Feb 2025 00:00:00 +0000</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/</guid><description>&lt;script src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js">&lt;/script>
+&lt;link href="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css" rel="stylesheet" />
+&lt;script src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js">&lt;/script>
+&lt;link href="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css" rel="stylesheet" />
+&lt;script src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js">&lt;/script>
+&lt;link href="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css" rel="stylesheet" />
+&lt;script src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js">&lt;/script>
+&lt;link href="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css" rel="stylesheet" />
+&lt;script src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js">&lt;/script>
+&lt;link href="https://csc-ubc-okanagan.github.io/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css" rel="stylesheet" />
+&lt;h2 id="definitions">Definitions
+&lt;/h2>&lt;p>&lt;strong>API&lt;/strong>&lt;/p>
+&lt;p>An application programming interface (API) is a formalized way of interacting with another piece of hardware or software without needing to know how that hardware or software actually works. As such, it is a convenient method of making requests to get, update, or push information between your system and the remote system. As a loose analogy, you can think of this as a menu in a resuraunt; you don&amp;rsquo;t need to know how the kitchen makes your food, but you need to know what you can ask for from your server. When you want scrambled eggs, you don&amp;rsquo;t need to go into the kitchen and make these from scratch, you simply put in a request based on the options on the menu.&lt;/p>
+&lt;p>&lt;strong>JSON&lt;/strong>&lt;/p>
+&lt;p>JavaScript Object Notation (JSON) is a method for storing and transmitting data primarily using key value pairs. It is compact, flexible, human readable, and works well in a Web based environment. It is generally the default format in which data is transmitted from an API.&lt;/p>
+&lt;h2 id="set-up">Set up
+&lt;/h2>&lt;p>The Abacus API is accessible through http, which means we can access the API using any http compliant tool, including a web browser.&lt;/p>
+&lt;p>By default, the API returns data in JSON notation. One of the issues we have when working in &lt;code>R&lt;/code> is that &lt;code>R&lt;/code> excels with rectangular data, especially if working in the &lt;code>Tidyverse&lt;/code>. So we need to wrangle the JSON formatted data into a data structure more amenable to R. This begins by moving content into a list after which we can transition it to a dataframe, or tibble, as needed.&lt;/p>
+&lt;p>To do this all, we&amp;rsquo;ll use the following four libraries, although, as we&amp;rsquo;ll see later, we can get away with just the &lt;code>httr2&lt;/code> package:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">httr2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># http protocols&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">jsonlite&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># json to r data structures&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="steps">Steps
+&lt;/h2>&lt;p>In the proceding sections we&amp;rsquo;ll cover the following steps:&lt;/p>
+&lt;ol>
+&lt;li>Using the &lt;code>search&lt;/code> API to look for relevant datasets.&lt;/li>
+&lt;li>Plugging a unique ID associated with the dataset(s) of interest into the &lt;code>datasets&lt;/code> api to identify the files of interest. This involves first identifying a new unique ID for each dataset, only accessible through the &lt;code>datasets&lt;/code> API, and the version of the dataset we&amp;rsquo;re interested in (an Abacus record is version controlled).&lt;/li>
+&lt;li>We will then use the urls associated with the data files to download the relevant data.&lt;/li>
+&lt;/ol>
+&lt;p>We will be working with the Statistics Canada Labour Force Surveys for this exercise.&lt;/p>
+&lt;h2 id="caveats">Caveats
+&lt;/h2>&lt;p>This is a simplified overview of API interactions. So, for example, we will not be doing any error handling, nor will we deal with using authentication tokens. But these are easily built in once the general approach is understood, and the &lt;code>httr2&lt;/code> package has functions for handling these things.&lt;/p>
+&lt;h2 id="building-the-connection">Building the Connection
+&lt;/h2>&lt;p>Abacus is built on a Dataverse instance. You can &lt;a class="link" href="https://guides.dataverse.org/en/latest/api/index.html" target="_blank" rel="noopener"
+>refer to the Dataverse API documentation&lt;/a> for more information on interacting with the API.&lt;/p>
+&lt;p>Abacus has more than one API. This is common when interacting with APIs. Each API gives you access to certain functionalities and returns certain pieces of data. Here, we&amp;rsquo;ll review the &lt;code>search&lt;/code> and &lt;code>datasets&lt;/code> APIs; the former to locate content, the latter to retrieve that content. We will ultimately use the &lt;code>access&lt;/code> API with &lt;code>download.file()&lt;/code> to acquire the data.&lt;/p>
+&lt;p>In either case, we start with the base url into the API, which we&amp;rsquo;ll store in a variable.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">base_url&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#34;https://abacus.library.ubc.ca/api/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Next, we can add on the specific API we intend to search.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_api&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#34;search?q=&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The &lt;code>search&lt;/code> API requires a &lt;code>query&lt;/code> parameter, ie, something to search for. This is articulated as a string, following the &lt;code>?q=&lt;/code>.&lt;/p>
+&lt;p>Note: When using the &lt;code>httr2&lt;/code> package, if the query string is multi-word, spaces need to be filled with &lt;code>%20&lt;/code>. For example, a search for &lt;code>labour force&lt;/code> will fail, and need to be replaced with &lt;code>labour%20force&lt;/code>.&lt;/p>
+&lt;h2 id="search-api">Search API
+&lt;/h2>&lt;p>There are a variety of fields and file types that we can search through the search API, noting that, as a data repository, objects in Abacus are organized into dataverses, datasets, and files, where datasets reside in dataverses, and files within datasets. Datasets provide a high level overview of the data they hold, including descriptions, number of files, who produced the files, when they were uploaded, etc.&lt;/p>
+&lt;p>We&amp;rsquo;ve already built our &lt;code>base_url&lt;/code> and added on the requisite text to access the &lt;code>search&lt;/code> API, &lt;code>search_api&lt;/code>. We&amp;rsquo;ll now build our query, specifying the query and the file type of interest, ie, do we want to search for a dataverse, dataset, or file.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_query&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#34;title:labour&amp;#34;&lt;/span> &lt;span class="c1"># retrieve everything with the word labour in the title&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_type&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#34;&amp;amp;type=dataset&amp;#34;&lt;/span> &lt;span class="c1"># limit to datasets&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We can then paste these together to construct a full query.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="n">search_api_call&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">base_url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">search_api&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">search_query&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">search_type&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;https://abacus.library.ubc.ca/api/search?q=title:labour&amp;amp;type=dataset&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>To get a sense of what this looks like, we can load this query in our browser.&lt;/p>
+&lt;h2 id="implementing-the-search-in-r">Implementing the Search in &lt;code>R&lt;/code>
+&lt;/h2>&lt;p>The &lt;code>hhtr2&lt;/code> package will allow us to make http requests from within &lt;code>R&lt;/code>. The steps involved including:&lt;/p>
+&lt;p>a) building a request; and then
+b) performing that request, which results in some data being sent back to us.&lt;/p>
+&lt;p>These two steps are done, respectively, with the &lt;code>request()&lt;/code> and &lt;code>req_perform()&lt;/code> functions. We feed our &lt;code>search_api_call&lt;/code> into the &lt;code>request()&lt;/code> and then feed the result into the &lt;code>req_preform&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_resp&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">search_api_call&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">request&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">req_perform&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>What we get back is the same as what we saw in our browser, formatted as a list.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_resp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## List of 7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $ method : chr &amp;#34;GET&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $ url : chr &amp;#34;https://abacus.library.ubc.ca/api/search?q=title:labour&amp;amp;type=dataset&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $ status_code: int 200
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $ headers :List of 8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ Date : chr &amp;#34;Mon, 24 Mar 2025 22:32:17 GMT&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ Server : chr &amp;#34;Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_R/1.2.9 R/3.5.0 mod_apreq2-20101207/2.8.1&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ X-Frame-Options : chr &amp;#34;SAMEORIGIN&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ Access-Control-Allow-Origin : chr &amp;#34;*&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ Access-Control-Allow-Methods: chr &amp;#34;PUT, GET, POST, DELETE, OPTIONS&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ Access-Control-Allow-Headers: chr &amp;#34;Accept, Content-Type, X-Dataverse-Key&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ Content-Type : chr &amp;#34;application/json;charset=UTF-8&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ Transfer-Encoding : chr &amp;#34;chunked&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..- attr(*, &amp;#34;class&amp;#34;)= chr &amp;#34;httr2_headers&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $ body : raw [1:24871] 7b 22 73 74 ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $ request :List of 7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ url : chr &amp;#34;https://abacus.library.ubc.ca/api/search?q=title:labour&amp;amp;type=dataset&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ method : NULL
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ headers : list()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ body : NULL
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ fields : list()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ options : list()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..$ policies: list()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## ..- attr(*, &amp;#34;class&amp;#34;)= chr &amp;#34;httr2_request&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $ cache :&amp;lt;environment: 0x13d5a1990&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## - attr(*, &amp;#34;class&amp;#34;)= chr &amp;#34;httr2_response&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>What we&amp;rsquo;re most interested in here is the &lt;code>body&lt;/code>. However, the &lt;code>body&lt;/code> is sent to us structured as json and in raw bytes. This is generally the case with an API response. &lt;code>httr2&lt;/code> has a built in function for converting the body from raw to something &lt;code>R&lt;/code> can work with &amp;ndash; &lt;code>resp_body_json()&lt;/code> &amp;ndash; and we&amp;rsquo;ll use this later, but we&amp;rsquo;ll start with the &lt;code>jsonlite&lt;/code> package to explore this process step by step.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_resp&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Length Class Mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 24871 raw raw
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Since we only want the &lt;code>body&lt;/code> going forward, we&amp;rsquo;ll isolate this.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_body&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">search_resp&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">body&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="data-wrangling">Data Wrangling
+&lt;/h2>&lt;p>Our first task is to convert this raw data to character data. We can do this with &lt;code>rawToChar&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_body_char&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">rawToChar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_body&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We&amp;rsquo;re presented with a vector of length one, which if we print out the first bit of, does not look very friendly.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_body_char&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Length Class Mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## 1 character character
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_body_char&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## chr &amp;#34;{\&amp;#34;status\&amp;#34;:\&amp;#34;OK\&amp;#34;,\&amp;#34;data\&amp;#34;:{\&amp;#34;q\&amp;#34;:\&amp;#34;title:labour\&amp;#34;,\&amp;#34;total_count\&amp;#34;:110,\&amp;#34;start\&amp;#34;:0,\&amp;#34;spelling_alternatives\&amp;#34;:{&amp;#34;| __truncated__
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This looks a little friendlier with &lt;code>cat()&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># not executed&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">cat&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_body_char&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Our next task then, is to convert this JSON notation to a suitable &lt;code>R&lt;/code> data structure, in this case, a list. We&amp;rsquo;ll do this with the &lt;code>jsonlite&lt;/code> package.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_body_list&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">jsonlite&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">fromJSON&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_body_char&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If we look at how this has been converted, we can see it&amp;rsquo;s a list of two.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_body_list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## Length Class Mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## status 1 -none- character
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## data 6 -none- list
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The &lt;code>data&lt;/code> list is what we want. We&amp;rsquo;ll pull that out and then explore that list.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_data&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">search_body_list&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left;"> &lt;/th>
+&lt;th style="text-align:left;"> Length &lt;/th>
+&lt;th style="text-align:left;"> Class &lt;/th>
+&lt;th style="text-align:left;"> Mode &lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;"> q &lt;/td>
+&lt;td style="text-align:left;"> 1 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> character &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> total_count &lt;/td>
+&lt;td style="text-align:left;"> 1 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> numeric &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> start &lt;/td>
+&lt;td style="text-align:left;"> 1 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> numeric &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> spelling_alternatives &lt;/td>
+&lt;td style="text-align:left;"> 0 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> list &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> items &lt;/td>
+&lt;td style="text-align:left;"> 27 &lt;/td>
+&lt;td style="text-align:left;"> data.frame &lt;/td>
+&lt;td style="text-align:left;"> list &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> count_in_response &lt;/td>
+&lt;td style="text-align:left;"> 1 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> numeric &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>We&amp;rsquo;re slowly whittling this down. This now looks almost identical to what we pulled up in our browser earlier. The actual relevant content is in the &lt;code>items&lt;/code> list. But we&amp;rsquo;ll also need the &lt;code>total_count&lt;/code> for when we need to request all the data from the server in a loop. For now, let&amp;rsquo;s look at the 26 items in there.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">names&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;name&amp;#34; &amp;#34;type&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3] &amp;#34;url&amp;#34; &amp;#34;global_id&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [5] &amp;#34;description&amp;#34; &amp;#34;published_at&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [7] &amp;#34;publisher&amp;#34; &amp;#34;citationHtml&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [9] &amp;#34;identifier_of_dataverse&amp;#34; &amp;#34;name_of_dataverse&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [11] &amp;#34;citation&amp;#34; &amp;#34;storageIdentifier&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [13] &amp;#34;keywords&amp;#34; &amp;#34;subjects&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [15] &amp;#34;fileCount&amp;#34; &amp;#34;versionId&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [17] &amp;#34;versionState&amp;#34; &amp;#34;majorVersion&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [19] &amp;#34;minorVersion&amp;#34; &amp;#34;createdAt&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [21] &amp;#34;updatedAt&amp;#34; &amp;#34;contacts&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [23] &amp;#34;producers&amp;#34; &amp;#34;relatedMaterial&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [25] &amp;#34;geographicCoverage&amp;#34; &amp;#34;authors&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [27] &amp;#34;publications&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We don&amp;rsquo;t need all this data. We should be able to do some evaluation with the &lt;code>name&lt;/code>, &lt;code>description&lt;/code>, &lt;code>fileCount&lt;/code>, &lt;code>producers&lt;/code>, &lt;code>published_at&lt;/code>, &lt;code>url&lt;/code>, and, for later retrieval, &lt;code>global_id&lt;/code>. Let&amp;rsquo;s look at these quickly, noting importantly, that &lt;code>producers&lt;/code> is another list, that we&amp;rsquo;ll need to wrangle some how.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">vars_of_interest&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;fileCount&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;producers&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;published_at&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;url&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;global_id&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">lapply&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items[vars_of_interest]&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">class&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># show the class of each list item&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## $name
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;character&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $description
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;character&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $fileCount
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;integer&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $producers
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;list&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $published_at
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;character&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $url
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;character&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## $global_id
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;character&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="getting-all-the-data">Getting All the Data
+&lt;/h2>&lt;p>At this stage, we have what we need to pull search results from Abacus. You&amp;rsquo;ll note that the search returned a result set of 109, but only 10 items:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="n">search_body_list&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">total_count&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] 110
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="nf">nrow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">search_body_list&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] 10
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Going forward, we need to paginate through the result set to retrieve all the items.&lt;/p>
+&lt;p>A few things to note:&lt;/p>
+&lt;ul>
+&lt;li>By default, the &lt;code>search&lt;/code> API returns 10 results per request. It allows for a maximum of 1000 per request. This is handled in the &lt;code>per_page&lt;/code> parameter.&lt;/li>
+&lt;li>There is a start parameter that we can feed into the request; this indicates which record to start retrieving data from. This number will need to be updated as we iterate over our requests, for example, if in the first call we pull records 1:1000, in the second call, we need to start at 1001. This is handled in the &lt;code>start&lt;/code> parameter.&lt;/li>
+&lt;li>&lt;code>R&lt;/code> starts counting at 1, other languages start at 0, so the first record returned by the API is indexed at 0 on the server, not 1.&lt;/li>
+&lt;li>APIs will have a limit on the number of requests you can make in any given time span. We&amp;rsquo;ll build in a simple delay using &lt;code>Sys.Sleep()&lt;/code>, but &lt;code>httr2&lt;/code> has a built in function for handling this as well.&lt;/li>
+&lt;/ul>
+&lt;p>Below is a function with the above steps built into it. It takes two arguments, a search string and the number of results to retrieve per request. It also prints some progress information to the console.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_datasets&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">query&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">per_page&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Build the query&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">url&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;https://abacus.library.ubc.ca/api/search?q=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">query&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;&amp;amp;type=dataset&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Initial call to figure out total records&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">url&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">request&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">req_perform&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">jsonlite&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">fromJSON&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">rawToChar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">resp&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">total_count&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">resp_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">total_count&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Give some feedback&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">cat&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;There are &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">total_count&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34; records to be fetched.\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Fetching &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">per_page&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34; records per call.\nThis will require &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">ceiling&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">total_count&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">per_page&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s">&amp;#34; calls.\n\n&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># build place holders for loop&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">name&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">vector&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">description&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">vector&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_count&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">vector&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">producers&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">list&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pub_date&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">vector&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">global_id&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">vector&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">handle&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">vector&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># establish the starting point&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">start_point&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># create a counter for tracking calls&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">call_counter&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># run the loop&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">length&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">handle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">total_count&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1"># while the number of retrieved records is &amp;lt; the total count&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">cat&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Call &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">call_counter&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;\n&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># Indicate what call we&amp;#39;re on to the API&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">req&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">request&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;&amp;amp;start=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">start_point&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;&amp;amp;per_page=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">per_page&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># create the request&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">req_perform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">req&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># perform the request&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">jsonlite&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">fromJSON&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">rawToChar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">resp&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># convert the body from raw JSON to a list&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body_name&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">resp_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="c1"># get the name&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body_desc&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">resp_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">description&lt;/span> &lt;span class="c1"># get the description&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body_file_count&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">resp_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">fileCount&lt;/span> &lt;span class="c1"># get the file count&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body_producers&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">resp_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">producers&lt;/span> &lt;span class="c1"># get the producers&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body_handle&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">resp_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">url&lt;/span> &lt;span class="c1">#get the url&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body_global_id&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">resp_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">global_id&lt;/span> &lt;span class="c1"># get id&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">resp_body_pubdate&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">resp_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">published_at&lt;/span> &lt;span class="c1"># get update date&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># update the place holders:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">name&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">resp_body_name&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">description&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">description&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">resp_body_desc&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_count&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">file_count&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">resp_body_file_count&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">producers&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">producers&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">resp_body_producers&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pub_date&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pub_date&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">resp_body_pubdate&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">handle&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">handle&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">resp_body_handle&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">global_id&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">global_id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">resp_body_global_id&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># update counters&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">start_point&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">start_point&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">per_page&lt;/span> &lt;span class="c1"># increment the start_point&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">call_counter&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">call_counter&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="c1"># increment the counter&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Sys.sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">.1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># pause before making a new call&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># When all is said and done, compile the place holders into a list and return this object&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">return&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;name&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;description&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">description&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;file_count&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">file_count&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;producers&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">producers&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;pub_date&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pub_date&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;handle&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">handle&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;global_id&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">global_id&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We can then call that function, here adding an additional parameter indicating that we only want to search the title and that we want 50 results per query. We&amp;rsquo;re being specifically broad with our search.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">labour&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">search_datasets&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;title:labour&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">50&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## There are 110 records to be fetched.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Fetching 50 records per call.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## This will require 3 calls.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">##
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Call 1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Call 2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## Call 3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We now have record data that we can explore.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">labour&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left;"> &lt;/th>
+&lt;th style="text-align:left;"> Length &lt;/th>
+&lt;th style="text-align:left;"> Class &lt;/th>
+&lt;th style="text-align:left;"> Mode &lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;"> name &lt;/td>
+&lt;td style="text-align:left;"> 110 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> character &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> description &lt;/td>
+&lt;td style="text-align:left;"> 110 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> character &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> file_count &lt;/td>
+&lt;td style="text-align:left;"> 110 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> numeric &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> producers &lt;/td>
+&lt;td style="text-align:left;"> 110 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> list &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> pub_date &lt;/td>
+&lt;td style="text-align:left;"> 110 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> character &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> handle &lt;/td>
+&lt;td style="text-align:left;"> 110 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> character &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> global_id &lt;/td>
+&lt;td style="text-align:left;"> 110 &lt;/td>
+&lt;td style="text-align:left;"> -none- &lt;/td>
+&lt;td style="text-align:left;"> character &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>We can make this a bit easier for ourselves by converting this into a dataframe or tibble. There are several ways to approach this, considering that &lt;code>producers&lt;/code> is a list &amp;ndash; it is a list as some records have more than one producer associated them. Here, I&amp;rsquo;ll treat datasets with multiple producers as a different record authority than if one of these co-producers produced a standalone dataset. To do this, we&amp;rsquo;ll first collapse the &lt;code>producers&lt;/code> nested lists, and then flatten the result into a single list.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">producers&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">producers&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">lapply&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">paste&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">collapse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;, &amp;#34;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">unlist&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">producers&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">20&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;Statistics Canada. Labour Force Survey Division&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2] &amp;#34;Statistics Canada. Labour Force Survey Division&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [4] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [5] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [6] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [7] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [8] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [9] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [10] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [11] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [12] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [13] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [14] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [15] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [16] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [17] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [18] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [19] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [20] &amp;#34;Statistics Canada&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We can easily convert this to a dataframe now.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">labour&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">as.data.frame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">labour&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">labour&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left;"> name &lt;/th>
+&lt;th style="text-align:left;"> description &lt;/th>
+&lt;th style="text-align:right;"> file_count &lt;/th>
+&lt;th style="text-align:left;"> producers &lt;/th>
+&lt;th style="text-align:left;"> pub_date &lt;/th>
+&lt;th style="text-align:left;"> handle &lt;/th>
+&lt;th style="text-align:left;"> global_id &lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2013 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey (LFS) is a household... &lt;/td>
+&lt;td style="text-align:right;"> 14 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada. Labour Force Survey Division &lt;/td>
+&lt;td style="text-align:left;"> 2013-09-10T07:00:00Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/HTSWUF &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/HTSWUF &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2014 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey (LFS) is a household... &lt;/td>
+&lt;td style="text-align:right;"> 29 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada. Labour Force Survey Division &lt;/td>
+&lt;td style="text-align:left;"> 2014-01-01T08:00:00Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/SDAVTH &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/SDAVTH &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2023 &lt;/td>
+&lt;td style="text-align:left;"> LFS data are used to produce the well-known ... &lt;/td>
+&lt;td style="text-align:right;"> 31 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada &lt;/td>
+&lt;td style="text-align:left;"> 2024-01-05T17:38:25Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/IJU1QK &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/IJU1QK &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2006 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey provides estimates o... &lt;/td>
+&lt;td style="text-align:right;"> 26 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada &lt;/td>
+&lt;td style="text-align:left;"> 2023-03-16T21:47:04Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/0B5LPL &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/0B5LPL &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2008 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey provides estimates o... &lt;/td>
+&lt;td style="text-align:right;"> 26 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada &lt;/td>
+&lt;td style="text-align:left;"> 2023-03-16T21:47:20Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/LA3WXI &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/LA3WXI &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2007 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey provides estimates o... &lt;/td>
+&lt;td style="text-align:right;"> 26 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada &lt;/td>
+&lt;td style="text-align:left;"> 2023-03-16T21:29:41Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/NANO81 &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/NANO81 &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="explore">Explore
+&lt;/h2>&lt;p>We have several datasets with labour in the title. One way of handling exploring this is to strip the dates so that we can look for unique values. First we extract the date:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">year&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">gsub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;.*?([0-9]+).*$&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;\\1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># regex to find ending numbers and storing in a new var&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">year&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;2013&amp;#34; &amp;#34;2014&amp;#34; &amp;#34;2023&amp;#34; &amp;#34;2006&amp;#34; &amp;#34;2008&amp;#34; &amp;#34;2007&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we strip the name:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">name_no_year&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">trimws&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">gsub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;[[:punct:]]|[[:digit:]]&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># regex to remove punctuation and remaing numbers&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">name_no_year&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;Labour Force Survey&amp;#34; &amp;#34;Labour Force Survey&amp;#34; &amp;#34;Labour Force Survey&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [4] &amp;#34;Labour Force Survey&amp;#34; &amp;#34;Labour Force Survey&amp;#34; &amp;#34;Labour Force Survey&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And then look at the unique values:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="nf">unique&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">name_no_year&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;Labour Force Survey&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [2] &amp;#34;Survey of Labour and Income Dynamics&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [3] &amp;#34;Cultural Labour Force Survey&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [4] &amp;#34;Survey of Persons Not in the Labour Force&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [5] &amp;#34;Labour Force Income Profiles&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [6] &amp;#34;Labour Force Survey Rebased Revised&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [7] &amp;#34;Survey of Labour and Income Dynamics Reweighted&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [8] &amp;#34;Labour Force Survey revision&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [9] &amp;#34;Labour Income Profile for selected BC communities&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [10] &amp;#34;Labour Market Activity Survey&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [11] &amp;#34;Labour force historical review&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [12] &amp;#34;Small Area Business and Labour Database&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [13] &amp;#34;Labour Force Historical Review&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [14] &amp;#34;Interwar Labour Database&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [15] &amp;#34;Experienced Labour Force Population by Occupation custom tabulation&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [16] &amp;#34;Labour Market Activity Survey Crosssectional Files&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [17] &amp;#34;Experienced Labour Force Population by Industry and Occupation custom tabulation&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [18] &amp;#34;Labour Market Activity Survey Longitudinal Files&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [19] &amp;#34;New Survey of London Life and Labour&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We only need the Labour Force Surveys themselves. These are occasionally revised, &lt;a class="link" href="https://www150.statcan.gc.ca/n1/pub/71f0031x/71f0031x2023001-eng.htm" target="_blank" rel="noopener"
+>documentation on these revisions here&lt;/a>, hence multiple records with slightly modified names (Labour Force Survey, Labour Force Survey (Rebased, Revised), etc)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">lfs&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">labour&lt;/span>&lt;span class="nf">[grepl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;^Labour Force Survey&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">labour&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">name_no_year&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="n">]&lt;/span> &lt;span class="c1"># regex to find names starting with LFS&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">head&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">lfs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left;"> name &lt;/th>
+&lt;th style="text-align:left;"> description &lt;/th>
+&lt;th style="text-align:right;"> file_count &lt;/th>
+&lt;th style="text-align:left;"> producers &lt;/th>
+&lt;th style="text-align:left;"> pub_date &lt;/th>
+&lt;th style="text-align:left;"> handle &lt;/th>
+&lt;th style="text-align:left;"> global_id &lt;/th>
+&lt;th style="text-align:left;"> year &lt;/th>
+&lt;th style="text-align:left;"> name_no_year &lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2013 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey (LFS) is a household... &lt;/td>
+&lt;td style="text-align:right;"> 14 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada. Labour Force Survey Division &lt;/td>
+&lt;td style="text-align:left;"> 2013-09-10T07:00:00Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/HTSWUF &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/HTSWUF &lt;/td>
+&lt;td style="text-align:left;"> 2013 &lt;/td>
+&lt;td style="text-align:left;"> Labour Force Survey &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2014 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey (LFS) is a household... &lt;/td>
+&lt;td style="text-align:right;"> 29 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada. Labour Force Survey Division &lt;/td>
+&lt;td style="text-align:left;"> 2014-01-01T08:00:00Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/SDAVTH &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/SDAVTH &lt;/td>
+&lt;td style="text-align:left;"> 2014 &lt;/td>
+&lt;td style="text-align:left;"> Labour Force Survey &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2023 &lt;/td>
+&lt;td style="text-align:left;"> LFS data are used to produce the well-known ... &lt;/td>
+&lt;td style="text-align:right;"> 31 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada &lt;/td>
+&lt;td style="text-align:left;"> 2024-01-05T17:38:25Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/IJU1QK &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/IJU1QK &lt;/td>
+&lt;td style="text-align:left;"> 2023 &lt;/td>
+&lt;td style="text-align:left;"> Labour Force Survey &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2006 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey provides estimates o... &lt;/td>
+&lt;td style="text-align:right;"> 26 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada &lt;/td>
+&lt;td style="text-align:left;"> 2023-03-16T21:47:04Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/0B5LPL &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/0B5LPL &lt;/td>
+&lt;td style="text-align:left;"> 2006 &lt;/td>
+&lt;td style="text-align:left;"> Labour Force Survey &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2008 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey provides estimates o... &lt;/td>
+&lt;td style="text-align:right;"> 26 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada &lt;/td>
+&lt;td style="text-align:left;"> 2023-03-16T21:47:20Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/LA3WXI &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/LA3WXI &lt;/td>
+&lt;td style="text-align:left;"> 2008 &lt;/td>
+&lt;td style="text-align:left;"> Labour Force Survey &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> Labour Force Survey, 2007 &lt;/td>
+&lt;td style="text-align:left;"> The Labour Force Survey provides estimates o... &lt;/td>
+&lt;td style="text-align:right;"> 26 &lt;/td>
+&lt;td style="text-align:left;"> Statistics Canada &lt;/td>
+&lt;td style="text-align:left;"> 2023-03-16T21:29:41Z &lt;/td>
+&lt;td style="text-align:left;"> https://hdl.handle.net/11272.1/AB2/NANO81 &lt;/td>
+&lt;td style="text-align:left;"> hdl:11272.1/AB2/NANO81 &lt;/td>
+&lt;td style="text-align:left;"> 2007 &lt;/td>
+&lt;td style="text-align:left;"> Labour Force Survey &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="looking-at-files">Looking at Files
+&lt;/h2>&lt;p>We now know the data sets we&amp;rsquo;re interested in. A dataset is made up of multiple files, however, and we likely don&amp;rsquo;t want all the files for every dataset. We&amp;rsquo;ll start by getting the file list for one of our datasets. Once we can do this for one dataset, we can iterate over all the datasets, although we won&amp;rsquo;t implement that in this workshop.&lt;/p>
+&lt;p>Up until now, we&amp;rsquo;ve been using the &lt;code>search&lt;/code> api. We&amp;rsquo;ll now use the &lt;code>datasets&lt;/code> api.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">datasets_api&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#34;datasets/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Like before, we&amp;rsquo;ll build our query. We&amp;rsquo;ll start with the 2011 LFS dataset. This is a multi-step process, as the first thing we need to do is get the &lt;code>id&lt;/code> for the dataset, which is different from the &lt;code>global_id&lt;/code> we retrieved from the &lt;code>search&lt;/code> api, but we need the &lt;code>global_id&lt;/code>, piped into the &lt;code>datasets&lt;/code> api, to get the &lt;code>id&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">id&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">lfs[lfs&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">name&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#34;Labour Force Survey, 2011&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;global_id&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">drop&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">TRUE&lt;/span>&lt;span class="n">]&lt;/span> &lt;span class="c1"># we want a simple vector returned&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">query&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;:persistentId/?persistentId=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">id&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># limit to the id of interest, see dataverse API documentation&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="n">dataset_api_call&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">base_url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">datasets_api&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">query&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># build the call&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;https://abacus.library.ubc.ca/api/datasets/:persistentId/?persistentId=hdl:11272.1/AB2/GK3SFF&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now we make the call and process the &lt;code>body&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">dataset_id_resp&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">dataset_api_call&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">request&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">req_perform&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">dataset_id_body&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">jsonlite&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">fromJSON&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">rawToChar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dataset_id_resp&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We need the &lt;code>id&lt;/code> and the &lt;code>versionNumber&lt;/code> to access a file list.&lt;/p>
+&lt;p>Building the call:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">dataset_id&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">dataset_id_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">id&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">dataset_ver&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">dataset_id_body&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">latestVersion&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="nf">versionNumber
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">file_list_query&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">base_url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">datasets_api&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dataset_id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;/versions/&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dataset_ver&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;/files/&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;https://abacus.library.ubc.ca/api/datasets/45508/versions/2/files/&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then execute, this time using the &lt;code>httr2&lt;/code> option, &lt;code>resp_body_json()&lt;/code> to convert the body to an &lt;code>R&lt;/code> object, as it&amp;rsquo;s a bit more streamlined.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">dataset_file_resp&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">file_list_query&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">request&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">req_perform&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">httr2&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="nf">resp_body_json&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Files are generally indicated as being either data, documentation, or command files. We&amp;rsquo;ll isolate just the data files in the list. All relevant data files have a &lt;code>directoryLabel&lt;/code> equal to &lt;code>Data&lt;/code>. We can use this to access only the data files.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">data_files&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">Filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">directoryLabel&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#34;Data&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dataset_file_resp&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># filter by directoryLabel&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We&amp;rsquo;ll list out the files&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="kr">in&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="nf">length&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data_files&lt;/span>&lt;span class="p">)){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data_files[[i]]&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">label&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_April_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_August_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_December_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_February_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_January_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_July_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_June_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_March_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_May_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_November_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_October_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;LFS_September_2011.tab&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0111.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0211.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0311.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0411.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0511.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0611.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0711.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0811.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub0911.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub1011.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub1111.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">## [1] &amp;#34;pub1211.prn&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>From which we&amp;rsquo;ll see that there are two different formats available to us. Let&amp;rsquo;s grab just the &lt;code>.tab&lt;/code> files.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">relevant_data_files&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">Filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">grepl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;tab$&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">label&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">data_files&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># filter to files ending in tab&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And then download them.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">dir.create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;LFS_2011&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># create a directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">dest_dir&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#34;LFS_2011/&amp;#34;&lt;/span> &lt;span class="c1"># store it in a variable&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># loop through the files and download them&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="kr">in&lt;/span> &lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="nf">length&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">relevant_data_files&lt;/span>&lt;span class="p">)){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_name&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">relevant_data_files[[i]]&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">label&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_id&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="n">relevant_data_files[[i]]&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">dataFile&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">id&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">url_root&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="s">&amp;#34;https://abacus.library.ubc.ca/api/access/datafile/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">download.file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url_root&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">file_id&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">destfile&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dest_dir&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">file_name&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And build an annual set&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-r" data-lang="r">&lt;span class="line">&lt;span class="cl">&lt;span class="n">lfs_2011_list&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">lapply&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">list.files&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dest_dir&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="kr">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">read.delim&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">paste0&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dest_dir&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">)))&lt;/span> &lt;span class="c1"># read in each tab file into a list&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">lfs_2011_df&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span> &lt;span class="nf">do.call&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rbind&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lfs_2011_list&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># bind the list items into a df&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">summary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">lfs_2011_df[&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="m">11&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="n">]&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">kbl&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">|&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">kable_styling&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bootstrap_options&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">&amp;#34;striped&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left;"> &lt;/th>
+&lt;th style="text-align:left;"> REC_NUM &lt;/th>
+&lt;th style="text-align:left;"> SURVYEAR &lt;/th>
+&lt;th style="text-align:left;"> SURVMNTH &lt;/th>
+&lt;th style="text-align:left;"> LFSSTAT &lt;/th>
+&lt;th style="text-align:left;"> PROV &lt;/th>
+&lt;th style="text-align:left;"> CMA &lt;/th>
+&lt;th style="text-align:left;"> AGE_12 &lt;/th>
+&lt;th style="text-align:left;"> AGE_6 &lt;/th>
+&lt;th style="text-align:left;"> SEX &lt;/th>
+&lt;th style="text-align:left;"> MARSTAT &lt;/th>
+&lt;th style="text-align:left;"> EDUC &lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left;"> &lt;/td>
+&lt;td style="text-align:left;"> Min. : 1 &lt;/td>
+&lt;td style="text-align:left;"> Min. :2011 &lt;/td>
+&lt;td style="text-align:left;"> Min. : 1.000 &lt;/td>
+&lt;td style="text-align:left;"> Min. :1.00 &lt;/td>
+&lt;td style="text-align:left;"> Min. :10.0 &lt;/td>
+&lt;td style="text-align:left;"> Min. :0.000 &lt;/td>
+&lt;td style="text-align:left;"> Min. : 1.000 &lt;/td>
+&lt;td style="text-align:left;"> Min. :1.0 &lt;/td>
+&lt;td style="text-align:left;"> Min. :1.000 &lt;/td>
+&lt;td style="text-align:left;"> Min. :1.000 &lt;/td>
+&lt;td style="text-align:left;"> Min. :0.000 &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.: 26294 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.:2011 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.: 4.000 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.:1.00 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.:24.0 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.:0.000 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.: 4.000 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.:2.0 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.:1.000 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.:1.000 &lt;/td>
+&lt;td style="text-align:left;"> 1st Qu.:2.000 &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> &lt;/td>
+&lt;td style="text-align:left;"> Median : 52587 &lt;/td>
+&lt;td style="text-align:left;"> Median :2011 &lt;/td>
+&lt;td style="text-align:left;"> Median : 7.000 &lt;/td>
+&lt;td style="text-align:left;"> Median :1.00 &lt;/td>
+&lt;td style="text-align:left;"> Median :35.0 &lt;/td>
+&lt;td style="text-align:left;"> Median :0.000 &lt;/td>
+&lt;td style="text-align:left;"> Median : 7.000 &lt;/td>
+&lt;td style="text-align:left;"> Median :4.0 &lt;/td>
+&lt;td style="text-align:left;"> Median :2.000 &lt;/td>
+&lt;td style="text-align:left;"> Median :2.000 &lt;/td>
+&lt;td style="text-align:left;"> Median :3.000 &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> &lt;/td>
+&lt;td style="text-align:left;"> Mean : 52589 &lt;/td>
+&lt;td style="text-align:left;"> Mean :2011 &lt;/td>
+&lt;td style="text-align:left;"> Mean : 6.509 &lt;/td>
+&lt;td style="text-align:left;"> Mean :2.19 &lt;/td>
+&lt;td style="text-align:left;"> Mean :35.1 &lt;/td>
+&lt;td style="text-align:left;"> Mean :1.473 &lt;/td>
+&lt;td style="text-align:left;"> Mean : 6.765 &lt;/td>
+&lt;td style="text-align:left;"> Mean :3.5 &lt;/td>
+&lt;td style="text-align:left;"> Mean :1.516 &lt;/td>
+&lt;td style="text-align:left;"> Mean :2.834 &lt;/td>
+&lt;td style="text-align:left;"> Mean :3.008 &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.: 78880 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:2011 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.: 9.000 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:4.00 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:47.0 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:2.000 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:10.000 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:5.0 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:2.000 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:6.000 &lt;/td>
+&lt;td style="text-align:left;"> 3rd Qu.:4.000 &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> &lt;/td>
+&lt;td style="text-align:left;"> Max. :106352 &lt;/td>
+&lt;td style="text-align:left;"> Max. :2011 &lt;/td>
+&lt;td style="text-align:left;"> Max. :12.000 &lt;/td>
+&lt;td style="text-align:left;"> Max. :4.00 &lt;/td>
+&lt;td style="text-align:left;"> Max. :59.0 &lt;/td>
+&lt;td style="text-align:left;"> Max. :9.000 &lt;/td>
+&lt;td style="text-align:left;"> Max. :12.000 &lt;/td>
+&lt;td style="text-align:left;"> Max. :6.0 &lt;/td>
+&lt;td style="text-align:left;"> Max. :2.000 &lt;/td>
+&lt;td style="text-align:left;"> Max. :6.000 &lt;/td>
+&lt;td style="text-align:left;"> Max. :6.000 &lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left;"> &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA's :975211 &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;td style="text-align:left;"> NA &lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

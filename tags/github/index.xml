@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Github on R &amp; Python Blog</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/github/</link><description>Recent content in Github on R &amp; Python Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Center for Scholarly Communication, UBC Okanagan</copyright><lastBuildDate>Mon, 16 Sep 2024 12:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/github/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting started with GitHub</title><link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/</link><pubDate>Mon, 16 Sep 2024 12:00:00 -0800</pubDate><guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/</guid><description>&lt;p>&lt;a class="link" href="https://github.com/" target="_blank" rel="noopener"
+>GitHub&lt;/a> is a platform that allows you to store, share, and archive files. It is commonly used for in research to make files accessible, including code, data, models, and figures. Sharing code and data through platforms like GitHub helps make research more transparent, reproducible, and credible &lt;a class="link" href="https://doi.org/10.1111/2041-210X.14108" target="_blank" rel="noopener"
+>Braga et al. 2023&lt;/a>. In this blog post, I will show you how to create your first GitHub repository (&amp;ldquo;repo&amp;rdquo; for short), how to set up a convenient folder structure, and how to push (i.e., upload) and pull (i.e., download) content to and from the repo. The &lt;a class="link" href="https://csc-ubc-okanagan.github.io/" target="_blank" rel="noopener"
+>Center for Scholarly Communication&lt;/a> (CSC) also runs a two-part workshop on how to use GitHub. The material is available on the CSC website: &lt;a class="link" href="https://csc-ubc-okanagan.github.io/workshops/Intro-GitHub-Part-1.html" target="_blank" rel="noopener"
+>Part 1&lt;/a> and &lt;a class="link" href="https://csc-ubc-okanagan.github.io/workshops/Intro-GitHub-Part-2.html" target="_blank" rel="noopener"
+>Part 2&lt;/a>.&lt;/p>
+&lt;p>Before we start, you will need to download and install &lt;a class="link" href="https://github.com/apps/desktop" target="_blank" rel="noopener"
+>GitHub Desktop&lt;/a> from &lt;a class="link" href="https://desktop.github.com/download/" target="_blank" rel="noopener"
+>https://desktop.github.com/download/&lt;/a>. While it installs, make an account on &lt;a class="link" href="github.com" >github.com&lt;/a> if you don&amp;rsquo;t have one already.&lt;/p>
+&lt;p>To make your first repo, go to &lt;code>File/New repository&lt;/code> or press &lt;code>Ctrl + N&lt;/code>.&lt;/p>
+&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo.png"
+width="666"
+height="353"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_e7bf180219c2b1b7.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_8be83f90981c8645.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="188"
+data-flex-basis="452px"
+>&lt;/p>
+&lt;p>Now choose your repo&amp;rsquo;s name. Something short and simple, like &lt;code>my-first-repo&lt;/code> works for now. If you want, you can also add a description of the repo&amp;rsquo;s contents and change the location of the local copy that GitHub Desktop will make. On my personal machine, I tend to save repos in &lt;code>Documents/GitHub&lt;/code>, but on my lab machine I save them in my UBC home drive: &lt;code>H:/GitHub&lt;/code>. If you are planning on working primarily with only one language (e.g., &lt;code>R&lt;/code> or &lt;code>Python&lt;/code>), I would suggest choosing the appropriate Git ignore. This will hide files that you generally don&amp;rsquo;t want to push to GitHub (e.g., &lt;code>.Rhistory&lt;/code> and &lt;code>.RData&lt;/code> files). You can change the &lt;code>.gitignore&lt;/code> files later with any text editor. The last step here is to choose a license. If you want a simple open-access licence for code, the MIT one is a good option.&lt;/p>
+&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo-options.png"
+width="694"
+height="780"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_c5e978ac49c939d9.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_4933a1ef0ab00513.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="88"
+data-flex-basis="213px"
+>&lt;/p>
+&lt;p>You&amp;rsquo;ve now created your first GitHub repo, but it is currently only on your local machine. To push it to GitHub, you&amp;rsquo;ll need to publish the repo (top ribbon, to the right). Before confirming, you can:&lt;/p>
+&lt;ol>
+&lt;li>update the name (this won&amp;rsquo;t change the name of the folder on your machine),&lt;/li>
+&lt;li>edit the description,&lt;/li>
+&lt;li>decide whether you want the repo to be public or not (it&amp;rsquo;s private by default), and&lt;/li>
+&lt;li>choose if you want to add it into an existing organization (e.g., your lab&amp;rsquo;s organization). Be careful though &amp;ndash; it can be hard to edit the repo after you&amp;rsquo;ve added it to an organization.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/publish-repo.png"
+width="931"
+height="338"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_852574e63a2b85ca.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_16c8450c10f4fa5c.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="275"
+data-flex-basis="661px"
+>&lt;/p>
+&lt;p>Now that the repo is on GitHub, you can start pushing and pulling content to and from it. As a general rule, you should always check for any updates by pulling (click &lt;code>Fetch-origin&lt;/code> followed by &lt;code>Pull origin&lt;/code>) before trying to push anything, otherwise GitHub will have to manage the pull/push conflict by merging the old files (to be pulled) with the new ones (to be pushed). This can be quite confusing, so it&amp;rsquo;s always good to make to pull first (even if you&amp;rsquo;re the only one working on the repo on two machines). Once you have some files you want to push to the repo, select the ones you want to push by clicking on the boxes in the upper left, add a summary for the commit (i.e., the series of changes to push) at the bottom of the column. Commit summaries should be brief and simple but clear, like &amp;ldquo;cleaned data and started model fitting&amp;rdquo;. You can use markdown in both the summary and the description (see the field below the summary field) for messages like &amp;ldquo;removed unnecessary &lt;code>library()&lt;/code> calls&amp;rdquo; using $\text{&lt;code>text&lt;/code>}$. In the changes column, green &amp;ldquo;+&amp;rdquo; symbols indicate new files, yellow dots indicate changed files, and red &amp;ldquo;-&amp;rdquo; symbols indicate file deletions. The panel on the right will show you exactly what portions of a file you changed, if the file is a simple text file (e.g., &lt;code>.csv.&lt;/code>, &lt;code>.R&lt;/code>, &lt;code>.Rmd&lt;/code>, &lt;code>.md&lt;/code>, and &lt;code>.txt&lt;/code>, but not &lt;code>.pdf&lt;/code>, &lt;code>.doc&lt;/code>, &lt;code>.ppt&lt;/code>, or &lt;code>.rds&lt;/code>). Consequently, GitHub&amp;rsquo;s version control and edit history work best if you use simple text files as much as possible. Once you&amp;rsquo;ve committed all your changes, don&amp;rsquo;t forget to push the changes to GitHub using the &amp;ldquo;Push origin&amp;rdquo; button! You can check the status of your changes by going to &lt;a class="link" href="https://github.com/" target="_blank" rel="noopener"
+>GitHub&lt;/a> and navigating to your repo.&lt;/p>
+&lt;p>&lt;img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/push-origin.png"
+width="618"
+height="120"
+srcset="https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_2dd72d951c8e876b.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_a0ebeceb741af2e6.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="515"
+data-flex-basis="1236px"
+>&lt;/p>
+&lt;h1 id="references">References
+&lt;/h1>&lt;p>Braga P.H.P., Hébert K., Hudgins E.J., Scott E.R., Edwards B.P.M., Sánchez Reyes L.L., et al. (2023). Not just for programmers: How GitHub can accelerate collaborative and reproducible research in ecology and evolution. Methods in Ecology and Evolution 14, 1364–1380. &lt;a class="link" href="https://doi.org/10.1111/2041-210X.14108" target="_blank" rel="noopener"
+>https://doi.org/10.1111/2041-210X.14108&lt;/a>&lt;/p></description></item></channel></rss>
