@@ -2,6 +2,7 @@ baseurl: https://csc-ubc-okanagan.github.io/csc-blog-new/
 languageCode: en-us
 theme: "hugo-theme-stack"
 publishDir: "docs"
+math: true
 title: R & Python Blog
 copyright: Center for Scholarly Communication, UBC Okanagan
 
