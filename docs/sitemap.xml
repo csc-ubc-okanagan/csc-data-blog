@@ -5,6 +5,12 @@
     <loc>http://localhost:4321/csc-blog-new/</loc>
     <lastmod>2025-04-07T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:4321/csc-blog-new/about/</loc>
+    <lastmod>2025-04-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/page/</loc>
+    <lastmod>2025-04-07T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:4321/csc-blog-new/categories/</loc>
     <lastmod>2020-12-01T21:13:14-05:00</lastmod>
   </url><url>
@@ -32,9 +38,6 @@
     <loc>http://localhost:4321/csc-blog-new/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:4321/csc-blog-new/page/</loc>
-    <lastmod>2025-04-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:4321/csc-blog-new/tags/markdown/</loc>
     <lastmod>2019-03-09T00:00:00+00:00</lastmod>
   </url><url>
@@ -52,9 +55,6 @@
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/tags/text/</loc>
     <lastmod>2019-03-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:4321/csc-blog-new/about/</loc>
-    <lastmod>2025-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/links/</loc>
   </url><url>
