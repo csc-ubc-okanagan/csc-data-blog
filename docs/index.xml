@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Example Site</title>
-        <link>http://localhost:6257/csc-blog-new/</link>
-        <description>Recent content on Example Site</description>
+        <title>R &amp; Python Blog</title>
+        <link>http://localhost:4321/csc-blog-new/</link>
+        <description>Recent content on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Tue, 01 Dec 2020 21:13:14 -0500</lastBuildDate><atom:link href="http://localhost:6257/csc-blog-new/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 07 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>About</title>
+        <link>http://localhost:4321/csc-blog-new/about/</link>
+        <pubDate>Mon, 07 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/about/</guid>
+        <description>&lt;p&gt;This blog was created by UBC Okanagan&amp;rsquo;s Centre for Scholarly Communication. It contains various blog posts to assist students with their pursuit of research utilizing tools such as R and Python.&lt;/p&gt;
+&lt;p&gt;For specific questions, the Categories tab and the Tags tab will allow you to search for specific topics or key words to help find a blog post relating to your question. For general learnings, the Home page lists all acive posts, and the categories tab is useful to read current posts for each topic, such as general Python posts or Getting Started posts.&lt;/p&gt;
+&lt;p&gt;If you are starting from scratch and aren&amp;rsquo;t sure whether to learn R or Python first, try visiting our post outlining the pros and cons of each, as well as discipline norms.&lt;/p&gt;
+&lt;p&gt;The blog posts here were created by Research Data Consultants. If you find yourself with a question that has not been answered by the blog posts currently available, feel free to reach out to schedule a one-on-one consultation with us here. If you have ideas for blog posts that would be beneficial to add, feel free to share them with us via email at &lt;a class=&#34;link&#34; href=&#34;mailto:csc.ok@ubc.ca&#34; &gt;csc.ok@ubc.ca&lt;/a&gt;. For further information on the CSC, visit our website at &lt;a class=&#34;link&#34; href=&#34;https://csc.ok.ubc.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://csc.ok.ubc.ca/&lt;/a&gt;.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Hello R Markdown</title>
-        <link>http://localhost:6257/csc-blog-new/p/hello-r-markdown/</link>
+        <link>http://localhost:4321/csc-blog-new/p/hello-r-markdown/</link>
         <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
         
-        <guid>http://localhost:6257/csc-blog-new/p/hello-r-markdown/</guid>
+        <guid>http://localhost:4321/csc-blog-new/p/hello-r-markdown/</guid>
         <description>&lt;h1 id=&#34;r-markdown&#34;&gt;R Markdown
 &lt;/h1&gt;&lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a class=&#34;link&#34; href=&#34;http://rmarkdown.rstudio.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
@@ -80,26 +93,26 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;http://localhost:6257/csc-blog-new/p/hello-r-markdown/index.en_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
+&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/hello-r-markdown/index.en_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;Figure 1: A fancy pie chart.&lt;/p&gt;
 &lt;/div&gt;
 </description>
         </item>
         <item>
         <title>Archives</title>
-        <link>http://localhost:6257/csc-blog-new/archives/</link>
+        <link>http://localhost:4321/csc-blog-new/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:6257/csc-blog-new/archives/</guid>
+        <guid>http://localhost:4321/csc-blog-new/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Placeholder Text</title>
-        <link>http://localhost:6257/csc-blog-new/p/placeholder-text/</link>
+        <link>http://localhost:4321/csc-blog-new/p/placeholder-text/</link>
         <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:6257/csc-blog-new/p/placeholder-text/</guid>
-        <description>&lt;img src="http://localhost:6257/csc-blog-new/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
+        <guid>http://localhost:4321/csc-blog-new/p/placeholder-text/</guid>
+        <description>&lt;img src="http://localhost:4321/csc-blog-new/p/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
 &lt;p&gt;Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Exierant elisi ambit vivere dedere&lt;/li&gt;
@@ -125,39 +138,11 @@
 &lt;p&gt;Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel &lt;strong&gt;mitis temploque&lt;/strong&gt; vocatus, inque alis, &lt;em&gt;oculos nomen&lt;/em&gt; non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides &lt;strong&gt;parte&lt;/strong&gt;.&lt;/p&gt;</description>
         </item>
         <item>
-        <title>About</title>
-        <link>http://localhost:6257/csc-blog-new/about/</link>
-        <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-        
-        <guid>http://localhost:6257/csc-blog-new/about/</guid>
-        <description>&lt;p&gt;Written in Go, Hugo is an open source static site generator available under the &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio/hugo/blob/master/LICENSE&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Apache License 2.0.&lt;/a&gt; Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.&lt;/p&gt;
-&lt;p&gt;Hugo makes use of a variety of open source projects including:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/yuin/goldmark&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/yuin/goldmark&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/alecthomas/chroma&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/alecthomas/chroma&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/muesli/smartcrop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/muesli/smartcrop&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/spf13/cobra&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/spf13/cobra&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/spf13/viper&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/spf13/viper&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.&lt;/p&gt;
-&lt;p&gt;Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.&lt;/p&gt;
-&lt;p&gt;Websites built with Hugo are extremely fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.&lt;/p&gt;
-&lt;p&gt;Learn more and contribute on &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>Links</title>
-        <link>http://localhost:6257/csc-blog-new/links/</link>
+        <link>http://localhost:4321/csc-blog-new/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:6257/csc-blog-new/links/</guid>
+        <guid>http://localhost:4321/csc-blog-new/links/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -189,10 +174,10 @@
         </item>
         <item>
         <title>Search</title>
-        <link>http://localhost:6257/csc-blog-new/search/</link>
+        <link>http://localhost:4321/csc-blog-new/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:6257/csc-blog-new/search/</guid>
+        <guid>http://localhost:4321/csc-blog-new/search/</guid>
         <description></description>
         </item>
         

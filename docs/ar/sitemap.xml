@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:6257/csc-blog-new/ar/categories/</loc>
+    <loc>http://localhost:4321/csc-blog-new/ar/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:6257/csc-blog-new/categories/"
+                href="http://localhost:4321/csc-blog-new/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:6257/csc-blog-new/zh-cn/categories/"
+                href="http://localhost:4321/csc-blog-new/zh-cn/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:6257/csc-blog-new/ar/categories/"
+                href="http://localhost:4321/csc-blog-new/ar/categories/"
                 />
   </url><url>
-    <loc>http://localhost:6257/csc-blog-new/ar/tags/</loc>
+    <loc>http://localhost:4321/csc-blog-new/ar/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:6257/csc-blog-new/tags/"
+                href="http://localhost:4321/csc-blog-new/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:6257/csc-blog-new/zh-cn/tags/"
+                href="http://localhost:4321/csc-blog-new/zh-cn/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:6257/csc-blog-new/ar/tags/"
+                href="http://localhost:4321/csc-blog-new/ar/tags/"
                 />
   </url><url>
-    <loc>http://localhost:6257/csc-blog-new/ar/</loc>
+    <loc>http://localhost:4321/csc-blog-new/ar/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:6257/csc-blog-new/"
+                href="http://localhost:4321/csc-blog-new/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:6257/csc-blog-new/zh-cn/"
+                href="http://localhost:4321/csc-blog-new/zh-cn/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:6257/csc-blog-new/ar/"
+                href="http://localhost:4321/csc-blog-new/ar/"
                 />
   </url>
 </urlset>

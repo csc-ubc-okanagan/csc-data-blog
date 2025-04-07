@@ -16,26 +16,11 @@ hasCJKLanguage: false
 languages:
     en:
         languageName: English
-        title: Example Site
+        title: R & Python Blog
         weight: 1
         params:
             sidebar:
-                subtitle: Example description
-    zh-cn:
-        languageName: 中文
-        title: 演示站点
-        weight: 2
-        params:
-            sidebar:
-                subtitle: 演示说明
-    ar:
-        languageName: عربي
-        languagedirection: rtl
-        title: موقع تجريبي
-        weight: 3
-        params:
-            sidebar:
-                subtitle: وصف تجريبي
+                subtitle: Brought to you by UBCO's Center for Scholarly Communication
 
 services:
     # Change it to your Disqus shortname before using
@@ -65,10 +50,10 @@ params:
 
     dateFormat:
         published: Jan 02, 2006
-        lastUpdated: Jan 02, 2006 15:04 MST
+        lastUpdated: Jan 02, 2006
 
     sidebar:
-        emoji: 🍥
+        emoji: 
         subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         avatar:
             enabled: true
@@ -80,12 +65,12 @@ params:
         toc: true
         readingTime: true
         license:
-            enabled: true
-            default: Licensed under CC BY-NC-SA 4.0
+            enabled: false
+            default: 
 
     comments:
-        enabled: true
-        provider: disqus
+        enabled: false
+        provider: 
 
         disqusjs:
             shortname:
@@ -218,15 +203,15 @@ menu:
     social:
         - identifier: github
           name: GitHub
-          url: https://github.com/CaiJimmy/hugo-theme-stack
+          url: https://github.com/csc-ubc-okanagan
           params:
               icon: brand-github
 
-        - identifier: twitter
-          name: Twitter
-          url: https://twitter.com
+        - identifier: email
+          name: Email
+          url: csc.ok@ubc.ca
           params:
-              icon: brand-twitter
+              icon: brand-email
 
 related:
     includeNewer: true
