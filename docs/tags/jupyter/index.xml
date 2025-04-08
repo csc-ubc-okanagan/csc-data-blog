@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Jupyter on R &amp; Python Blog</title>
+        <link>http://localhost:4321/csc-blog-new/tags/jupyter/</link>
+        <description>Recent content in Jupyter on R &amp; Python Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
+        <lastBuildDate>Mon, 05 Jun 2023 18:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/jupyter/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Jupyter Notebook</title>
+        <link>http://localhost:4321/csc-blog-new/p/jupyter-notebook/</link>
+        <pubDate>Mon, 05 Jun 2023 18:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/p/jupyter-notebook/</guid>
+        <description>&lt;p&gt;Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python. You can even use both R and Python within the same document.&lt;/p&gt;
+&lt;p&gt;Think of Python (or R) as the language you are writing in, and Jupyter as the pen and pencil. This is how Python and Jupyter are used together.&lt;/p&gt;
+&lt;h3 id=&#34;note&#34;&gt;Note:
+&lt;/h3&gt;&lt;p&gt;There are many different IDEs (integrated development environment) for Python. To name a few, Programiz, Atom, Visual Studio Code, Spyder, and many more. If a Jupyter install is causing trouble, or if you do not like the interface and want something similar to R Studio, Spyder is a good option because it is a very familiar interface for R Studio users. Programiz is also great because it doesn&amp;rsquo;t require an install.&lt;/p&gt;
+&lt;h2 id=&#34;syzygy&#34;&gt;Syzygy
+&lt;/h2&gt;&lt;p&gt;Syzygy (pronunciation up for debate) is a great way to use Jupyter without having to download it to your local computer. However, it does require your UBC login to use. It also can access your local files as well as UBC OneDrive files. To use, simply follow this &lt;a class=&#34;link&#34; href=&#34;https://ubc.syzygy.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;, click the sign on button in the top right, and use your UBC login to sign in. You will be able to creat files, view existing files, and enjoy all of the functionalities that Jupyter has to offer.&lt;/p&gt;
+&lt;h2 id=&#34;downloading-jupyter&#34;&gt;Downloading Jupyter
+&lt;/h2&gt;&lt;p&gt;If you prefer to download Jupyter, it can be done with Anaconda. This &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=WUeBzT43JyY&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;video&lt;/a&gt; is a great resource explaining how to download both Jupyter and Anaconda, as well as how to get started using Jupyter.&lt;/p&gt;
+&lt;p&gt;Alternatively, you can follow the instructions on this &lt;a class=&#34;link&#34; href=&#34;https://www.codecademy.com/article/setting-up-jupyter-notebook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;webpage&lt;/a&gt; to do the same install. Note that it has slightly different instructions for Windows and Mac users.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
