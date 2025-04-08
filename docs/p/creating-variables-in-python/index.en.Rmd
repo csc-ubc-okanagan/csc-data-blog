@@ -4,6 +4,10 @@ author: ["Madison"]
 date: 2023-06-20 09:00:00 -0800
 categories: ["Python", "P_Data"]
 tags: ["python"] # tags always lowercase
+author: Madison
+output: 
+  html_document:
+    keep_md: TRUE
 editor_options: 
   chunk_output_type: console
 ---
