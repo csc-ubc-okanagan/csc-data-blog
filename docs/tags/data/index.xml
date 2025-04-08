@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Data on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-blog-new/tags/data/</link>
+        <link>http://localhost:4321/csc-data-blog/tags/data/</link>
         <description>Recent content in Data on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Mon, 05 Jun 2023 11:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/data/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 05 Jun 2023 11:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/data/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Reading Data in Python</title>
-        <link>http://localhost:4321/csc-blog-new/p/reading-data-in-python/</link>
+        <link>http://localhost:4321/csc-data-blog/p/reading-data-in-python/</link>
         <pubDate>Mon, 05 Jun 2023 11:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/reading-data-in-python/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/reading-data-in-python/</guid>
         <description>&lt;h2 id=&#34;csv-file&#34;&gt;CSV File
 &lt;/h2&gt;&lt;p&gt;Using the Pandas library, it is very easy to open a CSV file using Python. Simply import the package, and then use the line &lt;code&gt;pd.read_csv()&lt;/code&gt;. See this example below:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

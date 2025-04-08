@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-blog-new/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-blog-new/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Matplotlib is a standard package used in Python for plotting. This is a basic plotting package, but does have limitations.\nIf you are familiar with R, you may have used ggplot2 before. In Python, the equivalent package would be Altair. We will take a look at some basic Altair plotting tools.\nLet’s switch things up now and use a different data set to visualize. Like R, Python has a few built-in data sets. A popular R dataset, iris, can also be found in Python. Let’s load the iris data set here.\n">
 <title>Visualizing with Altair in Python</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-blog-new/p/visualizing-with-altair-in-python/'>
+<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/'>
 
-<link rel="stylesheet" href="/csc-blog-new/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Visualizing with Altair in Python">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Visualizing with Altair in Python">
 <meta property='og:description' content="Matplotlib is a standard package used in Python for plotting. This is a basic plotting package, but does have limitations.\nIf you are familiar with R, you may have used ggplot2 before. In Python, the equivalent package would be Altair. We will take a look at some basic Altair plotting tools.\nLet’s switch things up now and use a different data set to visualize. Like R, Python has a few built-in data sets. A popular R dataset, iris, can also be found in Python. Let’s load the iris data set here.\n">
-<meta property='og:url' content='http://localhost:4321/csc-blog-new/p/visualizing-with-altair-in-python/'>
+<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2023-06-15T09:00:00-08:00'/><meta property='article:modified_time' content='2023-06-15T09:00:00-08:00'/>
 <meta name="twitter:title" content="Visualizing with Altair in Python">
@@ -64,13 +64,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/csc-blog-new/">
+                <a href="/csc-data-blog/">
                 
                     
                     
                     
                         
-                        <img src="/csc-blog-new/img/avatar_hu_365c3288643681d2.png" width="300"
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
                             height="303" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -81,7 +81,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/csc-blog-new">R &amp; Python Blog</a></h1>
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
             <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
         </div>
     </header><ol class="menu-social">
@@ -152,7 +152,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/' >
+            <a href='/csc-data-blog/' >
                 
                 
                 
@@ -172,7 +172,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/about/' >
+            <a href='/csc-data-blog/about/' >
                 
                 
                 
@@ -191,7 +191,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/archives/' >
+            <a href='/csc-data-blog/archives/' >
                 
                 
                 
@@ -211,7 +211,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/search/' >
+            <a href='/csc-data-blog/search/' >
                 
                 
                 
@@ -230,7 +230,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/links/' >
+            <a href='/csc-data-blog/links/' >
                 
                 
                 
@@ -286,11 +286,11 @@
     
     <header class="article-category">
         
-            <a href="/csc-blog-new/categories/python/" >
+            <a href="/csc-data-blog/categories/python/" >
                 Python
             </a>
         
-            <a href="/csc-blog-new/categories/p_visualization/" >
+            <a href="/csc-data-blog/categories/p_visualization/" >
                 P_Visualization
             </a>
         
@@ -299,7 +299,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/csc-blog-new/p/visualizing-with-altair-in-python/">Visualizing with Altair in Python</a>
+            <a href="/csc-data-blog/p/visualizing-with-altair-in-python/">Visualizing with Altair in Python</a>
         </h2>
     
         
@@ -396,10 +396,10 @@
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;Sepal.Length&#39;</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;Sepal.Width&#39;</span><span class="p">])</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-1.png"
+</div><p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1.png"
 	width="672"
 	height="480"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_8965a6352949dbb0.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_cf3d97e0bf3f3dcb.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_8965a6352949dbb0.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_cf3d97e0bf3f3dcb.png 1024w"
 	loading="lazy"
 	
 	
@@ -419,10 +419,10 @@
 </span></span><span class="line"><span class="cl"><span class="n">new_data</span><span class="o">.</span><span class="n">boxplot</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-2.png"
+</div><p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2.png"
 	width="672"
 	height="480"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_de91657534bd0924.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_f8740278c98dce0.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_de91657534bd0924.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_f8740278c98dce0.png 1024w"
 	loading="lazy"
 	
 	
@@ -446,10 +446,10 @@
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;Values&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-3.png"
+</div><p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3.png"
 	width="672"
 	height="480"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_f93da701f86fe6a7.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_beac72ad1edac27d.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_f93da701f86fe6a7.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_beac72ad1edac27d.png 1024w"
 	loading="lazy"
 	
 	
@@ -566,10 +566,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-1.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1.png"
 	width="727"
 	height="532"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-1_hu_1874d2bc01d2ac2f.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-1_hu_1938496062bff387.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1874d2bc01d2ac2f.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1938496062bff387.png 1024w"
 	loading="lazy"
 	
 	
@@ -634,10 +634,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-2.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2.png"
 	width="811"
 	height="546"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-2_hu_84db04d5cc781b58.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-2_hu_8441e27a842f27ba.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_84db04d5cc781b58.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_8441e27a842f27ba.png 1024w"
 	loading="lazy"
 	
 	
@@ -705,10 +705,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-3.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3.png"
 	width="799"
 	height="547"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-3_hu_fce32b199e2908cd.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-3_hu_7c58be6de9ca5c5f.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_fce32b199e2908cd.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_7c58be6de9ca5c5f.png 1024w"
 	loading="lazy"
 	
 	
@@ -777,10 +777,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-4.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4.png"
 	width="805"
 	height="550"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-4_hu_deddf48cc9791f41.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-4_hu_348931b8f31186f8.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_deddf48cc9791f41.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_348931b8f31186f8.png 1024w"
 	loading="lazy"
 	
 	
@@ -850,10 +850,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-5.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5.png"
 	width="801"
 	height="543"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-5_hu_ca4b3be62cc78a74.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-5_hu_b53ef2bf4377d833.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_ca4b3be62cc78a74.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_b53ef2bf4377d833.png 1024w"
 	loading="lazy"
 	
 	
@@ -922,10 +922,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-6.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6.png"
 	width="799"
 	height="546"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-6_hu_dc24295bc16b5242.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-6_hu_a0ea4b3cc32a89f.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_dc24295bc16b5242.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_a0ea4b3cc32a89f.png 1024w"
 	loading="lazy"
 	
 	
@@ -995,10 +995,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-7.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7.png"
 	width="826"
 	height="550"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-7_hu_393caf51f4eb1bcd.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-7_hu_983b4f02ea5c3b69.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_393caf51f4eb1bcd.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_983b4f02ea5c3b69.png 1024w"
 	loading="lazy"
 	
 	
@@ -1065,10 +1065,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-8.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8.png"
 	width="810"
 	height="550"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-8_hu_42c636a426cd9b9b.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-8_hu_bf2bd73b2d68c601.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_42c636a426cd9b9b.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_bf2bd73b2d68c601.png 1024w"
 	loading="lazy"
 	
 	
@@ -1149,10 +1149,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-9.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9.png"
 	width="535"
 	height="370"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-9_hu_5c4803576fe1c9d4.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-9_hu_2494b2f3b59cd176.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_5c4803576fe1c9d4.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_2494b2f3b59cd176.png 1024w"
 	loading="lazy"
 	
 	
@@ -1224,10 +1224,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-10.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10.png"
 	width="727"
 	height="579"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-10_hu_59d20a59e8f45c15.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-10_hu_fa9c1abc3dff7955.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_59d20a59e8f45c15.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_fa9c1abc3dff7955.png 1024w"
 	loading="lazy"
 	
 	
@@ -1294,10 +1294,10 @@
 &#10;  </script>
 </body>
 </html>
-<p><img src="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-11.png"
+<p><img src="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11.png"
 	width="811"
 	height="583"
-	srcset="/csc-blog-new/p/visualizing-with-altair-in-python/images/altair-11_hu_6a49397665201850.png 480w, /csc-blog-new/p/visualizing-with-altair-in-python/images/altair-11_hu_e0d254e93f982df9.png 1024w"
+	srcset="/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_6a49397665201850.png 480w, /csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_e0d254e93f982df9.png 1024w"
 	loading="lazy"
 	
 	
@@ -1319,7 +1319,7 @@
     
     <section class="article-tags">
         
-            <a href="/csc-blog-new/tags/python/">Python</a>
+            <a href="/csc-data-blog/tags/python/">Python</a>
         
     </section>
 
@@ -1341,7 +1341,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/basic-visualizations-in-python/">
+    <a href="/csc-data-blog/p/basic-visualizations-in-python/">
         
         
 
@@ -1354,7 +1354,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/sample-data-generation/">
+    <a href="/csc-data-blog/p/sample-data-generation/">
         
         
 
@@ -1367,7 +1367,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/python-vs-r-how-to-decide/">
+    <a href="/csc-data-blog/p/python-vs-r-how-to-decide/">
         
         
 
@@ -1380,7 +1380,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/">
+    <a href="/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/">
         
         
 
@@ -1393,7 +1393,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/subsetting-in-python/">
+    <a href="/csc-data-blog/p/subsetting-in-python/">
         
         
 
@@ -1513,7 +1513,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/csc-blog-new/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

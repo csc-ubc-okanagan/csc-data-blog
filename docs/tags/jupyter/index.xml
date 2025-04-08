@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Jupyter on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-blog-new/tags/jupyter/</link>
+        <link>http://localhost:4321/csc-data-blog/tags/jupyter/</link>
         <description>Recent content in Jupyter on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Mon, 05 Jun 2023 18:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/jupyter/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 05 Jun 2023 18:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/jupyter/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Jupyter Notebook</title>
-        <link>http://localhost:4321/csc-blog-new/p/jupyter-notebook/</link>
+        <link>http://localhost:4321/csc-data-blog/p/jupyter-notebook/</link>
         <pubDate>Mon, 05 Jun 2023 18:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/jupyter-notebook/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/jupyter-notebook/</guid>
         <description>&lt;p&gt;Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python. You can even use both R and Python within the same document.&lt;/p&gt;
 &lt;p&gt;Think of Python (or R) as the language you are writing in, and Jupyter as the pen and pencil. This is how Python and Jupyter are used together.&lt;/p&gt;
 &lt;h3 id=&#34;note&#34;&gt;Note:

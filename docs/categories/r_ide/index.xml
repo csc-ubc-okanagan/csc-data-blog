@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>R_IDE on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-blog-new/categories/r_ide/</link>
+        <link>http://localhost:4321/csc-data-blog/categories/r_ide/</link>
         <description>Recent content in R_IDE on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Sat, 11 Feb 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/categories/r_ide/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 11 Feb 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/categories/r_ide/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Changing the RStudio Theme</title>
-        <link>http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/</link>
+        <link>http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/</link>
         <pubDate>Sat, 11 Feb 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/</guid>
         <description>&lt;p&gt;Color schemes are a matter of preference, but I think many of us can agree that RStudio&amp;rsquo;s default theme is quite bright and low-contrast. Fortunately, RStudio offers some alternative themes, which you can see by clicking on &lt;code&gt;Tools &amp;gt; Global Options&lt;/code&gt; in the top ribbon menu in RStudio. You can then select &lt;code&gt;Appearance&lt;/code&gt; and change the Editor theme.&lt;/p&gt;
 &lt;p&gt;Of the default themes, the Cobalt theme is my preferred one, but I find some of the colors to be too similar (such as the white for general text and the light blue used for headings in &lt;code&gt;R&lt;/code&gt; Markdown documents). You can find the custom theme I use &lt;a class=&#34;link&#34; href=&#34;https://github.com/StefanoMezzini/misc/blob/main/Black%20Rmd.rstheme&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;on my GitHub page&lt;/a&gt;. To add use this theme, go to &lt;code&gt;Tools &amp;gt; Global Options&lt;/code&gt;, then select &lt;code&gt;Appearance&lt;/code&gt;, and click on &lt;code&gt;Add&lt;/code&gt;. Finally, select the &lt;code&gt;Black Rmd.rstheme&lt;/code&gt; file, and click on &lt;code&gt;Open&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/images/dark-theme-example.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example.png&#34;
 	width=&#34;3840&#34;
 	height=&#34;2160&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/images/dark-theme-example_hu_2c0157ae4fbf88ed.png 480w, http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/images/dark-theme-example_hu_565393bd374aed2e.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example_hu_2c0157ae4fbf88ed.png 480w, http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example_hu_565393bd374aed2e.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

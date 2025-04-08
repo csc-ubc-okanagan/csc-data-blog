@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-blog-new/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-blog-new/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" The default color palettes ggplot2 provides are generally good enough for a quick check, but they are overused and do not have very high contrast:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 library(&#39;ggplot2&#39;) # for fancy figures library(&#39;khroma&#39;) # for fancy palettes library(&#39;cowplot&#39;) # for fancy multi-panel figures library(&#39;colorspace&#39;) # required by colorblindr library(&#39;colorblindr&#39;) # to simulate colorblind vision theme_set(theme_bw()) # change default ggplot theme p &lt;- ggplot(mtcars, aes(disp, mpg, color = factor(carb))) + geom_point() + labs(x = &#39;Displacement (cubic inches)&#39;, y = &#39;Miles per gallon (US)&#39;, color = &#39;Carburetors&#39;) p Additionally, they are not colorblind-friendly:\n">
 <title>Making Colorblind-Friendly Figures</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-blog-new/p/making-colorblind-friendly-figures/'>
+<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/making-colorblind-friendly-figures/'>
 
-<link rel="stylesheet" href="/csc-blog-new/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Making Colorblind-Friendly Figures">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Making Colorblind-Friendly Figures">
 <meta property='og:description' content=" The default color palettes ggplot2 provides are generally good enough for a quick check, but they are overused and do not have very high contrast:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 library(&#39;ggplot2&#39;) # for fancy figures library(&#39;khroma&#39;) # for fancy palettes library(&#39;cowplot&#39;) # for fancy multi-panel figures library(&#39;colorspace&#39;) # required by colorblindr library(&#39;colorblindr&#39;) # to simulate colorblind vision theme_set(theme_bw()) # change default ggplot theme p &lt;- ggplot(mtcars, aes(disp, mpg, color = factor(carb))) + geom_point() + labs(x = &#39;Displacement (cubic inches)&#39;, y = &#39;Miles per gallon (US)&#39;, color = &#39;Carburetors&#39;) p Additionally, they are not colorblind-friendly:\n">
-<meta property='og:url' content='http://localhost:4321/csc-blog-new/p/making-colorblind-friendly-figures/'>
+<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/making-colorblind-friendly-figures/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R' /><meta property='article:tag' content='figures' /><meta property='article:tag' content='ggplot' /><meta property='article:tag' content='colorblind' /><meta property='article:published_time' content='2023-02-11T10:00:00-08:00'/><meta property='article:modified_time' content='2023-02-11T10:00:00-08:00'/>
 <meta name="twitter:title" content="Making Colorblind-Friendly Figures">
@@ -64,13 +64,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/csc-blog-new/">
+                <a href="/csc-data-blog/">
                 
                     
                     
                     
                         
-                        <img src="/csc-blog-new/img/avatar_hu_365c3288643681d2.png" width="300"
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
                             height="303" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -81,7 +81,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/csc-blog-new">R &amp; Python Blog</a></h1>
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
             <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
         </div>
     </header><ol class="menu-social">
@@ -152,7 +152,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/' >
+            <a href='/csc-data-blog/' >
                 
                 
                 
@@ -172,7 +172,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/about/' >
+            <a href='/csc-data-blog/about/' >
                 
                 
                 
@@ -191,7 +191,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/archives/' >
+            <a href='/csc-data-blog/archives/' >
                 
                 
                 
@@ -211,7 +211,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/search/' >
+            <a href='/csc-data-blog/search/' >
                 
                 
                 
@@ -230,7 +230,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/links/' >
+            <a href='/csc-data-blog/links/' >
                 
                 
                 
@@ -322,11 +322,11 @@
     
     <header class="article-category">
         
-            <a href="/csc-blog-new/categories/r/" >
+            <a href="/csc-data-blog/categories/r/" >
                 R
             </a>
         
-            <a href="/csc-blog-new/categories/r_visualization/" >
+            <a href="/csc-data-blog/categories/r_visualization/" >
                 R_Visualization
             </a>
         
@@ -335,7 +335,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/csc-blog-new/p/making-colorblind-friendly-figures/">Making Colorblind-Friendly Figures</a>
+            <a href="/csc-data-blog/p/making-colorblind-friendly-figures/">Making Colorblind-Friendly Figures</a>
         </h2>
     
         
@@ -426,7 +426,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">p</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 <p>Additionally, they are not colorblind-friendly:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -436,7 +436,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">cvd_grid</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 <p>While <code>ggplot2</code> offers additional color palettes with more contrast, many of them are still not colorblind-friendly:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -446,7 +446,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">+</span> <span class="nf">scale_color_brewer</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="s">&#39;qual&#39;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="m">6</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -455,7 +455,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">cvd_grid</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="nf">scale_color_brewer</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="s">&#39;qual&#39;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="m">6</span><span class="p">))</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-3-2.png" width="672" />
 <p>And while the <code>viridis</code> palette (from the <code>viridisLite</code> package and included in the <code>ggplot2</code> package) can be a good option for continuous palettes, it can still be hard to distinguish between colors in qualitative palettes:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -465,7 +465,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">+</span> <span class="nf">scale_color_viridis_d</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -474,7 +474,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">cvd_grid</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="nf">scale_color_viridis_d</span><span class="p">())</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-4-2.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-4-2.png" width="672" />
 <p>The <code>khroma</code> package provides multiple high-contrast, colorblind-friendly palettes for qualitative, diverging and sequential data, based on the work of Paul Tol (<a class="link" href="https://personal.sron.nl/~pault/"  target="_blank" rel="noopener"
     >https://personal.sron.nl/~pault/</a>) and Fabio Crameri (<a class="link" href="https://www.fabiocrameri.ch/%29"  target="_blank" rel="noopener"
     >https://www.fabiocrameri.ch/)</a>.</p>
@@ -486,7 +486,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">+</span> <span class="n">khroma</span><span class="o">::</span><span class="nf">scale_color_bright</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -495,7 +495,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">cvd_grid</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="nf">scale_color_bright</span><span class="p">())</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-5-2.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-5-2.png" width="672" />
 <p>However, it is best to also use different shapes (in addition to different colors), when possible, to ensure people are able to distinguish between each legend item (which can be difficult with many colors &ndash; compare colors for 3 and 8 for deutan and protan versions, as well as the desaturated version). We can do this by specifying the <code>shape</code> argument. Note that we also need to change the name of the shape legend to ensure we get a single legend:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -515,7 +515,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">p_sh</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -524,13 +524,13 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">cvd_grid</span><span class="p">(</span><span class="n">p_sh</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-blog-new/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-6-2.png" width="672" />
+</div><img src="/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-6-2.png" width="672" />
 <h3 id="continuous-vs-discrete-khroma-color-palettes">Continuous vs discrete <code>khroma</code> color palettes
 </h3><p>Unlike with the <code>ggplot</code> functions for color palettes, the <code>khroma</code> function names do not specify whether the function will produce a continuous or discrete color palette. To avoid confusion, you can type <code>khroma::scale_color_</code> and press <code>Tab</code> to see what functions the package offers, and a helpful window should show up beside the function suggestion:</p>
-<p><img src="/csc-blog-new/p/making-colorblind-friendly-figures/images/khroma-function-help.png"
+<p><img src="/csc-data-blog/p/making-colorblind-friendly-figures/images/khroma-function-help.png"
 	width="1349"
 	height="323"
-	srcset="/csc-blog-new/p/making-colorblind-friendly-figures/images/khroma-function-help_hu_b72756982453879.png 480w, /csc-blog-new/p/making-colorblind-friendly-figures/images/khroma-function-help_hu_c47156ce2a155c34.png 1024w"
+	srcset="/csc-data-blog/p/making-colorblind-friendly-figures/images/khroma-function-help_hu_b72756982453879.png 480w, /csc-data-blog/p/making-colorblind-friendly-figures/images/khroma-function-help_hu_c47156ce2a155c34.png 1024w"
 	loading="lazy"
 	
 	
@@ -566,13 +566,13 @@
     
     <section class="article-tags">
         
-            <a href="/csc-blog-new/tags/r/">R</a>
+            <a href="/csc-data-blog/tags/r/">R</a>
         
-            <a href="/csc-blog-new/tags/figures/">Figures</a>
+            <a href="/csc-data-blog/tags/figures/">Figures</a>
         
-            <a href="/csc-blog-new/tags/ggplot/">Ggplot</a>
+            <a href="/csc-data-blog/tags/ggplot/">Ggplot</a>
         
-            <a href="/csc-blog-new/tags/colorblind/">Colorblind</a>
+            <a href="/csc-data-blog/tags/colorblind/">Colorblind</a>
         
     </section>
 
@@ -594,7 +594,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/abacus-api/">
+    <a href="/csc-data-blog/p/abacus-api/">
         
         
 
@@ -607,7 +607,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/transforming-data/">
+    <a href="/csc-data-blog/p/transforming-data/">
         
         
 
@@ -620,7 +620,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/sample-data-generation/">
+    <a href="/csc-data-blog/p/sample-data-generation/">
         
         
 
@@ -633,7 +633,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/basic-model-fitting-in-r/">
+    <a href="/csc-data-blog/p/basic-model-fitting-in-r/">
         
         
 
@@ -646,7 +646,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/creating-variables-in-r/">
+    <a href="/csc-data-blog/p/creating-variables-in-r/">
         
         
 
@@ -766,7 +766,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/csc-blog-new/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

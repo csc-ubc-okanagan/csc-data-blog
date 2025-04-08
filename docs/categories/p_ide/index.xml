@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>P_IDE on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-blog-new/categories/p_ide/</link>
+        <link>http://localhost:4321/csc-data-blog/categories/p_ide/</link>
         <description>Recent content in P_IDE on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Wed, 26 Jul 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/categories/p_ide/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 26 Jul 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/categories/p_ide/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Using Python in RStudio with Reticulate Package</title>
-        <link>http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/</link>
+        <link>http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</link>
         <pubDate>Wed, 26 Jul 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</guid>
         <description>&lt;p&gt;As we know, Jupyter Notebook can be used easily with our UBC login information via &lt;a class=&#34;link&#34; href=&#34;https://ubc.syzygy.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Syzygy&lt;/a&gt;. Jupyter Notebook can also be downloaded to a computer and used via Anaconda. There are many different interfaces that allow us to use Python. One of the more interesting ones to note is actually RStudio. There is a package in R called &lt;em&gt;reticulate&lt;/em&gt; that allows us to create an RMarkdown file and use both R and Python code chunks within the same file. This is actually how this blog is able to show both R and Python content! Let&amp;rsquo;s get started on how &lt;em&gt;reticulate&lt;/em&gt; is used in RStudio to include Python code.&lt;/p&gt;
 &lt;h2 id=&#34;installation&#34;&gt;Installation
@@ -41,10 +41,10 @@
 &lt;/div&gt;&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started
 &lt;/h1&gt;&lt;p&gt;Now that the &lt;em&gt;reticulate&lt;/em&gt; package has been installed, we can start using Python within an RMarkdown document.&lt;/p&gt;
 &lt;p&gt;Once an RMarkdown file has been started, create a new code block. Note that on a Windows, a shortcut for adding a new code block is Ctrl+alt+i. Once a new code block appears, it should look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
 	width=&#34;361&#34;
 	height=&#34;67&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -54,10 +54,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;If you were to type code here, it would be in R. To change it to Python, simply replace the &amp;lsquo;r&amp;rsquo; with &amp;lsquo;python&amp;rsquo;. Then it will look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
 	width=&#34;409&#34;
 	height=&#34;58&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -69,10 +69,10 @@
 &lt;p&gt;Now, the console below will change to show Python code once something in this block is run. You can easily switch back and forth between R and Python from code chunk to code chunk.&lt;/p&gt;
 &lt;p&gt;You can also see your saved variables in the environment, separated between R and Python. Note that when you do something such as import a dataset, if you wanted to perform manipulations on the dataset in both R and Python, you will have to load the dataset in using both R and Python, and it will create separate variables which do not override each other. They will stay speparate in the environment.&lt;/p&gt;
 &lt;p&gt;To change between R and Python environments, go to the Environment window and click the dropdown arrow. It should look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
 	width=&#34;654&#34;
 	height=&#34;597&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -87,10 +87,10 @@
         </item>
         <item>
         <title>Jupyter Notebook</title>
-        <link>http://localhost:4321/csc-blog-new/p/jupyter-notebook/</link>
+        <link>http://localhost:4321/csc-data-blog/p/jupyter-notebook/</link>
         <pubDate>Mon, 05 Jun 2023 18:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/jupyter-notebook/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/jupyter-notebook/</guid>
         <description>&lt;p&gt;Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python. You can even use both R and Python within the same document.&lt;/p&gt;
 &lt;p&gt;Think of Python (or R) as the language you are writing in, and Jupyter as the pen and pencil. This is how Python and Jupyter are used together.&lt;/p&gt;
 &lt;h3 id=&#34;note&#34;&gt;Note:

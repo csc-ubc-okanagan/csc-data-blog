@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Rstudio on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-blog-new/tags/rstudio/</link>
+        <link>http://localhost:4321/csc-data-blog/tags/rstudio/</link>
         <description>Recent content in Rstudio on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Fri, 14 Feb 2025 14:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/rstudio/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 14 Feb 2025 14:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/rstudio/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Abacus API</title>
-        <link>http://localhost:4321/csc-blog-new/p/abacus-api/</link>
+        <link>http://localhost:4321/csc-data-blog/p/abacus-api/</link>
         <pubDate>Fri, 14 Feb 2025 14:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/abacus-api/</guid>
-        <description>&lt;script src=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-blog-new/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+        <guid>http://localhost:4321/csc-data-blog/p/abacus-api/</guid>
+        <description>&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
 &lt;h2 id=&#34;definitions&#34;&gt;Definitions
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;API&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;An application programming interface (API) is a formalized way of interacting with another piece of hardware or software without needing to know how that hardware or software actually works. As such, it is a convenient method of making requests to get, update, or push information between your system and the remote system. As a loose analogy, you can think of this as a menu in a resuraunt; you don&amp;rsquo;t need to know how the kitchen makes your food, but you need to know what you can ask for from your server. When you want scrambled eggs, you don&amp;rsquo;t need to go into the kitchen and make these from scratch, you simply put in a request based on the options on the menu.&lt;/p&gt;
@@ -1416,10 +1416,10 @@ b) performing that request, which results in some data being sent back to us.&lt
         </item>
         <item>
         <title>Transforming data</title>
-        <link>http://localhost:4321/csc-blog-new/p/transforming-data/</link>
+        <link>http://localhost:4321/csc-data-blog/p/transforming-data/</link>
         <pubDate>Mon, 07 Oct 2024 14:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/transforming-data/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/transforming-data/</guid>
         <description>&lt;!-- This blog covers data transformations in `R`. If you use `Python`, see [this post](needs-a-url). --&gt;
 &lt;h2 id=&#34;transforming-response-variables&#34;&gt;Transforming response variables
 &lt;/h2&gt;&lt;p&gt;Data transformations are often taught in introductory quantitative and statistics courses as methods for dealing with non-Gaussian (i.e., not normal) data, whether it be bounded (e.g, strictly positive) or skewed (&lt;a class=&#34;link&#34; href=&#34;https://ubco-biology.github.io/BIOL202/transform.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1481,7 +1481,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nf&#34;&gt;labs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;Accidents per month&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;Count&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;\linewidth&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;\linewidth&#34; /&gt;
 &lt;p&gt;The distribution of the number of monthly accidents is clearly non-Gaussian both before and after the intervention. (&lt;em&gt;Also note that the number of accidents cannot be negative.&lt;/em&gt;) Still, let&amp;rsquo;s fit a linear model to estimate the mean number of accidents in each period. In this post I use the &lt;code&gt;mgcv::gam()&lt;/code&gt; function to fit all models for consistency and convenience, but note that you could also use the &lt;code&gt;stats::lm()&lt;/code&gt; and &lt;code&gt;stats::glm()&lt;/code&gt; functions, too. After fitting the model, we can look at the estimated change in mean accidents and appraise the model using diagnostic plots.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1512,7 +1512,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;appraise&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;point_alpha&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0.3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;\linewidth&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;\linewidth&#34; /&gt;
 &lt;p&gt;Those who are used to looking at these plots may recognize two issues: (1) the residuals are not Gaussian (see the q-q plot and the histogram, in the left column), and (2) the variance in the observed values is lower when the predicted mean (linear predictor and fitted values) is lower. One may then decide to log-transform the number of accidents, after adding a small value to avoid taking the log of zero (since &lt;code&gt;\(\log(0) = - \infty\)&lt;/code&gt;).&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1576,7 +1576,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;appraise&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m_2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;point_alpha&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0.3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;\linewidth&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;\linewidth&#34; /&gt;
 &lt;p&gt;The &lt;code&gt;log1p&lt;/code&gt; transformation resulted in a somewhat more symmetrical distribution of residuals, and the mode of the distribution is closer to zero, and improved the issue of non-constant variance (heteroskedasticity). The coefficients are also harder to interpret because they are on the &lt;code&gt;log1p&lt;/code&gt; scale, since the model is &lt;code&gt;$$\log(Y+1)=0.86 - 0.60 \,x_1.$$&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Rather than forcing our response variable to be Gaussian when it isn&amp;rsquo;t (see &lt;a class=&#34;link&#34; href=&#34;https://events.ok.ubc.ca/event/fitting-models-to-data-not-data-to-models-eight-workshop-series/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;this modeling workshop&lt;/a&gt; I created with the CSC), we can fit a model that fits our data well: a Generalized Linear Model (GLM). GLMs allow one to recognize the structure of the response variable (e.g., any bounds and the mean-variance relationship) by specifying an appropriate statistical distribution (e.g., Gaussian, binomial, etc.).&lt;/p&gt;
@@ -1609,7 +1609,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;appraise&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m_3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;point_alpha&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0.3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;\linewidth&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;\linewidth&#34; /&gt;
 &lt;p&gt;The output from &lt;code&gt;coef()&lt;/code&gt; tells us that the GLM is &lt;code&gt;$$\lambda = e{0.51-1.39\,x_1}.$$&lt;/code&gt; This means that after the intervention, the number of accidents decreased to &lt;code&gt;\(e^-1.39 * 100%= 0.25%\)&lt;/code&gt; what they were in the 12 months before.&lt;/p&gt;
 &lt;p&gt;With the GLM, we can see a improvement in both the q-q plot and histogram of residuals, and while the variance still increases with the mean number of accidents, the model now expects that to be the case. This is because the variance of a Poisson distributions is equal to its mean, both of which are usually indicated as &lt;code&gt;\(\lambda\)&lt;/code&gt; rather than &lt;code&gt;\(\lambda\)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;\(\log\)&lt;/code&gt; link function (&lt;code&gt;link = &#39;log&#39;&lt;/code&gt;) allows us to create a model that will only give us non-negative numbers of accidents by having the form &lt;code&gt;$$\log(\lambda) = 0.51-1.39 \, x_1,$$&lt;/code&gt; which we can re-write as &lt;code&gt;$$\lambda = e^{ 0.51-1.39 \, x_1}.$$&lt;/code&gt; Notice that while this model may look similar to the &lt;code&gt;log1p&lt;/code&gt; model, the &lt;code&gt;\(\log\)&lt;/code&gt; function is applied to &lt;code&gt;\(\lambda\)&lt;/code&gt;, the mean of &lt;code&gt;\(Y\)&lt;/code&gt;, rather than to &lt;code&gt;\(Y\)&lt;/code&gt; directly. This is important because it removes the systematic bias that results from applying non-linear transformations such as &lt;code&gt;\(\log(Y)\)&lt;/code&gt;, &lt;code&gt;\(\sqrt{Y}\)&lt;/code&gt;, and &lt;code&gt;\(\arcsin\left(\sqrt{Y}\right)\)&lt;/code&gt; to a random variable. Now that we have three models, let&amp;rsquo;s compare between the predictions that the tree give us:&lt;/p&gt;
@@ -1699,7 +1699,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;khroma&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;scale_color_highcontrast&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;Model&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;\linewidth&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;\linewidth&#34; /&gt;
 &lt;p&gt;From the plot above, we can see that the LM and GLM have fairly similar coefficient estimates and that the &lt;code&gt;log1p&lt;/code&gt; LM resulted in lower estimates for both. This is due to a systematic bias that occurs when one applies a nonlinear transformation to a random variable, like &lt;code&gt;\(\log(Y)\)&lt;/code&gt;. I explain why in the sections below. Additionally, while the LM&amp;rsquo;s coefficients are reasonable, the 95% &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Credible_interval&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bayesian Credible Intervals&lt;/a&gt; (BCIs) for the post-intervention estimate are not appropriate because they include negative values. In contrast, the GLM&amp;rsquo;s BCIs are asymmetric: they are shorter below the mean and longer above the mean. This is recognizes that a multiplicative change for large values is larger than one for small values: a 50% decrease will take 2 to 1 and take 4 to 2. Consequently, asymmetric BCIs provide a better representation of the model&amp;rsquo;s uncertainty.&lt;/p&gt;
 &lt;h2 id=&#34;linear-and-nonlinear-transformations&#34;&gt;Linear and nonlinear transformations
@@ -1714,7 +1714,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;ggplot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;geom_line&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;aes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Y&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;\linewidth&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;\linewidth&#34; /&gt;
 &lt;p&gt;Conversely, nonlinear transformations are all transformations that cannot be written using only addition, subtraction, multiplications, or division. If we were to plot any of these functions, we would see a nonlinear relationship between the original and transformed values:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1760,7 +1760,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## ! NaNs produced
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;\linewidth&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;\linewidth&#34; /&gt;
 &lt;h3 id=&#34;jensens-inequality&#34;&gt;Jensen&amp;rsquo;s inequality
 &lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Jensen%27s_inequality&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Jensen&amp;rsquo;s inequality&lt;/a&gt; demostrates that if we apply a nonlinear transformation to a random variable, we can&amp;rsquo;t simply back-transform the mean. This is because, if &lt;code&gt;\(g()\)&lt;/code&gt; is a nonlinear transformation and &lt;code&gt;\(g^{-1}()\)&lt;/code&gt; is its inverse (e.g, &lt;code&gt;\(g() = \log()\)&lt;/code&gt; and &lt;code&gt;\(g^{-1}()=\exp()\)&lt;/code&gt;): &lt;code&gt;$$g\big[\mathbb E(Y)\big] \ne \mathbb E\big[g(Y)\big],$$&lt;/code&gt; where &lt;code&gt;\(\mathbb E()\)&lt;/code&gt; indicates an expected value such that &lt;code&gt;\(\mathbb E(Y)=\mu\)&lt;/code&gt;. This implies that &lt;code&gt;$$\mathbb E(Y) = \mu \ne g^{-1}\bigg\{\mathbb E\big[g(Y)\big]\bigg\}.$$&lt;/code&gt;&lt;/p&gt;
@@ -1819,7 +1819,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;yparams&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bins&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;\linewidth&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;\linewidth&#34; /&gt;
 &lt;p&gt;However, note that the transformations only cause bias if applied to random variables. You can apply nonlinear transformations to predictor variables that you assume are measured exactly right. This means that fitting a model of the form &lt;code&gt;\(Y = \beta_0 + \beta_1 \log(x_1)\)&lt;/code&gt; will not cause issues if you assume &lt;code&gt;\(x_1\)&lt;/code&gt; is exactly correct with no error (as we often assume). Applying nonlinear transformations on predictors can be useful when a predictor has a distribution with a very long tail, or if one wants to create a variable with diminishing effects (e.g., moving closer to something matters more when you&amp;rsquo;re close and less when you&amp;rsquo;re already far from it). I will make a blog post on this in the future.&lt;/p&gt;
 &lt;h2 id=&#34;references&#34;&gt;References
 &lt;/h2&gt;&lt;p&gt;Whitlock M. &amp;amp; Schluter D. (2020). Analysis of biological data, Third edition. Macmillan Learning, New York, NY.&lt;/p&gt;
@@ -1827,10 +1827,10 @@ b) performing that request, which results in some data being sent back to us.&lt
         </item>
         <item>
         <title>Getting started with GitHub</title>
-        <link>http://localhost:4321/csc-blog-new/p/getting-started-with-github/</link>
+        <link>http://localhost:4321/csc-data-blog/p/getting-started-with-github/</link>
         <pubDate>Mon, 16 Sep 2024 12:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/getting-started-with-github/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/getting-started-with-github/</guid>
         <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;GitHub&lt;/a&gt; is a platform that allows you to store, share, and archive files. It is commonly used for in research to make files accessible, including code, data, models, and figures. Sharing code and data through platforms like GitHub helps make research more transparent, reproducible, and credible &lt;a class=&#34;link&#34; href=&#34;https://doi.org/10.1111/2041-210X.14108&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Braga et al. 2023&lt;/a&gt;. In this blog post, I will show you how to create your first GitHub repository (&amp;ldquo;repo&amp;rdquo; for short), how to set up a convenient folder structure, and how to push (i.e., upload) and pull (i.e., download) content to and from the repo. The &lt;a class=&#34;link&#34; href=&#34;https://csc-ubc-okanagan.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1841,10 +1841,10 @@ b) performing that request, which results in some data being sent back to us.&lt
     &gt;GitHub Desktop&lt;/a&gt; from &lt;a class=&#34;link&#34; href=&#34;https://desktop.github.com/download/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://desktop.github.com/download/&lt;/a&gt;. While it installs, make an account on &lt;a class=&#34;link&#34; href=&#34;github.com&#34; &gt;github.com&lt;/a&gt; if you don&amp;rsquo;t have one already.&lt;/p&gt;
 &lt;p&gt;To make your first repo, go to &lt;code&gt;File/New repository&lt;/code&gt; or press &lt;code&gt;Ctrl + N&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo.png&#34;
 	width=&#34;666&#34;
 	height=&#34;353&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo_hu_e7bf180219c2b1b7.png 480w, http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo_hu_8be83f90981c8645.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_e7bf180219c2b1b7.png 480w, http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_8be83f90981c8645.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1854,10 +1854,10 @@ b) performing that request, which results in some data being sent back to us.&lt
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;Now choose your repo&amp;rsquo;s name. Something short and simple, like &lt;code&gt;my-first-repo&lt;/code&gt; works for now. If you want, you can also add a description of the repo&amp;rsquo;s contents and change the location of the local copy that GitHub Desktop will make. On my personal machine, I tend to save repos in &lt;code&gt;Documents/GitHub&lt;/code&gt;, but on my lab machine I save them in my UBC home drive: &lt;code&gt;H:/GitHub&lt;/code&gt;. If you are planning on working primarily with only one language (e.g., &lt;code&gt;R&lt;/code&gt; or &lt;code&gt;Python&lt;/code&gt;), I would suggest choosing the appropriate Git ignore. This will hide files that you generally don&amp;rsquo;t want to push to GitHub (e.g., &lt;code&gt;.Rhistory&lt;/code&gt; and &lt;code&gt;.RData&lt;/code&gt; files). You can change the &lt;code&gt;.gitignore&lt;/code&gt; files later with any text editor. The last step here is to choose a license. If you want a simple open-access licence for code, the MIT one is a good option.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo-options.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo-options.png&#34;
 	width=&#34;694&#34;
 	height=&#34;780&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo-options_hu_c5e978ac49c939d9.png 480w, http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo-options_hu_4933a1ef0ab00513.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_c5e978ac49c939d9.png 480w, http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_4933a1ef0ab00513.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1873,10 +1873,10 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;li&gt;decide whether you want the repo to be public or not (it&amp;rsquo;s private by default), and&lt;/li&gt;
 &lt;li&gt;choose if you want to add it into an existing organization (e.g., your lab&amp;rsquo;s organization). Be careful though &amp;ndash; it can be hard to edit the repo after you&amp;rsquo;ve added it to an organization.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/publish-repo.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/publish-repo.png&#34;
 	width=&#34;931&#34;
 	height=&#34;338&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/publish-repo_hu_852574e63a2b85ca.png 480w, http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/publish-repo_hu_16c8450c10f4fa5c.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_852574e63a2b85ca.png 480w, http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_16c8450c10f4fa5c.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1887,10 +1887,10 @@ b) performing that request, which results in some data being sent back to us.&lt
 &gt;&lt;/p&gt;
 &lt;p&gt;Now that the repo is on GitHub, you can start pushing and pulling content to and from it. As a general rule, you should always check for any updates by pulling (click &lt;code&gt;Fetch-origin&lt;/code&gt; followed by &lt;code&gt;Pull origin&lt;/code&gt;) before trying to push anything, otherwise GitHub will have to manage the pull/push conflict by merging the old files (to be pulled) with the new ones (to be pushed). This can be quite confusing, so it&amp;rsquo;s always good to make to pull first (even if you&amp;rsquo;re the only one working on the repo on two machines). Once you have some files you want to push to the repo, select the ones you want to push by clicking on the boxes in the upper left, add a summary for the commit (i.e., the series of changes to push) at the bottom of the column. Commit summaries should be brief and simple but clear, like &amp;ldquo;cleaned data and started model fitting&amp;rdquo;. You can use markdown in both the summary and the description (see the field below the summary field) for messages like &amp;ldquo;removed unnecessary &lt;code&gt;library()&lt;/code&gt; calls&amp;rdquo; using &lt;code&gt;\(\text{&lt;/code&gt;text&lt;code&gt;}\)&lt;/code&gt;. In the changes column, green &amp;ldquo;+&amp;rdquo; symbols indicate new files, yellow dots indicate changed files, and red &amp;ldquo;-&amp;rdquo; symbols indicate file deletions. The panel on the right will show you exactly what portions of a file you changed, if the file is a simple text file (e.g., &lt;code&gt;.csv.&lt;/code&gt;, &lt;code&gt;.R&lt;/code&gt;, &lt;code&gt;.Rmd&lt;/code&gt;, &lt;code&gt;.md&lt;/code&gt;, and &lt;code&gt;.txt&lt;/code&gt;, but not &lt;code&gt;.pdf&lt;/code&gt;, &lt;code&gt;.doc&lt;/code&gt;, &lt;code&gt;.ppt&lt;/code&gt;, or &lt;code&gt;.rds&lt;/code&gt;). Consequently, GitHub&amp;rsquo;s version control and edit history work best if you use simple text files as much as possible. Once you&amp;rsquo;ve committed all your changes, don&amp;rsquo;t forget to push the changes to GitHub using the &amp;ldquo;Push origin&amp;rdquo; button! You can check the status of your changes by going to &lt;a class=&#34;link&#34; href=&#34;https://github.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;GitHub&lt;/a&gt; and navigating to your repo.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/push-origin.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/push-origin.png&#34;
 	width=&#34;618&#34;
 	height=&#34;120&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/push-origin_hu_2dd72d951c8e876b.png 480w, http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/push-origin_hu_a0ebeceb741af2e6.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_2dd72d951c8e876b.png 480w, http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_a0ebeceb741af2e6.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1906,10 +1906,10 @@ b) performing that request, which results in some data being sent back to us.&lt
         </item>
         <item>
         <title>Using Python in RStudio with Reticulate Package</title>
-        <link>http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/</link>
+        <link>http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</link>
         <pubDate>Wed, 26 Jul 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</guid>
         <description>&lt;p&gt;As we know, Jupyter Notebook can be used easily with our UBC login information via &lt;a class=&#34;link&#34; href=&#34;https://ubc.syzygy.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Syzygy&lt;/a&gt;. Jupyter Notebook can also be downloaded to a computer and used via Anaconda. There are many different interfaces that allow us to use Python. One of the more interesting ones to note is actually RStudio. There is a package in R called &lt;em&gt;reticulate&lt;/em&gt; that allows us to create an RMarkdown file and use both R and Python code chunks within the same file. This is actually how this blog is able to show both R and Python content! Let&amp;rsquo;s get started on how &lt;em&gt;reticulate&lt;/em&gt; is used in RStudio to include Python code.&lt;/p&gt;
 &lt;h2 id=&#34;installation&#34;&gt;Installation
@@ -1938,10 +1938,10 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;/div&gt;&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started
 &lt;/h1&gt;&lt;p&gt;Now that the &lt;em&gt;reticulate&lt;/em&gt; package has been installed, we can start using Python within an RMarkdown document.&lt;/p&gt;
 &lt;p&gt;Once an RMarkdown file has been started, create a new code block. Note that on a Windows, a shortcut for adding a new code block is Ctrl+alt+i. Once a new code block appears, it should look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
 	width=&#34;361&#34;
 	height=&#34;67&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1951,10 +1951,10 @@ b) performing that request, which results in some data being sent back to us.&lt
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;If you were to type code here, it would be in R. To change it to Python, simply replace the &amp;lsquo;r&amp;rsquo; with &amp;lsquo;python&amp;rsquo;. Then it will look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
 	width=&#34;409&#34;
 	height=&#34;58&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1966,10 +1966,10 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;Now, the console below will change to show Python code once something in this block is run. You can easily switch back and forth between R and Python from code chunk to code chunk.&lt;/p&gt;
 &lt;p&gt;You can also see your saved variables in the environment, separated between R and Python. Note that when you do something such as import a dataset, if you wanted to perform manipulations on the dataset in both R and Python, you will have to load the dataset in using both R and Python, and it will create separate variables which do not override each other. They will stay speparate in the environment.&lt;/p&gt;
 &lt;p&gt;To change between R and Python environments, go to the Environment window and click the dropdown arrow. It should look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
 	width=&#34;654&#34;
 	height=&#34;597&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1984,17 +1984,17 @@ b) performing that request, which results in some data being sent back to us.&lt
         </item>
         <item>
         <title>Changing the RStudio Theme</title>
-        <link>http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/</link>
+        <link>http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/</link>
         <pubDate>Sat, 11 Feb 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/</guid>
+        <guid>http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/</guid>
         <description>&lt;p&gt;Color schemes are a matter of preference, but I think many of us can agree that RStudio&amp;rsquo;s default theme is quite bright and low-contrast. Fortunately, RStudio offers some alternative themes, which you can see by clicking on &lt;code&gt;Tools &amp;gt; Global Options&lt;/code&gt; in the top ribbon menu in RStudio. You can then select &lt;code&gt;Appearance&lt;/code&gt; and change the Editor theme.&lt;/p&gt;
 &lt;p&gt;Of the default themes, the Cobalt theme is my preferred one, but I find some of the colors to be too similar (such as the white for general text and the light blue used for headings in &lt;code&gt;R&lt;/code&gt; Markdown documents). You can find the custom theme I use &lt;a class=&#34;link&#34; href=&#34;https://github.com/StefanoMezzini/misc/blob/main/Black%20Rmd.rstheme&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;on my GitHub page&lt;/a&gt;. To add use this theme, go to &lt;code&gt;Tools &amp;gt; Global Options&lt;/code&gt;, then select &lt;code&gt;Appearance&lt;/code&gt;, and click on &lt;code&gt;Add&lt;/code&gt;. Finally, select the &lt;code&gt;Black Rmd.rstheme&lt;/code&gt; file, and click on &lt;code&gt;Open&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/images/dark-theme-example.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example.png&#34;
 	width=&#34;3840&#34;
 	height=&#34;2160&#34;
-	srcset=&#34;http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/images/dark-theme-example_hu_2c0157ae4fbf88ed.png 480w, http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/images/dark-theme-example_hu_565393bd374aed2e.png 1024w&#34;
+	srcset=&#34;http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example_hu_2c0157ae4fbf88ed.png 480w, http://localhost:4321/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example_hu_565393bd374aed2e.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-blog-new/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-blog-new/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="You can use base Python to perform basic visualizations with a dataset. Let&rsquo;s take a look at a few examples.\nLet’s re-load in our Gapminder data:\n1 2 3 import pandas as pd url = &#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&#39; df = pd.read_csv(url) 1 2 import matplotlib.pyplot as plt plt.scatter(x = df[&#39;year&#39;], y = df[&#39;pop&#39;]) 1 2 df_AF = df[df[&#39;continent&#39;] == &#39;Africa&#39;] df_AF.head() 1 2 3 4 5 6 ## country continent year lifeExp pop gdpPercap ## 24 Algeria Africa 1952 43.077 9279525 2449.008185 ## 25 Algeria Africa 1957 45.685 10270856 3013.976023 ## 26 Algeria Africa 1962 48.303 11000948 2550.816880 ## 27 Algeria Africa 1967 51.407 12760499 3246.991771 ## 28 Algeria Africa 1972 54.518 14760787 4182.663766 1 plt.scatter(x = df_AF[&#39;year&#39;], y = df_AF[&#39;pop&#39;]) ">
 <title>Basic Visualizations in Python</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-blog-new/p/basic-visualizations-in-python/'>
+<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/'>
 
-<link rel="stylesheet" href="/csc-blog-new/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Basic Visualizations in Python">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Basic Visualizations in Python">
 <meta property='og:description' content="You can use base Python to perform basic visualizations with a dataset. Let&rsquo;s take a look at a few examples.\nLet’s re-load in our Gapminder data:\n1 2 3 import pandas as pd url = &#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&#39; df = pd.read_csv(url) 1 2 import matplotlib.pyplot as plt plt.scatter(x = df[&#39;year&#39;], y = df[&#39;pop&#39;]) 1 2 df_AF = df[df[&#39;continent&#39;] == &#39;Africa&#39;] df_AF.head() 1 2 3 4 5 6 ## country continent year lifeExp pop gdpPercap ## 24 Algeria Africa 1952 43.077 9279525 2449.008185 ## 25 Algeria Africa 1957 45.685 10270856 3013.976023 ## 26 Algeria Africa 1962 48.303 11000948 2550.816880 ## 27 Algeria Africa 1967 51.407 12760499 3246.991771 ## 28 Algeria Africa 1972 54.518 14760787 4182.663766 1 plt.scatter(x = df_AF[&#39;year&#39;], y = df_AF[&#39;pop&#39;]) ">
-<meta property='og:url' content='http://localhost:4321/csc-blog-new/p/basic-visualizations-in-python/'>
+<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2023-06-15T09:00:00-08:00'/><meta property='article:modified_time' content='2023-06-15T09:00:00-08:00'/>
 <meta name="twitter:title" content="Basic Visualizations in Python">
@@ -64,13 +64,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/csc-blog-new/">
+                <a href="/csc-data-blog/">
                 
                     
                     
                     
                         
-                        <img src="/csc-blog-new/img/avatar_hu_365c3288643681d2.png" width="300"
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
                             height="303" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -81,7 +81,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/csc-blog-new">R &amp; Python Blog</a></h1>
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
             <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
         </div>
     </header><ol class="menu-social">
@@ -152,7 +152,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/' >
+            <a href='/csc-data-blog/' >
                 
                 
                 
@@ -172,7 +172,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/about/' >
+            <a href='/csc-data-blog/about/' >
                 
                 
                 
@@ -191,7 +191,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/archives/' >
+            <a href='/csc-data-blog/archives/' >
                 
                 
                 
@@ -211,7 +211,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/search/' >
+            <a href='/csc-data-blog/search/' >
                 
                 
                 
@@ -230,7 +230,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/links/' >
+            <a href='/csc-data-blog/links/' >
                 
                 
                 
@@ -286,11 +286,11 @@
     
     <header class="article-category">
         
-            <a href="/csc-blog-new/categories/python/" >
+            <a href="/csc-data-blog/categories/python/" >
                 Python
             </a>
         
-            <a href="/csc-blog-new/categories/p_visualization/" >
+            <a href="/csc-data-blog/categories/p_visualization/" >
                 P_Visualization
             </a>
         
@@ -299,7 +299,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/csc-blog-new/p/basic-visualizations-in-python/">Basic Visualizations in Python</a>
+            <a href="/csc-data-blog/p/basic-visualizations-in-python/">Basic Visualizations in Python</a>
         </h2>
     
         
@@ -378,10 +378,10 @@
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">])</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/csc-blog-new/p/basic-visualizations-in-python/images/basic-viz-plot-1.png"
+</div><p><img src="/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png"
 	width="577"
 	height="415"
-	srcset="/csc-blog-new/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, /csc-blog-new/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w"
+	srcset="/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, /csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w"
 	loading="lazy"
 	
 	
@@ -426,10 +426,10 @@
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">df_AF</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df_AF</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">])</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/csc-blog-new/p/basic-visualizations-in-python/images/basic-viz-plot-1.png"
+</div><p><img src="/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png"
 	width="577"
 	height="415"
-	srcset="/csc-blog-new/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, /csc-blog-new/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w"
+	srcset="/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, /csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w"
 	loading="lazy"
 	
 	
@@ -447,7 +447,7 @@
     
     <section class="article-tags">
         
-            <a href="/csc-blog-new/tags/python/">Python</a>
+            <a href="/csc-data-blog/tags/python/">Python</a>
         
     </section>
 
@@ -469,7 +469,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/visualizing-with-altair-in-python/">
+    <a href="/csc-data-blog/p/visualizing-with-altair-in-python/">
         
         
 
@@ -482,7 +482,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/sample-data-generation/">
+    <a href="/csc-data-blog/p/sample-data-generation/">
         
         
 
@@ -495,7 +495,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/python-vs-r-how-to-decide/">
+    <a href="/csc-data-blog/p/python-vs-r-how-to-decide/">
         
         
 
@@ -508,7 +508,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/">
+    <a href="/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/">
         
         
 
@@ -521,7 +521,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/subsetting-in-python/">
+    <a href="/csc-data-blog/p/subsetting-in-python/">
         
         
 
@@ -641,7 +641,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/csc-blog-new/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

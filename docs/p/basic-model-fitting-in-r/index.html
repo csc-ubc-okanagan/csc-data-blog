@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-blog-new/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-blog-new/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="In previous categories we have looked at cleaning, summarizing, and subsetting data, with some minor calculations, but we haven’t yet looked at analyzing our data.\nR is a very powerful tool for data analysis. We can fit linear models and view graphs. First, we will look at some basic data analysis processes in R.\nLet’s re-load in our Gapminder data:\n1 2 3 link &lt;- &#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&#39; df &lt;- read.csv(url(link)) head(df) 1 2 3 4 5 6 7 ## country continent year lifeExp pop gdpPercap ## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 ## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 ## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 ## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 ## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 ## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 Linear Modelling Let’s say we want to fit a linear model to see if there is a relationship between population and time. First, let’s do this with the entire dataset with all countries.\n">
 <title>Basic Model Fitting in R</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-blog-new/p/basic-model-fitting-in-r/'>
+<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/basic-model-fitting-in-r/'>
 
-<link rel="stylesheet" href="/csc-blog-new/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Basic Model Fitting in R">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Basic Model Fitting in R">
 <meta property='og:description' content="In previous categories we have looked at cleaning, summarizing, and subsetting data, with some minor calculations, but we haven’t yet looked at analyzing our data.\nR is a very powerful tool for data analysis. We can fit linear models and view graphs. First, we will look at some basic data analysis processes in R.\nLet’s re-load in our Gapminder data:\n1 2 3 link &lt;- &#39;https://raw.githubusercontent.com/jstaf/gapminder/master/gapminder/gapminder.csv&#39; df &lt;- read.csv(url(link)) head(df) 1 2 3 4 5 6 7 ## country continent year lifeExp pop gdpPercap ## 1 Afghanistan Asia 1952 28.801 8425333 779.4453 ## 2 Afghanistan Asia 1957 30.332 9240934 820.8530 ## 3 Afghanistan Asia 1962 31.997 10267083 853.1007 ## 4 Afghanistan Asia 1967 34.020 11537966 836.1971 ## 5 Afghanistan Asia 1972 36.088 13079460 739.9811 ## 6 Afghanistan Asia 1977 38.438 14880372 786.1134 Linear Modelling Let’s say we want to fit a linear model to see if there is a relationship between population and time. First, let’s do this with the entire dataset with all countries.\n">
-<meta property='og:url' content='http://localhost:4321/csc-blog-new/p/basic-model-fitting-in-r/'>
+<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/basic-model-fitting-in-r/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R' /><meta property='article:tag' content='modelling' /><meta property='article:published_time' content='2023-08-01T09:00:00-08:00'/><meta property='article:modified_time' content='2023-08-01T09:00:00-08:00'/>
 <meta name="twitter:title" content="Basic Model Fitting in R">
@@ -64,13 +64,13 @@
         
             
             <figure class="site-avatar">
-                <a href="/csc-blog-new/">
+                <a href="/csc-data-blog/">
                 
                     
                     
                     
                         
-                        <img src="/csc-blog-new/img/avatar_hu_365c3288643681d2.png" width="300"
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
                             height="303" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -81,7 +81,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/csc-blog-new">R &amp; Python Blog</a></h1>
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
             <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
         </div>
     </header><ol class="menu-social">
@@ -152,7 +152,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/' >
+            <a href='/csc-data-blog/' >
                 
                 
                 
@@ -172,7 +172,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/about/' >
+            <a href='/csc-data-blog/about/' >
                 
                 
                 
@@ -191,7 +191,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/archives/' >
+            <a href='/csc-data-blog/archives/' >
                 
                 
                 
@@ -211,7 +211,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/search/' >
+            <a href='/csc-data-blog/search/' >
                 
                 
                 
@@ -230,7 +230,7 @@
         
         
         <li >
-            <a href='/csc-blog-new/links/' >
+            <a href='/csc-data-blog/links/' >
                 
                 
                 
@@ -286,11 +286,11 @@
     
     <header class="article-category">
         
-            <a href="/csc-blog-new/categories/r/" >
+            <a href="/csc-data-blog/categories/r/" >
                 R
             </a>
         
-            <a href="/csc-blog-new/categories/r_modelling/" >
+            <a href="/csc-data-blog/categories/r_modelling/" >
                 R_Modelling
             </a>
         
@@ -299,7 +299,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/csc-blog-new/p/basic-model-fitting-in-r/">Basic Model Fitting in R</a>
+            <a href="/csc-data-blog/p/basic-model-fitting-in-r/">Basic Model Fitting in R</a>
         </h2>
     
         
@@ -874,9 +874,9 @@
     
     <section class="article-tags">
         
-            <a href="/csc-blog-new/tags/r/">R</a>
+            <a href="/csc-data-blog/tags/r/">R</a>
         
-            <a href="/csc-blog-new/tags/modelling/">Modelling</a>
+            <a href="/csc-data-blog/tags/modelling/">Modelling</a>
         
     </section>
 
@@ -898,7 +898,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/abacus-api/">
+    <a href="/csc-data-blog/p/abacus-api/">
         
         
 
@@ -911,7 +911,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/transforming-data/">
+    <a href="/csc-data-blog/p/transforming-data/">
         
         
 
@@ -924,7 +924,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/sample-data-generation/">
+    <a href="/csc-data-blog/p/sample-data-generation/">
         
         
 
@@ -937,7 +937,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/creating-variables-in-r/">
+    <a href="/csc-data-blog/p/creating-variables-in-r/">
         
         
 
@@ -950,7 +950,7 @@
             
                 
 <article class="">
-    <a href="/csc-blog-new/p/introduction-to-r/">
+    <a href="/csc-data-blog/p/introduction-to-r/">
         
         
 
@@ -1070,7 +1070,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/csc-blog-new/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
