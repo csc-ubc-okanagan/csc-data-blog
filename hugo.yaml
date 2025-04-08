@@ -1,4 +1,4 @@
-baseurl: https://csc-ubc-okanagan.github.io/csc-blog-new/
+baseurl: https://csc-ubc-okanagan.github.io/csc-data-blog/
 languageCode: en-us
 theme: "hugo-theme-stack"
 publishDir: "docs"
