@@ -52,7 +52,7 @@ For more basic GitHub commands and workflow learnings, visit [this link here.](h
 
 1. To build the blog locally, first open the cloned repository as a project in RStudio.
 
-2. Run the `options(blogdown.method = "markdown")` command in your Console so that an `.md` file will be automatically generated from your RMD file.
+2. Run the `options(blogdown.method = "markdown")` command in your Console so that an `.md` file will be automatically generated from your `.RMD` file.
 
 3. To create a new post on the blog, first create a new `.RMD` file in the `content/post` folder. The naming convention should begin with the date (YYY-MM-DD), followed by the article title. All spaces will be documented with a dash. For example, `2023-06-21-Intro-to-Python`.
 
