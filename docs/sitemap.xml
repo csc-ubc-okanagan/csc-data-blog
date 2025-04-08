@@ -11,10 +11,85 @@
     <loc>http://localhost:4321/csc-blog-new/page/</loc>
     <lastmod>2025-04-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:4321/csc-blog-new/p/basic-visualizations-in-python/</loc>
-    <lastmod>2023-06-15T09:00:00-08:00</lastmod>
-  </url><url>
     <loc>http://localhost:4321/csc-blog-new/categories/</loc>
+    <lastmod>2024-09-16T12:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/getting-started-with-github/</loc>
+    <lastmod>2024-09-16T12:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/tags/github/</loc>
+    <lastmod>2024-09-16T12:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/post/</loc>
+    <lastmod>2024-09-16T12:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/categories/r/</loc>
+    <lastmod>2024-09-16T12:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/tags/r/</loc>
+    <lastmod>2024-09-16T12:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/tags/rstudio/</loc>
+    <lastmod>2024-09-16T12:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/tags/</loc>
+    <lastmod>2024-09-16T12:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/categories/python/</loc>
+    <lastmod>2024-04-09T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/tags/python/</loc>
+    <lastmod>2024-04-09T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/sample-data-generation/</loc>
+    <lastmod>2024-04-09T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/basic-model-fitting-in-r/</loc>
+    <lastmod>2023-08-01T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/tags/cleaning/</loc>
+    <lastmod>2023-08-01T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/creating-variables-in-r/</loc>
+    <lastmod>2023-08-01T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/tags/modelling/</loc>
+    <lastmod>2023-08-01T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/categories/r_data/</loc>
+    <lastmod>2023-08-01T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/categories/r_modelling/</loc>
+    <lastmod>2023-08-01T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/categories/p_ide/</loc>
+    <lastmod>2023-07-26T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/python-vs-r-how-to-decide/</loc>
+    <lastmod>2023-07-26T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/</loc>
+    <lastmod>2023-07-26T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/categories/p_data/</loc>
+    <lastmod>2023-07-07T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/subsetting-in-python/</loc>
+    <lastmod>2023-07-07T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/basic-model-fitting-in-python/</loc>
+    <lastmod>2023-07-06T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/categories/p_modelling/</loc>
+    <lastmod>2023-07-06T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/cleaning-data-in-python/</loc>
+    <lastmod>2023-06-20T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/creating-variables-in-python/</loc>
+    <lastmod>2023-06-20T09:00:00-08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:4321/csc-blog-new/p/basic-visualizations-in-python/</loc>
     <lastmod>2023-06-15T09:00:00-08:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/p/defining-functions-in-python/</loc>
@@ -38,25 +113,13 @@
     <loc>http://localhost:4321/csc-blog-new/p/packages-in-python/</loc>
     <lastmod>2023-06-15T09:00:00-08:00</lastmod>
   </url><url>
-    <loc>http://localhost:4321/csc-blog-new/post/</loc>
+    <loc>http://localhost:4321/csc-blog-new/p/python-data-types/</loc>
     <lastmod>2023-06-15T09:00:00-08:00</lastmod>
   </url><url>
-    <loc>http://localhost:4321/csc-blog-new/categories/python/</loc>
-    <lastmod>2023-06-15T09:00:00-08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:4321/csc-blog-new/tags/python/</loc>
-    <lastmod>2023-06-15T09:00:00-08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:4321/csc-blog-new/tags/</loc>
+    <loc>http://localhost:4321/csc-blog-new/p/viewing-data-in-python/</loc>
     <lastmod>2023-06-15T09:00:00-08:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/p/introduction-to-r/</loc>
-    <lastmod>2023-06-14T09:00:00-08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:4321/csc-blog-new/categories/r/</loc>
-    <lastmod>2023-06-14T09:00:00-08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:4321/csc-blog-new/tags/r/</loc>
     <lastmod>2023-06-14T09:00:00-08:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/categories/r_getting-started/</loc>
@@ -68,13 +131,7 @@
     <loc>http://localhost:4321/csc-blog-new/p/jupyter-notebook/</loc>
     <lastmod>2023-06-05T18:00:00-08:00</lastmod>
   </url><url>
-    <loc>http://localhost:4321/csc-blog-new/categories/p_ide/</loc>
-    <lastmod>2023-06-05T18:00:00-08:00</lastmod>
-  </url><url>
     <loc>http://localhost:4321/csc-blog-new/tags/data/</loc>
-    <lastmod>2023-06-05T11:00:00-08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:4321/csc-blog-new/categories/p_data/</loc>
     <lastmod>2023-06-05T11:00:00-08:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/p/reading-data-in-python/</loc>
@@ -90,9 +147,6 @@
     <lastmod>2023-03-07T11:00:00-08:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/tags/data-structures/</loc>
-    <lastmod>2023-03-07T11:00:00-08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:4321/csc-blog-new/categories/r_data/</loc>
     <lastmod>2023-03-07T11:00:00-08:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/tags/wrangling/</loc>
@@ -120,9 +174,6 @@
     <lastmod>2023-02-11T09:00:00-08:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/categories/r_ide/</loc>
-    <lastmod>2023-02-11T09:00:00-08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:4321/csc-blog-new/tags/rstudio/</loc>
     <lastmod>2023-02-11T09:00:00-08:00</lastmod>
   </url><url>
     <loc>http://localhost:4321/csc-blog-new/p/hello-r-markdown/</loc>

@@ -7,20 +7,52 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Thu, 15 Jun 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Python</title>
-        <link>http://localhost:4321/csc-blog-new/tags/python/</link>
-        <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
+        <lastBuildDate>Mon, 16 Sep 2024 12:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Github</title>
+        <link>http://localhost:4321/csc-blog-new/tags/github/</link>
+        <pubDate>Mon, 16 Sep 2024 12:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-blog-new/tags/python/</guid>
+        <guid>http://localhost:4321/csc-blog-new/tags/github/</guid>
         <description></description>
         </item>
         <item>
         <title>R</title>
         <link>http://localhost:4321/csc-blog-new/tags/r/</link>
-        <pubDate>Wed, 14 Jun 2023 09:00:00 -0800</pubDate>
+        <pubDate>Mon, 16 Sep 2024 12:00:00 -0800</pubDate>
         
         <guid>http://localhost:4321/csc-blog-new/tags/r/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Rstudio</title>
+        <link>http://localhost:4321/csc-blog-new/tags/rstudio/</link>
+        <pubDate>Mon, 16 Sep 2024 12:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/tags/rstudio/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Python</title>
+        <link>http://localhost:4321/csc-blog-new/tags/python/</link>
+        <pubDate>Tue, 09 Apr 2024 09:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/tags/python/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Cleaning</title>
+        <link>http://localhost:4321/csc-blog-new/tags/cleaning/</link>
+        <pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/tags/cleaning/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Modelling</title>
+        <link>http://localhost:4321/csc-blog-new/tags/modelling/</link>
+        <pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/tags/modelling/</guid>
         <description></description>
         </item>
         <item>
@@ -85,14 +117,6 @@
         <pubDate>Sat, 11 Feb 2023 10:00:00 -0800</pubDate>
         
         <guid>http://localhost:4321/csc-blog-new/tags/ggplot/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Rstudio</title>
-        <link>http://localhost:4321/csc-blog-new/tags/rstudio/</link>
-        <pubDate>Sat, 11 Feb 2023 09:00:00 -0800</pubDate>
-        
-        <guid>http://localhost:4321/csc-blog-new/tags/rstudio/</guid>
         <description></description>
         </item>
         <item>

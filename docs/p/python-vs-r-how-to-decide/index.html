@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/csc-blog-new/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-blog-new/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Python and R are both very useful tools in academia, research, industry, and everywhere! They have a lot of similarities, but there are also many differences.\nThe purpose of this post is to help students to decide which language to learn first, according to their differences, similarities, and departmental practices.\nFirst, let&rsquo;s introduce each, and talk about their main purposes.\nIntroducing Python Python is a general-purpose, object-oriented programming language. It was created in 1991, and it has a community of people who contribute to regularly updating libraries and improving efficiencies. It happens to be one of the most popular programming languages in the world. Some of the most common libraries for data-related tasks include NumPy (for arrays), Pandas (for data analysis and manipulation), and MatPlotLib (for data visualizations). Python is a powerful tool used for machine learning, deep learning, and modelling. Jupyter Notebook is a useful interface to pair with Python because it allows for clean, readable layouts to be shared with peers and users. Note that Jupyter Notebook also supports R.\n">
+<title>Python vs R - How To Decide?</title>
+
+<link rel='canonical' href='http://localhost:4321/csc-blog-new/p/python-vs-r-how-to-decide/'>
+
+<link rel="stylesheet" href="/csc-blog-new/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Python vs R - How To Decide?">
+<meta property='og:description' content="Python and R are both very useful tools in academia, research, industry, and everywhere! They have a lot of similarities, but there are also many differences.\nThe purpose of this post is to help students to decide which language to learn first, according to their differences, similarities, and departmental practices.\nFirst, let&rsquo;s introduce each, and talk about their main purposes.\nIntroducing Python Python is a general-purpose, object-oriented programming language. It was created in 1991, and it has a community of people who contribute to regularly updating libraries and improving efficiencies. It happens to be one of the most popular programming languages in the world. Some of the most common libraries for data-related tasks include NumPy (for arrays), Pandas (for data analysis and manipulation), and MatPlotLib (for data visualizations). Python is a powerful tool used for machine learning, deep learning, and modelling. Jupyter Notebook is a useful interface to pair with Python because it allows for clean, readable layouts to be shared with peers and users. Note that Jupyter Notebook also supports R.\n">
+<meta property='og:url' content='http://localhost:4321/csc-blog-new/p/python-vs-r-how-to-decide/'>
+<meta property='og:site_name' content='R &amp; Python Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-07-26T09:00:00-08:00'/><meta property='article:modified_time' content='2023-07-26T09:00:00-08:00'/>
+<meta name="twitter:title" content="Python vs R - How To Decide?">
+<meta name="twitter:description" content="Python and R are both very useful tools in academia, research, industry, and everywhere! They have a lot of similarities, but there are also many differences.\nThe purpose of this post is to help students to decide which language to learn first, according to their differences, similarities, and departmental practices.\nFirst, let&rsquo;s introduce each, and talk about their main purposes.\nIntroducing Python Python is a general-purpose, object-oriented programming language. It was created in 1991, and it has a community of people who contribute to regularly updating libraries and improving efficiencies. It happens to be one of the most popular programming languages in the world. Some of the most common libraries for data-related tasks include NumPy (for arrays), Pandas (for data analysis and manipulation), and MatPlotLib (for data visualizations). Python is a powerful tool used for machine learning, deep learning, and modelling. Jupyter Notebook is a useful interface to pair with Python because it allows for clean, readable layouts to be shared with peers and users. Note that Jupyter Notebook also supports R.\n">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PQ1KG9NWP0');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/csc-blog-new/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/csc-blog-new/img/avatar_hu_365c3288643681d2.png" width="300"
+                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/csc-blog-new">R &amp; Python Blog</a></h1>
+            <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='csc.ok@ubc.ca'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st1 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 66.7px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 133.3;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M133.3,300l206.7,155c35.6,26.7,84.4,26.7,120,0l206.7-155"/>
+  <path class="st2" d="M100,305.9c0-24.2,13.1-46.5,34.3-58.3l233.3-129.6c20.1-11.2,44.6-11.2,64.8,0l233.3,129.6c21.2,11.8,34.3,34.1,34.3,58.3v260.8c0,36.8-29.8,66.7-66.7,66.7H166.7c-36.8,0-66.7-29.8-66.7-66.7v-260.8Z"/>
+  <path class="st0" d="M0,0h800v800H0V0Z"/>
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/csc-ubc-okanagan'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/csc-blog-new/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-blog-new/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-blog-new/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-blog-new/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-blog-new/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/csc-blog-new/categories/python/" >
+                Python
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/csc-blog-new/p/python-vs-r-how-to-decide/">Python vs R - How To Decide?</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 26, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    
+		  Madison
+	  
+    <p>Python and R are both very useful tools in academia, research, industry, and everywhere! They have a lot of similarities, but there are also many differences.</p>
+<p>The purpose of this post is to help students to decide which language to learn first, according to their differences, similarities, and departmental practices.</p>
+<p>First, let&rsquo;s introduce each, and talk about their main purposes.</p>
+<h1 id="introducing-python">Introducing Python
+</h1><p>Python is a general-purpose, object-oriented programming language. It was created in 1991, and it has a community of people who contribute to regularly updating libraries and improving efficiencies. It happens to be one of the most popular programming languages in the world. Some of the most common libraries for data-related tasks include NumPy (for arrays), Pandas (for data analysis and manipulation), and MatPlotLib (for data visualizations). Python is a powerful tool used for machine learning, deep learning, and modelling. Jupyter Notebook is a useful interface to pair with Python because it allows for clean, readable layouts to be shared with peers and users. Note that Jupyter Notebook also supports R.</p>
+<p>Python is commonly used in disciplines such as computer science, data science, mathematics (optimization, pure math, finance, economics, etc.), physics, engineering, the social sciences, and more. Note that this is just a general consensus. Your specific department at UBC, or your previous institution, may have done something differently.</p>
+<h1 id="introducing-r">Introducing R
+</h1><p>R was originally created for statistics, specializing in statistical analysis and visualization. R was created in 1993, but generally has less community support and less advancements than Python. This is one of the major complaints of users, and is one reason why many people end up turning to Python over R. Libraries and tools in R are best known for helping with tasks such as cleaning data, creating visualization, and training some machine learning and deep learning algorithms. Note that R can take significantly longer to handle machine learning algorithms than alternatives such as Python.</p>
+<p>R is commonly used in disciplines such as biology and math (statistics). Again, this is just a general consensus, and your specific department may use a different tool.</p>
+<h1 id="similarities">Similarities
+</h1><p>Both R and Python are open source programming languages that are maintained and supported by large communities.</p>
+<h1 id="differences">Differences
+</h1><p>Here, we will discuss some of the differences between R and Python, which can help to decide which to start learning first.</p>
+<p>R is mainly used for statistical analysis, but Python is traditionally better for data wrangling. Python is more multi-purpose, and these skills can be transferable to other things, such as web development or application development. Python has a readable syntax that is easier to learn.</p>
+<p>Let&rsquo;s take a look at this chart below to look at more differences between the two.</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>R</strong></th>
+          <th><strong>Python</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table></div>
+<ul>
+<li>mainly used for statistical analysis | - better for data wrangling</li>
+<li>leans towards statistical modelling and analytics | - more multi-purpose (can transfer skills to application or web development)</li>
+<li>can perform deep statistical analysis in short code chunks | - more readable syntax</li>
+<li>data visualizations can be built from models with ggplot2 | - scalable for machine learning and data analysis, Altair has interactive and customizable visualizations</li>
+<li>only supports data formats from Excel, CSV, txt files | - supports many data formats (CSV, JSON, SQL tables, web requested data, etc.)</li>
+<li>optimized for statistical analysis of large datasets | - Pandas let&rsquo;s you filter and sort data almost instantly</li>
+<li>modelling analysis requires non-core R (tidyverse used for importing, visualizing, reporting, etc.) | - standard libraries used work together well (NumPy, SciPy, scikit-learn)</li>
+</ul>
+<h1 id="general-preferences">General Preferences
+</h1><p>In general, it is commonly considered that if you have programming experience, Python is the way to go, because it is a very easy language to learn (compared to others). If you are new to programming, Python is also considered a great learning language for beginners, and R may take some extra efforts to develop expertise.</p>
+<p>If your team or supervisor prefers one language over another, it is usually easier to stick with what the people around you are using. This will allow them to help you if you run into issues. Talk to your team to find out what the majority of them prefer to use.</p>
+<p>Overall, R is better for statistical learning, and Python is better for machine learning, large-scaled apps, and data analysis within the web and its applications. Python and R both have great visualization tools, and you can read posts about those here as well, so visualizations shouldn&rsquo;t prevent you from deciding between the two.</p>
+<p>R and Python are both wonderful tools to have in your toolbox for all academic and professional endeavours. When in doubt, just learn both! But if you don&rsquo;t have the time, hopefully this information helps to make a more informed decision. It is also easier to learn one if you already have familiarity with the other, so feel free to keep the door open to return to learning the other option down the road.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/csc-blog-new/tags/python/">Python</a>
+        
+            <a href="/csc-blog-new/tags/r/">R</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/sample-data-generation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sample Data Generation</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Using Python in RStudio with Reticulate Package</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/subsetting-in-python/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Subsetting in Python</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/basic-model-fitting-in-python/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Basic Model Fitting in Python</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/cleaning-data-in-python/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Cleaning Data in Python</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Center for Scholarly Communication, UBC Okanagan
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/csc-blog-new/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

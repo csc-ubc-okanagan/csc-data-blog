@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/csc-blog-new/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-blog-new/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" Transforming response variables Data transformations are often taught in introductory quantitative and statistics courses as methods for dealing with non-Gaussian (i.e., not normal) data, whether it be bounded (e.g, strictly positive) or skewed (https://ubco-biology.github.io/BIOL202/transform.html; https://ubco-biology.github.io/BIOL202/LSR.html#transform-the-data; Section 13.3 in Whitlock &amp; Schluter 2020). In this post, I use simulated data to demonstrate issues that might arise with transforming data. I use a simulated dataset rather than an empirical one so we can compare the model results to the truth.\n">
+<title>Transforming data</title>
+
+<link rel='canonical' href='http://localhost:4321/csc-blog-new/p/transforming-data/'>
+
+<link rel="stylesheet" href="/csc-blog-new/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Transforming data">
+<meta property='og:description' content=" Transforming response variables Data transformations are often taught in introductory quantitative and statistics courses as methods for dealing with non-Gaussian (i.e., not normal) data, whether it be bounded (e.g, strictly positive) or skewed (https://ubco-biology.github.io/BIOL202/transform.html; https://ubco-biology.github.io/BIOL202/LSR.html#transform-the-data; Section 13.3 in Whitlock &amp; Schluter 2020). In this post, I use simulated data to demonstrate issues that might arise with transforming data. I use a simulated dataset rather than an empirical one so we can compare the model results to the truth.\n">
+<meta property='og:url' content='http://localhost:4321/csc-blog-new/p/transforming-data/'>
+<meta property='og:site_name' content='R &amp; Python Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R' /><meta property='article:tag' content='rstudio' /><meta property='article:published_time' content='2024-10-07T14:00:00-08:00'/><meta property='article:modified_time' content='2024-10-07T14:00:00-08:00'/>
+<meta name="twitter:title" content="Transforming data">
+<meta name="twitter:description" content=" Transforming response variables Data transformations are often taught in introductory quantitative and statistics courses as methods for dealing with non-Gaussian (i.e., not normal) data, whether it be bounded (e.g, strictly positive) or skewed (https://ubco-biology.github.io/BIOL202/transform.html; https://ubco-biology.github.io/BIOL202/LSR.html#transform-the-data; Section 13.3 in Whitlock &amp; Schluter 2020). In this post, I use simulated data to demonstrate issues that might arise with transforming data. I use a simulated dataset rather than an empirical one so we can compare the model results to the truth.\n">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PQ1KG9NWP0');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/csc-blog-new/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/csc-blog-new/img/avatar_hu_365c3288643681d2.png" width="300"
+                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/csc-blog-new">R &amp; Python Blog</a></h1>
+            <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='csc.ok@ubc.ca'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st1 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 66.7px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 133.3;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M133.3,300l206.7,155c35.6,26.7,84.4,26.7,120,0l206.7-155"/>
+  <path class="st2" d="M100,305.9c0-24.2,13.1-46.5,34.3-58.3l233.3-129.6c20.1-11.2,44.6-11.2,64.8,0l233.3,129.6c21.2,11.8,34.3,34.1,34.3,58.3v260.8c0,36.8-29.8,66.7-66.7,66.7H166.7c-36.8,0-66.7-29.8-66.7-66.7v-260.8Z"/>
+  <path class="st0" d="M0,0h800v800H0V0Z"/>
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/csc-ubc-okanagan'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/csc-blog-new/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-blog-new/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-blog-new/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-blog-new/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-blog-new/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#transforming-response-variables">Transforming response variables</a></li>
+    <li><a href="#linear-and-nonlinear-transformations">Linear and nonlinear transformations</a>
+      <ol>
+        <li><a href="#jensens-inequality">Jensen&rsquo;s inequality</a></li>
+      </ol>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/csc-blog-new/categories/r/" >
+                R
+            </a>
+        
+            <a href="/csc-blog-new/categories/modeling/" >
+                Modeling
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/csc-blog-new/p/transforming-data/">Transforming data</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 07, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    11 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    
+		  Stefano Mezzini
+	  
+    <!-- This blog covers data transformations in `R`. If you use `Python`, see [this post](needs-a-url). -->
+<h2 id="transforming-response-variables">Transforming response variables
+</h2><p>Data transformations are often taught in introductory quantitative and statistics courses as methods for dealing with non-Gaussian (i.e., not normal) data, whether it be bounded (e.g, strictly positive) or skewed (<a class="link" href="https://ubco-biology.github.io/BIOL202/transform.html"  target="_blank" rel="noopener"
+    >https://ubco-biology.github.io/BIOL202/transform.html</a>; <a class="link" href="https://ubco-biology.github.io/BIOL202/LSR.html#transform-the-data"  target="_blank" rel="noopener"
+    >https://ubco-biology.github.io/BIOL202/LSR.html#transform-the-data</a>; Section 13.3 in Whitlock &amp; Schluter 2020). In this post, I use simulated data to demonstrate issues that might arise with transforming data. I use a simulated dataset rather than an empirical one so we can compare the model results to the truth.</p>
+<p>Imagine that a dangerous intersection has been causing frequent accidents between motored vehicles. A local group of concerned citizens decides to count the number of monthly accidents and report it to City Council. City Council decides to intervene by placing better street signs and lighting. The group of citizens then decided to count the number of accidents again to test whether or not there was an improvement in the number of accidents.</p>
+<p>For the sake of this post, let&rsquo;s assume that the mean number of accidents in the 12 months before the intervention was <code>\(\lambda_0=2\)</code> per month. In the 12 months after the intervention, the mean number of monthly accidents decreases to <code>\(\lambda_1 = 0.4\)</code>. We can then simulate data for before and after the intervention as follows:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="s">&#39;dplyr&#39;</span><span class="p">)</span>   <span class="c1"># for data wrangling</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="s">&#39;tidyr&#39;</span><span class="p">)</span>   <span class="c1"># for data wrangling</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="s">&#39;mgcv&#39;</span><span class="p">)</span>    <span class="c1"># for modeling</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="s">&#39;ggplot2&#39;</span><span class="p">)</span> <span class="c1"># for fancy plots</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="s">&#39;gratia&#39;</span><span class="p">)</span>  <span class="c1"># for diagnostic plots in ggplot</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># change default ggplot theme</span>
+</span></span><span class="line"><span class="cl"><span class="nf">theme_set</span><span class="p">(</span><span class="nf">theme_bw</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">theme</span><span class="p">(</span><span class="n">panel.grid</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span> <span class="n">legend.position</span> <span class="o">=</span> <span class="s">&#39;top&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">text</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">face</span> <span class="o">=</span> <span class="s">&#39;bold&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">2024+10+7</span><span class="p">)</span> <span class="c1"># for reproducible results</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">&lt;-</span> <span class="nf">expand_grid</span><span class="p">(</span><span class="n">month</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">12</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">period</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;before&#39;</span><span class="p">,</span> <span class="s">&#39;after&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">levels</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;before&#39;</span><span class="p">,</span> <span class="s">&#39;after&#39;</span><span class="p">)))</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span><span class="n">lambda</span> <span class="o">=</span> <span class="nf">if_else</span><span class="p">(</span><span class="n">period</span> <span class="o">==</span> <span class="s">&#39;before&#39;</span><span class="p">,</span> <span class="n">true</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="n">false</span> <span class="o">=</span> <span class="m">0.4</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">         <span class="n">accidents</span> <span class="o">=</span> <span class="nf">rpois</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="nf">n</span><span class="p">(),</span> <span class="n">lambda</span> <span class="o">=</span> <span class="n">lambda</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span> <span class="n">period</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_histogram</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">accidents</span><span class="p">),</span> <span class="n">binwidth</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">&#39;grey&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_vline</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">xintercept</span> <span class="o">=</span> <span class="n">lambda</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;darkorange&#39;</span><span class="p">,</span> <span class="n">lwd</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">&#39;Accidents per month&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">&#39;Count&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-1-1.png" width="\linewidth" />
+<p>The distribution of the number of monthly accidents is clearly non-Gaussian both before and after the intervention. (<em>Also note that the number of accidents cannot be negative.</em>) Still, let&rsquo;s fit a linear model to estimate the mean number of accidents in each period. In this post I use the <code>mgcv::gam()</code> function to fit all models for consistency and convenience, but note that you could also use the <code>stats::lm()</code> and <code>stats::glm()</code> functions, too. After fitting the model, we can look at the estimated change in mean accidents and appraise the model using diagnostic plots.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">m_1</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">accidents</span> <span class="o">~</span> <span class="n">period</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">coef</span><span class="p">(</span><span class="n">m_1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## (Intercept) periodafter 
+</span></span><span class="line"><span class="cl">##    1.666667   -1.250000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>From the output of the <code>coef()</code> function, we can see that the estimated model is <code>$$Y = 1.67 - 1.25\,x_1,$$</code> where <code>\(x_1\)</code> is 0 for before the intervention and 1 for after. The <code>periodafter</code> coefficient indicates that there were -1.25 less accidents per month after the intervention. While this does not match the true effect of <code>\(2 - 0.4 = 1.6\)</code>, we should expect some random variation, and the estimate is still reasonable. Longer observational periods would give us more accurate estimates.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">appraise</span><span class="p">(</span><span class="n">m_1</span><span class="p">,</span> <span class="n">point_alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-3-1.png" width="\linewidth" />
+<p>Those who are used to looking at these plots may recognize two issues: (1) the residuals are not Gaussian (see the q-q plot and the histogram, in the left column), and (2) the variance in the observed values is lower when the predicted mean (linear predictor and fitted values) is lower. One may then decide to log-transform the number of accidents, after adding a small value to avoid taking the log of zero (since <code>\(\log(0) = - \infty\)</code>).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># find proportion of months with no accidents</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">group_by</span><span class="p">(</span><span class="n">period</span><span class="p">)</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">summarize</span><span class="p">(</span><span class="n">prop_zero</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">accidents</span> <span class="o">==</span> <span class="m">0</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## # A tibble: 2 × 2
+</span></span><span class="line"><span class="cl">##   period prop_zero
+</span></span><span class="line"><span class="cl">##   &lt;fct&gt;      &lt;dbl&gt;
+</span></span><span class="line"><span class="cl">## 1 before     0.167
+</span></span><span class="line"><span class="cl">## 2 after      0.667
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># add a variable of log(accidents + 1)</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="o">$</span><span class="n">log1p_accidents</span> <span class="o">&lt;-</span> <span class="nf">log1p</span><span class="p">(</span><span class="n">d</span><span class="o">$</span><span class="n">accidents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">m_2</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">log1p_accidents</span> <span class="o">~</span> <span class="n">period</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">coef</span><span class="p">(</span><span class="n">m_2</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## (Intercept) periodafter 
+</span></span><span class="line"><span class="cl">##   0.8620910  -0.5972532
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">appraise</span><span class="p">(</span><span class="n">m_2</span><span class="p">,</span> <span class="n">point_alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-4-1.png" width="\linewidth" />
+<p>The <code>log1p</code> transformation resulted in a somewhat more symmetrical distribution of residuals, and the mode of the distribution is closer to zero, and improved the issue of non-constant variance (heteroskedasticity). The coefficients are also harder to interpret because they are on the <code>log1p</code> scale, since the model is <code>$$\log(Y+1)=0.86 - 0.60 \,x_1.$$</code></p>
+<p>Rather than forcing our response variable to be Gaussian when it isn&rsquo;t (see <a class="link" href="https://events.ok.ubc.ca/event/fitting-models-to-data-not-data-to-models-eight-workshop-series/"  target="_blank" rel="noopener"
+    >this modeling workshop</a> I created with the CSC), we can fit a model that fits our data well: a Generalized Linear Model (GLM). GLMs allow one to recognize the structure of the response variable (e.g., any bounds and the mean-variance relationship) by specifying an appropriate statistical distribution (e.g., Gaussian, binomial, etc.).</p>
+<p>The Poisson distribution is a good option because it represents the number of events that occur within a given period of time and location. We can fit a Poisson GLM by specifying the family in the <code>gam()</code> function:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">m_3</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">accidents</span> <span class="o">~</span> <span class="n">period</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="p">,</span> <span class="n">family</span> <span class="o">=</span> <span class="nf">poisson</span><span class="p">(</span><span class="n">link</span> <span class="o">=</span> <span class="s">&#39;log&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nf">coef</span><span class="p">(</span><span class="n">m_3</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## (Intercept) periodafter 
+</span></span><span class="line"><span class="cl">##   0.5108256  -1.3862944
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">appraise</span><span class="p">(</span><span class="n">m_3</span><span class="p">,</span> <span class="n">point_alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-5-1.png" width="\linewidth" />
+<p>The output from <code>coef()</code> tells us that the GLM is <code>$$\lambda = e{0.51-1.39\,x_1}.$$</code> This means that after the intervention, the number of accidents decreased to <code>\(e^-1.39 * 100%= 0.25%\)</code> what they were in the 12 months before.</p>
+<p>With the GLM, we can see a improvement in both the q-q plot and histogram of residuals, and while the variance still increases with the mean number of accidents, the model now expects that to be the case. This is because the variance of a Poisson distributions is equal to its mean, both of which are usually indicated as <code>\(\lambda\)</code> rather than <code>\(\lambda\)</code>.</p>
+<p>The <code>\(\log\)</code> link function (<code>link = 'log'</code>) allows us to create a model that will only give us non-negative numbers of accidents by having the form <code>$$\log(\lambda) = 0.51-1.39 \, x_1,$$</code> which we can re-write as <code>$$\lambda = e^{ 0.51-1.39 \, x_1}.$$</code> Notice that while this model may look similar to the <code>log1p</code> model, the <code>\(\log\)</code> function is applied to <code>\(\lambda\)</code>, the mean of <code>\(Y\)</code>, rather than to <code>\(Y\)</code> directly. This is important because it removes the systematic bias that results from applying non-linear transformations such as <code>\(\log(Y)\)</code>, <code>\(\sqrt{Y}\)</code>, and <code>\(\arcsin\left(\sqrt{Y}\right)\)</code> to a random variable. Now that we have three models, let&rsquo;s compare between the predictions that the tree give us:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># predictions</span>
+</span></span><span class="line"><span class="cl"><span class="n">pred</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">model_type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="n">newdata</span><span class="p">,</span> <span class="n">se.fit</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">as.data.frame</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">transmute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">model</span> <span class="o">=</span> <span class="n">model_type</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># get predictions and approximate 95% Bayesian Credible Intervals</span>
+</span></span><span class="line"><span class="cl">      <span class="n">est</span> <span class="o">=</span> <span class="nf">case_when</span><span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s">&#39;LM&#39;</span> <span class="o">~</span> <span class="n">fit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                      <span class="nf">grepl</span><span class="p">(</span><span class="s">&#39;log1p&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span> <span class="o">~</span> <span class="nf">exp</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                      <span class="n">model</span> <span class="o">==</span> <span class="s">&#39;Poisson GLM&#39;</span> <span class="o">~</span> <span class="nf">exp</span><span class="p">(</span><span class="n">fit</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">lwr_95</span> <span class="o">=</span> <span class="nf">case_when</span><span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s">&#39;LM&#39;</span> <span class="o">~</span> <span class="n">fit</span> <span class="o">-</span> <span class="m">1.96</span> <span class="o">*</span> <span class="n">se.fit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="nf">grepl</span><span class="p">(</span><span class="s">&#39;log1p&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span> <span class="o">~</span> <span class="nf">exp</span><span class="p">(</span><span class="n">fit</span> <span class="o">-</span> <span class="m">1.96</span> <span class="o">*</span> <span class="n">se.fit</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">model</span> <span class="o">==</span> <span class="s">&#39;Poisson GLM&#39;</span> <span class="o">~</span> <span class="nf">exp</span><span class="p">(</span><span class="n">fit</span> <span class="o">-</span> <span class="m">1.96</span> <span class="o">*</span> <span class="n">se.fit</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">upr_95</span> <span class="o">=</span> <span class="nf">case_when</span><span class="p">(</span><span class="n">model</span> <span class="o">==</span> <span class="s">&#39;LM&#39;</span> <span class="o">~</span> <span class="n">fit</span> <span class="o">+</span> <span class="m">1.96</span> <span class="o">*</span> <span class="n">se.fit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="nf">grepl</span><span class="p">(</span><span class="s">&#39;log1p&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span> <span class="o">~</span> <span class="nf">exp</span><span class="p">(</span><span class="n">fit</span> <span class="o">+</span> <span class="m">1.96</span> <span class="o">*</span> <span class="n">se.fit</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">model</span> <span class="o">==</span> <span class="s">&#39;Poisson GLM&#39;</span> <span class="o">~</span> <span class="nf">exp</span><span class="p">(</span><span class="n">fit</span> <span class="o">+</span> <span class="m">1.96</span> <span class="o">*</span> <span class="n">se.fit</span><span class="p">)))</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">bind_cols</span><span class="p">(</span><span class="n">newdata</span><span class="p">,</span> <span class="n">.)</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mutate</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">paste</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">model</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="n">p</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">newdata</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span><span class="n">period</span> <span class="o">=</span> <span class="nf">unique</span><span class="p">(</span><span class="n">d</span><span class="o">$</span><span class="n">period</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">preds</span> <span class="o">&lt;-</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">bind_rows</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pred</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="n">m_1</span><span class="p">,</span> <span class="n">model_type</span><span class="o">=</span> <span class="s">&#39;LM&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pred</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="n">m_2</span><span class="p">,</span> <span class="n">model_type</span><span class="o">=</span> <span class="s">&#39;LM of log1p&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pred</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="n">m_3</span><span class="p">,</span> <span class="n">model_type</span><span class="o">=</span> <span class="s">&#39;Poisson GLM&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span> <span class="n">period</span><span class="p">,</span> <span class="n">nrow</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_hline</span><span class="p">(</span><span class="n">yintercept</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;grey&#39;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_hline</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">yintercept</span> <span class="o">=</span> <span class="n">lambda</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">lty</span> <span class="o">=</span> <span class="s">&#39;dashed&#39;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_jitter</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="s">&#39;LM of log1p&#39;</span><span class="p">,</span> <span class="n">accidents</span><span class="p">),</span> <span class="n">d</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_errorbar</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="n">lwr_95</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">upr_95</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">color</span> <span class="o">=</span> <span class="n">model</span><span class="p">),</span> <span class="n">preds</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">model</span><span class="p">),</span> <span class="n">preds</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="kc">NULL</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">&#39;Number of accidents&#39;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="n">khroma</span><span class="o">::</span><span class="nf">scale_color_highcontrast</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Model&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-6-1.png" width="\linewidth" />
+<p>From the plot above, we can see that the LM and GLM have fairly similar coefficient estimates and that the <code>log1p</code> LM resulted in lower estimates for both. This is due to a systematic bias that occurs when one applies a nonlinear transformation to a random variable, like <code>\(\log(Y)\)</code>. I explain why in the sections below. Additionally, while the LM&rsquo;s coefficients are reasonable, the 95% <a class="link" href="https://en.wikipedia.org/wiki/Credible_interval"  target="_blank" rel="noopener"
+    >Bayesian Credible Intervals</a> (BCIs) for the post-intervention estimate are not appropriate because they include negative values. In contrast, the GLM&rsquo;s BCIs are asymmetric: they are shorter below the mean and longer above the mean. This is recognizes that a multiplicative change for large values is larger than one for small values: a 50% decrease will take 2 to 1 and take 4 to 2. Consequently, asymmetric BCIs provide a better representation of the model&rsquo;s uncertainty.</p>
+<h2 id="linear-and-nonlinear-transformations">Linear and nonlinear transformations
+</h2><p>I want to end this section by explaining the difference between linear and nonlinear transformations and how the two impact modeling. Linear transformations include all transformations that can be written as a series of additions, subtractions, multiplications, or divisions. Formally, they have the form <code>\(Y_t = (aY + b)\)</code>, where <code>\(Y\)</code> is our original response variable of interest, <code>\(a\)</code> and <code>\(b\)</code> are any number (but <code>\(a \ne 0\)</code>), and <code>\(Y_t\)</code> is the transformed response. These transformations are called &ldquo;linear&rdquo; because the operations of addition, subtraction, multiplication and division only shift distributions left and right (addition and subtraction) or expand and shrink distributions (multiplication and division), so <code>\(Y_t\)</code> and <code>\(Y\)</code> follow a linear relationship for any finite and nonzero value of <code>\(a\)</code> and any finite value of <code>\(b\)</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">Y</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0.01</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="m">1e-3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span> <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">Y</span><span class="o">/</span><span class="m">10</span> <span class="o">+</span> <span class="m">3</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-7-1.png" width="\linewidth" />
+<p>Conversely, nonlinear transformations are all transformations that cannot be written using only addition, subtraction, multiplications, or division. If we were to plot any of these functions, we would see a nonlinear relationship between the original and transformed values:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">expand_grid</span><span class="p">(</span><span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">trans</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;Y / 10 + 3&#39;</span><span class="p">,</span> <span class="s">&#39;log(Y)&#39;</span><span class="p">,</span> <span class="s">&#39;sqrt(Y)&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                      <span class="s">&#39;arcsin(sqrt(Y))&#39;</span><span class="p">))</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">mutate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Y_star</span> <span class="o">=</span> <span class="nf">case_when</span><span class="p">(</span><span class="n">trans</span> <span class="o">==</span> <span class="s">&#39;Y / 10 + 3&#39;</span> <span class="o">~</span> <span class="n">Y</span><span class="o">/</span><span class="m">10</span> <span class="o">+</span> <span class="m">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">trans</span> <span class="o">==</span> <span class="s">&#39;log(Y)&#39;</span> <span class="o">~</span> <span class="nf">log</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">trans</span> <span class="o">==</span> <span class="s">&#39;sqrt(Y)&#39;</span> <span class="o">~</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">trans</span> <span class="o">==</span> <span class="s">&#39;arcsin(sqrt(Y))&#39;</span> <span class="o">~</span> <span class="nf">asin</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">Y</span><span class="p">))))</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">Y_star</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span> <span class="n">trans</span><span class="p">,</span> <span class="n">scales</span> <span class="o">=</span> <span class="s">&#39;free_y&#39;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">&#39;Y&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nf">expression</span><span class="p">(</span><span class="nf">bold</span><span class="p">(</span><span class="n">Y[t]</span><span class="p">)))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Warning: There was 1 warning in `mutate()`.
+</span></span><span class="line"><span class="cl">## ℹ In argument: `Y_star = case_when(...)`.
+</span></span><span class="line"><span class="cl">## Caused by warning in `asin()`:
+</span></span><span class="line"><span class="cl">## ! NaNs produced
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-8-1.png" width="\linewidth" />
+<h3 id="jensens-inequality">Jensen&rsquo;s inequality
+</h3><p><a class="link" href="https://en.wikipedia.org/wiki/Jensen%27s_inequality"  target="_blank" rel="noopener"
+    >Jensen&rsquo;s inequality</a> demostrates that if we apply a nonlinear transformation to a random variable, we can&rsquo;t simply back-transform the mean. This is because, if <code>\(g()\)</code> is a nonlinear transformation and <code>\(g^{-1}()\)</code> is its inverse (e.g, <code>\(g() = \log()\)</code> and <code>\(g^{-1}()=\exp()\)</code>): <code>$$g\big[\mathbb E(Y)\big] \ne \mathbb E\big[g(Y)\big],$$</code> where <code>\(\mathbb E()\)</code> indicates an expected value such that <code>\(\mathbb E(Y)=\mu\)</code>. This implies that <code>$$\mathbb E(Y) = \mu \ne g^{-1}\bigg\{\mathbb E\big[g(Y)\big]\bigg\}.$$</code></p>
+<p>Here is a graphical example to help you visualize why. The green vertical line is the estimated mean (i.e., what we&rsquo;re usually interested in), the blue line is the estimated mean of the square-root transformed <code>\(Y\)</code>, and the blue line is the back-transformed estimated mean of the square-root transformed <code>\(Y\)</code>. The black line is the estimated bias.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">2024-10-7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Y</span> <span class="o">&lt;-</span> <span class="nf">rpois</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="m">250</span><span class="p">,</span> <span class="n">lambda</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ggExtra</span><span class="o">::</span><span class="nf">ggMarginal</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="nf">ceiling</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">Y</span><span class="p">)),</span> <span class="n">by</span> <span class="o">=</span> <span class="m">0.01</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">y</span> <span class="o">=</span> <span class="nf">sqrt</span><span class="p">(</span><span class="nf">after_stat</span><span class="p">(</span><span class="n">x</span><span class="p">))),</span>
+</span></span><span class="line"><span class="cl">              <span class="n">color</span> <span class="o">=</span> <span class="s">&#39;grey&#39;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">geom_jitter</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">Y</span><span class="p">)),</span> <span class="n">height</span> <span class="o">=</span> <span class="m">0.02</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">geom_vline</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s">&#39;estimated~E(Y)&#39;</span><span class="p">,</span> <span class="n">xintercept</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">Y</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">               <span class="n">lwd</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">geom_hline</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s">&#39;estimated~E(sqrt(Y))&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">yintercept</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">Y</span><span class="p">))),</span> <span class="n">lwd</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">geom_vline</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s">&#39;estimated~(E(sqrt(Y)))^2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                   <span class="n">xintercept</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span><span class="n">^2</span><span class="p">),</span> <span class="n">lwd</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">geom_segment</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span><span class="n">^2</span><span class="p">,</span> <span class="n">xend</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">y</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span> <span class="n">yend</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">arrow</span> <span class="o">=</span> <span class="n">grid</span><span class="o">::</span><span class="nf">arrow</span><span class="p">(</span><span class="n">ends</span> <span class="o">=</span> <span class="s">&#39;both&#39;</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="nf">unit</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> <span class="s">&#39;in&#39;</span><span class="p">)))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">&#39;Y&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nf">expression</span><span class="p">(</span><span class="nf">bold</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">Y</span><span class="p">))))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="n">khroma</span><span class="o">::</span><span class="nf">scale_color_bright</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Variable&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                               <span class="n">labels</span> <span class="o">=</span> <span class="n">scales</span><span class="o">::</span><span class="nf">parse_format</span><span class="p">())</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">theme</span><span class="p">(</span><span class="n">legend.position</span> <span class="o">=</span> <span class="s">&#39;inside&#39;</span><span class="p">,</span> <span class="n">legend.position.inside</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">0.8</span><span class="p">,</span> <span class="m">0.2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="n">legend.frame</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fill</span> <span class="o">=</span> <span class="s">&#39;grey&#39;</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#39;histogram&#39;</span><span class="p">,</span> <span class="n">xparams</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">bins</span> <span class="o">=</span> <span class="m">5</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">yparams</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">bins</span> <span class="o">=</span> <span class="m">5</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-blog-new/p/transforming-data/index.en_files/figure-html/unnamed-chunk-9-1.png" width="\linewidth" />
+<p>However, note that the transformations only cause bias if applied to random variables. You can apply nonlinear transformations to predictor variables that you assume are measured exactly right. This means that fitting a model of the form <code>\(Y = \beta_0 + \beta_1 \log(x_1)\)</code> will not cause issues if you assume <code>\(x_1\)</code> is exactly correct with no error (as we often assume). Applying nonlinear transformations on predictors can be useful when a predictor has a distribution with a very long tail, or if one wants to create a variable with diminishing effects (e.g., moving closer to something matters more when you&rsquo;re close and less when you&rsquo;re already far from it). I will make a blog post on this in the future.</p>
+<h2 id="references">References
+</h2><p>Whitlock M. &amp; Schluter D. (2020). Analysis of biological data, Third edition. Macmillan Learning, New York, NY.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/csc-blog-new/tags/r/">R</a>
+        
+            <a href="/csc-blog-new/tags/rstudio/">Rstudio</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/abacus-api/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Abacus API</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/changing-the-rstudio-theme/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Changing the RStudio Theme</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/getting-started-with-github/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Getting started with GitHub</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/sample-data-generation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sample Data Generation</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-blog-new/p/basic-model-fitting-in-r/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Basic Model Fitting in R</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Center for Scholarly Communication, UBC Okanagan
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/csc-blog-new/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

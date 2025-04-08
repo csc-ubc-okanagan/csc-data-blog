@@ -7,7 +7,164 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Sat, 11 Feb 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/rstudio/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 16 Sep 2024 12:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/rstudio/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Getting started with GitHub</title>
+        <link>http://localhost:4321/csc-blog-new/p/getting-started-with-github/</link>
+        <pubDate>Mon, 16 Sep 2024 12:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/p/getting-started-with-github/</guid>
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub&lt;/a&gt; is a platform that allows you to store, share, and archive files. It is commonly used for in research to make files accessible, including code, data, models, and figures. Sharing code and data through platforms like GitHub helps make research more transparent, reproducible, and credible &lt;a class=&#34;link&#34; href=&#34;https://doi.org/10.1111/2041-210X.14108&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Braga et al. 2023&lt;/a&gt;. In this blog post, I will show you how to create your first GitHub repository (&amp;ldquo;repo&amp;rdquo; for short), how to set up a convenient folder structure, and how to push (i.e., upload) and pull (i.e., download) content to and from the repo. The &lt;a class=&#34;link&#34; href=&#34;https://csc-ubc-okanagan.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Center for Scholarly Communication&lt;/a&gt; (CSC) also runs a two-part workshop on how to use GitHub. The material is available on the CSC website: &lt;a class=&#34;link&#34; href=&#34;https://csc-ubc-okanagan.github.io/workshops/Intro-GitHub-Part-1.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Part 1&lt;/a&gt; and &lt;a class=&#34;link&#34; href=&#34;https://csc-ubc-okanagan.github.io/workshops/Intro-GitHub-Part-2.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Part 2&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Before we start, you will need to download and install &lt;a class=&#34;link&#34; href=&#34;https://github.com/apps/desktop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub Desktop&lt;/a&gt; from &lt;a class=&#34;link&#34; href=&#34;https://desktop.github.com/download/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://desktop.github.com/download/&lt;/a&gt;. While it installs, make an account on &lt;a class=&#34;link&#34; href=&#34;github.com&#34; &gt;github.com&lt;/a&gt; if you don&amp;rsquo;t have one already.&lt;/p&gt;
+&lt;p&gt;To make your first repo, go to &lt;code&gt;File/New repository&lt;/code&gt; or press &lt;code&gt;Ctrl + N&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo.png&#34;
+	width=&#34;666&#34;
+	height=&#34;353&#34;
+	srcset=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo_hu_e7bf180219c2b1b7.png 480w, http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo_hu_8be83f90981c8645.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;188&#34;
+		data-flex-basis=&#34;452px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Now choose your repo&amp;rsquo;s name. Something short and simple, like &lt;code&gt;my-first-repo&lt;/code&gt; works for now. If you want, you can also add a description of the repo&amp;rsquo;s contents and change the location of the local copy that GitHub Desktop will make. On my personal machine, I tend to save repos in &lt;code&gt;Documents/GitHub&lt;/code&gt;, but on my lab machine I save them in my UBC home drive: &lt;code&gt;H:/GitHub&lt;/code&gt;. If you are planning on working primarily with only one language (e.g., &lt;code&gt;R&lt;/code&gt; or &lt;code&gt;Python&lt;/code&gt;), I would suggest choosing the appropriate Git ignore. This will hide files that you generally don&amp;rsquo;t want to push to GitHub (e.g., &lt;code&gt;.Rhistory&lt;/code&gt; and &lt;code&gt;.RData&lt;/code&gt; files). You can change the &lt;code&gt;.gitignore&lt;/code&gt; files later with any text editor. The last step here is to choose a license. If you want a simple open-access licence for code, the MIT one is a good option.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo-options.png&#34;
+	width=&#34;694&#34;
+	height=&#34;780&#34;
+	srcset=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo-options_hu_c5e978ac49c939d9.png 480w, http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/new-repo-options_hu_4933a1ef0ab00513.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;88&#34;
+		data-flex-basis=&#34;213px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;You&amp;rsquo;ve now created your first GitHub repo, but it is currently only on your local machine. To push it to GitHub, you&amp;rsquo;ll need to publish the repo (top ribbon, to the right). Before confirming, you can:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;update the name (this won&amp;rsquo;t change the name of the folder on your machine),&lt;/li&gt;
+&lt;li&gt;edit the description,&lt;/li&gt;
+&lt;li&gt;decide whether you want the repo to be public or not (it&amp;rsquo;s private by default), and&lt;/li&gt;
+&lt;li&gt;choose if you want to add it into an existing organization (e.g., your lab&amp;rsquo;s organization). Be careful though &amp;ndash; it can be hard to edit the repo after you&amp;rsquo;ve added it to an organization.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/publish-repo.png&#34;
+	width=&#34;931&#34;
+	height=&#34;338&#34;
+	srcset=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/publish-repo_hu_852574e63a2b85ca.png 480w, http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/publish-repo_hu_16c8450c10f4fa5c.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;275&#34;
+		data-flex-basis=&#34;661px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Now that the repo is on GitHub, you can start pushing and pulling content to and from it. As a general rule, you should always check for any updates by pulling (click &lt;code&gt;Fetch-origin&lt;/code&gt; followed by &lt;code&gt;Pull origin&lt;/code&gt;) before trying to push anything, otherwise GitHub will have to manage the pull/push conflict by merging the old files (to be pulled) with the new ones (to be pushed). This can be quite confusing, so it&amp;rsquo;s always good to make to pull first (even if you&amp;rsquo;re the only one working on the repo on two machines). Once you have some files you want to push to the repo, select the ones you want to push by clicking on the boxes in the upper left, add a summary for the commit (i.e., the series of changes to push) at the bottom of the column. Commit summaries should be brief and simple but clear, like &amp;ldquo;cleaned data and started model fitting&amp;rdquo;. You can use markdown in both the summary and the description (see the field below the summary field) for messages like &amp;ldquo;removed unnecessary &lt;code&gt;library()&lt;/code&gt; calls&amp;rdquo; using &lt;code&gt;\(\text{&lt;/code&gt;text&lt;code&gt;}\)&lt;/code&gt;. In the changes column, green &amp;ldquo;+&amp;rdquo; symbols indicate new files, yellow dots indicate changed files, and red &amp;ldquo;-&amp;rdquo; symbols indicate file deletions. The panel on the right will show you exactly what portions of a file you changed, if the file is a simple text file (e.g., &lt;code&gt;.csv.&lt;/code&gt;, &lt;code&gt;.R&lt;/code&gt;, &lt;code&gt;.Rmd&lt;/code&gt;, &lt;code&gt;.md&lt;/code&gt;, and &lt;code&gt;.txt&lt;/code&gt;, but not &lt;code&gt;.pdf&lt;/code&gt;, &lt;code&gt;.doc&lt;/code&gt;, &lt;code&gt;.ppt&lt;/code&gt;, or &lt;code&gt;.rds&lt;/code&gt;). Consequently, GitHub&amp;rsquo;s version control and edit history work best if you use simple text files as much as possible. Once you&amp;rsquo;ve committed all your changes, don&amp;rsquo;t forget to push the changes to GitHub using the &amp;ldquo;Push origin&amp;rdquo; button! You can check the status of your changes by going to &lt;a class=&#34;link&#34; href=&#34;https://github.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub&lt;/a&gt; and navigating to your repo.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/push-origin.png&#34;
+	width=&#34;618&#34;
+	height=&#34;120&#34;
+	srcset=&#34;http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/push-origin_hu_2dd72d951c8e876b.png 480w, http://localhost:4321/csc-blog-new/p/getting-started-with-github/images/push-origin_hu_a0ebeceb741af2e6.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;515&#34;
+		data-flex-basis=&#34;1236px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;references&#34;&gt;References
+&lt;/h1&gt;&lt;p&gt;Braga P.H.P., Hébert K., Hudgins E.J., Scott E.R., Edwards B.P.M., Sánchez Reyes L.L., et al. (2023). Not just for programmers: How GitHub can accelerate collaborative and reproducible research in ecology and evolution. Methods in Ecology and Evolution 14, 1364–1380. &lt;a class=&#34;link&#34; href=&#34;https://doi.org/10.1111/2041-210X.14108&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://doi.org/10.1111/2041-210X.14108&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Using Python in RStudio with Reticulate Package</title>
+        <link>http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/</link>
+        <pubDate>Wed, 26 Jul 2023 09:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/</guid>
+        <description>&lt;p&gt;As we know, Jupyter Notebook can be used easily with our UBC login information via &lt;a class=&#34;link&#34; href=&#34;https://ubc.syzygy.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Syzygy&lt;/a&gt;. Jupyter Notebook can also be downloaded to a computer and used via Anaconda. There are many different interfaces that allow us to use Python. One of the more interesting ones to note is actually RStudio. There is a package in R called &lt;em&gt;reticulate&lt;/em&gt; that allows us to create an RMarkdown file and use both R and Python code chunks within the same file. This is actually how this blog is able to show both R and Python content! Let&amp;rsquo;s get started on how &lt;em&gt;reticulate&lt;/em&gt; is used in RStudio to include Python code.&lt;/p&gt;
+&lt;h2 id=&#34;installation&#34;&gt;Installation
+&lt;/h2&gt;&lt;p&gt;First, installation is required. To install the reticulate package in RStudio from CRAN, type the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;install.packages(&amp;#34;reticulate&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;python-version&#34;&gt;Python Version
+&lt;/h2&gt;&lt;p&gt;Next, we need to access the version of Python desired. Reticulate will, by default, find and use the version of Python via &lt;code&gt;PATH&lt;/code&gt;. To check this, type &lt;code&gt;Sys.which(&amp;quot;python&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If you would like to change the version to something other than what is found in &lt;code&gt;PATH&lt;/code&gt;, try the &lt;code&gt;use_python()&lt;/code&gt; function. Here is an example of how to call the package from the library, and then use a different path to get to the desired Python version.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;library(reticulate)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;use_python(&amp;#34;/my/file/path/python&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started
+&lt;/h1&gt;&lt;p&gt;Now that the &lt;em&gt;reticulate&lt;/em&gt; package has been installed, we can start using Python within an RMarkdown document.&lt;/p&gt;
+&lt;p&gt;Once an RMarkdown file has been started, create a new code block. Note that on a Windows, a shortcut for adding a new code block is Ctrl+alt+i. Once a new code block appears, it should look like this:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
+	width=&#34;361&#34;
+	height=&#34;67&#34;
+	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;538&#34;
+		data-flex-basis=&#34;1293px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;If you were to type code here, it would be in R. To change it to Python, simply replace the &amp;lsquo;r&amp;rsquo; with &amp;lsquo;python&amp;rsquo;. Then it will look like this:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
+	width=&#34;409&#34;
+	height=&#34;58&#34;
+	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;705&#34;
+		data-flex-basis=&#34;1692px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Now, the console below will change to show Python code once something in this block is run. You can easily switch back and forth between R and Python from code chunk to code chunk.&lt;/p&gt;
+&lt;p&gt;You can also see your saved variables in the environment, separated between R and Python. Note that when you do something such as import a dataset, if you wanted to perform manipulations on the dataset in both R and Python, you will have to load the dataset in using both R and Python, and it will create separate variables which do not override each other. They will stay speparate in the environment.&lt;/p&gt;
+&lt;p&gt;To change between R and Python environments, go to the Environment window and click the dropdown arrow. It should look like this:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
+	width=&#34;654&#34;
+	height=&#34;597&#34;
+	srcset=&#34;http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, http://localhost:4321/csc-blog-new/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;109&#34;
+		data-flex-basis=&#34;262px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;If you would like to see some examples, take a look at the &lt;code&gt;_src&lt;/code&gt; folder in the GitHub repo for this blog to see how each of the posts are created in both R and Python. The link to the backend content for this blog can be found &lt;a class=&#34;link&#34; href=&#34;https://github.com/csc-ubc-okanagan/R-Python-Blog&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Changing the RStudio Theme</title>
         <link>http://localhost:4321/csc-blog-new/p/changing-the-rstudio-theme/</link>
         <pubDate>Sat, 11 Feb 2023 09:00:00 -0800</pubDate>
