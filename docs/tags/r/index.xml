@@ -7,16 +7,74 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Tue, 07 Mar 2023 11:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/r/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 09 Mar 2023 18:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/r/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Searching for files with the `findR` package</title>
+        <link>http://localhost:4321/csc-blog-new/p/searching-for-files-with-the-findr-package/</link>
+        <pubDate>Thu, 09 Mar 2023 18:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/p/searching-for-files-with-the-findr-package/</guid>
+        <description>&lt;!-- https://chirpy.cotes.page/posts/write-a-new-post/ --&gt;
+&lt;p&gt;It is good practice to have descriptive but concise file names so one can easily find the code they are looking for. But as projects grow, the number of scripts can become quite large (unless you are one of those chaotic people that put everything in a single script&amp;hellip;). With UNIX computers, one can easily search for code in the a file explorer window, but this does not work with Windows. It is possible to search for files by name, but it is not possible to search for specific content in &lt;code&gt;R&lt;/code&gt; scripts.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;findR&lt;/code&gt; package allows Windows users to search for specific strings of code within directories using a simple syntax:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;findR&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;findRscript&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pattern&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;a string of code&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;my-folder&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;case.sensitive&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;TRUE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;The &lt;code&gt;pattern&lt;/code&gt; argument can be any code string, but note that single and double quotes need to be escaped by placing a &lt;code&gt;\&lt;/code&gt; before them (i.e., &lt;code&gt;\&#39;&lt;/code&gt; and &lt;code&gt;\&amp;quot;&lt;/code&gt;), while some special characters need to be preceeded by &lt;code&gt;\\&lt;/code&gt;, such as &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;(&lt;/code&gt;. Failing to escape and double-escape special characters will cause the function to miss the files or fail:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;findRscript&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;library(\&amp;#39;ctmm\&amp;#39;)&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;H:/GitHub/env-var-review/analysis&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## No R scripts found!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;findRscript&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;library\\(\&amp;#39;ctmm\&amp;#39;\\)&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;H:/GitHub/env-var-review/analysis&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## No R scripts found!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;The package can also search for &lt;code&gt;R&lt;/code&gt; Markdown files, PDFs, and text (&lt;code&gt;.txt&lt;/code&gt;) files via the &lt;code&gt;findRmd()&lt;/code&gt;, &lt;code&gt;findPDF()&lt;/code&gt;, and &lt;code&gt;findtxt()&lt;/code&gt; functions, respectively. Each of the functions can also copy the files that matched the &lt;code&gt;pattern&lt;/code&gt; argument to a new folder (if &lt;code&gt;copy = TRUE&lt;/code&gt;, but it is &lt;code&gt;FALSE&lt;/code&gt; by default). You can decide which folder the files get copied to using the &lt;code&gt;folder&lt;/code&gt; argument. Note that by default &lt;code&gt;overwrite&lt;/code&gt; is set to &lt;code&gt;TRUE&lt;/code&gt;, so any files present with the same name will be overwritten.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Data Structures in R</title>
         <link>http://localhost:4321/csc-blog-new/p/data-structures-in-r/</link>
         <pubDate>Tue, 07 Mar 2023 11:00:00 -0800</pubDate>
         
         <guid>http://localhost:4321/csc-blog-new/p/data-structures-in-r/</guid>
         <description>&lt;p&gt;\usepackage{amsmath}&lt;/p&gt;
-&lt;p&gt;There are many different data structure types in &lt;code&gt;R&lt;/code&gt;, each with varying levels of complexity and uses. The simplest data structure in &lt;code&gt;R&lt;/code&gt; is a vector. Vectors are one-dimensional arrays (i.e., sets of values) of a single class (such as characters, numbers, dates, etc.), and they have a similar structure to the mathematical concept of vectors. For example, the vector &lt;code&gt;\(\vec v\)&lt;/code&gt; with values 1, 4, 6, 2 would be:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;$$\vec v = \begin{bmatrix}1 \\ 4 \\ 6 \\ 2\end{bmatrix}.$$&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;In &lt;code&gt;R&lt;/code&gt; we can create vectors using the &lt;code&gt;c()&lt;/code&gt; function, as follows:&lt;/p&gt;
+&lt;p&gt;There are many different data structure types in &lt;code&gt;R&lt;/code&gt;, each with varying levels of complexity and uses. The simplest data structure in &lt;code&gt;R&lt;/code&gt; is a vector. Vectors are one-dimensional arrays (i.e., sets of values) of a single class (such as characters, numbers, dates, etc.), and they have a similar structure to the mathematical concept of vectors. For example, the vector $\vec v$ with values 1, 4, 6, 2 would be:&lt;/p&gt;
+$$\vec v = \begin{bmatrix}1 \\ 4 \\ 6 \\ 2\end{bmatrix}.$$&lt;p&gt;In &lt;code&gt;R&lt;/code&gt; we can create vectors using the &lt;code&gt;c()&lt;/code&gt; function, as follows:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1

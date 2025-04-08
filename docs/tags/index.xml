@@ -7,20 +7,28 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Tue, 07 Mar 2023 11:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 09 Mar 2023 18:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-blog-new/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>R</title>
+        <link>http://localhost:4321/csc-blog-new/tags/r/</link>
+        <pubDate>Thu, 09 Mar 2023 18:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/tags/r/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Windows</title>
+        <link>http://localhost:4321/csc-blog-new/tags/windows/</link>
+        <pubDate>Thu, 09 Mar 2023 18:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-blog-new/tags/windows/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Data-Structures</title>
         <link>http://localhost:4321/csc-blog-new/tags/data-structures/</link>
         <pubDate>Tue, 07 Mar 2023 11:00:00 -0800</pubDate>
         
         <guid>http://localhost:4321/csc-blog-new/tags/data-structures/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>R</title>
-        <link>http://localhost:4321/csc-blog-new/tags/r/</link>
-        <pubDate>Tue, 07 Mar 2023 11:00:00 -0800</pubDate>
-        
-        <guid>http://localhost:4321/csc-blog-new/tags/r/</guid>
         <description></description>
         </item>
         <item>

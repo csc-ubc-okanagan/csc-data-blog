@@ -14,9 +14,8 @@
         
         <guid>http://localhost:4321/csc-blog-new/p/data-structures-in-r/</guid>
         <description>&lt;p&gt;\usepackage{amsmath}&lt;/p&gt;
-&lt;p&gt;There are many different data structure types in &lt;code&gt;R&lt;/code&gt;, each with varying levels of complexity and uses. The simplest data structure in &lt;code&gt;R&lt;/code&gt; is a vector. Vectors are one-dimensional arrays (i.e., sets of values) of a single class (such as characters, numbers, dates, etc.), and they have a similar structure to the mathematical concept of vectors. For example, the vector &lt;code&gt;\(\vec v\)&lt;/code&gt; with values 1, 4, 6, 2 would be:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;$$\vec v = \begin{bmatrix}1 \\ 4 \\ 6 \\ 2\end{bmatrix}.$$&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;In &lt;code&gt;R&lt;/code&gt; we can create vectors using the &lt;code&gt;c()&lt;/code&gt; function, as follows:&lt;/p&gt;
+&lt;p&gt;There are many different data structure types in &lt;code&gt;R&lt;/code&gt;, each with varying levels of complexity and uses. The simplest data structure in &lt;code&gt;R&lt;/code&gt; is a vector. Vectors are one-dimensional arrays (i.e., sets of values) of a single class (such as characters, numbers, dates, etc.), and they have a similar structure to the mathematical concept of vectors. For example, the vector $\vec v$ with values 1, 4, 6, 2 would be:&lt;/p&gt;
+$$\vec v = \begin{bmatrix}1 \\ 4 \\ 6 \\ 2\end{bmatrix}.$$&lt;p&gt;In &lt;code&gt;R&lt;/code&gt; we can create vectors using the &lt;code&gt;c()&lt;/code&gt; function, as follows:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
