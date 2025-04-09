@@ -16,7 +16,7 @@ title: About
 
 This blog was created by UBC Okanagan's Centre for Scholarly Communication. It contains various blog posts to assist students with their pursuit of research utilizing tools such as R and Python.
 
-For specific questions, the **Search** tab will allow you to search for specific topics or key words to help find a blog post relating to your question. For general learnings, the **Home** page lists all active posts, and the categories tab is useful to read current posts for each topic, such as general Python posts or Getting Started posts.
+For specific questions, the **Search** tab will allow you to search for specific topics or key words to help find a blog post relating to your question. For general learnings, the **Home** page lists all active posts, and the **Archives** tab is useful to read current posts for each topic, such as general Python posts or Getting Started posts.
 
 If you are starting from scratch and aren't sure whether to learn R or Python first, try visiting our [post](https://csc-ubc-okanagan.github.io/csc-data-blog/p/python-vs-r-how-to-decide/) outlining the pros and cons of each, as well as discipline norms.
 
