@@ -1,0 +1,14 @@
+---
+title: Meta-analysis on Randomized Clinical Trials - Part 1
+author: Amir Golzan
+date: '2025-05-16'
+slug: meta-analysis-on-randomized-clinical-trials-part-1
+categories: []
+tags: []
+description: ~
+image: ~
+math: ~
+license: ~
+hidden: no
+comments: yes
+---

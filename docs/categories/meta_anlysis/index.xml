@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Meta_Anlysis on R &amp; Python Blog</title>
+        <link>http://localhost:4321/csc-data-blog/categories/meta_anlysis/</link>
+        <description>Recent content in Meta_Anlysis on R &amp; Python Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
+        <lastBuildDate>Fri, 16 May 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/categories/meta_anlysis/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Meta-Analysis on RCTs - Part 1</title>
+        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-rcts-part-1/</link>
+        <pubDate>Fri, 16 May 2025 09:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-rcts-part-1/</guid>
+        <description>&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
+&lt;/h2&gt;&lt;p&gt;Imagine you’re studying the effects of non-nutritive sweeteners on blood pressure. You’re curious about whether they eventually increase, decrease, or have no impact on blood pressure. You review various studies and find quite conflicting results. Some studies suggest that consuming non-nutritive sweeteners can increase blood pressure, while others show quite opposite results. Also, some studies indicate no effect on blood pressue from consuming non-nutritive sweeteners. This situation presents a challenge that you may address by conducting a meta-analysis. &lt;strong&gt;Meta-analysis pools data from multiple studies to provide a more precise estimate based on existing evidence&lt;/strong&gt;. &lt;strong&gt;Seems quite intriguing, doesn’t it?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Before getting into meta-analysis itself, let&amp;rsquo;s have a better understanding of &lt;strong&gt;different types of studies&lt;/strong&gt;:&lt;/p&gt;
+&lt;h3 id=&#34;primary-studies&#34;&gt;Primary Studies
+&lt;/h3&gt;&lt;p&gt;These types of studies are conducted on humans, animals, and so on. In technical terminology, they’re referred to as &lt;em&gt;original&lt;/em&gt; studies.&lt;/p&gt;
+&lt;h3 id=&#34;secondary-studies&#34;&gt;Secondary Studies
+&lt;/h3&gt;&lt;p&gt;These types of studies are conducted on the findings of primary studies, including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Narrative reviews&lt;/strong&gt;: They can be conducted with as few as two studies. they may not have a specific objective and might cover a broad topic, for example: Efficacy of vitamin E supplementation on routine diseases in women. Also, they may not include every article available within the topic area under review.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Systematic reviews&lt;/strong&gt;: They have a defined objective, for example: Efficacy of vitamin E supplementation on blood pressure in adult women. Also, all articles within the scope of the topic under review must be included.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Meta-analyses&lt;/strong&gt;: Similar in every respect to a systematic review, with the difference that &lt;em&gt;statistical analysis&lt;/em&gt; is also performed. Meta-analysis is essentially a re-analysis of the findings from primary studies. In a meta-analysis, the quantitative data from primary studies (such as means, odds ratios, etc.) are combined into a single result (for example, one mean, one odds ratio, etc.) Therefore, drawing the final conclusion in a meta-analysis is easier. An example would be: Effect of vitamin E supplementation on CRP concentrations in adults: A meta-analysis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;meta-analyses-sit-at-the-top-of-the-evidence-pyramid&#34;&gt;Meta-analyses sit at the top of the evidence pyramid
+&lt;/h2&gt;&lt;p&gt;So you may ask why meta-anlysis? In the biomedical sciences field, there’s a hierarchical evidence pyramid that outlines the significance of different studies conducted in this area. Interestingly, meta-analysis studies, which combine existing studies, are placed at the top of this pyramid, highlighting their importance.&lt;/p&gt;
+&lt;p&gt;In the initial step, we should have a better understanding of different types of RCTs. We want to know how we can differentiate them and how we should treat each study’s data based on its type.&lt;/p&gt;
+&lt;h2 id=&#34;study-designs&#34;&gt;Study Designs
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Randomized Clinical Trial (RCT)&lt;/strong&gt;: Participants are randomly assigned to intervention and control groups.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Single-blind Trial&lt;/strong&gt;: Participants are unaware of the intervention details.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Double-blind Trial&lt;/strong&gt;: Both participants and researchers are blind to assignments.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Triple-blind Trial&lt;/strong&gt;: Participants, researchers, and analysts are blind to group assignments.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Semi-experimental (Quasi-experimental) Study&lt;/strong&gt;: Lacks randomization.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Open Trial&lt;/strong&gt;: No control group; only an intervention group.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Community Trial&lt;/strong&gt;: Interventions at the community or group level. For example, iron fortification of flour or vitamin D supplementation programs implemented across schools.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;choosing-a-topic-for-meta-analysis&#34;&gt;Choosing a Topic for Meta-Analysis
+&lt;/h2&gt;&lt;p&gt;To select a topic, we should consider:&lt;/p&gt;
+&lt;p&gt;Principle 1. &lt;strong&gt;Type of study&lt;/strong&gt;: Clinical trial vs. observational study. &lt;em&gt;We focus on clinical trials in this series.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Principle 2. &lt;strong&gt;Study design&lt;/strong&gt;: RCTs are preferred for fewer biases.&lt;/p&gt;
+&lt;p&gt;Principle 3. &lt;strong&gt;Type of intervention&lt;/strong&gt;: e.g., supplementation, drug therapy, dietary intervention, educational intervention, etc.&lt;/p&gt;
+&lt;p&gt;Principle 4. &lt;strong&gt;Target population&lt;/strong&gt;: Children vs. adults, patients vs. healthy individuals.&lt;/p&gt;
+&lt;p&gt;Principle 5. &lt;strong&gt;Dependent variables&lt;/strong&gt;: The dependent variables to be considered: inflammatory markers, lipid profile, weight, etc.&lt;/p&gt;
+&lt;p&gt;Principle 6. &lt;strong&gt;Intervention duration&lt;/strong&gt;: The minimum duration of intervention: one day, one week, two weeks, etc.&lt;/p&gt;
+&lt;p&gt;Principle 7. &lt;strong&gt;Number of studies&lt;/strong&gt;: To perform a meta-analysis, there must be at least three articles (in accordance with Principles 1–6) in the topic area under review. These three articles must provide the necessary data to carry out a meta-analysis on a single dependent variable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Required data&lt;/strong&gt; for interventional meta-analysis:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Option 1:&lt;/strong&gt; The mean and standard deviation (SD) of the dependent variable before and after the intervention, reported separately for the intervention and control groups.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Option 2:&lt;/strong&gt; The mean change (i.e., difference between pre- and post-intervention) and its SD for the dependent variable, again separately for the intervention and control groups.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Some studies report SE (standard error), IQR (interquartile range), &lt;strong&gt;95% CI&lt;/strong&gt; (confidence interval), or &lt;strong&gt;range&lt;/strong&gt;. These can all be converted to SD for pooling.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;principle-8-is-there-an-existing-meta-analysis-on-our-topic&#34;&gt;Principle 8: Is there an existing meta-analysis on our topic?
+&lt;/h2&gt;&lt;p&gt;If a meta-analysis on our topic has already been published, we should usually drop the topic—since it no longer has publishable value—unless:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The published meta-analysis contains &lt;strong&gt;methodological flaws&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;It is possible to &lt;strong&gt;update&lt;/strong&gt; the meta-analysis due to &lt;strong&gt;several new studies&lt;/strong&gt; published in that field since then.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Well, that seems like a lot for now! In &lt;strong&gt;Part 2&lt;/strong&gt;, we will look at how we should prepare &lt;strong&gt;our dataset for performing meta-analyses&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Stay tuned!&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Reference:&lt;/strong&gt; For guidelines and detailed methodology, see the &lt;a class=&#34;link&#34; href=&#34;https://training.cochrane.org/handbook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cochrane Handbook&lt;/a&gt; by Julian P. T. Higgins and Sally Green.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
