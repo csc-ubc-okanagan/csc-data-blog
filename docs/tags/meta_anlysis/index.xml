@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Meta_anlysis on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/tags/meta_anlysis/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/meta_anlysis/</link>
         <description>Recent content in Meta_anlysis on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Fri, 16 May 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/meta_anlysis/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Meta-Analysis on RCTs - Part 1</title>
-        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-rcts-part-1/</link>
+        <lastBuildDate>Fri, 16 May 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/tags/meta_anlysis/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Meta-Analysis on Randomized Clinical Trials - Part 1</title>
+        <link>http://localhost:5082/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</link>
         <pubDate>Fri, 16 May 2025 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-rcts-part-1/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</guid>
         <description>&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
-&lt;/h2&gt;&lt;p&gt;Imagine you’re studying the effects of non-nutritive sweeteners on blood pressure. You’re curious about whether they eventually increase, decrease, or have no impact on blood pressure. You review various studies and find quite conflicting results. Some studies suggest that consuming non-nutritive sweeteners can increase blood pressure, while others show quite opposite results. Also, some studies indicate no effect on blood pressue from consuming non-nutritive sweeteners. This situation presents a challenge that you may address by conducting a meta-analysis. &lt;strong&gt;Meta-analysis pools data from multiple studies to provide a more precise estimate based on existing evidence&lt;/strong&gt;. &lt;strong&gt;Seems quite intriguing, doesn’t it?&lt;/strong&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;Imagine you’re studying the effects of non-nutritive sweeteners on blood pressure. You’re curious about whether they eventually increase, decrease, or have no impact on blood pressure. You review various studies and find quite conflicting results. Some studies suggest that consuming non-nutritive sweeteners can increase blood pressure, while others show quite opposite results. Also, some studies indicate no effect on blood pressue from consuming non-nutritive sweeteners. This situation presents a challenge that you may address by conducting a meta-analysis. &lt;strong&gt;Meta-analysis pools data from multiple studies to provide a more precise estimate based on existing evidence&lt;/strong&gt;. Seems quite intriguing, doesn’t it?&lt;/p&gt;
 &lt;p&gt;Before getting into meta-analysis itself, let&amp;rsquo;s have a better understanding of &lt;strong&gt;different types of studies&lt;/strong&gt;:&lt;/p&gt;
 &lt;h3 id=&#34;primary-studies&#34;&gt;Primary Studies
 &lt;/h3&gt;&lt;p&gt;These types of studies are conducted on humans, animals, and so on. In technical terminology, they’re referred to as &lt;em&gt;original&lt;/em&gt; studies.&lt;/p&gt;
@@ -27,6 +27,20 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;meta-analyses-sit-at-the-top-of-the-evidence-pyramid&#34;&gt;Meta-analyses sit at the top of the evidence pyramid
 &lt;/h2&gt;&lt;p&gt;So you may ask why meta-anlysis? In the biomedical sciences field, there’s a hierarchical evidence pyramid that outlines the significance of different studies conducted in this area. Interestingly, meta-analysis studies, which combine existing studies, are placed at the top of this pyramid, highlighting their importance.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level.png&#34;
+	width=&#34;3873&#34;
+	height=&#34;2740&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_2af0c7370c0fb0c.png 480w, http://localhost:5082/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_81b51af00c610d6d.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;339px&#34;
+	
+&gt;
+Source: &lt;a class=&#34;link&#34; href=&#34;https://thelogicofscience.com/2016/01/12/the-hierarchy-of-evidence-is-the-studys-design-robust/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;The Logic of Science&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In the initial step, we should have a better understanding of different types of RCTs. We want to know how we can differentiate them and how we should treat each study’s data based on its type.&lt;/p&gt;
 &lt;h2 id=&#34;study-designs&#34;&gt;Study Designs
 &lt;/h2&gt;&lt;ul&gt;
@@ -40,13 +54,29 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;choosing-a-topic-for-meta-analysis&#34;&gt;Choosing a Topic for Meta-Analysis
 &lt;/h2&gt;&lt;p&gt;To select a topic, we should consider:&lt;/p&gt;
-&lt;p&gt;Principle 1. &lt;strong&gt;Type of study&lt;/strong&gt;: Clinical trial vs. observational study. &lt;em&gt;We focus on clinical trials in this series.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Principle 2. &lt;strong&gt;Study design&lt;/strong&gt;: RCTs are preferred for fewer biases.&lt;/p&gt;
-&lt;p&gt;Principle 3. &lt;strong&gt;Type of intervention&lt;/strong&gt;: e.g., supplementation, drug therapy, dietary intervention, educational intervention, etc.&lt;/p&gt;
-&lt;p&gt;Principle 4. &lt;strong&gt;Target population&lt;/strong&gt;: Children vs. adults, patients vs. healthy individuals.&lt;/p&gt;
-&lt;p&gt;Principle 5. &lt;strong&gt;Dependent variables&lt;/strong&gt;: The dependent variables to be considered: inflammatory markers, lipid profile, weight, etc.&lt;/p&gt;
-&lt;p&gt;Principle 6. &lt;strong&gt;Intervention duration&lt;/strong&gt;: The minimum duration of intervention: one day, one week, two weeks, etc.&lt;/p&gt;
-&lt;p&gt;Principle 7. &lt;strong&gt;Number of studies&lt;/strong&gt;: To perform a meta-analysis, there must be at least three articles (in accordance with Principles 1–6) in the topic area under review. These three articles must provide the necessary data to carry out a meta-analysis on a single dependent variable.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Principle 1&lt;/strong&gt;) &lt;strong&gt;Type of study&lt;/strong&gt;: Clinical trial vs. observational study. &lt;em&gt;We focus on clinical trials in this series.&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Principle 2&lt;/strong&gt;) &lt;strong&gt;Study design&lt;/strong&gt;: RCTs are preferred for fewer biases.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Principle 3&lt;/strong&gt;) &lt;strong&gt;Type of intervention&lt;/strong&gt;: e.g., supplementation, drug therapy, dietary intervention, educational intervention, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Principle 4&lt;/strong&gt;) &lt;strong&gt;Target population&lt;/strong&gt;: Children vs. adults, patients vs. healthy individuals.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Principle 5&lt;/strong&gt;) &lt;strong&gt;Dependent variables&lt;/strong&gt;: The dependent variables to be considered: inflammatory markers, lipid profile, weight, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Principle 6&lt;/strong&gt;) &lt;strong&gt;Intervention duration&lt;/strong&gt;: The minimum duration of intervention: one day, one week, two weeks, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Principle 7&lt;/strong&gt;) &lt;strong&gt;Number of studies&lt;/strong&gt;: To perform a meta-analysis, there must be at least three articles (in accordance with Principles 1–6) in the topic area under review. These three articles must provide the necessary data to carry out a meta-analysis on a single dependent variable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Required data&lt;/strong&gt; for interventional meta-analysis:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -58,8 +88,10 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Some studies report SE (standard error), IQR (interquartile range), &lt;strong&gt;95% CI&lt;/strong&gt; (confidence interval), or &lt;strong&gt;range&lt;/strong&gt;. These can all be converted to SD for pooling.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h2 id=&#34;principle-8-is-there-an-existing-meta-analysis-on-our-topic&#34;&gt;Principle 8: Is there an existing meta-analysis on our topic?
-&lt;/h2&gt;&lt;p&gt;If a meta-analysis on our topic has already been published, we should usually drop the topic—since it no longer has publishable value—unless:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Principle 8&lt;/strong&gt;) Is there an existing meta-analysis on our topic?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If a meta-analysis on our topic has already been published, we should usually drop the topic—since it no longer has publishable value—unless:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The published meta-analysis contains &lt;strong&gt;methodological flaws&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;It is possible to &lt;strong&gt;update&lt;/strong&gt; the meta-analysis due to &lt;strong&gt;several new studies&lt;/strong&gt; published in that field since then.&lt;/li&gt;

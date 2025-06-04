@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>P_Getting Started on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/categories/p_getting-started/</link>
+        <link>http://localhost:5082/csc-data-blog/categories/p_getting-started/</link>
         <description>Recent content in P_Getting Started on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Thu, 15 Jun 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/categories/p_getting-started/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 15 Jun 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/categories/p_getting-started/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Defining Functions in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/defining-functions-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/defining-functions-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/defining-functions-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/defining-functions-in-python/</guid>
         <description>&lt;p&gt;Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.&lt;/p&gt;
 &lt;p&gt;Simple functions can be in base Python or in different packages. Take these base Python functions for example:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -133,10 +133,10 @@
         </item>
         <item>
         <title>Dictionaries in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/dictionaries-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/dictionaries-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/dictionaries-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/dictionaries-in-python/</guid>
         <description>&lt;p&gt;A dictionary lists key-value pairs, which could also be thought of as associated values where a key matches to the associated value. Let&amp;rsquo;s look at a few examples.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -240,10 +240,10 @@
         </item>
         <item>
         <title>Lists in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/lists-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/lists-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/lists-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/lists-in-python/</guid>
         <description>&lt;p&gt;Lists are an important tool used in Python. Lists can contain elements of mixed types as well. Let&amp;rsquo;s look at a few examples.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -466,10 +466,10 @@
         </item>
         <item>
         <title>Loops in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/loops-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/loops-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/loops-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/loops-in-python/</guid>
         <description>&lt;p&gt;Loops are a common tool used in Python to help users iterate through lists, or perform the same operation numerous times without added efforts.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s look at a few examples:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -743,10 +743,10 @@
         </item>
         <item>
         <title>Packages in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/packages-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/packages-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/packages-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/packages-in-python/</guid>
         <description>&lt;p&gt;Since Python is so widely used, there are many people who contribute to continuously improving and developing it. Let’s imagine Python as a base version. It can do basic calculations, but it requires extra efforts to do more complicated things. People have created extras or add-ons to help create shortcuts for more complicated specific tasks or functions. These ‘add-ons’ are called modules. A module allows us to use already defined classes, functions, variables, and more. Packages are a collection of similar modules. These modules are stored together in a package to help with storage and ease of use.&lt;/p&gt;
 &lt;p&gt;Packages can be imported to use to help make things easier. For example, there is a Python package called math that helps with basic mathematical operations.&lt;/p&gt;
 &lt;p&gt;To use a package or specific module within it, we use the &lt;code&gt;import&lt;/code&gt; command. The format of these commands is as followed:&lt;/p&gt;
@@ -795,10 +795,10 @@
         </item>
         <item>
         <title>Python Data Types</title>
-        <link>http://localhost:4321/csc-data-blog/p/python-data-types/</link>
+        <link>http://localhost:5082/csc-data-blog/p/python-data-types/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/python-data-types/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/python-data-types/</guid>
         <description>&lt;p&gt;When we talk about data, we can talk about data types, data classes, and data structures.&lt;/p&gt;
 &lt;p&gt;Data types are fundamental building blocks for storing information. Below, we can see a chart of all of the datatypes in Python.&lt;/p&gt;
 &lt;table&gt;
@@ -1693,10 +1693,10 @@
         </item>
         <item>
         <title>Introduction to Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/introduction-to-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/introduction-to-python/</link>
         <pubDate>Wed, 15 Feb 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/introduction-to-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/introduction-to-python/</guid>
         <description>&lt;h2 id=&#34;python-can-be-used-as-a-calculator&#34;&gt;Python can be used as a calculator
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

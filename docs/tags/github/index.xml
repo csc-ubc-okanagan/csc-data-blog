@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Github on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/tags/github/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/github/</link>
         <description>Recent content in Github on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Mon, 16 Sep 2024 12:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/github/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 16 Sep 2024 12:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/tags/github/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Getting started with GitHub</title>
-        <link>http://localhost:4321/csc-data-blog/p/getting-started-with-github/</link>
+        <link>http://localhost:5082/csc-data-blog/p/getting-started-with-github/</link>
         <pubDate>Mon, 16 Sep 2024 12:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/getting-started-with-github/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/getting-started-with-github/</guid>
         <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;GitHub&lt;/a&gt; is a platform that allows you to store, share, and archive files. It is commonly used for in research to make files accessible, including code, data, models, and figures. Sharing code and data through platforms like GitHub helps make research more transparent, reproducible, and credible &lt;a class=&#34;link&#34; href=&#34;https://doi.org/10.1111/2041-210X.14108&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Braga et al. 2023&lt;/a&gt;. In this blog post, I will show you how to create your first GitHub repository (&amp;ldquo;repo&amp;rdquo; for short), how to set up a convenient folder structure, and how to push (i.e., upload) and pull (i.e., download) content to and from the repo. The &lt;a class=&#34;link&#34; href=&#34;https://csc-ubc-okanagan.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -23,10 +23,10 @@
     &gt;GitHub Desktop&lt;/a&gt; from &lt;a class=&#34;link&#34; href=&#34;https://desktop.github.com/download/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://desktop.github.com/download/&lt;/a&gt;. While it installs, make an account on &lt;a class=&#34;link&#34; href=&#34;github.com&#34; &gt;github.com&lt;/a&gt; if you don&amp;rsquo;t have one already.&lt;/p&gt;
 &lt;p&gt;To make your first repo, go to &lt;code&gt;File/New repository&lt;/code&gt; or press &lt;code&gt;Ctrl + N&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/new-repo.png&#34;
 	width=&#34;666&#34;
 	height=&#34;353&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_e7bf180219c2b1b7.png 480w, http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_8be83f90981c8645.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_e7bf180219c2b1b7.png 480w, http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_8be83f90981c8645.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -36,10 +36,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;Now choose your repo&amp;rsquo;s name. Something short and simple, like &lt;code&gt;my-first-repo&lt;/code&gt; works for now. If you want, you can also add a description of the repo&amp;rsquo;s contents and change the location of the local copy that GitHub Desktop will make. On my personal machine, I tend to save repos in &lt;code&gt;Documents/GitHub&lt;/code&gt;, but on my lab machine I save them in my UBC home drive: &lt;code&gt;H:/GitHub&lt;/code&gt;. If you are planning on working primarily with only one language (e.g., &lt;code&gt;R&lt;/code&gt; or &lt;code&gt;Python&lt;/code&gt;), I would suggest choosing the appropriate Git ignore. This will hide files that you generally don&amp;rsquo;t want to push to GitHub (e.g., &lt;code&gt;.Rhistory&lt;/code&gt; and &lt;code&gt;.RData&lt;/code&gt; files). You can change the &lt;code&gt;.gitignore&lt;/code&gt; files later with any text editor. The last step here is to choose a license. If you want a simple open-access licence for code, the MIT one is a good option.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo-options.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/new-repo-options.png&#34;
 	width=&#34;694&#34;
 	height=&#34;780&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_c5e978ac49c939d9.png 480w, http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_4933a1ef0ab00513.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_c5e978ac49c939d9.png 480w, http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_4933a1ef0ab00513.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -55,10 +55,10 @@
 &lt;li&gt;decide whether you want the repo to be public or not (it&amp;rsquo;s private by default), and&lt;/li&gt;
 &lt;li&gt;choose if you want to add it into an existing organization (e.g., your lab&amp;rsquo;s organization). Be careful though &amp;ndash; it can be hard to edit the repo after you&amp;rsquo;ve added it to an organization.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/publish-repo.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/publish-repo.png&#34;
 	width=&#34;931&#34;
 	height=&#34;338&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_852574e63a2b85ca.png 480w, http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_16c8450c10f4fa5c.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_852574e63a2b85ca.png 480w, http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_16c8450c10f4fa5c.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -69,10 +69,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;Now that the repo is on GitHub, you can start pushing and pulling content to and from it. As a general rule, you should always check for any updates by pulling (click &lt;code&gt;Fetch-origin&lt;/code&gt; followed by &lt;code&gt;Pull origin&lt;/code&gt;) before trying to push anything, otherwise GitHub will have to manage the pull/push conflict by merging the old files (to be pulled) with the new ones (to be pushed). This can be quite confusing, so it&amp;rsquo;s always good to make to pull first (even if you&amp;rsquo;re the only one working on the repo on two machines). Once you have some files you want to push to the repo, select the ones you want to push by clicking on the boxes in the upper left, add a summary for the commit (i.e., the series of changes to push) at the bottom of the column. Commit summaries should be brief and simple but clear, like &amp;ldquo;cleaned data and started model fitting&amp;rdquo;. You can use markdown in both the summary and the description (see the field below the summary field) for messages like &amp;ldquo;removed unnecessary &lt;code&gt;library()&lt;/code&gt; calls&amp;rdquo; using &lt;code&gt;\(\text{&lt;/code&gt;text&lt;code&gt;}\)&lt;/code&gt;. In the changes column, green &amp;ldquo;+&amp;rdquo; symbols indicate new files, yellow dots indicate changed files, and red &amp;ldquo;-&amp;rdquo; symbols indicate file deletions. The panel on the right will show you exactly what portions of a file you changed, if the file is a simple text file (e.g., &lt;code&gt;.csv.&lt;/code&gt;, &lt;code&gt;.R&lt;/code&gt;, &lt;code&gt;.Rmd&lt;/code&gt;, &lt;code&gt;.md&lt;/code&gt;, and &lt;code&gt;.txt&lt;/code&gt;, but not &lt;code&gt;.pdf&lt;/code&gt;, &lt;code&gt;.doc&lt;/code&gt;, &lt;code&gt;.ppt&lt;/code&gt;, or &lt;code&gt;.rds&lt;/code&gt;). Consequently, GitHub&amp;rsquo;s version control and edit history work best if you use simple text files as much as possible. Once you&amp;rsquo;ve committed all your changes, don&amp;rsquo;t forget to push the changes to GitHub using the &amp;ldquo;Push origin&amp;rdquo; button! You can check the status of your changes by going to &lt;a class=&#34;link&#34; href=&#34;https://github.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;GitHub&lt;/a&gt; and navigating to your repo.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/push-origin.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/push-origin.png&#34;
 	width=&#34;618&#34;
 	height=&#34;120&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_2dd72d951c8e876b.png 480w, http://localhost:4321/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_a0ebeceb741af2e6.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_2dd72d951c8e876b.png 480w, http://localhost:5082/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_a0ebeceb741af2e6.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

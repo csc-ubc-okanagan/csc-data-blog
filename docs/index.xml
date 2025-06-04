@@ -7,7 +7,127 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Fri, 16 May 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 04 Jun 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Meta-Analysis on Randomized Clinical Trials - Part 2</title>
+        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</link>
+        <pubDate>Wed, 04 Jun 2025 09:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</guid>
+        <description>&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
+&lt;/h2&gt;&lt;p&gt;So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to &lt;em&gt;extract&lt;/em&gt; data from published manuscripts and &lt;em&gt;prepare&lt;/em&gt; them for meta-analysis.&lt;/p&gt;
+&lt;h3 id=&#34;what-would-be-the-best-tool-for-saving-our-extracted-data&#34;&gt;What would be the best tool for saving our extracted data?
+&lt;/h3&gt;&lt;p&gt;Our suggestion is &lt;strong&gt;Excel&lt;/strong&gt; because it is easy to work with and facilitates any necessary conversions (e.g., units or dispersions across different studies). In our Excel file, each &lt;em&gt;row&lt;/em&gt;  will be allocated to a study from which we are extracting data.&lt;/p&gt;
+&lt;h3 id=&#34;what-information-should-we-extract&#34;&gt;What information should we extract?
+&lt;/h3&gt;&lt;p&gt;The answer depends on your main meta-analysis question. In GENERAL, the following information should be extracted from each study:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;First Author&amp;rsquo;s name&lt;/strong&gt;: It should be entered in the following format: e.g., Jackson et al. (2025).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Publication date&lt;/strong&gt;: This should be the date of publication, not &lt;em&gt;acceptance&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Number of individuals in both control and intervention groups&lt;/strong&gt;: This refers to the number of individuals included in the &lt;em&gt;final&lt;/em&gt; analysis of the study. It is usually reported in the first demographic table or in the study&amp;rsquo;s flowchart.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The mean of the dependent variable BEFORE and AFTER the study in both groups&lt;/strong&gt;: In some studies, the mean change (After minus Before) in the dependent variable is reported, so it should be extracted directly.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The &lt;strong&gt;mean change&lt;/strong&gt; is the final parameter used in meta-analysis. In our Excel file, we should have four columns for the mean of the dependent variable in control and intervention groups (before/after), four columns for the standard deviation (SD) of the dependent variable in control and intervention groups (before/after). You should also include four additional columns for studies reporting the mean change directly (two for the mean change of control and intervention groups and two for SDs in both groups).&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The SD for each dependent variable should be extracted&lt;/strong&gt;: In cases where other types of dispersion (SE, IQR, 95% CI, or range) are reported, they should be extracted and can be converted to SD as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Converting from SE:&lt;/strong&gt;  \( SD = SE \times \sqrt{n} \), where \( n \) is the sample size&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Converting from IQR:&lt;/strong&gt; \( SD = \dfrac{\text{upper quartile} - \text{lower quartile}}{1.35} \)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Converting from 95% Confidence Interval (CI):&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;\( SD = \dfrac{\text{upper CI} - \text{lower CI}}{3.92} \times \sqrt{n} \), where \( n \) is the sample size&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Converting from Range:&lt;/strong&gt; \( SD = \dfrac{\text{maximum} - \text{minimum}}{4} \)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Reference for conversions:&lt;/strong&gt; For guidelines and detailed methodology, see the &lt;a class=&#34;link&#34; href=&#34;https://dariososafoula.wordpress.com/wp-content/uploads/2017/01/cochrane-handbook-for-systematic-reviews-of-interventions-2019-1.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cochrane Handbook for Systematic Reviews of Interventions&lt;/a&gt; by Higgins JP et al. You can also refer to &lt;a class=&#34;link&#34; href=&#34;https://link.springer.com/article/10.1186/1471-2288-14-135&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range&lt;/a&gt; by Wan et al.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;In clinical studies, some studies have more than &lt;em&gt;one&lt;/em&gt; intervention group. You may ask, if a study has several intervention groups with different types of interventions instead of a single intervention group, what should be done? The solution is to consider each intervention group as a &lt;strong&gt;separate&lt;/strong&gt; study. In other words, each group occupies its &lt;em&gt;own row&lt;/em&gt; in the data-extraction Excel sheet. For example, if a study has three intervention groups, we create three rows in the Excel sheet.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It should be noted that studies are included in the meta-analysis ONLY IF the difference between the intervention and control groups is &lt;strong&gt;solely&lt;/strong&gt; the intervention of interest.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The unit of the measured dependent variable.&lt;/strong&gt; We must convert all studies to the &lt;strong&gt;same&lt;/strong&gt; unit. If you encounter different reported units for the same dependent variable across studies, select the most common unit and convert the others to it. Ensure that when you perform conversions, you &lt;em&gt;also&lt;/em&gt; convert the &lt;em&gt;SD&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The dosage of the intervention.&lt;/strong&gt; This is important for dose-response analysis if we wish to perform it. It can also be helpful for subgroup analysis. If the unit of reported doses varies between studies, ensure you convert them to a uniform unit across studies.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The duration of the intervention.&lt;/strong&gt; This is also important for dose-response analysis if we wish to perform it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is the necessary information needed to conduct a meta-analysis. If you wish to perform subgroup analysis, you may also want to extract the following information:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;1) Study design&lt;/strong&gt;: Randomized, single-, or double-blinded.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;2) Country or location where the study was conducted&lt;/strong&gt;: Usually found in the first line of the methodology section.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;3) Gender of participants&lt;/strong&gt;: Usually available in the first demographic table&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;p&gt;Note: Sometimes statistical analyses in a study are performed separately by &lt;strong&gt;gender&lt;/strong&gt;. In such cases, we create separate rows in Excel for men and women. Although this rarely occurs in interventional studies and is more common in observational studies, when it does happen, two rows are created for the same study in Excel. In other words, one study is treated as &lt;em&gt;two&lt;/em&gt; studies.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;4) Type of intervention&lt;/strong&gt;: In the intervention and control groups (e.g., placebo, capsule, different food or dietary regimen, injection). These are usually reported in the intervention or study-design paragraph.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;5) Any co-intervention alongside the main intervention&lt;/strong&gt;: Sometimes the main intervention is accompanied by a weight-loss program, an exercise regimen, another supplement, etc. In other words, &lt;em&gt;both&lt;/em&gt; the intervention and control groups receive the co-intervention (e.g., weight-loss program, exercise regimen, another supplement), and the only difference between the two groups is the administration of the primary intervention. This is usually reported in the intervention or study-design paragraph. We should create a column titled “co-intervention” in the Excel sheet for this purpose.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;6) Mean age in intervention and control groups (mean ± SD)&lt;/strong&gt;: Usually available in the first demographic table.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;7) Health status of study participants&lt;/strong&gt;: The study may be conducted on healthy individuals or individuals with a specific disease. This is usually reported in the study title or the first paragraph of the Methods section.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;8) Method of assessing the dependent variable&lt;/strong&gt;: By what method was the dependent variable assessed? Create a column named “outcome assessment.” For example: By what method was the CRP level assessed in this study?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;9) Matching or adjustment&lt;/strong&gt;: The term &amp;ldquo;matching&amp;rdquo; refers to variables that have been equalized between the intervention and control groups. For example, matching based on age means individuals are divided into the two groups so there is no difference in age between them. This is usually reported at the beginning of the Methods or Results section, or you can locate it by searching for the words “match” or “stratified.” In interventional studies, differences between the intervention and control groups can be accounted for in the statistical analysis through adjustment. This is typically reported in a table footnote or in the statistical analysis section.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: One of the most important adjustments in clinical trials is controlling for baseline values of the outcome variables.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;10) Compliance (adherence to the intervention)&lt;/strong&gt;: The higher the adherence to the intervention in a study, the more valid its findings will be. Compliance may be reported as a percentage (e.g., 70% of the capsules were taken) or simply noted as high, moderate, or low. It is usually discussed in the first paragraph of the Results section, or you can locate it by searching for the words “compliance” or “adherence.”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;11) Location where measurements were taken&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;quality-of-the-included-studies&#34;&gt;Quality of the Included Studies
+&lt;/h2&gt;&lt;p&gt;The final topic to discuss in this part is whether the included studies have the &lt;strong&gt;necessary quality&lt;/strong&gt; to perform a meta-analysis. To what extent do the included studeis exhibit methodological errors? This assessment provides an overall view of the quality of the included studies. Previously, the Jadad tool was used for this purpose, but currently, the &lt;strong&gt;Cochrane tool&lt;/strong&gt; is used. This tool is one of the most valid tools for assessing quality. It evaluates the quality of a study using seven factors, which assess the biases that may occur in a study and thereby evaluate its overall quality. We will not go into details of this tool as it is beyond the scope of this series, but you can find more information in the &lt;a class=&#34;link&#34; href=&#34;https://training.cochrane.org/handbook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cochrane Handbook&lt;/a&gt; by Julian P. T. Higgins and Sally Green.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;That’s it for this part! In &lt;strong&gt;Part 3&lt;/strong&gt;, we will dive into the analysis of the collected data.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Stay tuned!&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+</description>
+        </item>
+        <item>
         <title>Meta-Analysis on Randomized Clinical Trials - Part 1</title>
         <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</link>
         <pubDate>Fri, 16 May 2025 09:00:00 -0800</pubDate>
@@ -21,8 +141,8 @@
 &lt;h3 id=&#34;secondary-studies&#34;&gt;Secondary Studies
 &lt;/h3&gt;&lt;p&gt;These types of studies are conducted on the findings of primary studies, including:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Narrative reviews&lt;/strong&gt;: They can be conducted with as few as two studies. they may not have a specific objective and might cover a broad topic, for example: Efficacy of vitamin E supplementation on routine diseases in women. Also, they may not include every article available within the topic area under review.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Systematic reviews&lt;/strong&gt;: They have a defined objective, for example: Efficacy of vitamin E supplementation on blood pressure in adult women. Also, all articles within the scope of the topic under review must be included.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Narrative reviews&lt;/strong&gt;: They can be conducted with as few as two studies. they may not have a specific objective and might cover a broad topic, for example: Efficacy of vitamin E supplementation on routine diseases in women. Also, they may not include every study available within the topic area under review.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Systematic reviews&lt;/strong&gt;: They have a defined objective, for example: Efficacy of vitamin E supplementation on blood pressure in adult women. Also, all studies within the scope of the topic under review must be included.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Meta-analyses&lt;/strong&gt;: Similar in every respect to a systematic review, with the difference that &lt;em&gt;statistical analysis&lt;/em&gt; is also performed. Meta-analysis is essentially a re-analysis of the findings from primary studies. In a meta-analysis, the quantitative data from primary studies (such as means, odds ratios, etc.) are combined into a single result (for example, one mean, one odds ratio, etc.) Therefore, drawing the final conclusion in a meta-analysis is easier. An example would be: Effect of vitamin E supplementation on CRP concentrations in adults: A meta-analysis&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;meta-analyses-sit-at-the-top-of-the-evidence-pyramid&#34;&gt;Meta-analyses sit at the top of the evidence pyramid
@@ -74,7 +194,7 @@ Source: &lt;a class=&#34;link&#34; href=&#34;https://thelogicofscience.com/2016/
 &lt;p&gt;&lt;strong&gt;Principle 6&lt;/strong&gt;) &lt;strong&gt;Intervention duration&lt;/strong&gt;: The minimum duration of intervention: one day, one week, two weeks, etc.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Principle 7&lt;/strong&gt;) &lt;strong&gt;Number of studies&lt;/strong&gt;: To perform a meta-analysis, there must be at least three articles (in accordance with Principles 1–6) in the topic area under review. These three articles must provide the necessary data to carry out a meta-analysis on a single dependent variable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Principle 7&lt;/strong&gt;) &lt;strong&gt;Number of studies&lt;/strong&gt;: To perform a meta-analysis, there must be at least three studies (in accordance with Principles 1–6) in the topic area under review. These three studies must provide the necessary data to carry out a meta-analysis on a single dependent variable.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Required data&lt;/strong&gt; for interventional meta-analysis:&lt;/p&gt;

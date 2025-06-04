@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>API on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/categories/api/</link>
+        <link>http://localhost:5082/csc-data-blog/categories/api/</link>
         <description>Recent content in API on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Fri, 14 Feb 2025 14:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/categories/api/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 14 Feb 2025 14:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/categories/api/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Abacus API</title>
-        <link>http://localhost:4321/csc-data-blog/p/abacus-api/</link>
+        <link>http://localhost:5082/csc-data-blog/p/abacus-api/</link>
         <pubDate>Fri, 14 Feb 2025 14:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/abacus-api/</guid>
-        <description>&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+        <guid>http://localhost:5082/csc-data-blog/p/abacus-api/</guid>
+        <description>&lt;script src=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://localhost:5082/csc-data-blog/p/abacus-api/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
 &lt;h2 id=&#34;definitions&#34;&gt;Definitions
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;API&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;An application programming interface (API) is a formalized way of interacting with another piece of hardware or software without needing to know how that hardware or software actually works. As such, it is a convenient method of making requests to get, update, or push information between your system and the remote system. As a loose analogy, you can think of this as a menu in a resuraunt; you don&amp;rsquo;t need to know how the kitchen makes your food, but you need to know what you can ask for from your server. When you want scrambled eggs, you don&amp;rsquo;t need to go into the kitchen and make these from scratch, you simply put in a request based on the options on the menu.&lt;/p&gt;

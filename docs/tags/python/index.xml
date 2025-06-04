@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Python on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/tags/python/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/python/</link>
         <description>Recent content in Python on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Tue, 09 Apr 2024 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/python/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 09 Apr 2024 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/tags/python/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Sample Data Generation</title>
-        <link>http://localhost:4321/csc-data-blog/p/sample-data-generation/</link>
+        <link>http://localhost:5082/csc-data-blog/p/sample-data-generation/</link>
         <pubDate>Tue, 09 Apr 2024 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/sample-data-generation/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/sample-data-generation/</guid>
         <description>&lt;h2 id=&#34;creating-sample-datasets&#34;&gt;Creating Sample Datasets
 &lt;/h2&gt;&lt;p&gt;This guide provides instructions on how to create sample datasets in &lt;code&gt;R&lt;/code&gt; and &lt;code&gt;Python&lt;/code&gt;. You can use these methods to generate a mini version of your original dataset for data consultations, enabling efficient and effective analysis on a manageable subset of your data. We assume you know how to read in your data, however, if you need step by step instructions on this, these are available further down the page for both &lt;code&gt;R&lt;/code&gt; and &lt;code&gt;Python&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;r&#34;&gt;&lt;code&gt;R&lt;/code&gt;
@@ -232,10 +232,10 @@
         </item>
         <item>
         <title>Python vs R - How To Decide?</title>
-        <link>http://localhost:4321/csc-data-blog/p/python-vs-r-how-to-decide/</link>
+        <link>http://localhost:5082/csc-data-blog/p/python-vs-r-how-to-decide/</link>
         <pubDate>Wed, 26 Jul 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/python-vs-r-how-to-decide/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/python-vs-r-how-to-decide/</guid>
         <description>&lt;p&gt;Python and R are both very useful tools in academia, research, industry, and everywhere! They have a lot of similarities, but there are also many differences.&lt;/p&gt;
 &lt;p&gt;The purpose of this post is to help students to decide which language to learn first, according to their differences, similarities, and departmental practices.&lt;/p&gt;
 &lt;p&gt;First, let&amp;rsquo;s introduce each, and talk about their main purposes.&lt;/p&gt;
@@ -279,10 +279,10 @@
         </item>
         <item>
         <title>Using Python in RStudio with Reticulate Package</title>
-        <link>http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</link>
+        <link>http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</link>
         <pubDate>Wed, 26 Jul 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/</guid>
         <description>&lt;p&gt;As we know, Jupyter Notebook can be used easily with our UBC login information via &lt;a class=&#34;link&#34; href=&#34;https://ubc.syzygy.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Syzygy&lt;/a&gt;. Jupyter Notebook can also be downloaded to a computer and used via Anaconda. There are many different interfaces that allow us to use Python. One of the more interesting ones to note is actually RStudio. There is a package in R called &lt;em&gt;reticulate&lt;/em&gt; that allows us to create an RMarkdown file and use both R and Python code chunks within the same file. This is actually how this blog is able to show both R and Python content! Let&amp;rsquo;s get started on how &lt;em&gt;reticulate&lt;/em&gt; is used in RStudio to include Python code.&lt;/p&gt;
 &lt;h2 id=&#34;installation&#34;&gt;Installation
@@ -311,10 +311,10 @@
 &lt;/div&gt;&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started
 &lt;/h1&gt;&lt;p&gt;Now that the &lt;em&gt;reticulate&lt;/em&gt; package has been installed, we can start using Python within an RMarkdown document.&lt;/p&gt;
 &lt;p&gt;Once an RMarkdown file has been started, create a new code block. Note that on a Windows, a shortcut for adding a new code block is Ctrl+alt+i. Once a new code block appears, it should look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
 	width=&#34;361&#34;
 	height=&#34;67&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -324,10 +324,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;If you were to type code here, it would be in R. To change it to Python, simply replace the &amp;lsquo;r&amp;rsquo; with &amp;lsquo;python&amp;rsquo;. Then it will look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
 	width=&#34;409&#34;
 	height=&#34;58&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -339,10 +339,10 @@
 &lt;p&gt;Now, the console below will change to show Python code once something in this block is run. You can easily switch back and forth between R and Python from code chunk to code chunk.&lt;/p&gt;
 &lt;p&gt;You can also see your saved variables in the environment, separated between R and Python. Note that when you do something such as import a dataset, if you wanted to perform manipulations on the dataset in both R and Python, you will have to load the dataset in using both R and Python, and it will create separate variables which do not override each other. They will stay speparate in the environment.&lt;/p&gt;
 &lt;p&gt;To change between R and Python environments, go to the Environment window and click the dropdown arrow. It should look like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
 	width=&#34;654&#34;
 	height=&#34;597&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, http://localhost:4321/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, http://localhost:5082/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -357,10 +357,10 @@
         </item>
         <item>
         <title>Subsetting in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/subsetting-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/subsetting-in-python/</link>
         <pubDate>Fri, 07 Jul 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/subsetting-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/subsetting-in-python/</guid>
         <description>&lt;p&gt;Sometimes the data frame we are working with can be very large and take a while to process. Alternatively, we could only need a portion of the information. There is a way to filter through a data frame such that only the specified information is used, which saves space and time!&lt;/p&gt;
 &lt;p&gt;Let’s re-load in our Gapminder data:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -806,10 +806,10 @@
         </item>
         <item>
         <title>Basic Model Fitting in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/basic-model-fitting-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/basic-model-fitting-in-python/</link>
         <pubDate>Thu, 06 Jul 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/basic-model-fitting-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/basic-model-fitting-in-python/</guid>
         <description>&lt;p&gt;In previous categories we have looked at cleaning, summarizing, and subsetting data, with some minor calculations, but we haven’t yet looked at analyzing our data.&lt;/p&gt;
 &lt;p&gt;Python is a very powerful tool for data analysis. Similarly to R, we can fit linear models and view graphs. First, we will look at some basic data analysis processes in Python.&lt;/p&gt;
 &lt;p&gt;Let’s re-load in our Gapminder data:&lt;/p&gt;
@@ -995,10 +995,10 @@
         </item>
         <item>
         <title>Cleaning Data in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/cleaning-data-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/cleaning-data-in-python/</link>
         <pubDate>Tue, 20 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/cleaning-data-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/cleaning-data-in-python/</guid>
         <description>&lt;p&gt;Recall the URL with the country data. Let&amp;rsquo;s use this to practice some preliminary cleaning techniques.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1248,10 +1248,10 @@
         </item>
         <item>
         <title>Creating Variables in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/creating-variables-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/creating-variables-in-python/</link>
         <pubDate>Tue, 20 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/creating-variables-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/creating-variables-in-python/</guid>
         <description>&lt;p&gt;Occasionally we need to derive variables form existing information. A good example of this is conversion between scales. If we wanted to change a measurement from metres to kilometres or weight in pounds to kilograms, we could do this simply by performing a basic operation on an entire column. In this situation, let’s start by multiplying two columns together to create a new column. Recall the GDP dataset from previous articles. Let’s say we want to know the total GDP for the country. This could be calculated by multiplying the population by the GDP_per_Cap.&lt;/p&gt;
 &lt;p&gt;If you are just starting here, let’s re-load in the original Gapminder data:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1476,10 +1476,10 @@
         </item>
         <item>
         <title>Basic Visualizations in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/basic-visualizations-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/basic-visualizations-in-python/</guid>
         <description>&lt;p&gt;You can use base Python to perform basic visualizations with a dataset. Let&amp;rsquo;s take a look at a few examples.&lt;/p&gt;
 &lt;p&gt;Let’s re-load in our Gapminder data:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1504,10 +1504,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;scatter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;year&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;pop&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png&#34;
 	width=&#34;577&#34;
 	height=&#34;415&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, http://localhost:5082/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1552,10 +1552,10 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;scatter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;df_AF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;year&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;df_AF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;pop&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png&#34;
 	width=&#34;577&#34;
 	height=&#34;415&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, http://localhost:4321/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, http://localhost:5082/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1569,10 +1569,10 @@
         </item>
         <item>
         <title>Defining Functions in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/defining-functions-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/defining-functions-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/defining-functions-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/defining-functions-in-python/</guid>
         <description>&lt;p&gt;Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.&lt;/p&gt;
 &lt;p&gt;Simple functions can be in base Python or in different packages. Take these base Python functions for example:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1693,10 +1693,10 @@
         </item>
         <item>
         <title>Dictionaries in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/dictionaries-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/dictionaries-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/dictionaries-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/dictionaries-in-python/</guid>
         <description>&lt;p&gt;A dictionary lists key-value pairs, which could also be thought of as associated values where a key matches to the associated value. Let&amp;rsquo;s look at a few examples.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1800,10 +1800,10 @@
         </item>
         <item>
         <title>Lists in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/lists-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/lists-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/lists-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/lists-in-python/</guid>
         <description>&lt;p&gt;Lists are an important tool used in Python. Lists can contain elements of mixed types as well. Let&amp;rsquo;s look at a few examples.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2026,10 +2026,10 @@
         </item>
         <item>
         <title>Loops in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/loops-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/loops-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/loops-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/loops-in-python/</guid>
         <description>&lt;p&gt;Loops are a common tool used in Python to help users iterate through lists, or perform the same operation numerous times without added efforts.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s look at a few examples:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2303,10 +2303,10 @@
         </item>
         <item>
         <title>Packages in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/packages-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/packages-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/packages-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/packages-in-python/</guid>
         <description>&lt;p&gt;Since Python is so widely used, there are many people who contribute to continuously improving and developing it. Let’s imagine Python as a base version. It can do basic calculations, but it requires extra efforts to do more complicated things. People have created extras or add-ons to help create shortcuts for more complicated specific tasks or functions. These ‘add-ons’ are called modules. A module allows us to use already defined classes, functions, variables, and more. Packages are a collection of similar modules. These modules are stored together in a package to help with storage and ease of use.&lt;/p&gt;
 &lt;p&gt;Packages can be imported to use to help make things easier. For example, there is a Python package called math that helps with basic mathematical operations.&lt;/p&gt;
 &lt;p&gt;To use a package or specific module within it, we use the &lt;code&gt;import&lt;/code&gt; command. The format of these commands is as followed:&lt;/p&gt;
@@ -2355,10 +2355,10 @@
         </item>
         <item>
         <title>Python Data Types</title>
-        <link>http://localhost:4321/csc-data-blog/p/python-data-types/</link>
+        <link>http://localhost:5082/csc-data-blog/p/python-data-types/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/python-data-types/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/python-data-types/</guid>
         <description>&lt;p&gt;When we talk about data, we can talk about data types, data classes, and data structures.&lt;/p&gt;
 &lt;p&gt;Data types are fundamental building blocks for storing information. Below, we can see a chart of all of the datatypes in Python.&lt;/p&gt;
 &lt;table&gt;
@@ -3253,10 +3253,10 @@
         </item>
         <item>
         <title>Viewing Data in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/viewing-data-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/viewing-data-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/viewing-data-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/viewing-data-in-python/</guid>
         <description>&lt;p&gt;The Pandas package is the go-to package in Python for data frames and data set analysis.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s load in a dataset from a URL and then explore the data. We can enter the URL to the data set and save it as a variable so that it is easily accessible. Since the data set is a &lt;code&gt;.csv&lt;/code&gt; file, we can use the pandas function &lt;code&gt;read_csv()&lt;/code&gt; to save the data into a data frame!&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -3784,10 +3784,10 @@
         </item>
         <item>
         <title>Visualizing with Altair in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/</guid>
         <description>&lt;p&gt;Matplotlib is a standard package used in Python for plotting. This is a basic plotting package, but does have limitations.&lt;/p&gt;
 &lt;p&gt;If you are familiar with R, you may have used ggplot2 before. In Python, the equivalent package would be Altair. We will take a look at some basic Altair plotting tools.&lt;/p&gt;
 &lt;p&gt;Let’s switch things up now and use a different data set to visualize. Like R, Python has a few built-in data sets. A popular R dataset, iris, can also be found in Python. Let’s load the iris data set here.&lt;/p&gt;
@@ -3830,10 +3830,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;scatter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iris&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Sepal.Length&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iris&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Sepal.Width&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_8965a6352949dbb0.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_cf3d97e0bf3f3dcb.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_8965a6352949dbb0.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_cf3d97e0bf3f3dcb.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3853,10 +3853,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;new_data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;boxplot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_de91657534bd0924.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_f8740278c98dce0.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_de91657534bd0924.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_f8740278c98dce0.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3880,10 +3880,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;plt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ylabel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Values&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_f93da701f86fe6a7.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_beac72ad1edac27d.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_f93da701f86fe6a7.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_beac72ad1edac27d.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4000,10 +4000,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1.png&#34;
 	width=&#34;727&#34;
 	height=&#34;532&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1874d2bc01d2ac2f.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1938496062bff387.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1874d2bc01d2ac2f.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1938496062bff387.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4068,10 +4068,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2.png&#34;
 	width=&#34;811&#34;
 	height=&#34;546&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_84db04d5cc781b58.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_8441e27a842f27ba.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_84db04d5cc781b58.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_8441e27a842f27ba.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4139,10 +4139,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3.png&#34;
 	width=&#34;799&#34;
 	height=&#34;547&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_fce32b199e2908cd.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_7c58be6de9ca5c5f.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_fce32b199e2908cd.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_7c58be6de9ca5c5f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4211,10 +4211,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4.png&#34;
 	width=&#34;805&#34;
 	height=&#34;550&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_deddf48cc9791f41.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_348931b8f31186f8.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_deddf48cc9791f41.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_348931b8f31186f8.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4284,10 +4284,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5.png&#34;
 	width=&#34;801&#34;
 	height=&#34;543&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_ca4b3be62cc78a74.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_b53ef2bf4377d833.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_ca4b3be62cc78a74.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_b53ef2bf4377d833.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4356,10 +4356,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6.png&#34;
 	width=&#34;799&#34;
 	height=&#34;546&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_dc24295bc16b5242.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_a0ea4b3cc32a89f.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_dc24295bc16b5242.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_a0ea4b3cc32a89f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4429,10 +4429,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7.png&#34;
 	width=&#34;826&#34;
 	height=&#34;550&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_393caf51f4eb1bcd.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_983b4f02ea5c3b69.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_393caf51f4eb1bcd.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_983b4f02ea5c3b69.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4499,10 +4499,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8.png&#34;
 	width=&#34;810&#34;
 	height=&#34;550&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_42c636a426cd9b9b.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_bf2bd73b2d68c601.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_42c636a426cd9b9b.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_bf2bd73b2d68c601.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4583,10 +4583,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9.png&#34;
 	width=&#34;535&#34;
 	height=&#34;370&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_5c4803576fe1c9d4.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_2494b2f3b59cd176.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_5c4803576fe1c9d4.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_2494b2f3b59cd176.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4658,10 +4658,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10.png&#34;
 	width=&#34;727&#34;
 	height=&#34;579&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_59d20a59e8f45c15.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_fa9c1abc3dff7955.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_59d20a59e8f45c15.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_fa9c1abc3dff7955.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4728,10 +4728,10 @@
 &amp;#10;  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11.png&#34;
 	width=&#34;811&#34;
 	height=&#34;583&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_6a49397665201850.png 480w, http://localhost:4321/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_e0d254e93f982df9.png 1024w&#34;
+	srcset=&#34;http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_6a49397665201850.png 480w, http://localhost:5082/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_e0d254e93f982df9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4749,10 +4749,10 @@
         </item>
         <item>
         <title>Jupyter Notebook</title>
-        <link>http://localhost:4321/csc-data-blog/p/jupyter-notebook/</link>
+        <link>http://localhost:5082/csc-data-blog/p/jupyter-notebook/</link>
         <pubDate>Mon, 05 Jun 2023 18:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/jupyter-notebook/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/jupyter-notebook/</guid>
         <description>&lt;p&gt;Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python. You can even use both R and Python within the same document.&lt;/p&gt;
 &lt;p&gt;Think of Python (or R) as the language you are writing in, and Jupyter as the pen and pencil. This is how Python and Jupyter are used together.&lt;/p&gt;
 &lt;h3 id=&#34;note&#34;&gt;Note:
@@ -4769,10 +4769,10 @@
         </item>
         <item>
         <title>Reading Data in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/reading-data-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/reading-data-in-python/</link>
         <pubDate>Mon, 05 Jun 2023 11:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/reading-data-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/reading-data-in-python/</guid>
         <description>&lt;h2 id=&#34;csv-file&#34;&gt;CSV File
 &lt;/h2&gt;&lt;p&gt;Using the Pandas library, it is very easy to open a CSV file using Python. Simply import the package, and then use the line &lt;code&gt;pd.read_csv()&lt;/code&gt;. See this example below:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -4853,10 +4853,10 @@
         </item>
         <item>
         <title>Introduction to Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/introduction-to-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/introduction-to-python/</link>
         <pubDate>Wed, 15 Feb 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/introduction-to-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/introduction-to-python/</guid>
         <description>&lt;h2 id=&#34;python-can-be-used-as-a-calculator&#34;&gt;Python can be used as a calculator
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

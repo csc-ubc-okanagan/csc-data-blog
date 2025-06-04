@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Cleaning on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/tags/cleaning/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/cleaning/</link>
         <description>Recent content in Cleaning on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Tue, 01 Aug 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/cleaning/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 01 Aug 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/tags/cleaning/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Creating Variables in R</title>
-        <link>http://localhost:4321/csc-data-blog/p/creating-variables-in-r/</link>
+        <link>http://localhost:5082/csc-data-blog/p/creating-variables-in-r/</link>
         <pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/creating-variables-in-r/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/creating-variables-in-r/</guid>
         <description>&lt;p&gt;Occasionally we need to derive variables form existing information. A good example of this is conversion between scales. If we wanted to change a measurement from metres to kilometres or weight in pounds to kilograms, we could do this simply by performing a basic operation on an entire column. In this situation, let’s start by multiplying two columns together to create a new column. Recall the GDP dataset from previous articles. Let’s say we want to know the total GDP for the country. This could be calculated by multiplying the population by the GDP_per_Cap.&lt;/p&gt;
 &lt;p&gt;If you are just starting here, let’s re-load in the Gapminder data that we have been using in previous posts:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>P_Data on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/categories/p_data/</link>
+        <link>http://localhost:5082/csc-data-blog/categories/p_data/</link>
         <description>Recent content in P_Data on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Fri, 07 Jul 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/categories/p_data/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 07 Jul 2023 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/categories/p_data/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Subsetting in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/subsetting-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/subsetting-in-python/</link>
         <pubDate>Fri, 07 Jul 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/subsetting-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/subsetting-in-python/</guid>
         <description>&lt;p&gt;Sometimes the data frame we are working with can be very large and take a while to process. Alternatively, we could only need a portion of the information. There is a way to filter through a data frame such that only the specified information is used, which saves space and time!&lt;/p&gt;
 &lt;p&gt;Let’s re-load in our Gapminder data:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -458,10 +458,10 @@
         </item>
         <item>
         <title>Cleaning Data in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/cleaning-data-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/cleaning-data-in-python/</link>
         <pubDate>Tue, 20 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/cleaning-data-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/cleaning-data-in-python/</guid>
         <description>&lt;p&gt;Recall the URL with the country data. Let&amp;rsquo;s use this to practice some preliminary cleaning techniques.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -711,10 +711,10 @@
         </item>
         <item>
         <title>Creating Variables in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/creating-variables-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/creating-variables-in-python/</link>
         <pubDate>Tue, 20 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/creating-variables-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/creating-variables-in-python/</guid>
         <description>&lt;p&gt;Occasionally we need to derive variables form existing information. A good example of this is conversion between scales. If we wanted to change a measurement from metres to kilometres or weight in pounds to kilograms, we could do this simply by performing a basic operation on an entire column. In this situation, let’s start by multiplying two columns together to create a new column. Recall the GDP dataset from previous articles. Let’s say we want to know the total GDP for the country. This could be calculated by multiplying the population by the GDP_per_Cap.&lt;/p&gt;
 &lt;p&gt;If you are just starting here, let’s re-load in the original Gapminder data:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -939,10 +939,10 @@
         </item>
         <item>
         <title>Viewing Data in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/viewing-data-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/viewing-data-in-python/</link>
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/viewing-data-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/viewing-data-in-python/</guid>
         <description>&lt;p&gt;The Pandas package is the go-to package in Python for data frames and data set analysis.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s load in a dataset from a URL and then explore the data. We can enter the URL to the data set and save it as a variable so that it is easily accessible. Since the data set is a &lt;code&gt;.csv&lt;/code&gt; file, we can use the pandas function &lt;code&gt;read_csv()&lt;/code&gt; to save the data into a data frame!&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1470,10 +1470,10 @@
         </item>
         <item>
         <title>Reading Data in Python</title>
-        <link>http://localhost:4321/csc-data-blog/p/reading-data-in-python/</link>
+        <link>http://localhost:5082/csc-data-blog/p/reading-data-in-python/</link>
         <pubDate>Mon, 05 Jun 2023 11:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/reading-data-in-python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/reading-data-in-python/</guid>
         <description>&lt;h2 id=&#34;csv-file&#34;&gt;CSV File
 &lt;/h2&gt;&lt;p&gt;Using the Pandas library, it is very easy to open a CSV file using Python. Simply import the package, and then use the line &lt;code&gt;pd.read_csv()&lt;/code&gt;. See this example below:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

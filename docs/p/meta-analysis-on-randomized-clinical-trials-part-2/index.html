@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Meta-Analysis So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to extract data from published manuscripts and prepare them for meta-analysis.\nWhat would be the best tool for saving our extracted data? Our suggestion is Excel because it is easy to work with and facilitates any necessary conversions (e.g., units or dispersions across different studies). In our Excel file, each row will be allocated to a study from which we are extracting data.\n">
+<title>Meta-Analysis on Randomized Clinical Trials - Part 2</title>
+
+<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/'>
+
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Meta-Analysis on Randomized Clinical Trials - Part 2">
+<meta property='og:description' content="Meta-Analysis So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to extract data from published manuscripts and prepare them for meta-analysis.\nWhat would be the best tool for saving our extracted data? Our suggestion is Excel because it is easy to work with and facilitates any necessary conversions (e.g., units or dispersions across different studies). In our Excel file, each row will be allocated to a study from which we are extracting data.\n">
+<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/'>
+<meta property='og:site_name' content='R &amp; Python Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='meta_analysis' /><meta property='article:tag' content='r' /><meta property='article:published_time' content='2025-06-04T09:00:00-08:00'/><meta property='article:modified_time' content='2025-06-04T09:00:00-08:00'/>
+<meta name="twitter:title" content="Meta-Analysis on Randomized Clinical Trials - Part 2">
+<meta name="twitter:description" content="Meta-Analysis So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to extract data from published manuscripts and prepare them for meta-analysis.\nWhat would be the best tool for saving our extracted data? Our suggestion is Excel because it is easy to work with and facilitates any necessary conversions (e.g., units or dispersions across different studies). In our Excel file, each row will be allocated to a study from which we are extracting data.\n">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PQ1KG9NWP0');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/csc-data-blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
+                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
+            <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='csc.ok@ubc.ca'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st1 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 66.7px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 133.3;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M133.3,300l206.7,155c35.6,26.7,84.4,26.7,120,0l206.7-155"/>
+  <path class="st2" d="M100,305.9c0-24.2,13.1-46.5,34.3-58.3l233.3-129.6c20.1-11.2,44.6-11.2,64.8,0l233.3,129.6c21.2,11.8,34.3,34.1,34.3,58.3v260.8c0,36.8-29.8,66.7-66.7,66.7H166.7c-36.8,0-66.7-29.8-66.7-66.7v-260.8Z"/>
+  <path class="st0" d="M0,0h800v800H0V0Z"/>
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/csc-ubc-okanagan'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/csc-data-blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#meta-analysis">Meta-Analysis</a>
+      <ol>
+        <li><a href="#what-would-be-the-best-tool-for-saving-our-extracted-data">What would be the best tool for saving our extracted data?</a></li>
+        <li><a href="#what-information-should-we-extract">What information should we extract?</a></li>
+      </ol>
+    </li>
+    <li><a href="#quality-of-the-included-studies">Quality of the Included Studies</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/csc-data-blog/categories/meta_analysis/" >
+                Meta_Analysis
+            </a>
+        
+            <a href="/csc-data-blog/categories/r/" >
+                R
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/">Meta-Analysis on Randomized Clinical Trials - Part 2</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 04, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    
+		  Amir Golzan
+	  
+    <h2 id="meta-analysis">Meta-Analysis
+</h2><p>So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to <em>extract</em> data from published manuscripts and <em>prepare</em> them for meta-analysis.</p>
+<h3 id="what-would-be-the-best-tool-for-saving-our-extracted-data">What would be the best tool for saving our extracted data?
+</h3><p>Our suggestion is <strong>Excel</strong> because it is easy to work with and facilitates any necessary conversions (e.g., units or dispersions across different studies). In our Excel file, each <em>row</em>  will be allocated to a study from which we are extracting data.</p>
+<h3 id="what-information-should-we-extract">What information should we extract?
+</h3><p>The answer depends on your main meta-analysis question. In GENERAL, the following information should be extracted from each study:</p>
+<ul>
+<li>
+<p><strong>First Author&rsquo;s name</strong>: It should be entered in the following format: e.g., Jackson et al. (2025).</p>
+</li>
+<li>
+<p><strong>Publication date</strong>: This should be the date of publication, not <em>acceptance</em>.</p>
+</li>
+<li>
+<p><strong>Number of individuals in both control and intervention groups</strong>: This refers to the number of individuals included in the <em>final</em> analysis of the study. It is usually reported in the first demographic table or in the study&rsquo;s flowchart.</p>
+</li>
+<li>
+<p><strong>The mean of the dependent variable BEFORE and AFTER the study in both groups</strong>: In some studies, the mean change (After minus Before) in the dependent variable is reported, so it should be extracted directly.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: The <strong>mean change</strong> is the final parameter used in meta-analysis. In our Excel file, we should have four columns for the mean of the dependent variable in control and intervention groups (before/after), four columns for the standard deviation (SD) of the dependent variable in control and intervention groups (before/after). You should also include four additional columns for studies reporting the mean change directly (two for the mean change of control and intervention groups and two for SDs in both groups).</p></blockquote>
+<ul>
+<li>
+<p><strong>The SD for each dependent variable should be extracted</strong>: In cases where other types of dispersion (SE, IQR, 95% CI, or range) are reported, they should be extracted and can be converted to SD as follows:</p>
+<ul>
+<li>
+<p><strong>Converting from SE:</strong>  \( SD = SE \times \sqrt{n} \), where \( n \) is the sample size</p>
+</li>
+<li>
+<p><strong>Converting from IQR:</strong> \( SD = \dfrac{\text{upper quartile} - \text{lower quartile}}{1.35} \)</p>
+</li>
+<li>
+<p><strong>Converting from 95% Confidence Interval (CI):</strong></p>
+<p>\( SD = \dfrac{\text{upper CI} - \text{lower CI}}{3.92} \times \sqrt{n} \), where \( n \) is the sample size</p>
+</li>
+<li>
+<p><strong>Converting from Range:</strong> \( SD = \dfrac{\text{maximum} - \text{minimum}}{4} \)</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Reference for conversions:</strong> For guidelines and detailed methodology, see the <a class="link" href="https://dariososafoula.wordpress.com/wp-content/uploads/2017/01/cochrane-handbook-for-systematic-reviews-of-interventions-2019-1.pdf"  target="_blank" rel="noopener"
+    >Cochrane Handbook for Systematic Reviews of Interventions</a> by Higgins JP et al. You can also refer to <a class="link" href="https://link.springer.com/article/10.1186/1471-2288-14-135"  target="_blank" rel="noopener"
+    >Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range</a> by Wan et al.</p></blockquote>
+<p>In clinical studies, some studies have more than <em>one</em> intervention group. You may ask, if a study has several intervention groups with different types of interventions instead of a single intervention group, what should be done? The solution is to consider each intervention group as a <strong>separate</strong> study. In other words, each group occupies its <em>own row</em> in the data-extraction Excel sheet. For example, if a study has three intervention groups, we create three rows in the Excel sheet.</p>
+<blockquote>
+<p>It should be noted that studies are included in the meta-analysis ONLY IF the difference between the intervention and control groups is <strong>solely</strong> the intervention of interest.</p></blockquote>
+<ul>
+<li>
+<p><strong>The unit of the measured dependent variable.</strong> We must convert all studies to the <strong>same</strong> unit. If you encounter different reported units for the same dependent variable across studies, select the most common unit and convert the others to it. Ensure that when you perform conversions, you <em>also</em> convert the <em>SD</em>.</p>
+</li>
+<li>
+<p><strong>The dosage of the intervention.</strong> This is important for dose-response analysis if we wish to perform it. It can also be helpful for subgroup analysis. If the unit of reported doses varies between studies, ensure you convert them to a uniform unit across studies.</p>
+</li>
+<li>
+<p><strong>The duration of the intervention.</strong> This is also important for dose-response analysis if we wish to perform it.</p>
+</li>
+</ul>
+<blockquote>
+<p>This is the necessary information needed to conduct a meta-analysis. If you wish to perform subgroup analysis, you may also want to extract the following information:</p>
+<ul>
+<li>
+<p><strong>1) Study design</strong>: Randomized, single-, or double-blinded.</p>
+</li>
+<li>
+<p><strong>2) Country or location where the study was conducted</strong>: Usually found in the first line of the methodology section.</p>
+</li>
+<li>
+<p><strong>3) Gender of participants</strong>: Usually available in the first demographic table</p>
+</li>
+</ul></blockquote>
+<p>Note: Sometimes statistical analyses in a study are performed separately by <strong>gender</strong>. In such cases, we create separate rows in Excel for men and women. Although this rarely occurs in interventional studies and is more common in observational studies, when it does happen, two rows are created for the same study in Excel. In other words, one study is treated as <em>two</em> studies.</p>
+<blockquote>
+<ul>
+<li>
+<p><strong>4) Type of intervention</strong>: In the intervention and control groups (e.g., placebo, capsule, different food or dietary regimen, injection). These are usually reported in the intervention or study-design paragraph.</p>
+</li>
+<li>
+<p><strong>5) Any co-intervention alongside the main intervention</strong>: Sometimes the main intervention is accompanied by a weight-loss program, an exercise regimen, another supplement, etc. In other words, <em>both</em> the intervention and control groups receive the co-intervention (e.g., weight-loss program, exercise regimen, another supplement), and the only difference between the two groups is the administration of the primary intervention. This is usually reported in the intervention or study-design paragraph. We should create a column titled “co-intervention” in the Excel sheet for this purpose.</p>
+</li>
+<li>
+<p><strong>6) Mean age in intervention and control groups (mean ± SD)</strong>: Usually available in the first demographic table.</p>
+</li>
+<li>
+<p><strong>7) Health status of study participants</strong>: The study may be conducted on healthy individuals or individuals with a specific disease. This is usually reported in the study title or the first paragraph of the Methods section.</p>
+</li>
+<li>
+<p><strong>8) Method of assessing the dependent variable</strong>: By what method was the dependent variable assessed? Create a column named “outcome assessment.” For example: By what method was the CRP level assessed in this study?</p>
+</li>
+<li>
+<p><strong>9) Matching or adjustment</strong>: The term &ldquo;matching&rdquo; refers to variables that have been equalized between the intervention and control groups. For example, matching based on age means individuals are divided into the two groups so there is no difference in age between them. This is usually reported at the beginning of the Methods or Results section, or you can locate it by searching for the words “match” or “stratified.” In interventional studies, differences between the intervention and control groups can be accounted for in the statistical analysis through adjustment. This is typically reported in a table footnote or in the statistical analysis section.</p>
+</li>
+</ul></blockquote>
+<p><em>Note</em>: One of the most important adjustments in clinical trials is controlling for baseline values of the outcome variables.</p>
+<blockquote>
+<ul>
+<li>
+<p><strong>10) Compliance (adherence to the intervention)</strong>: The higher the adherence to the intervention in a study, the more valid its findings will be. Compliance may be reported as a percentage (e.g., 70% of the capsules were taken) or simply noted as high, moderate, or low. It is usually discussed in the first paragraph of the Results section, or you can locate it by searching for the words “compliance” or “adherence.”</p>
+</li>
+<li>
+<p><strong>11) Location where measurements were taken</strong></p>
+</li>
+</ul></blockquote>
+<h2 id="quality-of-the-included-studies">Quality of the Included Studies
+</h2><p>The final topic to discuss in this part is whether the included studies have the <strong>necessary quality</strong> to perform a meta-analysis. To what extent do the included studeis exhibit methodological errors? This assessment provides an overall view of the quality of the included studies. Previously, the Jadad tool was used for this purpose, but currently, the <strong>Cochrane tool</strong> is used. This tool is one of the most valid tools for assessing quality. It evaluates the quality of a study using seven factors, which assess the biases that may occur in a study and thereby evaluate its overall quality. We will not go into details of this tool as it is beyond the scope of this series, but you can find more information in the <a class="link" href="https://training.cochrane.org/handbook"  target="_blank" rel="noopener"
+    >Cochrane Handbook</a> by Julian P. T. Higgins and Sally Green.</p>
+<hr>
+<p>That’s it for this part! In <strong>Part 3</strong>, we will dive into the analysis of the collected data.</p>
+<p><strong>Stay tuned!</strong></p>
+<hr>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/csc-data-blog/tags/meta_analysis/">Meta_analysis</a>
+        
+            <a href="/csc-data-blog/tags/r/">R</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/getting-started-with-github/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Getting started with GitHub</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/abacus-api/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Abacus API</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/transforming-data/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Transforming data</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/sample-data-generation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sample Data Generation</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Center for Scholarly Communication, UBC Okanagan
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

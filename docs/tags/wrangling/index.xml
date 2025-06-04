@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Wrangling on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/tags/wrangling/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/wrangling/</link>
         <description>Recent content in Wrangling on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Tue, 07 Mar 2023 11:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/wrangling/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 07 Mar 2023 11:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/tags/wrangling/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Data Structures in R</title>
-        <link>http://localhost:4321/csc-data-blog/p/data-structures-in-r/</link>
+        <link>http://localhost:5082/csc-data-blog/p/data-structures-in-r/</link>
         <pubDate>Tue, 07 Mar 2023 11:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/data-structures-in-r/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/data-structures-in-r/</guid>
         <description>&lt;p&gt;\usepackage{amsmath}&lt;/p&gt;
 &lt;p&gt;There are many different data structure types in &lt;code&gt;R&lt;/code&gt;, each with varying levels of complexity and uses. The simplest data structure in &lt;code&gt;R&lt;/code&gt; is a vector. Vectors are one-dimensional arrays (i.e., sets of values) of a single class (such as characters, numbers, dates, etc.), and they have a similar structure to the mathematical concept of vectors. For example, the vector $\vec v$ with values 1, 4, 6, 2 would be:&lt;/p&gt;
 $$\vec v = \begin{bmatrix}1 \\ 4 \\ 6 \\ 2\end{bmatrix}.$$&lt;p&gt;In &lt;code&gt;R&lt;/code&gt; we can create vectors using the &lt;code&gt;c()&lt;/code&gt; function, as follows:&lt;/p&gt;

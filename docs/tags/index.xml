@@ -2,145 +2,153 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/tags/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/</link>
         <description>Recent content in Tags on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Fri, 14 Feb 2025 14:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>R</title>
-        <link>http://localhost:4321/csc-data-blog/tags/r/</link>
-        <pubDate>Fri, 14 Feb 2025 14:00:00 -0800</pubDate>
+        <lastBuildDate>Fri, 16 May 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Meta_anlysis</title>
+        <link>http://localhost:5082/csc-data-blog/tags/meta_anlysis/</link>
+        <pubDate>Fri, 16 May 2025 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/r/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/meta_anlysis/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>R</title>
+        <link>http://localhost:5082/csc-data-blog/tags/r/</link>
+        <pubDate>Fri, 16 May 2025 09:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:5082/csc-data-blog/tags/r/</guid>
         <description></description>
         </item>
         <item>
         <title>Rstudio</title>
-        <link>http://localhost:4321/csc-data-blog/tags/rstudio/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/rstudio/</link>
         <pubDate>Fri, 14 Feb 2025 14:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/rstudio/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/rstudio/</guid>
         <description></description>
         </item>
         <item>
         <title>Github</title>
-        <link>http://localhost:4321/csc-data-blog/tags/github/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/github/</link>
         <pubDate>Mon, 16 Sep 2024 12:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/github/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/github/</guid>
         <description></description>
         </item>
         <item>
         <title>Python</title>
-        <link>http://localhost:4321/csc-data-blog/tags/python/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/python/</link>
         <pubDate>Tue, 09 Apr 2024 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/python/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/python/</guid>
         <description></description>
         </item>
         <item>
         <title>Cleaning</title>
-        <link>http://localhost:4321/csc-data-blog/tags/cleaning/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/cleaning/</link>
         <pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/cleaning/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/cleaning/</guid>
         <description></description>
         </item>
         <item>
         <title>Modelling</title>
-        <link>http://localhost:4321/csc-data-blog/tags/modelling/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/modelling/</link>
         <pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/modelling/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/modelling/</guid>
         <description></description>
         </item>
         <item>
         <title>Jupyter</title>
-        <link>http://localhost:4321/csc-data-blog/tags/jupyter/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/jupyter/</link>
         <pubDate>Mon, 05 Jun 2023 18:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/jupyter/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/jupyter/</guid>
         <description></description>
         </item>
         <item>
         <title>Data</title>
-        <link>http://localhost:4321/csc-data-blog/tags/data/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/data/</link>
         <pubDate>Mon, 05 Jun 2023 11:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/data/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/data/</guid>
         <description></description>
         </item>
         <item>
         <title>Windows</title>
-        <link>http://localhost:4321/csc-data-blog/tags/windows/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/windows/</link>
         <pubDate>Thu, 09 Mar 2023 18:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/windows/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/windows/</guid>
         <description></description>
         </item>
         <item>
         <title>Data-Structures</title>
-        <link>http://localhost:4321/csc-data-blog/tags/data-structures/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/data-structures/</link>
         <pubDate>Tue, 07 Mar 2023 11:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/data-structures/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/data-structures/</guid>
         <description></description>
         </item>
         <item>
         <title>Wrangling</title>
-        <link>http://localhost:4321/csc-data-blog/tags/wrangling/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/wrangling/</link>
         <pubDate>Tue, 07 Mar 2023 11:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/wrangling/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/wrangling/</guid>
         <description></description>
         </item>
         <item>
         <title>Colorblind</title>
-        <link>http://localhost:4321/csc-data-blog/tags/colorblind/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/colorblind/</link>
         <pubDate>Sat, 11 Feb 2023 10:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/colorblind/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/colorblind/</guid>
         <description></description>
         </item>
         <item>
         <title>Figures</title>
-        <link>http://localhost:4321/csc-data-blog/tags/figures/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/figures/</link>
         <pubDate>Sat, 11 Feb 2023 10:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/figures/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/figures/</guid>
         <description></description>
         </item>
         <item>
         <title>Ggplot</title>
-        <link>http://localhost:4321/csc-data-blog/tags/ggplot/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/ggplot/</link>
         <pubDate>Sat, 11 Feb 2023 10:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/ggplot/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/ggplot/</guid>
         <description></description>
         </item>
         <item>
         <title>Plot</title>
-        <link>http://localhost:4321/csc-data-blog/tags/plot/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/plot/</link>
         <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/plot/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/plot/</guid>
         <description></description>
         </item>
         <item>
         <title>R Markdown</title>
-        <link>http://localhost:4321/csc-data-blog/tags/r-markdown/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/r-markdown/</link>
         <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/r-markdown/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/r-markdown/</guid>
         <description></description>
         </item>
         <item>
         <title>Regression</title>
-        <link>http://localhost:4321/csc-data-blog/tags/regression/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/regression/</link>
         <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/tags/regression/</guid>
+        <guid>http://localhost:5082/csc-data-blog/tags/regression/</guid>
         <description></description>
         </item>
         

@@ -2,8 +2,8 @@
 title: "Meta-Analysis on Randomized Clinical Trials - Part 1"
 author: ["Amir Golzan"]
 date: 2025-05-16 09:00:00 -0800
-categories: ["Meta_Anlysis", "R"]
-tags: ["meta_anlysis", "R"] # tags always lowercase
+categories: ["Meta_Analysis", "R"]
+tags: ["meta_analysis", "R"] # tags always lowercase
 ---
 
 
@@ -20,8 +20,8 @@ These types of studies are conducted on humans, animals, and so on. In technical
 ### Secondary Studies
 These types of studies are conducted on the findings of primary studies, including:
 
-- **Narrative reviews**: They can be conducted with as few as two studies. they may not have a specific objective and might cover a broad topic, for example: Efficacy of vitamin E supplementation on routine diseases in women. Also, they may not include every article available within the topic area under review.
-- **Systematic reviews**: They have a defined objective, for example: Efficacy of vitamin E supplementation on blood pressure in adult women. Also, all articles within the scope of the topic under review must be included.
+- **Narrative reviews**: They can be conducted with as few as two studies. they may not have a specific objective and might cover a broad topic, for example: Efficacy of vitamin E supplementation on routine diseases in women. Also, they may not include every study available within the topic area under review.
+- **Systematic reviews**: They have a defined objective, for example: Efficacy of vitamin E supplementation on blood pressure in adult women. Also, all studies within the scope of the topic under review must be included.
 - **Meta-analyses**: Similar in every respect to a systematic review, with the difference that *statistical analysis* is also performed. Meta-analysis is essentially a re-analysis of the findings from primary studies. In a meta-analysis, the quantitative data from primary studies (such as means, odds ratios, etc.) are combined into a single result (for example, one mean, one odds ratio, etc.) Therefore, drawing the final conclusion in a meta-analysis is easier. An example would be: Effect of vitamin E supplementation on CRP concentrations in adults: A meta-analysis
 
 ## Meta-analyses sit at the top of the evidence pyramid
@@ -59,7 +59,7 @@ To select a topic, we should consider:
 
 - **Principle 6**) **Intervention duration**: The minimum duration of intervention: one day, one week, two weeks, etc.
 
-- **Principle 7**) **Number of studies**: To perform a meta-analysis, there must be at least three articles (in accordance with Principles 1–6) in the topic area under review. These three articles must provide the necessary data to carry out a meta-analysis on a single dependent variable. 
+- **Principle 7**) **Number of studies**: To perform a meta-analysis, there must be at least three studies (in accordance with Principles 1–6) in the topic area under review. These three studies must provide the necessary data to carry out a meta-analysis on a single dependent variable. 
 
 **Required data** for interventional meta-analysis:
 

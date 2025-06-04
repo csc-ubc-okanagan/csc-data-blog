@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Windows on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/tags/windows/</link>
+        <link>http://localhost:5082/csc-data-blog/tags/windows/</link>
         <description>Recent content in Windows on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Thu, 09 Mar 2023 18:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/windows/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 09 Mar 2023 18:00:00 -0800</lastBuildDate><atom:link href="http://localhost:5082/csc-data-blog/tags/windows/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Searching for files with the `findR` package</title>
-        <link>http://localhost:4321/csc-data-blog/p/searching-for-files-with-the-findr-package/</link>
+        <link>http://localhost:5082/csc-data-blog/p/searching-for-files-with-the-findr-package/</link>
         <pubDate>Thu, 09 Mar 2023 18:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/searching-for-files-with-the-findr-package/</guid>
+        <guid>http://localhost:5082/csc-data-blog/p/searching-for-files-with-the-findr-package/</guid>
         <description>&lt;!-- https://chirpy.cotes.page/posts/write-a-new-post/ --&gt;
 &lt;p&gt;It is good practice to have descriptive but concise file names so one can easily find the code they are looking for. But as projects grow, the number of scripts can become quite large (unless you are one of those chaotic people that put everything in a single script&amp;hellip;). With UNIX computers, one can easily search for code in the a file explorer window, but this does not work with Windows. It is possible to search for files by name, but it is not possible to search for specific content in &lt;code&gt;R&lt;/code&gt; scripts.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;findR&lt;/code&gt; package allows Windows users to search for specific strings of code within directories using a simple syntax:&lt;/p&gt;
