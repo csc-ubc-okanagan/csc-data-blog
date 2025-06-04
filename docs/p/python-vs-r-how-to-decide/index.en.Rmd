@@ -15,23 +15,23 @@ The purpose of this post is to help students to decide which language to learn f
 
 First, let's introduce each, and talk about their main purposes.
 
-# Introducing Python
+### Introducing Python
 
 Python is a general-purpose, object-oriented programming language. It was created in 1991, and it has a community of people who contribute to regularly updating libraries and improving efficiencies. It happens to be one of the most popular programming languages in the world. Some of the most common libraries for data-related tasks include NumPy (for arrays), Pandas (for data analysis and manipulation), and MatPlotLib (for data visualizations). Python is a powerful tool used for machine learning, deep learning, and modelling. Jupyter Notebook is a useful interface to pair with Python because it allows for clean, readable layouts to be shared with peers and users. Note that Jupyter Notebook also supports R. 
 
 Python is commonly used in disciplines such as computer science, data science, mathematics (optimization, pure math, finance, economics, etc.), physics, engineering, the social sciences, and more. Note that this is just a general consensus. Your specific department at UBC, or your previous institution, may have done something differently.
 
-# Introducing R
+### Introducing R
 
 R was originally created for statistics, specializing in statistical analysis and visualization. R was created in 1993, but generally has less community support and less advancements than Python. This is one of the major complaints of users, and is one reason why many people end up turning to Python over R. Libraries and tools in R are best known for helping with tasks such as cleaning data, creating visualization, and training some machine learning and deep learning algorithms. Note that R can take significantly longer to handle machine learning algorithms than alternatives such as Python.
 
 R is commonly used in disciplines such as biology and math (statistics). Again, this is just a general consensus, and your specific department may use a different tool.
 
-# Similarities
+### Similarities
 
 Both R and Python are open source programming languages that are maintained and supported by large communities. 
 
-# Differences
+### Differences
 
 Here, we will discuss some of the differences between R and Python, which can help to decide which to start learning first. 
 
@@ -51,7 +51,7 @@ Let's take a look at this chart below to look at more differences between the tw
 - modelling analysis requires non-core R (tidyverse used for importing, visualizing, reporting, etc.) | - standard libraries used work together well (NumPy, SciPy, scikit-learn) 
 
 
-# General Preferences
+### General Preferences
 
 In general, it is commonly considered that if you have programming experience, Python is the way to go, because it is a very easy language to learn (compared to others). If you are new to programming, Python is also considered a great learning language for beginners, and R may take some extra efforts to develop expertise.
 
