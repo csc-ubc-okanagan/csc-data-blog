@@ -1,5 +1,5 @@
 ---
-title: "Meta-Analysis on Randomized Clinical Trials - Part 2"
+title: "Meta-Analysis on Randomized Clinical Trials - Part 3"
 author: ["Amir Golzan"]
 date: 2025-06-19 09:00:00 -0800
 categories: ["Meta_Analysis", "R"]
@@ -41,16 +41,11 @@ Now we can calculate the mean change and SD using the following formulas:
 
   - **Mean Change** = Post Mean - Pre Mean
 
-  - **SD of Change**= \(`SD_change = sqrt((SD_1^2 + SD_2^2) - (2 * r * SD_1 * SD_2))`\)
-  
-  - **Converting from SE:**  \( SD = SE \times \sqrt{n} \), where \( n \) is the sample size
-  
-
+  - **SD of Change**= √((Pre_SD² + Post_SD²) − (2 × r × Pre_SD × Post_SD))
 
 For this formula, *r* is calculated using following formula in which Pre_SD and Post_SD should be taken from a known study in which authors themselves reported SD Change.
 
-**r** =
-      \(SD =\dfrac{\text{upper CI} - \text{lower CI}}{3.92} \times \sqrt{n} \), where \( n \) is the sample size
+  - **r** = (Pre_SD² + Post_SD² − SD_change²) / (2 × Pre_SD × Post_SD)
 
 In our example, we assume *r* as 0.98. Considering these, we can now calculate `mean_change_CRP` and `SD_change_CRP`:
 
@@ -87,7 +82,7 @@ For each variable, create a column in Excel and assign codes. For example, for g
 
 The first analysis we will become familiar with is the main meta-analysis, which we can perform in R using `metacont` from the `meta` package. We highly recommend running `help(meta)` as it provides comprehensive information on how to run your analyses and which codes to use.
 
-Below, we demonstrate a meta-analysis using a sample dataset. In this sample dataset, we want to understand how using Vitamin E affects the levels of CRP in blood. You can download the data to your local computer from [Sample Data](https://training.cochrane.org/handbook).
+Below, we demonstrate a meta-analysis using a sample dataset. In this sample dataset, we want to understand how using Vitamin E affects the levels of CRP in blood. You can download the data to your local computer from [Sample Data](https://github.com/csc-ubc-okanagan/csc-data-blog/blob/main/content/post/2025-06-17-meta-analysis-on-randomized-clinical-trials-part-3/Sample_data.csv).
 
 ```{r meta_analysis, echo=TRUE, results='markup', message=FALSE, warning=FALSE}
 # ── 0. Packages ───────────────────────────────────────────────
