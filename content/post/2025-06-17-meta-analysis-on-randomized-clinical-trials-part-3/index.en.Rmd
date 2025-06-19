@@ -82,7 +82,7 @@ For each variable, create a column in Excel and assign codes. For example, for g
 
 The first analysis we will become familiar with is the main meta-analysis, which we can perform in R using `metacont` from the `meta` package. We highly recommend running `help(meta)` as it provides comprehensive information on how to run your analyses and which codes to use.
 
-Below, we demonstrate a meta-analysis using a sample dataset. In this sample dataset, we want to understand how using Vitamin E affects the levels of CRP in blood. You can download the data to your local computer from [Sample Data](https://training.cochrane.org/handbook).
+Below, we demonstrate a meta-analysis using a sample dataset. In this sample dataset, we want to understand how using Vitamin E affects the levels of CRP in blood. You can download the data to your local computer from [Sample Data](https://github.com/csc-ubc-okanagan/csc-data-blog/blob/main/content/post/2025-06-17-meta-analysis-on-randomized-clinical-trials-part-3/Sample_data.csv).
 
 ```{r meta_analysis, echo=TRUE, results='markup', message=FALSE, warning=FALSE}
 # ── 0. Packages ───────────────────────────────────────────────
