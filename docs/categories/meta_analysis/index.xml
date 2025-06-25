@@ -2,331 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Meta_Analysis on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/categories/meta_analysis/</link>
+        <link>http://localhost:4398/csc-data-blog/categories/meta_analysis/</link>
         <description>Recent content in Meta_Analysis on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Tue, 17 Jun 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/categories/meta_analysis/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Meta-Analysis on Randomized Clinical Trials - Part 3</title>
-        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/</link>
-        <pubDate>Tue, 17 Jun 2025 09:00:00 -0800</pubDate>
-        
-        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/</guid>
-        <description>&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/tabwid/tabwid.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/tabwid/tabwid.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/tabwid/tabwid.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/tabwid/tabwid.js&#34;&gt;&lt;/script&gt;
-&lt;p&gt;In this part, we begin performing meta-analysis using the R language. If you are not familiar with R, you may refer to &lt;a class=&#34;link&#34; href=&#34;https://r4ds.had.co.nz/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;R for Data Science&lt;/a&gt; for a comprehensive introduction.&lt;/p&gt;
-&lt;p&gt;We will cover how to prepare data for import into RStudio, import the data, label it appropriately, and analyze it using meta-analysis codes.&lt;/p&gt;
-&lt;h2 id=&#34;data-preparation&#34;&gt;Data Preparation
-&lt;/h2&gt;&lt;p&gt;To perform meta-analysis, we first need to calculate the &lt;strong&gt;mean change&lt;/strong&gt; and the &lt;strong&gt;Standard Deviation (SD)&lt;/strong&gt; of the mean change for studies reporting only pre- and post-measurements. Additionally, we should label our data based on defined criteria (discussed further below) to prepare for subgroup analysis, which is critical in meta-analyses.&lt;/p&gt;
-&lt;p&gt;Let’s say we have extracted the following data from a study evaluating C-reactive protein (CRP) levels in blood after consuming Vitamin E:&lt;/p&gt;
-&lt;div class=&#34;tabwid&#34;&gt;&lt;style&gt;.cl-62740f48{}.cl-6270fa38{font-family:&#39;Helvetica&#39;;font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-627237d6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-62728e66{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-62728e67{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing=&#39;true&#39; class=&#39;cl-62740f48&#39;&gt;&lt;thead&gt;&lt;tr style=&#34;overflow-wrap:break-word;&#34;&gt;&lt;th class=&#34;cl-62728e66&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;Pre_mean_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-62728e66&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;Pre_SD_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-62728e66&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;Post_mean_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-62728e66&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;Post_SD_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-62728e66&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;mean_change_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-62728e66&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;SD_change_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style=&#34;overflow-wrap:break-word;&#34;&gt;&lt;td class=&#34;cl-62728e67&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;10.7&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-62728e67&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;7.9&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-62728e67&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;8.7&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-62728e67&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;8.4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-62728e67&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;?&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-62728e67&#34;&gt;&lt;p class=&#34;cl-627237d6&#34;&gt;&lt;span class=&#34;cl-6270fa38&#34;&gt;?&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
-&lt;p&gt;Now we can calculate the mean change and SD using the following formulas:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mean Change&lt;/strong&gt; = Post Mean - Pre Mean&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;SD of Change&lt;/strong&gt;= ()&lt;/p&gt;
-&lt;p&gt;For this formula, &lt;em&gt;r&lt;/em&gt; is calculated using following formula in which Pre_SD and Post_SD should be taken from a known study in which authors themselves reported SD Change.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;r&lt;/strong&gt; = ( )&lt;/p&gt;
-&lt;p&gt;In our example, we assume &lt;em&gt;r&lt;/em&gt; as 0.98. Considering these, we can now calculate &lt;code&gt;mean_change_CRP&lt;/code&gt; and &lt;code&gt;SD_change_CRP&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;tabwid&#34;&gt;&lt;style&gt;.cl-627b1c16{}.cl-6278baf2{font-family:&#39;Helvetica&#39;;font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6279b402{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6279be34{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6279be3e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing=&#39;true&#39; class=&#39;cl-627b1c16&#39;&gt;&lt;thead&gt;&lt;tr style=&#34;overflow-wrap:break-word;&#34;&gt;&lt;th class=&#34;cl-6279be34&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;Pre_mean_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-6279be34&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;Pre_SD_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-6279be34&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;Post_mean_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-6279be34&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;Post_SD_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-6279be34&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;mean_change_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class=&#34;cl-6279be34&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;SD_change_CRP&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style=&#34;overflow-wrap:break-word;&#34;&gt;&lt;td class=&#34;cl-6279be3e&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;10.7&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-6279be3e&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;7.9&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-6279be3e&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;8.7&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-6279be3e&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;8.4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-6279be3e&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;-2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class=&#34;cl-6279be3e&#34;&gt;&lt;p class=&#34;cl-6279b402&#34;&gt;&lt;span class=&#34;cl-6278baf2&#34;&gt;1.70&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
-&lt;h2 id=&#34;subgroup-analysis-preparation&#34;&gt;Subgroup Analysis Preparation
-&lt;/h2&gt;&lt;p&gt;To perform subgroup analysis, we must assign codes to variables based on which we want to conduct the analysis. Common variables include:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Gender&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Dosage&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Duration of intervention&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Health status of individuals&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Adjustment for baseline values&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Study design&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Adherence to the intervention&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For each variable, create a column in Excel and assign codes. For example, for gender: Both genders = Code 1, Male = Code 2, Female = Code 3. These codes facilitate subgroup analysis to understand how variables like gender affect outcomes.&lt;/p&gt;
-&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
-&lt;/h2&gt;&lt;p&gt;The first analysis we will become familiar with is the main meta-analysis, which we can perform in R using &lt;code&gt;metacont&lt;/code&gt; from the &lt;code&gt;meta&lt;/code&gt; package. We highly recommend running &lt;code&gt;help(meta)&lt;/code&gt; as it provides comprehensive information on how to run your analyses and which codes to use.&lt;/p&gt;
-&lt;p&gt;Below, we demonstrate a meta-analysis using a sample dataset. In this sample dataset, we want to understand how using Vitamin E affects the levels of CRP in blood. You can download the data to your local computer from &lt;a class=&#34;link&#34; href=&#34;https://training.cochrane.org/handbook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Sample Data&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ── 0. Packages ───────────────────────────────────────────────&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;readr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;meta&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ── 1.  Read the data ─────────────────────────────────────────&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;sample_data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;read_csv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;sample_data.csv&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;show_col_types&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;FALSE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;   
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ── 2.  Main meta-analysis&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;main_analyis&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;metacont&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Variables for Experimental Group  (n_int, mean_change_CRP_int, SD_change_CRP_int)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;n.e&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;                 &lt;span class=&#34;c1&#34;&gt;## ⇨ “Number of participants for Exp. Group: n”&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;mean.e&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mean_change_CRP_int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;## ⇨ “mean”&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;sd.e&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SD_change_CRP_int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;## ⇨ “sd”&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Vars for Control Group  (n_con, mean_change_CRP_con, SD_change_CRP_con)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;n.c&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_con&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;                 &lt;span class=&#34;c1&#34;&gt;## ⇨ “Number of participants for Control Group: n”&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;mean.c&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mean_change_CRP_con&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;## ⇨ “mean”&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;sd.c&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SD_change_CRP_con&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;## ⇨ “sd”&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Labels  (Name = authr name)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;studlab&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;`author name`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;         &lt;span class=&#34;c1&#34;&gt;## ⇨ “Labels for Data  ▸ Name”&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sample_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;           &lt;span class=&#34;c1&#34;&gt;## ⇨ “Selecting data”&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Statistic  (No Standard → Weighted Mean Difference)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## If studies used different units, use SMD.&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;MD&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;                &lt;span class=&#34;c1&#34;&gt;## ⇨ ‘Tells R no standardization needed—units are the same.’&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Pooling model  (Fixed, Inverse-Variance)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## We&amp;#39;ll discuss this later—using Fixed model for now.&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;comb.fixed&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;TRUE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;               &lt;span class=&#34;c1&#34;&gt;## ⇨ ‘Pooling Model: Fixed, Inverse-Variance’&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;comb.random&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;FALSE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;              &lt;span class=&#34;c1&#34;&gt;## (leave random OFF)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ── 3.  Review numeric results ─────────────────────&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;summary&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;main_analyis&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;# pooled WMD, I², τ², Q-test. &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;pre&gt;&lt;code&gt;##                              MD              95%-CI %W(common)
-## Dalgard et al. 2009     -0.1000 [ -0.9532;  0.7532]        2.1
-## Rafraf et al. 2012      -0.1000 [ -0.4015;  0.2015]       17.2
-## Daud et al. 2013         0.0000 [ -9.0265;  9.0265]        0.0
-## El-sisi et al. 2013      0.4900 [ -0.8664;  1.8464]        0.8
-## Mah et al. 2013         -0.7700 [ -3.6288;  2.0888]        0.2
-## Shadman et al. 2013     -0.4300 [ -1.9034;  1.0434]        0.7
-## Gopalan et al. 2014     -2.6900 [ -6.1718;  0.7918]        0.1
-## Hejazi et al. 2015       2.0000 [ -2.8210;  6.8210]        0.1
-## Modi et al. 2015        -2.9000 [ -4.3745; -1.4255]        0.7
-## Ramezani et al. 2015    -0.2800 [ -1.6243;  1.0643]        0.9
-## Stonehouse et al. 2016   0.4500 [ -0.3826;  1.2826]        2.3
-## Pervez et al. 2018      -0.4800 [ -0.6246; -0.3354]       74.8
-## Rachelle et al. 2011   -12.2000 [-19.0863; -5.3137]        0.0
-## 
-## Number of studies: k = 13
-## Number of observations: o = 718 (o.e = 360, o.c = 358)
-## 
-##                          MD             95%-CI     z  p-value
-## Common effect model -0.3981 [-0.5231; -0.2731] -6.24 &amp;lt; 0.0001
-## 
-## Quantifying heterogeneity (with 95%-CIs):
-##  tau^2 = 0.4537 [0.3269; 23.3053]; tau = 0.6735 [0.5717; 4.8276]
-##  I^2 = 66.8% [40.5%; 81.5%]; H = 1.74 [1.30; 2.32]
-## 
-## Test of heterogeneity:
-##      Q d.f. p-value
-##  36.15   12  0.0003
-## 
-## Details of meta-analysis methods:
-## - Inverse variance method
-## - Restricted maximum-likelihood estimator for tau^2
-## - Q-Profile method for confidence interval of tau^2 and tau
-## - Calculation of I^2 based on Q
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In this sample data, the effect of Vitamin E on blood CRP levels in adults were analyzed (this is demonstration-only data). The &lt;code&gt;common effect model&lt;/code&gt; represents the result of pooling all studies together. The pooled estimate is &lt;code&gt;-0.40 [-0.52; -0.27]&lt;/code&gt;, which means that consuming Vitamin E may reduce CRP levels in the blood by approximately &lt;code&gt;0.40 mg/L&lt;/code&gt;. The next question is: &lt;strong&gt;Is this finding statistically significant?&lt;/strong&gt; The numbers within brackets indicate the 95% confidence interval (CI). If this interval includes &lt;strong&gt;zero&lt;/strong&gt;, the finding is not statistically significant. If it does not include zero, the finding is significant at the 95% confidence level (which we specified for this analysis). In our example, the confidence interval does not include zero, indicating that the result is statistically significant. The p-value further confirms this, being less than 0.0001.&lt;/p&gt;
-&lt;p&gt;Heterongenity is also a very important concept in meta-anlysis studies. Heterogeneity refers to differences among studies. When heterogeneity is high or statistically significant, it means that the included studies differ considerably in certain characteristics (like methodology).&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The less variation there is between the studies (i.e., the lower the heterogeneity), the more valid and precise the findings from the meta-analysis will be.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;So how do we assess heterogeneity? We usually use the following criteria as a general rule of thumb:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;&lt;strong&gt;Based on I-squared (I^2):&lt;/strong&gt;&lt;/em&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Less than 50: Low heterogeneity&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Greater than 50: High heterogeneity&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Value of zero: No heterogeneity&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;&lt;strong&gt;Based on P-value for heterogeneity (from Cochran’s Q test):&lt;/strong&gt;&lt;/em&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;P-value less than 0.05 or 0.1 indicates significant heterogeneity&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In our example, the I^2 is 66.8% and the p-value is 0.0003, indicating significant heterogeneity across studies. We can use I^2 as an indicator to help decide whether to use a fixed or random effects model.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Fixed Model:&lt;/strong&gt; This model assumes that the studies are similar to each other or that there is low heterogeneity among them. In other words, selecting this model in the analysis causes the R to perform the meta-analysis under the assumption of low heterogeneity. Therefore, this model should be used when heterogeneity is low (I^2 below 50%).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Random Model::&lt;/strong&gt; This model assumes that the studies are different from each other or that there is high heterogeneity among them. In other words, selecting this model in the analysis causes the R to perform the meta-analysis under the assumption of high heterogeneity. Therefore, this model should be used when heterogeneity is high (I^2 above 50%).&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In our example, since we have high heterogeneity, we should use a random effects model.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;main_analyis_2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;metacont&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Variables for Experimental Group&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;n.e&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;mean.e&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mean_change_CRP_int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;sd.e&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SD_change_CRP_int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Vars for Control Group&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;n.c&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_con&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;mean.c&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mean_change_CRP_con&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;sd.c&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SD_change_CRP_con&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Labels  (Name = authr name)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;studlab&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;`author name`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sample_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Statistic  (No Standard → Weighted Mean Difference)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;MD&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;## Pooling model&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;comb.fixed&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;FALSE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;comb.random&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;TRUE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ── 3.  Review numeric results ─────────────────────&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;summary&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;main_analyis_2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;pre&gt;&lt;code&gt;##                              MD              95%-CI %W(random)
-## Dalgard et al. 2009     -0.1000 [ -0.9532;  0.7532]       12.5
-## Rafraf et al. 2012      -0.1000 [ -0.4015;  0.2015]       16.8
-## Daud et al. 2013         0.0000 [ -9.0265;  9.0265]        0.4
-## El-sisi et al. 2013      0.4900 [ -0.8664;  1.8464]        8.6
-## Mah et al. 2013         -0.7700 [ -3.6288;  2.0888]        3.1
-## Shadman et al. 2013     -0.4300 [ -1.9034;  1.0434]        7.9
-## Gopalan et al. 2014     -2.6900 [ -6.1718;  0.7918]        2.2
-## Hejazi et al. 2015       2.0000 [ -2.8210;  6.8210]        1.2
-## Modi et al. 2015        -2.9000 [ -4.3745; -1.4255]        7.9
-## Ramezani et al. 2015    -0.2800 [ -1.6243;  1.0643]        8.7
-## Stonehouse et al. 2016   0.4500 [ -0.3826;  1.2826]       12.7
-## Pervez et al. 2018      -0.4800 [ -0.6246; -0.3354]       17.5
-## Rachelle et al. 2011   -12.2000 [-19.0863; -5.3137]        0.6
-## 
-## Number of studies: k = 13
-## Number of observations: o = 718 (o.e = 360, o.c = 358)
-## 
-##                           MD            95%-CI     z p-value
-## Random effects model -0.4360 [-0.9911; 0.1192] -1.54  0.1238
-## 
-## Quantifying heterogeneity (with 95%-CIs):
-##  tau^2 = 0.4537 [0.3269; 23.3053]; tau = 0.6735 [0.5717; 4.8276]
-##  I^2 = 66.8% [40.5%; 81.5%]; H = 1.74 [1.30; 2.32]
-## 
-## Test of heterogeneity:
-##      Q d.f. p-value
-##  36.15   12  0.0003
-## 
-## Details of meta-analysis methods:
-## - Inverse variance method
-## - Restricted maximum-likelihood estimator for tau^2
-## - Q-Profile method for confidence interval of tau^2 and tau
-## - Calculation of I^2 based on Q
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The results changed under the random model and are no longer statistically significant. In other words, Vitamin E consumption leads to a non-significant reduction in CRP levels by 0.43 mg/L. This analysis was conducted under the assumption that the studies are heterogeneous. Note that the level of heterogeneity remains similar in both the Fixed and Random models.&lt;/p&gt;
-&lt;h2 id=&#34;visualization&#34;&gt;Visualization
-&lt;/h2&gt;&lt;p&gt;The main way to visualize a meta-analysis is by using a forest plot. We will use the &lt;code&gt;forest()&lt;/code&gt; function from the &lt;code&gt;meta&lt;/code&gt; package, as shown in the code below:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ── 4.  Forest plot ──────&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;forest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;main_analyis_2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;print.tau2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;FALSE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;c1&#34;&gt;# ── layout options ────────────────────────────────────&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;leftcols&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;studlab&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;                      &lt;span class=&#34;c1&#34;&gt;# nly the author column&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;rightcols&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;effect&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;ci&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;w.fixed&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;# WMD, 95 % CI, weight&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;rightlabs&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;WMD&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;   &lt;span class=&#34;s&#34;&gt;&amp;#34;95% CI&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Weight&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;c1&#34;&gt;# ── cosmetic tweaks (optional) ────────────────────────&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;sortvar&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;year&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;# same chronological order as before&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;xlab&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Weighted Mean Difference (Δ CRP, mg/L)&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;fs.study&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;           &lt;span class=&#34;c1&#34;&gt;# shrink fonts if you need more rows&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;fs.axis&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/figure-html/forestplot-1.png&#34; width=&#34;100%&#34; /&gt;
-&lt;p&gt;You can modify your plot using the various options offered by the &lt;code&gt;forest()&lt;/code&gt; function. To see all available options, run &lt;code&gt;?forest&lt;/code&gt; in your console.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;In the next part, we will explore finding the &lt;em&gt;sources of heterogeneity&lt;/em&gt;, which will lead us to performing &lt;em&gt;subgroup analyses&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Stay tuned!&lt;/strong&gt;&lt;/p&gt;
-&lt;hr&gt;
-</description>
-        </item>
-        <item>
+        <lastBuildDate>Wed, 04 Jun 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4398/csc-data-blog/categories/meta_analysis/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Meta-Analysis on Randomized Clinical Trials - Part 2</title>
-        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</link>
+        <link>http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</link>
         <pubDate>Wed, 04 Jun 2025 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</guid>
+        <guid>http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</guid>
         <description>&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
 &lt;/h2&gt;&lt;p&gt;So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to &lt;em&gt;extract&lt;/em&gt; data from published manuscripts and &lt;em&gt;prepare&lt;/em&gt; them for meta-analysis.&lt;/p&gt;
 &lt;h3 id=&#34;what-would-be-the-best-tool-for-saving-our-extracted-data&#34;&gt;What would be the best tool for saving our extracted data?
@@ -442,11 +128,131 @@
 </description>
         </item>
         <item>
+        <title>Meta-Analysis on Randomized Clinical Trials - Part 3</title>
+        <link>http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/</link>
+        <pubDate>Wed, 04 Jun 2025 09:00:00 -0800</pubDate>
+        
+        <guid>http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/</guid>
+        <description>&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
+&lt;/h2&gt;&lt;p&gt;So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to &lt;em&gt;extract&lt;/em&gt; data from published manuscripts and &lt;em&gt;prepare&lt;/em&gt; them for meta-analysis.&lt;/p&gt;
+&lt;h3 id=&#34;what-would-be-the-best-tool-for-saving-our-extracted-data&#34;&gt;What would be the best tool for saving our extracted data?
+&lt;/h3&gt;&lt;p&gt;Our suggestion is &lt;strong&gt;Excel&lt;/strong&gt; because it is easy to work with and facilitates any necessary conversions (e.g., units or dispersions across different studies). In our Excel file, each &lt;em&gt;row&lt;/em&gt;  will be allocated to a study from which we are extracting data.&lt;/p&gt;
+&lt;h3 id=&#34;what-information-should-we-extract&#34;&gt;What information should we extract?
+&lt;/h3&gt;&lt;p&gt;The answer depends on your main meta-analysis question. In GENERAL, the following information should be extracted from each study:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;First Author&amp;rsquo;s name&lt;/strong&gt;: It should be entered in the following format: e.g., Jackson et al. (2025).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Publication date&lt;/strong&gt;: This should be the date of publication, not &lt;em&gt;acceptance&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Number of individuals in both control and intervention groups&lt;/strong&gt;: This refers to the number of individuals included in the &lt;em&gt;final&lt;/em&gt; analysis of the study. It is usually reported in the first demographic table or in the study&amp;rsquo;s flowchart.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The mean of the dependent variable BEFORE and AFTER the study in both groups&lt;/strong&gt;: In some studies, the mean change (After minus Before) in the dependent variable is reported, so it should be extracted directly.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The &lt;strong&gt;mean change&lt;/strong&gt; is the final parameter used in meta-analysis. In our Excel file, we should have four columns for the mean of the dependent variable in control and intervention groups (before/after), four columns for the standard deviation (SD) of the dependent variable in control and intervention groups (before/after). You should also include four additional columns for studies reporting the mean change directly (two for the mean change of control and intervention groups and two for SDs in both groups).&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The SD for each dependent variable should be extracted&lt;/strong&gt;: In cases where other types of dispersion (SE, IQR, 95% CI, or range) are reported, they should be extracted and can be converted to SD as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Converting from SE:&lt;/strong&gt;  \( \frac{\text{Pre_SD}^2 + \text{Post_SD}^2 - \text{SD_change}^2}{2 \times \text{Pre_SD} \times \text{Post_SD}} \)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Converting from IQR:&lt;/strong&gt; \( SD = \dfrac{\text{upper quartile} - \text{lower quartile}}{1.35} \)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Converting from 95% Confidence Interval (CI):&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;\( SD = \dfrac{\text{upper CI} - \text{lower CI}}{3.92} \times \sqrt{n} \), where \( n \) is the sample size&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Converting from Range:&lt;/strong&gt; \( SD = \dfrac{\text{maximum} - \text{minimum}}{4} \)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Reference for conversions:&lt;/strong&gt; For guidelines and detailed methodology, see the &lt;a class=&#34;link&#34; href=&#34;https://dariososafoula.wordpress.com/wp-content/uploads/2017/01/cochrane-handbook-for-systematic-reviews-of-interventions-2019-1.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cochrane Handbook for Systematic Reviews of Interventions&lt;/a&gt; by Higgins JP et al. You can also refer to &lt;a class=&#34;link&#34; href=&#34;https://link.springer.com/article/10.1186/1471-2288-14-135&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range&lt;/a&gt; by Wan et al.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;In clinical studies, some studies have more than &lt;em&gt;one&lt;/em&gt; intervention group. You may ask, if a study has several intervention groups with different types of interventions instead of a single intervention group, what should be done? The solution is to consider each intervention group as a &lt;strong&gt;separate&lt;/strong&gt; study. In other words, each group occupies its &lt;em&gt;own row&lt;/em&gt; in the data-extraction Excel sheet. For example, if a study has three intervention groups, we create three rows in the Excel sheet.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It should be noted that studies are included in the meta-analysis ONLY IF the difference between the intervention and control groups is &lt;strong&gt;solely&lt;/strong&gt; the intervention of interest.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The unit of the measured dependent variable.&lt;/strong&gt; We must convert all studies to the &lt;strong&gt;same&lt;/strong&gt; unit. If you encounter different reported units for the same dependent variable across studies, select the most common unit and convert the others to it. Ensure that when you perform conversions, you &lt;em&gt;also&lt;/em&gt; convert the &lt;em&gt;SD&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The dosage of the intervention.&lt;/strong&gt; This is important for dose-response analysis if we wish to perform it. It can also be helpful for subgroup analysis. If the unit of reported doses varies between studies, ensure you convert them to a uniform unit across studies.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The duration of the intervention.&lt;/strong&gt; This is also important for dose-response analysis if we wish to perform it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is the necessary information needed to conduct a meta-analysis. If you wish to perform subgroup analysis, you may also want to extract the following information:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;1) Study design&lt;/strong&gt;: Randomized, single-, or double-blinded.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;2) Country or location where the study was conducted&lt;/strong&gt;: Usually found in the first line of the methodology section.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;3) Gender of participants&lt;/strong&gt;: Usually available in the first demographic table&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;p&gt;Note: Sometimes statistical analyses in a study are performed separately by &lt;strong&gt;gender&lt;/strong&gt;. In such cases, we create separate rows in Excel for men and women. Although this rarely occurs in interventional studies and is more common in observational studies, when it does happen, two rows are created for the same study in Excel. In other words, one study is treated as &lt;em&gt;two&lt;/em&gt; studies.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;4) Type of intervention&lt;/strong&gt;: In the intervention and control groups (e.g., placebo, capsule, different food or dietary regimen, injection). These are usually reported in the intervention or study-design paragraph.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;5) Any co-intervention alongside the main intervention&lt;/strong&gt;: Sometimes the main intervention is accompanied by a weight-loss program, an exercise regimen, another supplement, etc. In other words, &lt;em&gt;both&lt;/em&gt; the intervention and control groups receive the co-intervention (e.g., weight-loss program, exercise regimen, another supplement), and the only difference between the two groups is the administration of the primary intervention. This is usually reported in the intervention or study-design paragraph. We should create a column titled “co-intervention” in the Excel sheet for this purpose.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;6) Mean age in intervention and control groups (mean ± SD)&lt;/strong&gt;: Usually available in the first demographic table.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;7) Health status of study participants&lt;/strong&gt;: The study may be conducted on healthy individuals or individuals with a specific disease. This is usually reported in the study title or the first paragraph of the Methods section.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;8) Method of assessing the dependent variable&lt;/strong&gt;: By what method was the dependent variable assessed? Create a column named “outcome assessment.” For example: By what method was the CRP level assessed in this study?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;9) Matching or adjustment&lt;/strong&gt;: The term &amp;ldquo;matching&amp;rdquo; refers to variables that have been equalized between the intervention and control groups. For example, matching based on age means individuals are divided into the two groups so there is no difference in age between them. This is usually reported at the beginning of the Methods or Results section, or you can locate it by searching for the words “match” or “stratified.” In interventional studies, differences between the intervention and control groups can be accounted for in the statistical analysis through adjustment. This is typically reported in a table footnote or in the statistical analysis section.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: One of the most important adjustments in clinical trials is controlling for baseline values of the outcome variables.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;10) Compliance (adherence to the intervention)&lt;/strong&gt;: The higher the adherence to the intervention in a study, the more valid its findings will be. Compliance may be reported as a percentage (e.g., 70% of the capsules were taken) or simply noted as high, moderate, or low. It is usually discussed in the first paragraph of the Results section, or you can locate it by searching for the words “compliance” or “adherence.”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;11) Location where measurements were taken&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;quality-of-the-included-studies&#34;&gt;Quality of the Included Studies
+&lt;/h2&gt;&lt;p&gt;The final topic to discuss in this part is whether the included studies have the &lt;strong&gt;necessary quality&lt;/strong&gt; to perform a meta-analysis. To what extent do the included studeis exhibit methodological errors? This assessment provides an overall view of the quality of the included studies. Previously, the Jadad tool was used for this purpose, but currently, the &lt;strong&gt;Cochrane tool&lt;/strong&gt; is used. This tool is one of the most valid tools for assessing quality. It evaluates the quality of a study using seven factors, which assess the biases that may occur in a study and thereby evaluate its overall quality. We will not go into details of this tool as it is beyond the scope of this series, but you can find more information in the &lt;a class=&#34;link&#34; href=&#34;https://training.cochrane.org/handbook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cochrane Handbook&lt;/a&gt; by Julian P. T. Higgins and Sally Green.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;That’s it for this part! In &lt;strong&gt;Part 3&lt;/strong&gt;, we will dive into the analysis of the collected data.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Stay tuned!&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+</description>
+        </item>
+        <item>
         <title>Meta-Analysis on Randomized Clinical Trials - Part 1</title>
-        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</link>
+        <link>http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</link>
         <pubDate>Fri, 16 May 2025 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</guid>
+        <guid>http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</guid>
         <description>&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
 &lt;/h2&gt;&lt;p&gt;Imagine you’re studying the effects of non-nutritive sweeteners on blood pressure. You’re curious about whether they eventually increase, decrease, or have no impact on blood pressure. You review various studies and find quite conflicting results. Some studies suggest that consuming non-nutritive sweeteners can increase blood pressure, while others show quite opposite results. Also, some studies indicate no effect on blood pressue from consuming non-nutritive sweeteners. This situation presents a challenge that you may address by conducting a meta-analysis. &lt;strong&gt;Meta-analysis pools data from multiple studies to provide a more precise estimate based on existing evidence&lt;/strong&gt;. Seems quite intriguing, doesn’t it?&lt;/p&gt;
 &lt;p&gt;Before getting into meta-analysis itself, let&amp;rsquo;s have a better understanding of &lt;strong&gt;different types of studies&lt;/strong&gt;:&lt;/p&gt;
@@ -461,10 +267,10 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;meta-analyses-sit-at-the-top-of-the-evidence-pyramid&#34;&gt;Meta-analyses sit at the top of the evidence pyramid
 &lt;/h2&gt;&lt;p&gt;So you may ask why meta-anlysis? In the biomedical sciences field, there’s a hierarchical evidence pyramid that outlines the significance of different studies conducted in this area. Interestingly, meta-analysis studies, which combine existing studies, are placed at the top of this pyramid, highlighting their importance.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level.png&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level.png&#34;
 	width=&#34;3873&#34;
 	height=&#34;2740&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_2af0c7370c0fb0c.png 480w, http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_81b51af00c610d6d.png 1024w&#34;
+	srcset=&#34;http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_2af0c7370c0fb0c.png 480w, http://localhost:4398/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_81b51af00c610d6d.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
