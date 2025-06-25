@@ -44,23 +44,13 @@ kable(table1)
 Now we can calculate the **mean change** and **SD of change** using the following formulas:
 
   - **Mean Change =** \( Mean_{Post} - Mean_{Pre} \)
-
-For **SD of Change**, you may end up in one of two situations for any given study: 
-
-  - A. One or both of pre-post correlation and SD of change are reported
-  - B. Only pre and post SD of change are reported, so you need to calculate SD of change yourself.
-
-In A, we have what we need. In fact, if SD of change is reported, we simply need to directly extract that data not calculate it.
-
-In B, we can use following formula for calculating **SD of change**.
-
   - **SD of Change =** \( \sqrt{(SD_{Pre}^2 + SD_{Post}^2) - (2 \times r \times SD_{Pre} \times SD_{Post})} \)
-
-In this formula, ***r*** is the pre-post correlation and can be estimated using the following formula in which Pre_SD and Post_SD should be taken from a known study in which the authors themselves reported SD Change.
+  
+The formula for calculating **SD of Change** requires a pre-post correlation (`r`). In general in RCTs, the `Pre and Post Mean` and `SD, or Mean/SD changes` are reported. However, if the latter are not, we need some way of estimating `r`. One way of doing this is to draw from a study in which the authors do report `r` or **SD of Change**. If the **SD of Change** is reported, we can re-order the above formula to solve for `r`:
 
   - ***r:***  \( \frac{SD_{Pre}^2 + SD_{Post}^2 - SD_{change}^2}{2 \times SD_{Pre} \times SD_{Post}} \)
   
-Our example is similar to option B, where the SD of change is not reported. Therefore, to calculate **r**, we use the following known study information ([Pirhadi-Tavandashti et al. 2020](https://pubmed.ncbi.nlm.nih.gov/32147078/)):
+In our example the SD of change is not reported. Therefore, to calculate **r**, we use the following known study information ([Pirhadi-Tavandashti et al. 2020](https://pubmed.ncbi.nlm.nih.gov/32147078/)):
 
 ![](images/Screenshot_2.png)
 
