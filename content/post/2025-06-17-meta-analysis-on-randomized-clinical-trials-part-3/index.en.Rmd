@@ -46,7 +46,7 @@ Now we can calculate the **mean change** and **SD of change** using the followin
   - **Mean Change =** \( Mean_{Post} - Mean_{Pre} \)
   - **SD of Change =** \( \sqrt{(SD_{Pre}^2 + SD_{Post}^2) - (2 \times r \times SD_{Pre} \times SD_{Post})} \)
   
-The formula for calculating **SD of Change** requires a pre-post correlation (`r`). In general in RCTs, the `Pre and Post Mean` and `SD, or Mean/SD changes` are reported. However, if the latter are not, we need some way of estimating `r`. One way of doing this is to draw from a study in which the authors do report `r` or **SD of Change**. If the **SD of Change** is reported, we can re-order the above formula to solve for `r`:
+The formula for calculating **SD of Change** requires a pre-post correlation (***r***). In general in RCTs, the **Pre and Post Mean** and **SD, or Mean/SD changes** are reported. However, if the latter are not, we need some way of estimating ***r***. One way of doing this is to draw from an included study in which the authors do report ***r*** or **SD of Change**. If the **SD of Change** is reported, we can re-order the above formula to solve for ***r***:
 
   - ***r:***  \( \frac{SD_{Pre}^2 + SD_{Post}^2 - SD_{change}^2}{2 \times SD_{Pre} \times SD_{Post}} \)
   
