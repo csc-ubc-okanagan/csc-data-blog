@@ -211,7 +211,9 @@ print(summary(main_analyis))     # pooled WMD, I², τ², Q-test.
 
 In this sample data, the effect of Vitamin E on blood CRP levels in adults were analyzed (this is demonstration-only data). The `common effect model` represents the result of pooling all studies together. The pooled estimate is `-0.40 [-0.52; -0.27]`, which means that consuming Vitamin E may reduce CRP levels in the blood by approximately `0.40 mg/L`. The next question is: **Is this finding statistically significant?** The numbers within brackets indicate the 95% confidence interval (CI). If this interval includes **zero**, the finding is not statistically significant. If it does not include zero, the finding is significant at the 95% confidence level (which we specified for this analysis). In our example, the confidence interval does not include zero, indicating that the result is statistically significant. The p-value further confirms this, being less than 0.0001. 
 
-Heterongenity is also a very important concept in meta-anlysis studies. Heterogeneity refers to differences among studies. When heterogeneity is high or statistically significant, it means that the included studies differ considerably in certain characteristics (like methodology).
+> **Note**: Usually, the first thing you need to check after performing a meta-analysis is the heterogeneity, as it indicates whether the model you have chosen for the analysis is appropriate.
+
+Heterongenity is a very important concept in meta-anlysis studies. Heterogeneity refers to differences among studies. When heterogeneity is high or statistically significant, it means that the included studies differ considerably in certain characteristics (like methodology).
 
 > **Note**: The less variation there is between the studies (i.e., the lower the heterogeneity), the more valid and precise the findings from the meta-analysis will be.
 
