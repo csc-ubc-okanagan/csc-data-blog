@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="So far, we have learned what meta-analysis is and how it is generally performed. In this section, we will dive into subgroup analysis—as the name suggests, this involves performing meta-analyses within specific groups in your dataset.\nSubgroup Analyses Subgroup analyses are especially important when there is high heterogeneity in your main meta-analysis, indicating differences across studies. By conducting subgroup analyses, we not only identify potential sources of heterogeneity, but also gain deeper insights into the data. Therefore, it is highly recommended to still perform subgroup analyses even if the overall heterogeneity is very low, so that you can gain more interpretation from your data.\n">
+<title>Meta-Analysis on Randomized Clinical Trials - Part 4</title>
+
+<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/'>
+
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Meta-Analysis on Randomized Clinical Trials - Part 4">
+<meta property='og:description' content="So far, we have learned what meta-analysis is and how it is generally performed. In this section, we will dive into subgroup analysis—as the name suggests, this involves performing meta-analyses within specific groups in your dataset.\nSubgroup Analyses Subgroup analyses are especially important when there is high heterogeneity in your main meta-analysis, indicating differences across studies. By conducting subgroup analyses, we not only identify potential sources of heterogeneity, but also gain deeper insights into the data. Therefore, it is highly recommended to still perform subgroup analyses even if the overall heterogeneity is very low, so that you can gain more interpretation from your data.\n">
+<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/'>
+<meta property='og:site_name' content='R &amp; Python Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='meta_analysis' /><meta property='article:tag' content='r' /><meta property='article:published_time' content='2025-07-09T09:00:00-08:00'/><meta property='article:modified_time' content='2025-07-09T09:00:00-08:00'/>
+<meta name="twitter:title" content="Meta-Analysis on Randomized Clinical Trials - Part 4">
+<meta name="twitter:description" content="So far, we have learned what meta-analysis is and how it is generally performed. In this section, we will dive into subgroup analysis—as the name suggests, this involves performing meta-analyses within specific groups in your dataset.\nSubgroup Analyses Subgroup analyses are especially important when there is high heterogeneity in your main meta-analysis, indicating differences across studies. By conducting subgroup analyses, we not only identify potential sources of heterogeneity, but also gain deeper insights into the data. Therefore, it is highly recommended to still perform subgroup analyses even if the overall heterogeneity is very low, so that you can gain more interpretation from your data.\n">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PQ1KG9NWP0');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/csc-data-blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
+                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
+            <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='csc.ok@ubc.ca'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st1 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 66.7px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 133.3;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M133.3,300l206.7,155c35.6,26.7,84.4,26.7,120,0l206.7-155"/>
+  <path class="st2" d="M100,305.9c0-24.2,13.1-46.5,34.3-58.3l233.3-129.6c20.1-11.2,44.6-11.2,64.8,0l233.3,129.6c21.2,11.8,34.3,34.1,34.3,58.3v260.8c0,36.8-29.8,66.7-66.7,66.7H166.7c-36.8,0-66.7-29.8-66.7-66.7v-260.8Z"/>
+  <path class="st0" d="M0,0h800v800H0V0Z"/>
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/csc-ubc-okanagan'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/csc-data-blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#subgroup-analyses">Subgroup Analyses</a>
+      <ol>
+        <li><a href="#finding-source-of-heterogeneity">Finding source of heterogeneity</a></li>
+        <li><a href="#the-interpretations-within-each-subgroup">The interpretations within each subgroup</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/csc-data-blog/categories/meta_analysis/" >
+                Meta_Analysis
+            </a>
+        
+            <a href="/csc-data-blog/categories/r/" >
+                R
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/">Meta-Analysis on Randomized Clinical Trials - Part 4</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 09, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    
+		  Amir Golzan
+	  
+    <p>So far, we have learned what meta-analysis is and how it is generally performed. In this section, we will dive into subgroup analysis—as the name suggests, this involves performing meta-analyses within specific groups in your dataset.</p>
+<h2 id="subgroup-analyses">Subgroup Analyses
+</h2><p>Subgroup analyses are especially important when there is <strong>high heterogeneity</strong> in your main meta-analysis, indicating differences across studies. By conducting subgroup analyses, we not only identify potential <strong>sources of heterogeneity</strong>, but also gain deeper insights into the data. Therefore, it is highly recommended to still perform subgroup analyses even if the overall heterogeneity is very low, so that you can gain more interpretation from your data.</p>
+<blockquote>
+<p><strong>Important Note</strong>: Subgroup analysis is usually performed using a Fixed model.</p></blockquote>
+<h3 id="finding-source-of-heterogeneity">Finding source of heterogeneity
+</h3><p>Let&rsquo;s back to our sample dataset <a class="link" href="https://github.com/csc-ubc-okanagan/csc-data-blog/blob/main/content/post/2025-07-08-meta-analysis-on-randomized-clinical-trials-part-4/Sample_data.csv"  target="_blank" rel="noopener"
+    >Sample Data</a>. In the previous part, our meta-analysis on the entire dataset showed an I^2 value of 66.8% and a p-value of 0.0003, indicating <strong>significant</strong> heterogeneity across studies.</p>
+<p>As a start, we can begin by performing subgroup analyses based on <strong>gender</strong>. Simply put, we want to understand how the effect changes when we separate the analysis by gender.</p>
+<p>To perform a subgroup analysis by gender using the <code>meta</code> package in R, we can use the <code>byvar</code> argument in <code>metacont()</code>. Since subgroup analysis is typically done using a fixed-effect model, we’ll set <code>comb.fixed = TRUE</code> and <code>comb.random = FALSE</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Sample data</span>
+</span></span><span class="line"><span class="cl"><span class="n">sample_data</span> <span class="o">&lt;-</span> <span class="nf">read_csv</span><span class="p">(</span><span class="s">&#34;sample_data.csv&#34;</span><span class="p">,</span> <span class="n">show_col_types</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gender_subgroup_analysis</span> <span class="o">&lt;-</span> <span class="nf">metacont</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">## Experimental group</span>
+</span></span><span class="line"><span class="cl">  <span class="n">n.e</span>      <span class="o">=</span> <span class="n">n_int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mean.e</span>   <span class="o">=</span> <span class="n">mean_change_CRP_int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sd.e</span>     <span class="o">=</span> <span class="n">SD_change_CRP_int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">## Control group</span>
+</span></span><span class="line"><span class="cl">  <span class="n">n.c</span>      <span class="o">=</span> <span class="n">n_con</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mean.c</span>   <span class="o">=</span> <span class="n">mean_change_CRP_con</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sd.c</span>     <span class="o">=</span> <span class="n">SD_change_CRP_con</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">## Study labels</span>
+</span></span><span class="line"><span class="cl">  <span class="n">studlab</span>  <span class="o">=</span> <span class="n">`author name`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">data</span>     <span class="o">=</span> <span class="n">sample_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">## Effect size</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sm</span>       <span class="o">=</span> <span class="s">&#34;MD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">## Pooling model: Fixed-effects only for subgroup</span>
+</span></span><span class="line"><span class="cl">  <span class="n">comb.fixed</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">comb.random</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">## Subgroup variable</span>
+</span></span><span class="line"><span class="cl">  <span class="n">byvar</span>    <span class="o">=</span> <span class="n">gender</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># View results</span>
+</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">gender_subgroup_analysis</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">##                              MD              95%-CI %W(common) gender</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Dalgard et al. 2009     -0.1000 [ -0.9532;  0.7532]        2.1   male</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Rafraf et al. 2012      -0.1000 [ -0.4015;  0.2015]       17.2 female</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Daud et al. 2013         0.0000 [ -9.0265;  9.0265]        0.0   both</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## El-sisi et al. 2013      0.4900 [ -0.8664;  1.8464]        0.8   male</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Mah et al. 2013         -0.7700 [ -3.6288;  2.0888]        0.2   both</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Shadman et al. 2013     -0.4300 [ -1.9034;  1.0434]        0.7   male</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Gopalan et al. 2014     -2.6900 [ -6.1718;  0.7918]        0.1   both</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Hejazi et al. 2015       2.0000 [ -2.8210;  6.8210]        0.1 female</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Modi et al. 2015        -2.9000 [ -4.3745; -1.4255]        0.7   both</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Ramezani et al. 2015    -0.2800 [ -1.6243;  1.0643]        0.9   male</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Stonehouse et al. 2016   0.4500 [ -0.3826;  1.2826]        2.3   both</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Pervez et al. 2018      -0.4800 [ -0.6246; -0.3354]       74.8 female</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Rachelle et al. 2011   -12.2000 [-19.0863; -5.3137]        0.0 female</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## </span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Number of studies: k = 13</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Number of observations: o = 718 (o.e = 360, o.c = 358)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## </span>
+</span></span><span class="line"><span class="cl"><span class="c1">##                          MD             95%-CI     z  p-value</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Common effect model -0.3981 [-0.5231; -0.2731] -6.24 &lt; 0.0001</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## </span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Quantifying heterogeneity (with 95%-CIs):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##  tau^2 = 0.4537 [0.3269; 23.3053]; tau = 0.6735 [0.5717; 4.8276]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##  I^2 = 66.8% [40.5%; 81.5%]; H = 1.74 [1.30; 2.32]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## </span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Test of heterogeneity:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##      Q d.f. p-value</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##  36.15   12  0.0003</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## </span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Results for subgroups (common effect model):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##                   k      MD             95%-CI     Q   I^2   tau^2    tau</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## gender = male     4 -0.0764 [-0.6605;  0.5076]  0.98  0.0%       0      0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## gender = female   4 -0.4114 [-0.5417; -0.2811] 17.18 82.5% 23.9487 4.8937</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## gender = both     5 -0.4722 [-1.1591;  0.2146] 16.74 76.1%  2.2715 1.5071</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## </span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Test for subgroup differences (common effect model):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##                    Q d.f. p-value</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Between groups  1.25    2  0.5353</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Within groups  34.90   10  0.0001</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## </span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Details of meta-analysis methods:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## - Inverse variance method</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## - Restricted maximum-likelihood estimator for tau^2</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## - Q-Profile method for confidence interval of tau^2 and tau</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## - Calculation of I^2 based on Q</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So we have the overall effect along with separate analyses based on gender (<em><strong>Results for subgroups</strong></em>).</p>
+<p>Now, let’s generate the <strong>forest plot</strong> for our subgroup analysis results:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># ── Forest plot ──────────────────────────────────────</span>
+</span></span><span class="line"><span class="cl"><span class="nf">forest</span><span class="p">(</span><span class="n">gender_subgroup_analysis</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">fs.hetstat</span> <span class="o">=</span> <span class="m">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1"># ── layout options ─────────────────────────────────</span>
+</span></span><span class="line"><span class="cl">       <span class="n">leftcols</span>   <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;studlab&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">       <span class="n">rightcols</span>  <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;effect&#34;</span><span class="p">,</span> <span class="s">&#34;ci&#34;</span><span class="p">,</span> <span class="s">&#34;w.fixed&#34;</span><span class="p">),</span>  <span class="c1"># WMD, 95% CI, weight</span>
+</span></span><span class="line"><span class="cl">       <span class="n">rightlabs</span>  <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;WMD&#34;</span><span class="p">,</span>   <span class="s">&#34;95% CI&#34;</span><span class="p">,</span> <span class="s">&#34;Weight&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="c1"># ── cosmetic tweaks ────────────────────────────────</span>
+</span></span><span class="line"><span class="cl">       <span class="n">sortvar</span>    <span class="o">=</span> <span class="n">year</span><span class="p">,</span>  <span class="c1"># Make sure &#39;year&#39; column exists in your data</span>
+</span></span><span class="line"><span class="cl">       <span class="n">xlab</span>       <span class="o">=</span> <span class="s">&#34;Weighted Mean Difference (Δ CRP, mg/L)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">fs.study</span>   <span class="o">=</span> <span class="m">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">fs.axis</span>    <span class="o">=</span> <span class="m">8</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/index.en_files/figure-html/forestplot-1.png" width="100%" />
+<p>As mentioned at the beginning, one of the goals of performing subgroup analysis is to determine whether the factor we are examining (such as gender in the previous example) is a <strong>source of heterogeneity</strong>. However, answering this question can be tricky, as different approaches may lead to different conclusions. Therefore, we must be <strong>cautious</strong> when interpreting our results.</p>
+<p>Generally, there are two common approaches for identifying sources of heterogeneity, along with one formal statistical test:</p>
+<ul>
+<li>
+<p><strong>1. Determination based on the findings of each subgroup (more valid):</strong> If the findings of the subgroups <strong>differ</strong> meaningfully (in direction or magnitude), the variable is likely a source of heterogeneity. This approach assumes that differences in effect sizes between groups (e.g., males vs. females) reflect true effect modification.</p>
+</li>
+<li>
+<p><strong>2.Determination based on the heterogeneity level of each group:</strong> If heterogeneity (e.g., I^2) is clearly reduced in one subgroup compared to the overall analysis, this suggests that the grouping variable <strong>may</strong> be contributing to the observed heterogeneity.</p>
+</li>
+</ul>
+<p>In addition, in the results, <strong>“Test for subgroup differences”</strong> is also provided, which includes:</p>
+<ul>
+<li>
+<p><strong>Between-group p-value:</strong> This tests whether the effect sizes differ significantly <em>between</em> subgroups. It serves as a formal statistical test backing the first approach.</p>
+</li>
+<li>
+<p><strong>Within-group p-value:</strong> This shows whether significant residual heterogeneity remains <em>within</em> the subgroups, supporting the second approach descriptively.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> The interpretation of the source of heterogeneity in any meta-analysis study should be based on one of these two approaches.</p></blockquote>
+<p>In our example, the results across male, female, and unknown gender groups had similar direction and magnitude. This suggests gender may not be a strong effect modifier. The p-value from the Q-test was 0.5353, indicating that the differences between gender groups are not statistically significant. However, the male subgroup showed no heterogeneity (I^2 = 0%), while the overall heterogeneity was high (I^2 = 66.8%). This suggests gender <strong>may</strong> be contributing to the observed heterogeneity.</p>
+<blockquote>
+<p><strong>🔎 Conclusion:</strong> While the formal statistical test does not support gender as a significant source of heterogeneity, the reduction in I^2 in the male subgroup hints at a possible role. These results should be interpreted with caution and may warrant further investigation.</p></blockquote>
+<h3 id="the-interpretations-within-each-subgroup">The interpretations within each subgroup
+</h3><p>In our example, another interpretation of the subgroup results involves examining how <em><strong>gender</strong></em> influences the effect of Vitamin E on blood CRP levels in adults.</p>
+<p>From the results:</p>
+<ul>
+<li>
+<p>In <strong>males</strong>, the reduction in CRP levels was not statistically significant (MD: -0.0764, 95% CI: -0.6605 to 0.5076), while in <strong>females</strong>, the effect of Vitamin E was statistically significant and greater in magnitude (MD: -0.4114, 95% CI: -0.5417 to -0.2811).</p>
+</li>
+<li>
+<p>This suggests that Vitamin E may have a more pronounced and statistically significant effect in reducing CRP levels among females compared to males, indicating a possible <strong>gender-specific</strong> response to the intervention.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: In papers, subgroup analyses are usually reported in a table, as there can be many factors involved. Some journals may also request forest plots to be included as supplementary material. Here is an example (<a class="link" href="https://pubmed.ncbi.nlm.nih.gov/36622225/"  target="_blank" rel="noopener"
+    >Golzan et al. 2023</a>):
+<img src="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1.png"
+	width="2111"
+	height="1265"
+	srcset="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1_hu_3209cdf8c4cde684.png 480w, /csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1_hu_45f60ece40ea52f8.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+></p></blockquote>
+<blockquote>
+<p><strong>Note</strong>: There is also another way of finding the source of heterogeneity known as meta-regression, which is beyond the scope of this series of posts. If you would like to learn more, you may refer to: <a class="link" href="https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-10#section-10-11-4"  target="_blank" rel="noopener"
+    >Cochrane Handbook - Chapter 10</a></p></blockquote>
+<p>So our subgroup analyses can be extended to other factors as well, like assuming how the trial duration or intervention type can affect the overall results. These factors should be selected based on your <strong>research questions</strong>, <strong>domain knowledge</strong>, and the <strong>possibility</strong> of performing with your dataset.</p>
+<hr>
+<p>This brings us to the end of our series on meta-analysis. While we&rsquo;ve covered key concepts, there’s still much more to explore in meta-analysis studies, such as dose-response analysis, sensitivity analysis to assess how much the overall effect size depends on individual studies, evaluation of publication bias using tests like Begg’s and Egger’s, and funnel plot visual assessments. Other important areas include certainty assessment, quality assessment, and more. For comprehensive guidelines and detailed methodology, refer to the <a class="link" href="https://training.cochrane.org/handbook"  target="_blank" rel="noopener"
+    >Cochrane Handbook</a> by Julian P. T. Higgins and Sally Green.</p>
+<hr>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/csc-data-blog/tags/meta_analysis/">Meta_analysis</a>
+        
+            <a href="/csc-data-blog/tags/r/">R</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 3</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/getting-started-with-github/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Getting started with GitHub</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/abacus-api/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Abacus API</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Center for Scholarly Communication, UBC Okanagan
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
