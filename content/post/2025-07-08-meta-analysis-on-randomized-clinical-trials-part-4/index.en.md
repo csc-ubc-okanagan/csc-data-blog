@@ -152,7 +152,7 @@ In addition, in the results, **“Test for subgroup differences”** is also pro
 
 In our example, the results across male, female, and unknown gender groups had similar direction and magnitude. This suggests gender may not be a strong effect modifier. The p-value from the Q-test was 0.5353, indicating that the differences between gender groups are not statistically significant. However, the male subgroup showed no heterogeneity (I^2 = 0%), while the overall heterogeneity was high (I^2 = 66.8%). This suggests gender **may** be contributing to the observed heterogeneity.
 
-> **🔎 Conclusion:** While the formal statistical test does not support gender as a significant source of heterogeneity, the reduction in I^2 in the male subgroup hints at a possible role. These results should be interpreted with caution and may warrant further investigation.
+> **🔎 Conclusion:** While the formal statistical test does not support gender as a significant source of heterogeneity, the reduction in I^2 in the male subgroup hints at a possible role. These results should be interpreted with caution and may warrant further studies.
 
 
 ### The interpretations within each subgroup
