@@ -124,6 +124,8 @@ From the results:
 
 So our subgroup analyses can be extended to other factors as well, like assuming how the trial duration or intervention type can affect the overall results. These factors should be selected based on your **research questions**, **domain knowledge**, and the **possibility** of performing with your dataset.
 
+> **Important Note**: Subgroup analyses based on population characteristics require greater caution than those based on study characteristics. This is largely because of challenges in ensuring that subgroup samples are representative. These subgroup findings are often best treated as hypothesis-generating rather than conclusive.
+
 ---
 
 This brings us to the end of our series on meta-analysis. While we've covered key concepts, there’s still much more to explore in meta-analysis studies, such as dose-response analysis, sensitivity analysis to assess how much the overall effect size depends on individual studies, evaluation of publication bias using tests like Begg’s and Egger’s, and funnel plot visual assessments. Other important areas include certainty assessment, quality assessment, and more. For comprehensive guidelines and detailed methodology, refer to the [Cochrane Handbook](https://training.cochrane.org/handbook) by Julian P. T. Higgins and Sally Green.

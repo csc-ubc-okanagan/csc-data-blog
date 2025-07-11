@@ -284,6 +284,8 @@
 &lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: There is also another way of finding the source of heterogeneity known as meta-regression, which is beyond the scope of this series of posts. If you would like to learn more, you may refer to: &lt;a class=&#34;link&#34; href=&#34;https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-10#section-10-11-4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Cochrane Handbook - Chapter 10&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;So our subgroup analyses can be extended to other factors as well, like assuming how the trial duration or intervention type can affect the overall results. These factors should be selected based on your &lt;strong&gt;research questions&lt;/strong&gt;, &lt;strong&gt;domain knowledge&lt;/strong&gt;, and the &lt;strong&gt;possibility&lt;/strong&gt; of performing with your dataset.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Important Note&lt;/strong&gt;: Subgroup analyses based on population characteristics require greater caution than those based on study characteristics. This is largely because of challenges in ensuring that subgroup samples are representative. These subgroup findings are often best treated as hypothesis-generating rather than conclusive.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;p&gt;This brings us to the end of our series on meta-analysis. While we&amp;rsquo;ve covered key concepts, there’s still much more to explore in meta-analysis studies, such as dose-response analysis, sensitivity analysis to assess how much the overall effect size depends on individual studies, evaluation of publication bias using tests like Begg’s and Egger’s, and funnel plot visual assessments. Other important areas include certainty assessment, quality assessment, and more. For comprehensive guidelines and detailed methodology, refer to the &lt;a class=&#34;link&#34; href=&#34;https://training.cochrane.org/handbook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Cochrane Handbook&lt;/a&gt; by Julian P. T. Higgins and Sally Green.&lt;/p&gt;
@@ -661,6 +663,8 @@
 &lt;p&gt;Heterongenity is a very important concept in meta-anlysis studies. Heterogeneity refers to differences among studies. When heterogeneity is high or statistically significant, it means that the included studies differ considerably in certain characteristics (like methodology).&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The less variation there is between the studies (i.e., the lower the heterogeneity), the more valid and precise the findings from the meta-analysis will be.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: I^2 is a quantitative estimate of the proportion of variability among effect sizes due to heterogeneity. So technically, it is a statistical proxy for heterogeneity. It does not tell you why heterogeneity exists, just that it probably does. So that is why we will also try to look for the source of heterogeneity by comparing study designs, populations, dosages, follow-up durations, risk of bias, etc.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;So how do we assess heterogeneity? We usually use the following criteria as a general rule of thumb:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
