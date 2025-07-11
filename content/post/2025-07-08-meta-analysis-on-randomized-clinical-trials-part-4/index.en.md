@@ -150,7 +150,7 @@ In addition, in the results, **“Test for subgroup differences”** is also pro
 
 > **Note:** The interpretation of the source of heterogeneity in any meta-analysis study should be based on one of these two approaches.
 
-In our example, the results across male, female, and unknown gender groups had similar direction and magnitude. This suggests gender may not be a strong effect modifier. The p-value from the Q-test was 0.5353, indicating that the differences between gender groups are not statistically significant. However, the male subgroup showed no heterogeneity (I^2 = 0%), while the overall heterogeneity was high (I^2 = 66.8%). This suggests gender **may** be contributing to the observed heterogeneity.
+In our example, the results for males, females, and the both genders combined group showed a similar direction and magnitude of effect. For males, the mean difference (MD) was -0.0764 (95% CI: -0.6605 to 0.5076); for females, MD was -0.4114 (95% CI: -0.5417 to -0.2811); and for both genders combined, MD was -0.4722 (95% CI: -1.1591 to 0.2146). This suggests gender may not be a strong effect modifier. The p-value from the Q-test was 0.5353, indicating that the differences between gender groups are not statistically significant. However, the male subgroup showed no heterogeneity (I^2 = 0%), while the overall heterogeneity was high (I^2 = 66.8%). This suggests gender **may** be contributing to the observed heterogeneity.
 
 > **🔎 Conclusion:** While the formal statistical test does not support gender as a significant source of heterogeneity, the reduction in I^2 in the male subgroup hints at a possible role. These results should be interpreted with caution and may warrant further studies.
 
