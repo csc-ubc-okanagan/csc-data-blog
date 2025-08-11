@@ -1,5 +1,5 @@
 ---
-title: "When to consider random or fixed effects in the model?"
+title: "When to Consider Random or Fixed Effects in the Model?"
 author: ["Amir Golzan"]
 date: 2025-08-11 09:00:00 -0800
 categories: ["Modelling", "R"]
