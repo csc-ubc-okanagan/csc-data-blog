@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="One common question in statistical modeling is whether to consider a particular factor as a fixed effect or a random effect. In R, this often translates to deciding between a standard generalized linear model (glm) and a generalized linear mixed-effects model (glmer).\nFor example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the specific levels themselves or are they considered a random sample from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! (Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)\n">
+<title>When to consider random or fixed effects in the model?</title>
+
+<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
+
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="When to consider random or fixed effects in the model?">
+<meta property='og:description' content="One common question in statistical modeling is whether to consider a particular factor as a fixed effect or a random effect. In R, this often translates to deciding between a standard generalized linear model (glm) and a generalized linear mixed-effects model (glmer).\nFor example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the specific levels themselves or are they considered a random sample from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! (Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)\n">
+<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
+<meta property='og:site_name' content='R &amp; Python Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='modelling' /><meta property='article:tag' content='r' /><meta property='article:published_time' content='2025-08-11T09:00:00-08:00'/><meta property='article:modified_time' content='2025-08-11T09:00:00-08:00'/>
+<meta name="twitter:title" content="When to consider random or fixed effects in the model?">
+<meta name="twitter:description" content="One common question in statistical modeling is whether to consider a particular factor as a fixed effect or a random effect. In R, this often translates to deciding between a standard generalized linear model (glm) and a generalized linear mixed-effects model (glmer).\nFor example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the specific levels themselves or are they considered a random sample from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! (Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)\n">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PQ1KG9NWP0');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/csc-data-blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
+                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
+            <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='csc.ok@ubc.ca'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st1 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 66.7px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 133.3;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M133.3,300l206.7,155c35.6,26.7,84.4,26.7,120,0l206.7-155"/>
+  <path class="st2" d="M100,305.9c0-24.2,13.1-46.5,34.3-58.3l233.3-129.6c20.1-11.2,44.6-11.2,64.8,0l233.3,129.6c21.2,11.8,34.3,34.1,34.3,58.3v260.8c0,36.8-29.8,66.7-66.7,66.7H166.7c-36.8,0-66.7-29.8-66.7-66.7v-260.8Z"/>
+  <path class="st0" d="M0,0h800v800H0V0Z"/>
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/csc-ubc-okanagan'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/csc-data-blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#fixed-effects-vs-random-effects-whats-the-difference">Fixed Effects vs Random Effects: what’s the difference?</a>
+      <ol>
+        <li><a href="#why-and-when-should-we-consider-random-effects">Why (and when) should we consider random effects?</a></li>
+        <li><a href="#why-and-when-should-we-consider-fixed-effects">Why (and when) should we consider fixed effects?</a></li>
+      </ol>
+    </li>
+    <li><a href="#glm-vs-glmm-r-demonstration">GLM vs GLMM (R Demonstration)</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/csc-data-blog/categories/modelling/" >
+                Modelling
+            </a>
+        
+            <a href="/csc-data-blog/categories/r/" >
+                R
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/">When to consider random or fixed effects in the model?</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 11, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    16 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    
+		  Amir Golzan
+	  
+    <p>One common question in statistical modeling is whether to consider a particular factor as a <strong>fixed effect</strong> or a <strong>random effect</strong>. In R, this often translates to deciding between a standard generalized linear model (<code>glm</code>) and a generalized linear mixed-effects model (<code>glmer</code>).</p>
+<p>For example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the <em>specific levels</em> themselves or are they considered a <em>random sample</em> from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! <em>(Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)</em></p>
+<p>In simpler terms, <strong>fixed effects</strong> apply to measured levels that exhaust our interest (e.g. specific treatments or specific known categories), whereas <strong>random effects</strong> assume the levels are drawn from a <strong>wider population</strong> and you mainly care about the <strong>variation</strong> among them rather than each <strong>specific</strong> level.</p>
+<p>Let&rsquo;s elaborate more on this:</p>
+<h2 id="fixed-effects-vs-random-effects-whats-the-difference">Fixed Effects vs Random Effects: what’s the difference?
+</h2><p>In a regression context, a <strong>fixed effect</strong> is a non-random parameter that may vary across specific levels of a factor but is assumed constant in the population (e.g., the same effect for all males). If you include a categorical variable as a fixed effect, you are estimating a coefficient for each level (category) of that variable (minus one reference level). By contrast, a <strong>random effect</strong> assumes the effect of that categorical factor varies <em>randomly</em> across levels, which we model by specifying a distribution (usually normal) for those effects. Instead of estimating an <em>independent coefficient</em> for each level, a random-effects model estimates variance components that describe the distribution of the level effects.</p>
+<blockquote>
+<p><strong>Note</strong>: In essence, “a fixed factor assumes that the levels are <em><strong>separate</strong></em>, <em><strong>independent</strong></em>, and <em><strong>not similar</strong></em>. A random effect assumes the levels come from a <em><strong>distribution</strong></em> and are <em><strong>related</strong></em> and <em><strong>exchangeable</strong></em>” (<a class="link" href="https://bookdown.org/steve_midway/DAR/random-effects.html"  target="_blank" rel="noopener"
+    >Data Analysis in R by Steve Midway</a>).</p></blockquote>
+<p>What are the implications of these approaches? One big difference is <strong>degrees of freedom</strong> and generality. A fixed-effect model with many levels uses up <strong>a lot of degrees of freedom</strong> (each level is an extra parameter) and treats those particular levels as the only ones of interest. A random-effect model is more <strong>parsimonious</strong> when levels are numerous: it “eats up” only one or a few parameters no matter how many groups you have (one parameter for the variance, and possibly one for each random slope if you have random slopes)</p>
+<h3 id="why-and-when-should-we-consider-random-effects">Why (and when) should we consider random effects?
+</h3><ul>
+<li>
+<p><em>Hierarchical Data (Nested Data):</em>
+If your data have a clear <strong>hierarchical</strong> or <strong>clustered structure</strong> (patients within hospitals, students within schools, repeated measurements on the same individuals, etc.), then random effects are usually appropriate. They explicitly model the <strong>multiple sources</strong> of random variability. For example, patients in the same hospital may tend to have more similar outcomes compared to patients in different hospitals, because of unobserved hospital-level characteristics. A random-effects model accounts for this by adding a <strong>random intercept</strong> for hospital, which captures between-hospital variability. In a fixed-effects only model, this hospital-to-hospital variability would either be <strong>ignored</strong> (if hospital not included) or <strong>soaked up</strong> by dummy variables (if included as fixed), but either way you wouldn’t get an estimate of how much variation is attributable to hospitals. By using a random effect, you are no longer assuming all observations are <strong>independent</strong>; you’re allowing that observations <strong>within</strong> a group are correlated. Technically, including a random intercept permits the model’s error term to have an intraclass correlation within groups (errors within a hospital are positively correlated, and potentially have their own variance different from others). Ignoring such structure when it exists can lead to <strong>pseudoreplication</strong> (treating non-independent observations as independent), which in turn can make your p-values too <strong>optimistic</strong> (since effective sample size is smaller than it appears). Random effects provide a principled way to account for this correlation.</p>
+</li>
+<li>
+<p><em>Unobserved Group-Level Heterogeneity:</em>
+Random effects act as a parsimonious way to model the impact of unobserved factors at the <strong>group level</strong>. In many cases we suspect that there are group-specific influences (e.g. each hospital has slightly different practices affecting patient outcomes, each doctor has their own technique, each cluster has different baseline risk, etc.) even after controlling for measured covariates. By adding a <strong>random intercept</strong> (and/or slope), we let the model learn how much variability is present across groups that is not explained by the measured predictors. As a result, our fixed-effect estimates (like treatment effects) are estimated after accounting for this extra variability. This often leads to <strong>more reliable</strong> inference.</p>
+</li>
+<li>
+<p><em>Generalizing to a Larger Population of Groups:</em>
+As mentioned, if your groups (e.g. hospitals) can be seen as a random sample from a wider population (all possible hospitals, or all hospitals in the region), using a random effect lets you make inferences about that <strong>wider</strong> population. You get an estimate of the <strong>between-group variance</strong>, which is often of scientific interest. For example, you might report that “the standard deviation of the hospital intercepts is 0.5 on the log-odds scale,” indicating how much outcomes vary by hospital after accounting for patient-level factors.</p>
+</li>
+<li>
+<p><em>Degrees of Freedom:</em>
+A practical reason to consider random effects is when the number of levels is large. Including a categorical predictor with many levels as fixed effects can chew up <strong>degrees of freedom</strong> and potentially overfit. With limited data, your model might not even be able to estimate a large number of fixed effects reliably (e.g. if some hospitals have no events, the fixed effect coefficient might blow up or be unidentifiable in a logistic model). Random effects <strong>“borrow strength”</strong> from the whole dataset and use far fewer parameters. For example, instead of estimating 50 school effects, you estimate one variance and perhaps 50 random offsets which are not free parameters but shrinkage estimates. This can make models converge where a fixed-effects approach might fail or produce huge standard errors.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: To summarize, you should consider a random effects model (<code>GLMM</code>) when your data have inherent groups or repeated measures that you suspect have different intercepts (or slopes), and especially when those groups are numerous and not the <strong>primary focus individually</strong>.</p></blockquote>
+<h3 id="why-and-when-should-we-consider-fixed-effects">Why (and when) should we consider fixed effects?
+</h3><ul>
+<li><em>When the group levels are of direct interest and are not viewed as random samples:</em>
+If you have a few specific categories that you <strong>explicitly</strong> want to compare (and you have enough data per category), <strong>fixed effects</strong> may be more straightforward. For example, suppose you’re analyzing data from <em>exactly</em> two hospitals and you want to compare them; those hospitals are your <em>entire focus</em>. Treating “hospital” as a random effect in a sample of size 2 isn’t very useful. You’re better off just comparing those two with a fixed effect (a two-sample comparison). Similarly, binary indicators like gender (male vs female) or other factors with only 2–3 levels that are <strong>inherently limited</strong> and of interest are usually treated as <strong>fixed effects</strong>. We typically don’t consider “male and female” to be a <strong>random sample</strong> of a larger set of genders. They are just the two categories that exist, so a random-effect assumption doesn’t make sense there.</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: There is no strict rule for the <strong>minimum number</strong> of factor levels needed for a random effect, and you can <strong>technically</strong> use any factor with two or more levels. However, it is often suggested, <strong>as a rule of thumb</strong>, that you should have <strong>at least five factor levels</strong> for a random effect to gain the full benefit of using it. You might also avoid using a random effect if you do not want the factor levels to influence each other or if you do not assume they come from the same underlying distribution. As mentioned above, male and female is a factor with only two levels, and we often prefer to estimate their information <strong>separately</strong> (<a class="link" href="https://bookdown.org/steve_midway/DAR/random-effects.html"  target="_blank" rel="noopener"
+    >Data Analysis in R by Steve Midway</a>).</p></blockquote>
+<ul>
+<li>
+<p><em>When you need to estimate each level’s effect explicitly:</em> As noted, random effects will not give you <strong>named coefficients</strong> for each level. If your analysis goal is to say “Hospital X has significantly higher outcomes than hospital Y,” a fixed-effect model allows that kind of specific contrast <em>(though you could also achieve this via post-hoc comparisons in a mixed model using BLUPs and their standard errors, but it’s more complicated)</em>. In an exploratory analysis where you only care about the <strong>measured units</strong> and <strong>not generalization</strong>, fixed effects might be simpler. In a clinical context, if you had a fixed set of hospitals and you want <em><strong>each</strong></em> hospital’s performance estimate, you might use fixed effects <em>(though an alternative is to use random effects to get shrinkage estimates and then report the BLUPs. This can actually be more accurate for ranking, but it’s an advanced consideration)</em>.</p>
+</li>
+<li>
+<p><em>When the assumption of a common distribution for effects is questionable:</em> Random effects impose the assumption that the group effects are <strong>random</strong> draws from a <strong>normal (usually) distribution</strong>. In some cases, you might <strong>not</strong> be willing to assume that. For example, imagine an educational study across 3 very distinct school types (perhaps public, private, charter); treating “school type” as random would assume those three are like a <strong>random sample</strong> of some <strong>wider</strong> variety of school types, which might not be sensible if those are essentially fixed categories of interest. In such cases, a fixed effect approach (even if levels are few) might be more appropriate to avoid <strong>potentially mis-specifying</strong> the model. Essentially, if the levels are fixed by the <strong>design</strong> or by <strong>nature</strong>, and you do not intend to generalize beyond them, use fixed effects. If the levels can be thought of as exchangeable draws from a population, and you do care about that population, random effects make sense.</p>
+</li>
+<li>
+<p><em>Small number of levels and risk of over-parametrization:</em> Although random effects are often a cure for having many levels, if you have a very small number of groups, the model might have trouble estimating the variance component accurately. As mentioned, you technically can fit a random effect with 2 levels, but the variance estimate will be based on essentially <em>one degree of freedom</em> (the difference between the two) <em>(It should be noted that modern methods (e.g., Bayesian GLMMs) handle this better than frequentist approaches)</em>. Some analysts prefer to avoid random effects in such extreme cases and would use <em>fixed effects</em> or even a <em>simpler paired analysis</em> (depending on context). With exactly 2 levels, random and fixed effects models often produce similar results (e.g., both allow different intercepts), but random effects add a variance estimate that&rsquo;s poorly informed and may introduce unnecessary assumptions. So in practice, <strong>fixed effects</strong> are simpler and preferred here. With 3–4 levels, you can use random effects, but be <strong>cautious</strong> in interpreting the <strong>variance</strong> component. If inference on the variance itself is crucial, it might be unreliable with so few groups. In contrast, if you have lots of groups but each with tiny sample size, random effects are usually the only viable approach (fixed effects would be unestimable or lead to huge uncertainty).</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> In practice, there are cases that fall in a <strong>grey area</strong>. For example, what if you have 5 hospitals in your study, not an extremely large sample of hospitals, but you might view them as representative of other hospitals? Here one could go either way: a fixed-effect model will let you compare those 5 hospitals specifically; a random-effect model will assume they’re just a sample and focus on variance among hospitals. A useful strategy is often to try <strong>both</strong> (if feasible) or consider a mixed modeling philosophy: you could include hospital as random to get overall treatment effects accounting for clustering, and if you really need hospital-specific estimates you can extract them (BLUPs) or do a fixed-effect model separately for that purpose. Always consider the <strong>scientific question</strong> and the <strong>data structure</strong>: Are the “levels” a means to an end (blocking factors, nuisance, or random sample)? Then random effects are great. Are the levels themselves the object of interest (specific treatments, named locations, categories that exhaust all possibilities)? Then you lean towards fixed effects.</p></blockquote>
+<h2 id="glm-vs-glmm-r-demonstration">GLM vs GLMM (R Demonstration)
+</h2><p>Let’s walk through a simple example in R to illustrate the differences between using a fixed effect and a random effect. Suppose we are analyzing data from a hypothetical clinical trial conducted at 10 different hospitals. We want to model a binary outcome (e.g., patient improved = 1 or not = 0) based on whether the patient received a new treatment or a standard treatment. We suspect that outcomes might differ by hospital (perhaps because of differing quality of care, patient populations, etc.), but we’re not primarily interested in the specific effect of each hospital; we just don’t want those differences to <strong>confound</strong> our treatment effect or <strong>violate</strong> model assumptions.</p>
+<p><strong>Simulating the data:</strong> For reproducibility, we will simulate a dataset where hospital differences are present. In the simulation below, we create 10 hospitals, each with 30 patients, and give each hospital a random “intercept” effect (some hospitals have overall higher success rates, some lower):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">lme4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">5</span><span class="p">)</span> <span class="c1"># For Reproducibility</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_hosp</span> <span class="o">&lt;-</span> <span class="m">10</span> <span class="c1"># Number of Hospitals</span>
+</span></span><span class="line"><span class="cl"><span class="n">patients_per_hosp</span> <span class="o">&lt;-</span> <span class="m">30</span> <span class="c1"># Patients per Hospital</span>
+</span></span><span class="line"><span class="cl"><span class="n">hospital</span> <span class="o">&lt;-</span> <span class="nf">factor</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">n_hosp</span><span class="p">,</span> <span class="n">each</span> <span class="o">=</span> <span class="n">patients_per_hosp</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">N</span> <span class="o">&lt;-</span> <span class="nf">length</span><span class="p">(</span><span class="n">hospital</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Random hospital effects</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigma</span> <span class="o">&lt;-</span> <span class="m">1.5</span>   <span class="c1"># True SD of Hospital Effects</span>
+</span></span><span class="line"><span class="cl"><span class="n">hospital_effect</span> <span class="o">&lt;-</span> <span class="nf">rnorm</span><span class="p">(</span><span class="n">n_hosp</span><span class="p">,</span> <span class="n">mean</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">sd</span> <span class="o">=</span> <span class="n">sigma</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Treatment assignment (random 0/1)</span>
+</span></span><span class="line"><span class="cl"><span class="n">treatment</span> <span class="o">&lt;-</span> <span class="nf">rbinom</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">prob</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Linear predictor for log-odds</span>
+</span></span><span class="line"><span class="cl"><span class="n">beta0</span> <span class="o">&lt;-</span> <span class="m">-1</span>    <span class="c1"># Intercept</span>
+</span></span><span class="line"><span class="cl"><span class="n">beta_trt</span> <span class="o">&lt;-</span> <span class="m">1</span>   <span class="c1"># Treatment Effect (log-odds)</span>
+</span></span><span class="line"><span class="cl"><span class="n">eta</span> <span class="o">&lt;-</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta_trt</span> <span class="o">*</span> <span class="n">treatment</span> <span class="o">+</span> <span class="n">hospital_effect[hospital]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Generate binary outcome</span>
+</span></span><span class="line"><span class="cl"><span class="n">prob</span> <span class="o">&lt;-</span> <span class="nf">plogis</span><span class="p">(</span><span class="n">eta</span><span class="p">)</span>      <span class="c1"># Inverse-logit to Get Probability</span>
+</span></span><span class="line"><span class="cl"><span class="n">outcome</span> <span class="o">&lt;-</span> <span class="nf">rbinom</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">prob</span> <span class="o">=</span> <span class="n">prob</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Combine into data frame</span>
+</span></span><span class="line"><span class="cl"><span class="n">clinical_data</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">hospital</span><span class="p">,</span> <span class="n">treatment</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">treatment</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;Standard&#34;</span><span class="p">,</span><span class="s">&#34;NewTreatment&#34;</span><span class="p">)),</span> 
+</span></span><span class="line"><span class="cl"><span class="n">outcome</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">outcome</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#34;No Improvement&#34;</span><span class="p">,</span><span class="s">&#34;Improved&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">head</span><span class="p">(</span><span class="n">clinical_data</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">##   hospital    treatment        outcome
+</span></span><span class="line"><span class="cl">## 1        1 NewTreatment No Improvement
+</span></span><span class="line"><span class="cl">## 2        1 NewTreatment No Improvement
+</span></span><span class="line"><span class="cl">## 3        1     Standard       Improved
+</span></span><span class="line"><span class="cl">## 4        1     Standard No Improvement
+</span></span><span class="line"><span class="cl">## 5        1     Standard No Improvement
+</span></span><span class="line"><span class="cl">## 6        1     Standard No Improvement
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In the above, <code>clinical_data</code> contains a factor <code>hospital</code> (with levels &ldquo;1&rdquo;&hellip;&ldquo;10&rdquo;), a <code>treatment</code> group factor, and the binary <code>outcome</code>. Now, let’s fit two models:</p>
+<p><strong>GLM (fixed effects only):</strong> We <strong>ignore</strong> hospital clustering (or treat it as nonexistent). This model will just have an intercept and a treatment effect.</p>
+<p><strong>GLMM (mixed model):</strong> We include hospital as a <strong>random intercept</strong> effect to account for clustering.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Model 1: Logistic Regression without Hospital (fixed effects only)</span>
+</span></span><span class="line"><span class="cl"><span class="n">glm_fit</span> <span class="o">&lt;-</span> <span class="nf">glm</span><span class="p">(</span><span class="n">outcome</span> <span class="o">~</span> <span class="n">treatment</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">clinical_data</span><span class="p">,</span> <span class="n">family</span> <span class="o">=</span> <span class="n">binomial</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Model 2: Logistic Regression with Hospital (random intercept)</span>
+</span></span><span class="line"><span class="cl"><span class="n">glmer_fit</span> <span class="o">&lt;-</span> <span class="nf">glmer</span><span class="p">(</span><span class="n">outcome</span> <span class="o">~</span> <span class="n">treatment</span> <span class="o">+</span> <span class="p">(</span><span class="m">1</span> <span class="o">|</span> <span class="n">hospital</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">clinical_data</span><span class="p">,</span> <span class="n">family</span> <span class="o">=</span> <span class="n">binomial</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">glm_fit</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Call:
+</span></span><span class="line"><span class="cl">## glm(formula = outcome ~ treatment, family = binomial, data = clinical_data)
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Coefficients:
+</span></span><span class="line"><span class="cl">##                       Estimate Std. Error z value Pr(&gt;|z|)    
+</span></span><span class="line"><span class="cl">## (Intercept)            -0.8473     0.1725  -4.911 9.04e-07 ***
+</span></span><span class="line"><span class="cl">## treatmentNewTreatment   0.5010     0.2433   2.059   0.0395 *  
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## (Dispersion parameter for binomial family taken to be 1)
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">##     Null deviance: 389.69  on 299  degrees of freedom
+</span></span><span class="line"><span class="cl">## Residual deviance: 385.42  on 298  degrees of freedom
+</span></span><span class="line"><span class="cl">## AIC: 389.42
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Number of Fisher Scoring iterations: 4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">glmer_fit</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-zed" data-lang="zed"><span class="line"><span class="cl"><span class="err">##</span><span class="w"> </span><span class="n">Generalized</span><span class="w"> </span><span class="n">linear</span><span class="w"> </span><span class="n">mixed</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="n">fit</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">maximum</span><span class="w"> </span><span class="n">likelihood</span><span class="w"> </span><span class="p">(</span><span class="n">Laplace</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">   </span><span class="n">Approximation</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">glmerMod</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">  </span><span class="n">Family</span><span class="o">:</span><span class="w"> </span><span class="n">binomial</span><span class="w">  </span><span class="p">(</span><span class="w"> </span><span class="n">logit</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">Formula</span><span class="o">:</span><span class="w"> </span><span class="n">outcome</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">treatment</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="err">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">hospital</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">    </span><span class="n">Data</span><span class="o">:</span><span class="w"> </span><span class="n">clinical_data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">      </span><span class="n">AIC</span><span class="w">      </span><span class="n">BIC</span><span class="w">   </span><span class="n">logLik</span><span class="w"> </span><span class="n">deviance</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">resid</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">    </span><span class="err">343</span><span class="p">.</span><span class="err">8</span><span class="w">    </span><span class="err">354</span><span class="p">.</span><span class="err">9</span><span class="w">   </span><span class="o">-</span><span class="err">168</span><span class="p">.</span><span class="err">9</span><span class="w">    </span><span class="err">337</span><span class="p">.</span><span class="err">8</span><span class="w">      </span><span class="err">297</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">Scaled</span><span class="w"> </span><span class="n">residuals</span><span class="o">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">     </span><span class="n">Min</span><span class="w">      </span><span class="err">1</span><span class="n">Q</span><span class="w">  </span><span class="n">Median</span><span class="w">      </span><span class="err">3</span><span class="n">Q</span><span class="w">     </span><span class="n">Max</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="o">-</span><span class="err">2</span><span class="p">.</span><span class="err">0481</span><span class="w"> </span><span class="o">-</span><span class="err">0</span><span class="p">.</span><span class="err">6501</span><span class="w"> </span><span class="o">-</span><span class="err">0</span><span class="p">.</span><span class="err">4343</span><span class="w">  </span><span class="err">0</span><span class="p">.</span><span class="err">5934</span><span class="w">  </span><span class="err">3</span><span class="p">.</span><span class="err">2227</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">Random</span><span class="w"> </span><span class="n">effects</span><span class="o">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">  </span><span class="n">Groups</span><span class="w">   </span><span class="n">Name</span><span class="w">        </span><span class="n">Variance</span><span class="w"> </span><span class="n">Std</span><span class="p">.</span><span class="n">Dev</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">  </span><span class="n">hospital</span><span class="w"> </span><span class="p">(</span><span class="n">Intercept</span><span class="p">)</span><span class="w"> </span><span class="err">1</span><span class="p">.</span><span class="err">285</span><span class="w">    </span><span class="err">1</span><span class="p">.</span><span class="err">133</span><span class="w">   
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">obs</span><span class="o">:</span><span class="w"> </span><span class="err">300</span><span class="p">,</span><span class="w"> </span><span class="n">groups</span><span class="o">:</span><span class="w">  </span><span class="n">hospital</span><span class="p">,</span><span class="w"> </span><span class="err">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">Fixed</span><span class="w"> </span><span class="n">effects</span><span class="o">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">                       </span><span class="n">Estimate</span><span class="w"> </span><span class="n">Std</span><span class="p">.</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">Pr</span><span class="p">(</span><span class="o">&gt;|</span><span class="n">z</span><span class="o">|</span><span class="p">)</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="p">(</span><span class="n">Intercept</span><span class="p">)</span><span class="w">            </span><span class="o">-</span><span class="err">0</span><span class="p">.</span><span class="err">9121</span><span class="w">     </span><span class="err">0</span><span class="p">.</span><span class="err">4089</span><span class="w">  </span><span class="o">-</span><span class="err">2</span><span class="p">.</span><span class="err">231</span><span class="w">   </span><span class="err">0</span><span class="p">.</span><span class="err">0257</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">treatmentNewTreatment</span><span class="w">   </span><span class="err">0</span><span class="p">.</span><span class="err">3901</span><span class="w">     </span><span class="err">0</span><span class="p">.</span><span class="err">2754</span><span class="w">   </span><span class="err">1</span><span class="p">.</span><span class="err">416</span><span class="w">   </span><span class="err">0</span><span class="p">.</span><span class="err">1567</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="o">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">Signif</span><span class="p">.</span><span class="w"> </span><span class="n">codes</span><span class="o">:</span><span class="w">  </span><span class="err">0</span><span class="w"> </span><span class="err">&#39;</span><span class="o">***</span><span class="err">&#39;</span><span class="w"> </span><span class="err">0</span><span class="p">.</span><span class="err">001</span><span class="w"> </span><span class="err">&#39;</span><span class="o">**</span><span class="err">&#39;</span><span class="w"> </span><span class="err">0</span><span class="p">.</span><span class="err">01</span><span class="w"> </span><span class="err">&#39;</span><span class="o">*</span><span class="err">&#39;</span><span class="w"> </span><span class="err">0</span><span class="p">.</span><span class="err">05</span><span class="w"> </span><span class="err">&#39;</span><span class="p">.</span><span class="err">&#39;</span><span class="w"> </span><span class="err">0</span><span class="p">.</span><span class="err">1</span><span class="w"> </span><span class="err">&#39;</span><span class="w"> </span><span class="err">&#39;</span><span class="w"> </span><span class="err">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">Correlation</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Fixed</span><span class="w"> </span><span class="n">Effects</span><span class="o">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w">             </span><span class="p">(</span><span class="n">Intr</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">##</span><span class="w"> </span><span class="n">trtmntNwTrt</span><span class="w"> </span><span class="o">-</span><span class="err">0</span><span class="p">.</span><span class="err">331</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let’s examine the outputs. For the <strong>GLM (no random effects)</strong>, this suggests an intercept of about -0.84 (baseline odds ~ e^-0.84 ≈ 0.43, so probability p = odds / (1 + odds) ≈ 0.432 / 1.432 ≈ 0.301, or 30.1% probability of improvement for standard treatment) and a treatment effect log-odds of +0.50. The treatment effect is reported as statistically significant (<em>p</em> ≈ 0.03). <strong>However, this model’s inference is suspect</strong> because it assumes each of the 300 patients is an independent observation. In reality, they are clustered by hospital. If hospital has a strong influence, our effective sample size is less than 300.</p>
+<p>For the GLMM, we see a random effect section indicating the estimated variance of hospital intercepts is ~1.28 (Std. Dev. ≈ 1.13). This is close to the true <em>σ^2</em> = 2.25 (since we set <em>σ=1.5</em>). [Note that with only 10 hospitals, the estimated variance (1.28) is lower than the true value (2.25) used in simulation, which is common due to small-sample bias in REML estimation. Larger n_groups (e.g., &gt;20) yield more accurate variances.] This tells us there is <strong>substantial</strong> variability in baseline outcome probabilities across hospitals. The fixed effects table now shows the treatment effect estimate ~0.39 but importantly the standard error is larger (0.27 vs 0.24 before). Consequently, the <em>z</em> value is ~1.41 and the p-value is about 0.15, which is not conventionally significant. In other words, after accounting for the <strong>variability</strong> between hospitals, the evidence for the treatment’s effectiveness is <strong>weaker</strong>. The GLM was <strong>overconfident</strong>. It <strong>underestimated</strong> the standard error by ignoring the <strong>clustering</strong>. The GLMM’s <strong>wider</strong> interval is more appropriate given that patients within each hospital weren’t offering as much independent information as the GLM assumed.</p>
+<p>-<em>Fixed vs Random Hospital as a deliberate modeling choice:</em> If we had treated <code>hospital</code> as a fixed effect in a GLM (e.g., <code>glm(outcome ~ treatment + hospital, ...)</code>), we would get an <strong>estimate</strong> for each <code>hospital</code> (with one as baseline). That model would have many <strong>more</strong> parameters (making it harder to fit if data is <strong>sparse</strong> in some hospitals) and we could <strong>directly</strong> see which hospitals have higher or lower outcomes. But we wouldn’t get a clean summary of “<code>hospital variability</code>” as a single number. If the number of hospitals is large or some have few patients, the fixed-effect estimates may be <strong>noisy</strong>. The random effect model “shares” information between hospitals to yield more stable estimates. Often in clinical studies with many centers, a <strong>random-intercepts model</strong> is preferred to account for center differences without expending too <strong>many degrees of freedom</strong>.</p>
+<hr>
+<p>This brings us to the end of this post. Hopefully, you now have a better understanding of fixed and random effects and when to choose each. Below are the references used for this post, which are highly recommended for further details and explanations, especially for uncommon scenarios and data.</p>
+<p><strong>Stay tuned for future posts!</strong></p>
+<hr>
+<p><strong>Reference:</strong></p>
+<p><a class="link" href="https://bookdown.org/steve_midway/DAR/random-effects.html"  target="_blank" rel="noopener"
+    >Data Analysis in R by Steve Midway</a></p>
+<p><a class="link" href="https://dynamicecology.wordpress.com/2015/11/04/is-it-a-fixed-or-random-effect/#:~:text=%28y~x%2Crandom%3D~1,that%20is%20what%20is%20happening"  target="_blank" rel="noopener"
+    >Is it a fixed or random effect? by Brian McGill</a></p>
+<p><a class="link" href="https://ourcodingclub.github.io/tutorials/mixed-models/"  target="_blank" rel="noopener"
+    >Introduction to Linear Mixed Models by Gabriela K Hajduk</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/csc-data-blog/tags/modelling/">Modelling</a>
+        
+            <a href="/csc-data-blog/tags/r/">R</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 3</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/getting-started-with-github/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Getting started with GitHub</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/basic-model-fitting-in-r/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Basic Model Fitting in R</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Center for Scholarly Communication, UBC Okanagan
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
