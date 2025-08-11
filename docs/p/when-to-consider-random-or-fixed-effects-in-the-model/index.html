@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=7579&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="One common question in statistical modeling is whether to consider a particular factor as a fixed effect or a random effect. In R, this often translates to deciding between a standard generalized linear model (glm) and a generalized linear mixed-effects model (glmer).\nFor example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the specific levels themselves or are they considered a random sample from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! (Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)\n">
-<title>When to consider random or fixed effects in the model?</title>
+<title>When to Consider Random or Fixed Effects in the Model?</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
+<link rel='canonical' href='http://localhost:7579/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
 
-<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="When to consider random or fixed effects in the model?">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="When to Consider Random or Fixed Effects in the Model?">
 <meta property='og:description' content="One common question in statistical modeling is whether to consider a particular factor as a fixed effect or a random effect. In R, this often translates to deciding between a standard generalized linear model (glm) and a generalized linear mixed-effects model (glmer).\nFor example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the specific levels themselves or are they considered a random sample from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! (Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)\n">
-<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
+<meta property='og:url' content='http://localhost:7579/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='modelling' /><meta property='article:tag' content='r' /><meta property='article:published_time' content='2025-08-11T09:00:00-08:00'/><meta property='article:modified_time' content='2025-08-11T09:00:00-08:00'/>
-<meta name="twitter:title" content="When to consider random or fixed effects in the model?">
+<meta name="twitter:title" content="When to Consider Random or Fixed Effects in the Model?">
 <meta name="twitter:description" content="One common question in statistical modeling is whether to consider a particular factor as a fixed effect or a random effect. In R, this often translates to deciding between a standard generalized linear model (glm) and a generalized linear mixed-effects model (glmer).\nFor example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the specific levels themselves or are they considered a random sample from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! (Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)\n">
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
       <script>
@@ -336,7 +336,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/">When to consider random or fixed effects in the model?</a>
+            <a href="/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/">When to Consider Random or Fixed Effects in the Model?</a>
         </h2>
     
         
