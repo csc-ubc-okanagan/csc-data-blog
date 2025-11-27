@@ -98,3 +98,16 @@ All posts will fall into these categories, with Python and R as the primary cate
 ## Tagging Posts
 
 The tags will be listed in all lowercase, with the exception of `R`. Multiple tags can be listed in each blog post.
+
+# License
+
+[![CC BY-NC 4.0](./assets/img/cc-by-nc-shield.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc].
+
+[cc-by-nc]: https://creativecommons.org/licenses/by-nc/4.0/
+[cc-by-nc-image]: https://licensebuttons.net/l/by-nc/4.0/88x31.png
+[cc-by-nc-shield]: https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg
+
+For additional copyright information, see `license.txt`
+
