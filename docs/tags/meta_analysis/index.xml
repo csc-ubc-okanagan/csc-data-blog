@@ -2,22 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Meta_analysis on R &amp; Python Blog</title>
-        <link>http://localhost:4321/csc-data-blog/tags/meta_analysis/</link>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/meta_analysis/</link>
         <description>Recent content in Meta_analysis on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Wed, 09 Jul 2025 09:00:00 -0800</lastBuildDate><atom:link href="http://localhost:4321/csc-data-blog/tags/meta_analysis/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 09 Jul 2025 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/meta_analysis/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Meta-Analysis on Randomized Clinical Trials - Part 4</title>
-        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/</link>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/</link>
         <pubDate>Wed, 09 Jul 2025 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/</guid>
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/</guid>
         <description>&lt;p&gt;So far, we have learned what meta-analysis is and how it is generally performed. In this section, we will dive into subgroup analysis—as the name suggests, this involves performing meta-analyses within specific groups in your dataset.&lt;/p&gt;
 &lt;h2 id=&#34;subgroup-analyses&#34;&gt;Subgroup Analyses
 &lt;/h2&gt;&lt;p&gt;Subgroup analyses are especially important when there is &lt;strong&gt;high heterogeneity&lt;/strong&gt; in your main meta-analysis, indicating differences across studies. By conducting subgroup analyses, we not only identify potential &lt;strong&gt;sources of heterogeneity&lt;/strong&gt;, but also gain deeper insights into the data. Therefore, it is highly recommended to still perform subgroup analyses even if the overall heterogeneity is very low, so that you can gain more interpretation from your data.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Important Note&lt;/strong&gt;: Subgroup analysis is usually performed using a Fixed model.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Important Note&lt;/strong&gt;: Subgroup analysis is usually performed using a Fixed model.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;finding-source-of-heterogeneity&#34;&gt;Finding source of heterogeneity
 &lt;/h3&gt;&lt;p&gt;Let&amp;rsquo;s back to our sample dataset &lt;a class=&#34;link&#34; href=&#34;https://github.com/csc-ubc-okanagan/csc-data-blog/blob/main/content/post/2025-07-08-meta-analysis-on-randomized-clinical-trials-part-4/Sample_data.csv&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Sample Data&lt;/a&gt;. In the previous part, our meta-analysis on the entire dataset showed an I^2 value of 66.8% and a p-value of 0.0003, indicating &lt;strong&gt;significant&lt;/strong&gt; heterogeneity across studies.&lt;/p&gt;
@@ -229,7 +230,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;fs.axis&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/index.en_files/figure-html/forestplot-1.png&#34; width=&#34;100%&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/index.en_files/figure-html/forestplot-1.png&#34; width=&#34;100%&#34; /&gt;
 &lt;p&gt;As mentioned at the beginning, one of the goals of performing subgroup analysis is to determine whether the factor we are examining (such as gender in the previous example) is a &lt;strong&gt;source of heterogeneity&lt;/strong&gt;. However, answering this question can be tricky, as different approaches may lead to different conclusions. Therefore, we must be &lt;strong&gt;cautious&lt;/strong&gt; when interpreting our results.&lt;/p&gt;
 &lt;p&gt;Generally, there are two common approaches for identifying sources of heterogeneity, along with one formal statistical test:&lt;/p&gt;
 &lt;ul&gt;
@@ -250,10 +251,12 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The interpretation of the source of heterogeneity in any meta-analysis study should be based on one of these two approaches.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The interpretation of the source of heterogeneity in any meta-analysis study should be based on one of these two approaches.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;In our example, the results for males, females, and the both genders combined group showed a similar direction and magnitude of effect. For males, the mean difference (MD) was -0.0764 (95% CI: -0.6605 to 0.5076); for females, MD was -0.4114 (95% CI: -0.5417 to -0.2811); and for both genders combined, MD was -0.4722 (95% CI: -1.1591 to 0.2146). This suggests gender may not be a strong effect modifier. The p-value from the Q-test was 0.5353, indicating that the differences between gender groups are not statistically significant. However, the male subgroup showed no heterogeneity (I^2 = 0%), while the overall heterogeneity was high (I^2 = 66.8%). This suggests gender &lt;strong&gt;may&lt;/strong&gt; be contributing to the observed heterogeneity.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;🔎 Conclusion:&lt;/strong&gt; While the formal statistical test does not support gender as a significant source of heterogeneity, the reduction in I^2 in the male subgroup hints at a possible role. These results should be interpreted with caution and may warrant further studies.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;🔎 Conclusion:&lt;/strong&gt; While the formal statistical test does not support gender as a significant source of heterogeneity, the reduction in I^2 in the male subgroup hints at a possible role. These results should be interpreted with caution and may warrant further studies.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;the-interpretations-within-each-subgroup&#34;&gt;The interpretations within each subgroup
 &lt;/h3&gt;&lt;p&gt;In our example, another interpretation of the subgroup results involves examining how &lt;em&gt;&lt;strong&gt;gender&lt;/strong&gt;&lt;/em&gt; influences the effect of Vitamin E on blood CRP levels in adults.&lt;/p&gt;
 &lt;p&gt;From the results:&lt;/p&gt;
@@ -268,10 +271,10 @@
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: In papers, subgroup analyses are usually reported in a table, as there can be many factors involved. Some journals may also request forest plots to be included as supplementary material. Here is an example (&lt;a class=&#34;link&#34; href=&#34;https://pubmed.ncbi.nlm.nih.gov/36622225/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Golzan et al. 2023&lt;/a&gt;):
-&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1.png&#34;
+&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1.png&#34;
 	width=&#34;2111&#34;
 	height=&#34;1265&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1_hu_3209cdf8c4cde684.png 480w, http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1_hu_45f60ece40ea52f8.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1_hu_3209cdf8c4cde684.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/images/Screenshot_1_hu_45f60ece40ea52f8.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -279,13 +282,16 @@
 		data-flex-grow=&#34;166&#34;
 		data-flex-basis=&#34;400px&#34;
 	
-&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: There is also another way of finding the source of heterogeneity known as meta-regression, which is beyond the scope of this series of posts. If you would like to learn more, you may refer to: &lt;a class=&#34;link&#34; href=&#34;https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-10#section-10-11-4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Cochrane Handbook - Chapter 10&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+    &gt;Cochrane Handbook - Chapter 10&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;So our subgroup analyses can be extended to other factors as well, like assuming how the trial duration or intervention type can affect the overall results. These factors should be selected based on your &lt;strong&gt;research questions&lt;/strong&gt;, &lt;strong&gt;domain knowledge&lt;/strong&gt;, and the &lt;strong&gt;possibility&lt;/strong&gt; of performing with your dataset.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Important Note&lt;/strong&gt;: Subgroup analyses based on population characteristics require greater caution than those based on study characteristics. This is largely because of challenges in ensuring that subgroup samples are representative. These subgroup findings are often best treated as hypothesis-generating rather than conclusive.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Important Note&lt;/strong&gt;: Subgroup analyses based on population characteristics require greater caution than those based on study characteristics. This is largely because of challenges in ensuring that subgroup samples are representative. These subgroup findings are often best treated as hypothesis-generating rather than conclusive.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;p&gt;This brings us to the end of our series on meta-analysis. While we&amp;rsquo;ve covered key concepts, there’s still much more to explore in meta-analysis studies, such as dose-response analysis, sensitivity analysis to assess how much the overall effect size depends on individual studies, evaluation of publication bias using tests like Begg’s and Egger’s, and funnel plot visual assessments. Other important areas include certainty assessment, quality assessment, and more. For comprehensive guidelines and detailed methodology, refer to the &lt;a class=&#34;link&#34; href=&#34;https://training.cochrane.org/handbook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Cochrane Handbook&lt;/a&gt; by Julian P. T. Higgins and Sally Green.&lt;/p&gt;
@@ -294,10 +300,10 @@
         </item>
         <item>
         <title>Meta-Analysis on Randomized Clinical Trials - Part 3</title>
-        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/</link>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/</link>
         <pubDate>Thu, 19 Jun 2025 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/</guid>
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/</guid>
         <description>&lt;p&gt;In this part, we begin performing meta-analysis using the R language. If you are not familiar with R, you may refer to &lt;a class=&#34;link&#34; href=&#34;https://r4ds.had.co.nz/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;R for Data Science&lt;/a&gt; for a comprehensive introduction.&lt;/p&gt;
 &lt;p&gt;We will cover how to prepare data for import into RStudio, import the data, label it appropriately, and analyze it using meta-analysis codes.&lt;/p&gt;
@@ -305,10 +311,10 @@
 &lt;/h2&gt;&lt;p&gt;To perform meta-analysis, we first need to calculate the &lt;strong&gt;mean change&lt;/strong&gt; and the &lt;strong&gt;Standard Deviation (SD)&lt;/strong&gt; of the mean change for studies reporting only pre- and post-measurements. Additionally, we should label our data based on defined criteria (discussed further below) to prepare for subgroup analysis, which is critical in meta-analyses.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s say we have extracted the following data from a study evaluating C-reactive protein (CRP) levels in blood after consuming Vitamin E (&lt;a class=&#34;link&#34; href=&#34;https://pubmed.ncbi.nlm.nih.gov/24241092/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Ahmadi et al. 2013&lt;/a&gt;):&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_1.png&#34;
 	width=&#34;1166&#34;
 	height=&#34;402&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_1_hu_1887f075117649f8.png 480w, http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_1_hu_cf4b012867bb54c4.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_1_hu_1887f075117649f8.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_1_hu_cf4b012867bb54c4.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -351,10 +357,10 @@
 &lt;/ul&gt;
 &lt;p&gt;In our example the SD of change is not reported. Therefore, to calculate &lt;strong&gt;r&lt;/strong&gt;, we use the following known study information (&lt;a class=&#34;link&#34; href=&#34;https://pubmed.ncbi.nlm.nih.gov/32147078/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Pirhadi-Tavandashti et al. 2020&lt;/a&gt;):&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_2.png&#34;
 	width=&#34;1157&#34;
 	height=&#34;387&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_2_hu_b3fdfa228e23ec1d.png 480w, http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_2_hu_9ff5dd565762da05.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_2_hu_b3fdfa228e23ec1d.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/images/Screenshot_2_hu_9ff5dd565762da05.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -391,7 +397,8 @@
 &lt;/table&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: You can study more about pre-post correlation &lt;a class=&#34;link&#34; href=&#34;https://matthewbjane.quarto.pub/pre-post-correlations/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+    &gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;subgroup-analysis-preparation&#34;&gt;Subgroup Analysis Preparation
 &lt;/h2&gt;&lt;p&gt;To perform subgroup analysis, we must assign codes to variables based on which we want to conduct the analysis. Commonly used variables include:&lt;/p&gt;
 &lt;ul&gt;
@@ -659,12 +666,15 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;In this sample data, the effect of Vitamin E on blood CRP levels in adults were analyzed (this is demonstration-only data). The &lt;code&gt;common effect model&lt;/code&gt; represents the result of pooling all studies together. The pooled estimate is &lt;code&gt;-0.40 [-0.52; -0.27]&lt;/code&gt;, which means that consuming Vitamin E may reduce CRP levels in the blood by approximately &lt;code&gt;0.40 mg/L&lt;/code&gt;. The next question is: &lt;strong&gt;Is this finding statistically significant?&lt;/strong&gt; The numbers within brackets indicate the 95% confidence interval (CI). If this interval includes &lt;strong&gt;zero&lt;/strong&gt;, the finding is not statistically significant. If it does not include zero, the finding is significant at the 95% confidence level (which we specified for this analysis). In our example, the confidence interval does not include zero, indicating that the result is statistically significant. The p-value further confirms this, being less than 0.0001.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Usually, the first thing you need to check after performing a meta-analysis is the heterogeneity, as it indicates whether the model you have chosen for the analysis is appropriate.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Usually, the first thing you need to check after performing a meta-analysis is the heterogeneity, as it indicates whether the model you have chosen for the analysis is appropriate.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Heterongenity is a very important concept in meta-anlysis studies. Heterogeneity refers to differences among studies. When heterogeneity is high or statistically significant, it means that the included studies differ considerably in certain characteristics (like methodology).&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The less variation there is between the studies (i.e., the lower the heterogeneity), the more valid and precise the findings from the meta-analysis will be.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The less variation there is between the studies (i.e., the lower the heterogeneity), the more valid and precise the findings from the meta-analysis will be.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: I^2 is a quantitative estimate of the proportion of variability among effect sizes due to heterogeneity. So technically, it is a statistical proxy for heterogeneity. It does not tell you why heterogeneity exists, just that it probably does. So that is why we will also try to look for the source of heterogeneity by comparing study designs, populations, dosages, follow-up durations, risk of bias, etc.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: I^2 is a quantitative estimate of the proportion of variability among effect sizes due to heterogeneity. So technically, it is a statistical proxy for heterogeneity. It does not tell you why heterogeneity exists, just that it probably does. So that is why we will also try to look for the source of heterogeneity by comparing study designs, populations, dosages, follow-up durations, risk of bias, etc.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;So how do we assess heterogeneity? We usually use the following criteria as a general rule of thumb:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -857,7 +867,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;n&#34;&gt;fs.axis&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/figure-html/forestplot-1.png&#34; width=&#34;100%&#34; /&gt;
+&lt;/div&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/figure-html/forestplot-1.png&#34; width=&#34;100%&#34; /&gt;
 &lt;p&gt;You can modify your plot using the various options offered by the &lt;code&gt;forest()&lt;/code&gt; function. To see all available options, run &lt;code&gt;?forest&lt;/code&gt; in your console.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;In the next part, we will explore finding the &lt;strong&gt;sources of heterogeneity&lt;/strong&gt;, which will lead us to performing &lt;strong&gt;subgroup analyses&lt;/strong&gt;.&lt;/p&gt;
@@ -867,10 +877,10 @@
         </item>
         <item>
         <title>Meta-Analysis on Randomized Clinical Trials - Part 2</title>
-        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</link>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</link>
         <pubDate>Wed, 04 Jun 2025 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</guid>
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/</guid>
         <description>&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
 &lt;/h2&gt;&lt;p&gt;So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to &lt;em&gt;extract&lt;/em&gt; data from published manuscripts and &lt;em&gt;prepare&lt;/em&gt; them for meta-analysis.&lt;/p&gt;
 &lt;h3 id=&#34;what-would-be-the-best-tool-for-saving-our-extracted-data&#34;&gt;What would be the best tool for saving our extracted data?
@@ -892,7 +902,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The &lt;strong&gt;mean change&lt;/strong&gt; is the final parameter used in meta-analysis. In our Excel file, we should have four columns for the mean of the dependent variable in control and intervention groups (before/after), four columns for the standard deviation (SD) of the dependent variable in control and intervention groups (before/after). You should also include four additional columns for studies reporting the mean change directly (two for the mean change of control and intervention groups and two for SDs in both groups).&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: The &lt;strong&gt;mean change&lt;/strong&gt; is the final parameter used in meta-analysis. In our Excel file, we should have four columns for the mean of the dependent variable in control and intervention groups (before/after), four columns for the standard deviation (SD) of the dependent variable in control and intervention groups (before/after). You should also include four additional columns for studies reporting the mean change directly (two for the mean change of control and intervention groups and two for SDs in both groups).&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;The SD for each dependent variable should be extracted&lt;/strong&gt;: In cases where other types of dispersion (SE, IQR, 95% CI, or range) are reported, they should be extracted and can be converted to SD as follows:&lt;/p&gt;
@@ -916,10 +927,12 @@
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Reference for conversions:&lt;/strong&gt; For guidelines and detailed methodology, see the &lt;a class=&#34;link&#34; href=&#34;https://dariososafoula.wordpress.com/wp-content/uploads/2017/01/cochrane-handbook-for-systematic-reviews-of-interventions-2019-1.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Cochrane Handbook for Systematic Reviews of Interventions&lt;/a&gt; by Higgins JP et al. You can also refer to &lt;a class=&#34;link&#34; href=&#34;https://link.springer.com/article/10.1186/1471-2288-14-135&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range&lt;/a&gt; by Wan et al.&lt;/p&gt;&lt;/blockquote&gt;
+    &gt;Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range&lt;/a&gt; by Wan et al.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;In clinical studies, some studies have more than &lt;em&gt;one&lt;/em&gt; intervention group. You may ask, if a study has several intervention groups with different types of interventions instead of a single intervention group, what should be done? The solution is to consider each intervention group as a &lt;strong&gt;separate&lt;/strong&gt; study. In other words, each group occupies its &lt;em&gt;own row&lt;/em&gt; in the data-extraction Excel sheet. For example, if a study has three intervention groups, we create three rows in the Excel sheet.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;It should be noted that studies are included in the meta-analysis ONLY IF the difference between the intervention and control groups is &lt;strong&gt;solely&lt;/strong&gt; the intervention of interest.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;It should be noted that studies are included in the meta-analysis ONLY IF the difference between the intervention and control groups is &lt;strong&gt;solely&lt;/strong&gt; the intervention of interest.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;The unit of the measured dependent variable.&lt;/strong&gt; We must convert all studies to the &lt;strong&gt;same&lt;/strong&gt; unit. If you encounter different reported units for the same dependent variable across studies, select the most common unit and convert the others to it. Ensure that when you perform conversions, you &lt;em&gt;also&lt;/em&gt; convert the &lt;em&gt;SD&lt;/em&gt;.&lt;/p&gt;
@@ -943,7 +956,8 @@
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;3) Gender of participants&lt;/strong&gt;: Usually available in the first demographic table&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Note: Sometimes statistical analyses in a study are performed separately by &lt;strong&gt;gender&lt;/strong&gt;. In such cases, we create separate rows in Excel for men and women. Although this rarely occurs in interventional studies and is more common in observational studies, when it does happen, two rows are created for the same study in Excel. In other words, one study is treated as &lt;em&gt;two&lt;/em&gt; studies.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;ul&gt;
@@ -965,7 +979,8 @@
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;9) Matching or adjustment&lt;/strong&gt;: The term &amp;ldquo;matching&amp;rdquo; refers to variables that have been equalized between the intervention and control groups. For example, matching based on age means individuals are divided into the two groups so there is no difference in age between them. This is usually reported at the beginning of the Methods or Results section, or you can locate it by searching for the words “match” or “stratified.” In interventional studies, differences between the intervention and control groups can be accounted for in the statistical analysis through adjustment. This is typically reported in a table footnote or in the statistical analysis section.&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: One of the most important adjustments in clinical trials is controlling for baseline values of the outcome variables.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;ul&gt;
@@ -975,7 +990,8 @@
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;11) Location where measurements were taken&lt;/strong&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;quality-of-the-included-studies&#34;&gt;Quality of the Included Studies
 &lt;/h2&gt;&lt;p&gt;The final topic to discuss in this part is whether the included studies have the &lt;strong&gt;necessary quality&lt;/strong&gt; to perform a meta-analysis. To what extent do the included studeis exhibit methodological errors? This assessment provides an overall view of the quality of the included studies. Previously, the Jadad tool was used for this purpose, but currently, the &lt;strong&gt;Cochrane tool&lt;/strong&gt; is used. This tool is one of the most valid tools for assessing quality. It evaluates the quality of a study using seven factors, which assess the biases that may occur in a study and thereby evaluate its overall quality. We will not go into details of this tool as it is beyond the scope of this series, but you can find more information in the &lt;a class=&#34;link&#34; href=&#34;https://training.cochrane.org/handbook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Cochrane Handbook&lt;/a&gt; by Julian P. T. Higgins and Sally Green.&lt;/p&gt;
@@ -987,10 +1003,10 @@
         </item>
         <item>
         <title>Meta-Analysis on Randomized Clinical Trials - Part 1</title>
-        <link>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</link>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</link>
         <pubDate>Fri, 16 May 2025 09:00:00 -0800</pubDate>
         
-        <guid>http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</guid>
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/</guid>
         <description>&lt;h2 id=&#34;meta-analysis&#34;&gt;Meta-Analysis
 &lt;/h2&gt;&lt;p&gt;Imagine you’re studying the effects of non-nutritive sweeteners on blood pressure. You’re curious about whether they eventually increase, decrease, or have no impact on blood pressure. You review various studies and find quite conflicting results. Some studies suggest that consuming non-nutritive sweeteners can increase blood pressure, while others show quite opposite results. Also, some studies indicate no effect on blood pressue from consuming non-nutritive sweeteners. This situation presents a challenge that you may address by conducting a meta-analysis. &lt;strong&gt;Meta-analysis pools data from multiple studies to provide a more precise estimate based on existing evidence&lt;/strong&gt;. Seems quite intriguing, doesn’t it?&lt;/p&gt;
 &lt;p&gt;Before getting into meta-analysis itself, let&amp;rsquo;s have a better understanding of &lt;strong&gt;different types of studies&lt;/strong&gt;:&lt;/p&gt;
@@ -1005,10 +1021,10 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;meta-analyses-sit-at-the-top-of-the-evidence-pyramid&#34;&gt;Meta-analyses sit at the top of the evidence pyramid
 &lt;/h2&gt;&lt;p&gt;So you may ask why meta-anlysis? In the biomedical sciences field, there’s a hierarchical evidence pyramid that outlines the significance of different studies conducted in this area. Interestingly, meta-analysis studies, which combine existing studies, are placed at the top of this pyramid, highlighting their importance.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level.png&#34;
 	width=&#34;3873&#34;
 	height=&#34;2740&#34;
-	srcset=&#34;http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_2af0c7370c0fb0c.png 480w, http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_81b51af00c610d6d.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_2af0c7370c0fb0c.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-1/images/explaining-the-fact-level_hu_81b51af00c610d6d.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1065,7 +1081,8 @@ Source: &lt;a class=&#34;link&#34; href=&#34;https://thelogicofscience.com/2016/
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Some studies report SE (standard error), IQR (interquartile range), &lt;strong&gt;95% CI&lt;/strong&gt; (confidence interval), or &lt;strong&gt;range&lt;/strong&gt;. These can all be converted to SD for pooling.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Some studies report SE (standard error), IQR (interquartile range), &lt;strong&gt;95% CI&lt;/strong&gt; (confidence interval), or &lt;strong&gt;range&lt;/strong&gt;. These can all be converted to SD for pooling.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Principle 8&lt;/strong&gt;) Is there an existing meta-analysis on our topic?&lt;/li&gt;
 &lt;/ul&gt;

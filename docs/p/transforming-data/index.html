@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" Transforming response variables Data transformations are often taught in introductory quantitative and statistics courses as methods for dealing with non-Gaussian (i.e., not normal) data, whether it be bounded (e.g, strictly positive) or skewed (https://ubco-biology.github.io/BIOL202/transform.html; https://ubco-biology.github.io/BIOL202/LSR.html#transform-the-data; Section 13.3 in Whitlock &amp; Schluter 2020). In this post, I use simulated data to demonstrate issues that might arise with transforming data. I use a simulated dataset rather than an empirical one so we can compare the model results to the truth.\n">
 <title>Transforming data</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/transforming-data/'>
+<link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/'>
 
-<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Transforming data">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Transforming data">
 <meta property='og:description' content=" Transforming response variables Data transformations are often taught in introductory quantitative and statistics courses as methods for dealing with non-Gaussian (i.e., not normal) data, whether it be bounded (e.g, strictly positive) or skewed (https://ubco-biology.github.io/BIOL202/transform.html; https://ubco-biology.github.io/BIOL202/LSR.html#transform-the-data; Section 13.3 in Whitlock &amp; Schluter 2020). In this post, I use simulated data to demonstrate issues that might arise with transforming data. I use a simulated dataset rather than an empirical one so we can compare the model results to the truth.\n">
-<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/transforming-data/'>
+<meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R' /><meta property='article:tag' content='rstudio' /><meta property='article:published_time' content='2024-10-07T14:00:00-08:00'/><meta property='article:modified_time' content='2024-10-07T14:00:00-08:00'/>
 <meta name="twitter:title" content="Transforming data">
@@ -70,8 +70,8 @@
                     
                     
                         
-                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
-                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                        <img src="/csc-data-blog/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
                 </a>
@@ -358,7 +358,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 07, 2024</time>
+                <time class="article-time--published" datetime='2024-10-07T14:00:00-08:00'>Oct 07, 2024</time>
             </div>
         
 
@@ -388,9 +388,6 @@
     <section class="article-content">
     
     
-    
-		  Stefano Mezzini
-	  
     <!-- This blog covers data transformations in `R`. If you use `Python`, see [this post](needs-a-url). -->
 <h2 id="transforming-response-variables">Transforming response variables
 </h2><p>Data transformations are often taught in introductory quantitative and statistics courses as methods for dealing with non-Gaussian (i.e., not normal) data, whether it be bounded (e.g, strictly positive) or skewed (<a class="link" href="https://ubco-biology.github.io/BIOL202/transform.html"  target="_blank" rel="noopener"
@@ -452,7 +449,7 @@
 </span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">&#39;Accidents per month&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">&#39;Count&#39;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-1-1.png" width="\linewidth" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-1-1.png" width="\linewidth" />
 <p>The distribution of the number of monthly accidents is clearly non-Gaussian both before and after the intervention. (<em>Also note that the number of accidents cannot be negative.</em>) Still, let&rsquo;s fit a linear model to estimate the mean number of accidents in each period. In this post I use the <code>mgcv::gam()</code> function to fit all models for consistency and convenience, but note that you could also use the <code>stats::lm()</code> and <code>stats::glm()</code> functions, too. After fitting the model, we can look at the estimated change in mean accidents and appraise the model using diagnostic plots.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -483,7 +480,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">appraise</span><span class="p">(</span><span class="n">m_1</span><span class="p">,</span> <span class="n">point_alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-3-1.png" width="\linewidth" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-3-1.png" width="\linewidth" />
 <p>Those who are used to looking at these plots may recognize two issues: (1) the residuals are not Gaussian (see the q-q plot and the histogram, in the left column), and (2) the variance in the observed values is lower when the predicted mean (linear predictor and fitted values) is lower. One may then decide to log-transform the number of accidents, after adding a small value to avoid taking the log of zero (since <code>\(\log(0) = - \infty\)</code>).</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -547,7 +544,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">appraise</span><span class="p">(</span><span class="n">m_2</span><span class="p">,</span> <span class="n">point_alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-4-1.png" width="\linewidth" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-4-1.png" width="\linewidth" />
 <p>The <code>log1p</code> transformation resulted in a somewhat more symmetrical distribution of residuals, and the mode of the distribution is closer to zero, and improved the issue of non-constant variance (heteroskedasticity). The coefficients are also harder to interpret because they are on the <code>log1p</code> scale, since the model is <code>$$\log(Y+1)=0.86 - 0.60 \,x_1.$$</code></p>
 <p>Rather than forcing our response variable to be Gaussian when it isn&rsquo;t (see <a class="link" href="https://events.ok.ubc.ca/event/fitting-models-to-data-not-data-to-models-eight-workshop-series/"  target="_blank" rel="noopener"
     >this modeling workshop</a> I created with the CSC), we can fit a model that fits our data well: a Generalized Linear Model (GLM). GLMs allow one to recognize the structure of the response variable (e.g., any bounds and the mean-variance relationship) by specifying an appropriate statistical distribution (e.g., Gaussian, binomial, etc.).</p>
@@ -580,7 +577,7 @@
 <pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">appraise</span><span class="p">(</span><span class="n">m_3</span><span class="p">,</span> <span class="n">point_alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-5-1.png" width="\linewidth" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-5-1.png" width="\linewidth" />
 <p>The output from <code>coef()</code> tells us that the GLM is <code>$$\lambda = e{0.51-1.39\,x_1}.$$</code> This means that after the intervention, the number of accidents decreased to <code>\(e^-1.39 * 100%= 0.25%\)</code> what they were in the 12 months before.</p>
 <p>With the GLM, we can see a improvement in both the q-q plot and histogram of residuals, and while the variance still increases with the mean number of accidents, the model now expects that to be the case. This is because the variance of a Poisson distributions is equal to its mean, both of which are usually indicated as <code>\(\lambda\)</code> rather than <code>\(\lambda\)</code>.</p>
 <p>The <code>\(\log\)</code> link function (<code>link = 'log'</code>) allows us to create a model that will only give us non-negative numbers of accidents by having the form <code>$$\log(\lambda) = 0.51-1.39 \, x_1,$$</code> which we can re-write as <code>$$\lambda = e^{ 0.51-1.39 \, x_1}.$$</code> Notice that while this model may look similar to the <code>log1p</code> model, the <code>\(\log\)</code> function is applied to <code>\(\lambda\)</code>, the mean of <code>\(Y\)</code>, rather than to <code>\(Y\)</code> directly. This is important because it removes the systematic bias that results from applying non-linear transformations such as <code>\(\log(Y)\)</code>, <code>\(\sqrt{Y}\)</code>, and <code>\(\arcsin\left(\sqrt{Y}\right)\)</code> to a random variable. Now that we have three models, let&rsquo;s compare between the predictions that the tree give us:</p>
@@ -670,7 +667,7 @@
 </span></span><span class="line"><span class="cl">  <span class="n">khroma</span><span class="o">::</span><span class="nf">scale_color_highcontrast</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Model&#39;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-6-1.png" width="\linewidth" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-6-1.png" width="\linewidth" />
 <p>From the plot above, we can see that the LM and GLM have fairly similar coefficient estimates and that the <code>log1p</code> LM resulted in lower estimates for both. This is due to a systematic bias that occurs when one applies a nonlinear transformation to a random variable, like <code>\(\log(Y)\)</code>. I explain why in the sections below. Additionally, while the LM&rsquo;s coefficients are reasonable, the 95% <a class="link" href="https://en.wikipedia.org/wiki/Credible_interval"  target="_blank" rel="noopener"
     >Bayesian Credible Intervals</a> (BCIs) for the post-intervention estimate are not appropriate because they include negative values. In contrast, the GLM&rsquo;s BCIs are asymmetric: they are shorter below the mean and longer above the mean. This is recognizes that a multiplicative change for large values is larger than one for small values: a 50% decrease will take 2 to 1 and take 4 to 2. Consequently, asymmetric BCIs provide a better representation of the model&rsquo;s uncertainty.</p>
 <h2 id="linear-and-nonlinear-transformations">Linear and nonlinear transformations
@@ -685,7 +682,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span> <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">Y</span><span class="o">/</span><span class="m">10</span> <span class="o">+</span> <span class="m">3</span><span class="p">))</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-7-1.png" width="\linewidth" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-7-1.png" width="\linewidth" />
 <p>Conversely, nonlinear transformations are all transformations that cannot be written using only addition, subtraction, multiplications, or division. If we were to plot any of these functions, we would see a nonlinear relationship between the original and transformed values:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -731,7 +728,7 @@
 </span></span><span class="line"><span class="cl">## ! NaNs produced
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-8-1.png" width="\linewidth" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-8-1.png" width="\linewidth" />
 <h3 id="jensens-inequality">Jensen&rsquo;s inequality
 </h3><p><a class="link" href="https://en.wikipedia.org/wiki/Jensen%27s_inequality"  target="_blank" rel="noopener"
     >Jensen&rsquo;s inequality</a> demostrates that if we apply a nonlinear transformation to a random variable, we can&rsquo;t simply back-transform the mean. This is because, if <code>\(g()\)</code> is a nonlinear transformation and <code>\(g^{-1}()\)</code> is its inverse (e.g, <code>\(g() = \log()\)</code> and <code>\(g^{-1}()=\exp()\)</code>): <code>$$g\big[\mathbb E(Y)\big] \ne \mathbb E\big[g(Y)\big],$$</code> where <code>\(\mathbb E()\)</code> indicates an expected value such that <code>\(\mathbb E(Y)=\mu\)</code>. This implies that <code>$$\mathbb E(Y) = \mu \ne g^{-1}\bigg\{\mathbb E\big[g(Y)\big]\bigg\}.$$</code></p>
@@ -790,7 +787,7 @@
 </span></span><span class="line"><span class="cl">  <span class="n">yparams</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">bins</span> <span class="o">=</span> <span class="m">5</span><span class="p">))</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-9-1.png" width="\linewidth" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/transforming-data/index.en_files/figure-html/unnamed-chunk-9-1.png" width="\linewidth" />
 <p>However, note that the transformations only cause bias if applied to random variables. You can apply nonlinear transformations to predictor variables that you assume are measured exactly right. This means that fitting a model of the form <code>\(Y = \beta_0 + \beta_1 \log(x_1)\)</code> will not cause issues if you assume <code>\(x_1\)</code> is exactly correct with no error (as we often assume). Applying nonlinear transformations on predictors can be useful when a predictor has a distribution with a very long tail, or if one wants to create a variable with diminishing effects (e.g., moving closer to something matters more when you&rsquo;re close and less when you&rsquo;re already far from it). I will make a blog post on this in the future.</p>
 <h2 id="references">References
 </h2><p>Whitlock M. &amp; Schluter D. (2020). Analysis of biological data, Third edition. Macmillan Learning, New York, NY.</p>
@@ -826,18 +823,24 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-	const mainArticleElement = document.querySelector(".main-article");
-        renderMathInElement(mainArticleElement, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true }
-            ],
-            ignoredClasses: ["gist"]
-        });})
-</script>
+        const elementsToRender = [".main-article", ".widget--toc"];
 
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
     
 </article>
 
@@ -935,7 +938,7 @@
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -1024,7 +1027,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

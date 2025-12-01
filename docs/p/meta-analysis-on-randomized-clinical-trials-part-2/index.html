@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Meta-Analysis So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to extract data from published manuscripts and prepare them for meta-analysis.\nWhat would be the best tool for saving our extracted data? Our suggestion is Excel because it is easy to work with and facilitates any necessary conversions (e.g., units or dispersions across different studies). In our Excel file, each row will be allocated to a study from which we are extracting data.\n">
 <title>Meta-Analysis on Randomized Clinical Trials - Part 2</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/'>
+<link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/'>
 
-<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Meta-Analysis on Randomized Clinical Trials - Part 2">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Meta-Analysis on Randomized Clinical Trials - Part 2">
 <meta property='og:description' content="Meta-Analysis So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to extract data from published manuscripts and prepare them for meta-analysis.\nWhat would be the best tool for saving our extracted data? Our suggestion is Excel because it is easy to work with and facilitates any necessary conversions (e.g., units or dispersions across different studies). In our Excel file, each row will be allocated to a study from which we are extracting data.\n">
-<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/'>
+<meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-2/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='meta_analysis' /><meta property='article:tag' content='r' /><meta property='article:published_time' content='2025-06-04T09:00:00-08:00'/><meta property='article:modified_time' content='2025-06-04T09:00:00-08:00'/>
 <meta name="twitter:title" content="Meta-Analysis on Randomized Clinical Trials - Part 2">
@@ -70,8 +70,8 @@
                     
                     
                         
-                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
-                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                        <img src="/csc-data-blog/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
                 </a>
@@ -358,7 +358,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jun 04, 2025</time>
+                <time class="article-time--published" datetime='2025-06-04T09:00:00-08:00'>Jun 04, 2025</time>
             </div>
         
 
@@ -388,9 +388,6 @@
     <section class="article-content">
     
     
-    
-		  Amir Golzan
-	  
     <h2 id="meta-analysis">Meta-Analysis
 </h2><p>So far, we have understood what meta-analysis is, why it is used, and in which cases we should perform it. In this part, we will learn how to <em>extract</em> data from published manuscripts and <em>prepare</em> them for meta-analysis.</p>
 <h3 id="what-would-be-the-best-tool-for-saving-our-extracted-data">What would be the best tool for saving our extracted data?
@@ -412,7 +409,8 @@
 </li>
 </ul>
 <blockquote>
-<p><strong>Note</strong>: The <strong>mean change</strong> is the final parameter used in meta-analysis. In our Excel file, we should have four columns for the mean of the dependent variable in control and intervention groups (before/after), four columns for the standard deviation (SD) of the dependent variable in control and intervention groups (before/after). You should also include four additional columns for studies reporting the mean change directly (two for the mean change of control and intervention groups and two for SDs in both groups).</p></blockquote>
+<p><strong>Note</strong>: The <strong>mean change</strong> is the final parameter used in meta-analysis. In our Excel file, we should have four columns for the mean of the dependent variable in control and intervention groups (before/after), four columns for the standard deviation (SD) of the dependent variable in control and intervention groups (before/after). You should also include four additional columns for studies reporting the mean change directly (two for the mean change of control and intervention groups and two for SDs in both groups).</p>
+</blockquote>
 <ul>
 <li>
 <p><strong>The SD for each dependent variable should be extracted</strong>: In cases where other types of dispersion (SE, IQR, 95% CI, or range) are reported, they should be extracted and can be converted to SD as follows:</p>
@@ -436,10 +434,12 @@
 <blockquote>
 <p><strong>Reference for conversions:</strong> For guidelines and detailed methodology, see the <a class="link" href="https://dariososafoula.wordpress.com/wp-content/uploads/2017/01/cochrane-handbook-for-systematic-reviews-of-interventions-2019-1.pdf"  target="_blank" rel="noopener"
     >Cochrane Handbook for Systematic Reviews of Interventions</a> by Higgins JP et al. You can also refer to <a class="link" href="https://link.springer.com/article/10.1186/1471-2288-14-135"  target="_blank" rel="noopener"
-    >Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range</a> by Wan et al.</p></blockquote>
+    >Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range</a> by Wan et al.</p>
+</blockquote>
 <p>In clinical studies, some studies have more than <em>one</em> intervention group. You may ask, if a study has several intervention groups with different types of interventions instead of a single intervention group, what should be done? The solution is to consider each intervention group as a <strong>separate</strong> study. In other words, each group occupies its <em>own row</em> in the data-extraction Excel sheet. For example, if a study has three intervention groups, we create three rows in the Excel sheet.</p>
 <blockquote>
-<p>It should be noted that studies are included in the meta-analysis ONLY IF the difference between the intervention and control groups is <strong>solely</strong> the intervention of interest.</p></blockquote>
+<p>It should be noted that studies are included in the meta-analysis ONLY IF the difference between the intervention and control groups is <strong>solely</strong> the intervention of interest.</p>
+</blockquote>
 <ul>
 <li>
 <p><strong>The unit of the measured dependent variable.</strong> We must convert all studies to the <strong>same</strong> unit. If you encounter different reported units for the same dependent variable across studies, select the most common unit and convert the others to it. Ensure that when you perform conversions, you <em>also</em> convert the <em>SD</em>.</p>
@@ -463,7 +463,8 @@
 <li>
 <p><strong>3) Gender of participants</strong>: Usually available in the first demographic table</p>
 </li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <p>Note: Sometimes statistical analyses in a study are performed separately by <strong>gender</strong>. In such cases, we create separate rows in Excel for men and women. Although this rarely occurs in interventional studies and is more common in observational studies, when it does happen, two rows are created for the same study in Excel. In other words, one study is treated as <em>two</em> studies.</p>
 <blockquote>
 <ul>
@@ -485,7 +486,8 @@
 <li>
 <p><strong>9) Matching or adjustment</strong>: The term &ldquo;matching&rdquo; refers to variables that have been equalized between the intervention and control groups. For example, matching based on age means individuals are divided into the two groups so there is no difference in age between them. This is usually reported at the beginning of the Methods or Results section, or you can locate it by searching for the words “match” or “stratified.” In interventional studies, differences between the intervention and control groups can be accounted for in the statistical analysis through adjustment. This is typically reported in a table footnote or in the statistical analysis section.</p>
 </li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <p><em>Note</em>: One of the most important adjustments in clinical trials is controlling for baseline values of the outcome variables.</p>
 <blockquote>
 <ul>
@@ -495,7 +497,8 @@
 <li>
 <p><strong>11) Location where measurements were taken</strong></p>
 </li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <h2 id="quality-of-the-included-studies">Quality of the Included Studies
 </h2><p>The final topic to discuss in this part is whether the included studies have the <strong>necessary quality</strong> to perform a meta-analysis. To what extent do the included studeis exhibit methodological errors? This assessment provides an overall view of the quality of the included studies. Previously, the Jadad tool was used for this purpose, but currently, the <strong>Cochrane tool</strong> is used. This tool is one of the most valid tools for assessing quality. It evaluates the quality of a study using seven factors, which assess the biases that may occur in a study and thereby evaluate its overall quality. We will not go into details of this tool as it is beyond the scope of this series, but you can find more information in the <a class="link" href="https://training.cochrane.org/handbook"  target="_blank" rel="noopener"
     >Cochrane Handbook</a> by Julian P. T. Higgins and Sally Green.</p>
@@ -535,18 +538,24 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-	const mainArticleElement = document.querySelector(".main-article");
-        renderMathInElement(mainArticleElement, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true }
-            ],
-            ignoredClasses: ["gist"]
-        });})
-</script>
+        const elementsToRender = [".main-article", ".widget--toc"];
 
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
     
 </article>
 
@@ -644,7 +653,7 @@
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -733,7 +742,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="In this part, we begin performing meta-analysis using the R language. If you are not familiar with R, you may refer to R for Data Science for a comprehensive introduction.\nWe will cover how to prepare data for import into RStudio, import the data, label it appropriately, and analyze it using meta-analysis codes.\nData Preparation To perform meta-analysis, we first need to calculate the mean change and the Standard Deviation (SD) of the mean change for studies reporting only pre- and post-measurements. Additionally, we should label our data based on defined criteria (discussed further below) to prepare for subgroup analysis, which is critical in meta-analyses.\n">
 <title>Meta-Analysis on Randomized Clinical Trials - Part 3</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/'>
+<link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/'>
 
-<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Meta-Analysis on Randomized Clinical Trials - Part 3">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Meta-Analysis on Randomized Clinical Trials - Part 3">
 <meta property='og:description' content="In this part, we begin performing meta-analysis using the R language. If you are not familiar with R, you may refer to R for Data Science for a comprehensive introduction.\nWe will cover how to prepare data for import into RStudio, import the data, label it appropriately, and analyze it using meta-analysis codes.\nData Preparation To perform meta-analysis, we first need to calculate the mean change and the Standard Deviation (SD) of the mean change for studies reporting only pre- and post-measurements. Additionally, we should label our data based on defined criteria (discussed further below) to prepare for subgroup analysis, which is critical in meta-analyses.\n">
-<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/'>
+<meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='meta_analysis' /><meta property='article:tag' content='r' /><meta property='article:published_time' content='2025-06-19T09:00:00-08:00'/><meta property='article:modified_time' content='2025-06-19T09:00:00-08:00'/>
 <meta name="twitter:title" content="Meta-Analysis on Randomized Clinical Trials - Part 3">
@@ -70,8 +70,8 @@
                     
                     
                         
-                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
-                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                        <img src="/csc-data-blog/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
                 </a>
@@ -355,7 +355,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jun 19, 2025</time>
+                <time class="article-time--published" datetime='2025-06-19T09:00:00-08:00'>Jun 19, 2025</time>
             </div>
         
 
@@ -385,9 +385,6 @@
     <section class="article-content">
     
     
-    
-		  Amir Golzan
-	  
     <p>In this part, we begin performing meta-analysis using the R language. If you are not familiar with R, you may refer to <a class="link" href="https://r4ds.had.co.nz/"  target="_blank" rel="noopener"
     >R for Data Science</a> for a comprehensive introduction.</p>
 <p>We will cover how to prepare data for import into RStudio, import the data, label it appropriately, and analyze it using meta-analysis codes.</p>
@@ -481,7 +478,8 @@
 </table></div>
 <blockquote>
 <p><strong>Note</strong>: You can study more about pre-post correlation <a class="link" href="https://matthewbjane.quarto.pub/pre-post-correlations/"  target="_blank" rel="noopener"
-    >here</a>.</p></blockquote>
+    >here</a>.</p>
+</blockquote>
 <h2 id="subgroup-analysis-preparation">Subgroup Analysis Preparation
 </h2><p>To perform subgroup analysis, we must assign codes to variables based on which we want to conduct the analysis. Commonly used variables include:</p>
 <ul>
@@ -749,12 +747,15 @@
 </div>
 </div><p>In this sample data, the effect of Vitamin E on blood CRP levels in adults were analyzed (this is demonstration-only data). The <code>common effect model</code> represents the result of pooling all studies together. The pooled estimate is <code>-0.40 [-0.52; -0.27]</code>, which means that consuming Vitamin E may reduce CRP levels in the blood by approximately <code>0.40 mg/L</code>. The next question is: <strong>Is this finding statistically significant?</strong> The numbers within brackets indicate the 95% confidence interval (CI). If this interval includes <strong>zero</strong>, the finding is not statistically significant. If it does not include zero, the finding is significant at the 95% confidence level (which we specified for this analysis). In our example, the confidence interval does not include zero, indicating that the result is statistically significant. The p-value further confirms this, being less than 0.0001.</p>
 <blockquote>
-<p><strong>Note</strong>: Usually, the first thing you need to check after performing a meta-analysis is the heterogeneity, as it indicates whether the model you have chosen for the analysis is appropriate.</p></blockquote>
+<p><strong>Note</strong>: Usually, the first thing you need to check after performing a meta-analysis is the heterogeneity, as it indicates whether the model you have chosen for the analysis is appropriate.</p>
+</blockquote>
 <p>Heterongenity is a very important concept in meta-anlysis studies. Heterogeneity refers to differences among studies. When heterogeneity is high or statistically significant, it means that the included studies differ considerably in certain characteristics (like methodology).</p>
 <blockquote>
-<p><strong>Note</strong>: The less variation there is between the studies (i.e., the lower the heterogeneity), the more valid and precise the findings from the meta-analysis will be.</p></blockquote>
+<p><strong>Note</strong>: The less variation there is between the studies (i.e., the lower the heterogeneity), the more valid and precise the findings from the meta-analysis will be.</p>
+</blockquote>
 <blockquote>
-<p><strong>Note</strong>: I^2 is a quantitative estimate of the proportion of variability among effect sizes due to heterogeneity. So technically, it is a statistical proxy for heterogeneity. It does not tell you why heterogeneity exists, just that it probably does. So that is why we will also try to look for the source of heterogeneity by comparing study designs, populations, dosages, follow-up durations, risk of bias, etc.</p></blockquote>
+<p><strong>Note</strong>: I^2 is a quantitative estimate of the proportion of variability among effect sizes due to heterogeneity. So technically, it is a statistical proxy for heterogeneity. It does not tell you why heterogeneity exists, just that it probably does. So that is why we will also try to look for the source of heterogeneity by comparing study designs, populations, dosages, follow-up durations, risk of bias, etc.</p>
+</blockquote>
 <p>So how do we assess heterogeneity? We usually use the following criteria as a general rule of thumb:</p>
 <ul>
 <li>
@@ -947,7 +948,7 @@
 </span></span><span class="line"><span class="cl">       <span class="n">fs.axis</span>    <span class="o">=</span> <span class="m">8</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/figure-html/forestplot-1.png" width="100%" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/index.en_files/figure-html/forestplot-1.png" width="100%" />
 <p>You can modify your plot using the various options offered by the <code>forest()</code> function. To see all available options, run <code>?forest</code> in your console.</p>
 <hr>
 <p>In the next part, we will explore finding the <strong>sources of heterogeneity</strong>, which will lead us to performing <strong>subgroup analyses</strong>.</p>
@@ -985,18 +986,24 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-	const mainArticleElement = document.querySelector(".main-article");
-        renderMathInElement(mainArticleElement, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true }
-            ],
-            ignoredClasses: ["gist"]
-        });})
-</script>
+        const elementsToRender = [".main-article", ".widget--toc"];
 
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
     
 </article>
 
@@ -1094,7 +1101,7 @@
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -1183,7 +1190,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

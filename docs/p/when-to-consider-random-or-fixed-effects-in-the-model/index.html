@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/csc-data-blog/livereload.js?mindelay=10&amp;v=2&amp;port=4321&amp;path=csc-data-blog/livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="One common question in statistical modeling is whether to consider a particular factor as a fixed effect or a random effect. In R, this often translates to deciding between a standard generalized linear model (glm) and a generalized linear mixed-effects model (glmer).\nFor example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the specific levels themselves or are they considered a random sample from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! (Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)\n">
 <title>When to Consider Random or Fixed Effects in the Model?</title>
 
-<link rel='canonical' href='http://localhost:4321/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
+<link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
 
-<link rel="stylesheet" href="/csc-data-blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="When to Consider Random or Fixed Effects in the Model?">
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="When to Consider Random or Fixed Effects in the Model?">
 <meta property='og:description' content="One common question in statistical modeling is whether to consider a particular factor as a fixed effect or a random effect. In R, this often translates to deciding between a standard generalized linear model (glm) and a generalized linear mixed-effects model (glmer).\nFor example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the specific levels themselves or are they considered a random sample from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! (Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)\n">
-<meta property='og:url' content='http://localhost:4321/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
+<meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='modelling' /><meta property='article:tag' content='r' /><meta property='article:published_time' content='2025-08-11T09:00:00-08:00'/><meta property='article:modified_time' content='2025-08-11T09:00:00-08:00'/>
 <meta name="twitter:title" content="When to Consider Random or Fixed Effects in the Model?">
@@ -70,8 +70,8 @@
                     
                     
                         
-                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
-                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                        <img src="/csc-data-blog/img/avatar_hu_f509edb42ecc0ebd.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
                 </a>
@@ -358,7 +358,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 11, 2025</time>
+                <time class="article-time--published" datetime='2025-08-11T09:00:00-08:00'>Aug 11, 2025</time>
             </div>
         
 
@@ -388,9 +388,6 @@
     <section class="article-content">
     
     
-    
-		  Amir Golzan
-	  
     <p>One common question in statistical modeling is whether to consider a particular factor as a <strong>fixed effect</strong> or a <strong>random effect</strong>. In R, this often translates to deciding between a standard generalized linear model (<code>glm</code>) and a generalized linear mixed-effects model (<code>glmer</code>).</p>
 <p>For example, if we have data on patients from multiple hospitals, should we include hospital as a fixed effect (using dummy variables for each hospital) or as a random effect (considering hospital as a grouping factor)? This decision can significantly impact your model’s interpretability and inference. Traditionally, the distinction is explained as follows: are you interested in the <em>specific levels</em> themselves or are they considered a <em>random sample</em> from a broader population of levels? If the former, treat it as fixed; if the latter, treat it as random! <em>(Note that this is a heuristic, not a strict rule. In practice, the choice also depends on data structure and goals, as we later discuss.)</em></p>
 <p>In simpler terms, <strong>fixed effects</strong> apply to measured levels that exhaust our interest (e.g. specific treatments or specific known categories), whereas <strong>random effects</strong> assume the levels are drawn from a <strong>wider population</strong> and you mainly care about the <strong>variation</strong> among them rather than each <strong>specific</strong> level.</p>
@@ -399,7 +396,8 @@
 </h2><p>In a regression context, a <strong>fixed effect</strong> is a non-random parameter that may vary across specific levels of a factor but is assumed constant in the population (e.g., the same effect for all males). If you include a categorical variable as a fixed effect, you are estimating a coefficient for each level (category) of that variable (minus one reference level). By contrast, a <strong>random effect</strong> assumes the effect of that categorical factor varies <em>randomly</em> across levels, which we model by specifying a distribution (usually normal) for those effects. Instead of estimating an <em>independent coefficient</em> for each level, a random-effects model estimates variance components that describe the distribution of the level effects.</p>
 <blockquote>
 <p><strong>Note</strong>: In essence, “a fixed factor assumes that the levels are <em><strong>separate</strong></em>, <em><strong>independent</strong></em>, and <em><strong>not similar</strong></em>. A random effect assumes the levels come from a <em><strong>distribution</strong></em> and are <em><strong>related</strong></em> and <em><strong>exchangeable</strong></em>” (<a class="link" href="https://bookdown.org/steve_midway/DAR/random-effects.html"  target="_blank" rel="noopener"
-    >Data Analysis in R by Steve Midway</a>).</p></blockquote>
+    >Data Analysis in R by Steve Midway</a>).</p>
+</blockquote>
 <p>What are the implications of these approaches? One big difference is <strong>degrees of freedom</strong> and generality. A fixed-effect model with many levels uses up <strong>a lot of degrees of freedom</strong> (each level is an extra parameter) and treats those particular levels as the only ones of interest. A random-effect model is more <strong>parsimonious</strong> when levels are numerous: it “eats up” only one or a few parameters no matter how many groups you have (one parameter for the variance, and possibly one for each random slope if you have random slopes)</p>
 <h3 id="why-and-when-should-we-consider-random-effects">Why (and when) should we consider random effects?
 </h3><ul>
@@ -421,7 +419,8 @@ A practical reason to consider random effects is when the number of levels is la
 </li>
 </ul>
 <blockquote>
-<p><strong>Note</strong>: To summarize, you should consider a random effects model (<code>GLMM</code>) when your data have inherent groups or repeated measures that you suspect have different intercepts (or slopes), and especially when those groups are numerous and not the <strong>primary focus individually</strong>.</p></blockquote>
+<p><strong>Note</strong>: To summarize, you should consider a random effects model (<code>GLMM</code>) when your data have inherent groups or repeated measures that you suspect have different intercepts (or slopes), and especially when those groups are numerous and not the <strong>primary focus individually</strong>.</p>
+</blockquote>
 <h3 id="why-and-when-should-we-consider-fixed-effects">Why (and when) should we consider fixed effects?
 </h3><ul>
 <li><em><strong>When the group levels are of direct interest and are not viewed as random samples:</strong></em>
@@ -430,7 +429,8 @@ Similarly, binary indicators like smoking status (smoker vs non-smoker) or other
 </ul>
 <blockquote>
 <p><strong>Note</strong>: There is no strict rule for the <strong>minimum number</strong> of factor levels needed for a random effect, and you can <strong>technically</strong> use any factor with two or more levels. However, it is often suggested, <strong>as a rule of thumb</strong>, that you should have <strong>at least five factor levels</strong> for a random effect to gain the full benefit of using it. You might also avoid using a random effect if you do not want the factor levels to influence each other or if you do not assume they come from the same underlying distribution. As mentioned above, smoking status is a factor with only two levels, and we often prefer to estimate their information <strong>separately</strong> (<a class="link" href="https://bookdown.org/steve_midway/DAR/random-effects.html"  target="_blank" rel="noopener"
-    >Data Analysis in R by Steve Midway</a>).</p></blockquote>
+    >Data Analysis in R by Steve Midway</a>).</p>
+</blockquote>
 <ul>
 <li>
 <p><em><strong>When you need to estimate each level’s effect explicitly:</strong></em> As noted, random effects will not give you <strong>named coefficients</strong> for each level. If your analysis goal is to say “Hospital X has significantly higher outcomes than hospital Y,” a fixed-effect model allows that kind of specific contrast <em>(though you could also achieve this via post-hoc comparisons in a mixed model using BLUPs and their standard errors, but it’s more complicated)</em>. In an exploratory analysis where you only care about the <strong>measured units</strong> and <strong>not generalization</strong>, fixed effects might be simpler. In a clinical context, if you had a fixed set of hospitals and you want <em><strong>each</strong></em> hospital’s performance estimate, you might use fixed effects <em>(though an alternative is to use random effects to get shrinkage estimates and then report the BLUPs. This can actually be more accurate for ranking, but it’s an advanced consideration)</em>.</p>
@@ -443,7 +443,8 @@ Similarly, binary indicators like smoking status (smoker vs non-smoker) or other
 </li>
 </ul>
 <blockquote>
-<p><strong>Note:</strong> In practice, there are cases that fall in a <strong>grey area</strong>. For example, what if you have 5 hospitals in your study, not an extremely large sample of hospitals, but you might view them as representative of other hospitals? Here one could go either way: a fixed-effect model will let you compare those 5 hospitals specifically; a random-effect model will assume they’re just a sample and focus on variance among hospitals. A useful strategy is often to try <strong>both</strong> (if feasible) or consider a mixed modeling philosophy: you could include hospital as random to get overall treatment effects accounting for clustering, and if you really need hospital-specific estimates you can extract them (BLUPs) or do a fixed-effect model separately for that purpose. Always consider the <strong>scientific question</strong> and the <strong>data structure</strong>: Are the “levels” a means to an end (blocking factors, nuisance, or random sample)? Then random effects are great. Are the levels themselves the object of interest (specific treatments, named locations, categories that exhaust all possibilities)? Then you lean towards fixed effects.</p></blockquote>
+<p><strong>Note:</strong> In practice, there are cases that fall in a <strong>grey area</strong>. For example, what if you have 5 hospitals in your study, not an extremely large sample of hospitals, but you might view them as representative of other hospitals? Here one could go either way: a fixed-effect model will let you compare those 5 hospitals specifically; a random-effect model will assume they’re just a sample and focus on variance among hospitals. A useful strategy is often to try <strong>both</strong> (if feasible) or consider a mixed modeling philosophy: you could include hospital as random to get overall treatment effects accounting for clustering, and if you really need hospital-specific estimates you can extract them (BLUPs) or do a fixed-effect model separately for that purpose. Always consider the <strong>scientific question</strong> and the <strong>data structure</strong>: Are the “levels” a means to an end (blocking factors, nuisance, or random sample)? Then random effects are great. Are the levels themselves the object of interest (specific treatments, named locations, categories that exhaust all possibilities)? Then you lean towards fixed effects.</p>
+</blockquote>
 <h2 id="glm-vs-glmm-r-demonstration">GLM vs GLMM (R Demonstration)
 </h2><p>Let’s walk through a simple example in R to illustrate the differences between using a fixed effect and a random effect. Suppose we are analyzing data from a hypothetical clinical trial conducted at 10 different hospitals. We want to model a binary outcome (e.g., patient improved = 1 or not = 0) based on whether the patient received a new treatment or a standard treatment. We suspect that outcomes might differ by hospital (perhaps because of differing quality of care, patient populations, etc.), but we’re not primarily interested in the specific effect of each hospital; we just don’t want those differences to <strong>confound</strong> our treatment effect or <strong>violate</strong> model assumptions.</p>
 <p><strong>Simulating the data:</strong> For reproducibility, we will simulate a dataset where hospital differences are present. In the simulation below, we create 10 hospitals, each with 30 patients, and give each hospital a random “intercept” effect (some hospitals have overall higher success rates, some lower):</p>
@@ -797,7 +798,7 @@ Similarly, binary indicators like smoking status (smoker vs non-smoker) or other
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -886,7 +887,7 @@ Similarly, binary indicators like smoking status (smoker vs non-smoker) or other
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/csc-data-blog/ts/main.56a136e062479dd895f2c63c1369f3212e7b695b942fa996e5cb0dd9c3c69473.js" defer></script>
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

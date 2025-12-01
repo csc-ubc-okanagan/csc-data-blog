@@ -2,6 +2,7 @@
 title: "Creating plots with openAlexR"
 author: ["Alex Jack"]
 date: 2025-11-25
+slug: making-plots-with-openalexr
 categories: ["R"]
 tags: ["R_Visualization"]
 ---
@@ -11,7 +12,6 @@ Writing a thesis or paper introduction? Don't just *say* your field is growing o
 Here's how to go from search results to publication trend plots in about 5 minutes.
 
 Here are the packages you will need to actually run this.
-
 
 ``` r
 library(dplyr) # for general data-wrangling purposes
