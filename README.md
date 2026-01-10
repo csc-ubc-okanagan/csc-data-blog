@@ -54,7 +54,14 @@ For more basic GitHub commands and workflow learnings, visit [this link here.](h
 
 2. Run the `options(blogdown.method = "markdown")` command in your Console so that an `.md` file will be automatically generated from your `.RMD` file.
 
-3. To create a new post on the blog, first create a new `.RMD` file in the `content/post` folder. The naming convention should begin with the date (YYY-MM-DD), followed by the article title. All spaces will be documented with a dash. For example, `2023-06-21-Intro-to-Python`.
+3. To create a new post on the blog, first create a new `.RMD` file in the `content/post`
+folder. The naming convention should begin with the date (YYYY-MM-DD),
+followed by the article title. All spaces will be documented with a dash.
+For example, `2023-06-21-Intro-to-Python`. Alternatively you can simply call the
+built-in blogdown function to do this by calling `blogdown::new_post("Your post title")`
+in the console. Note that this automatically creatges the desired (YYYY-MM-DD) naming
+convention.
+
 
 4. The top section of the document should look like this example:
 ```
