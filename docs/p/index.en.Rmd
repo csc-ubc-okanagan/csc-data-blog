@@ -4,12 +4,12 @@ author: ["Alex Jack"]
 date: 2026-01-11
 slug: jensens-inequality-population-ecology
 categories: ["R"]
-tags: ["R_Visualization"]
+tags: ["Modelling"]
 params:
     math: true
 ---
 
-```{r load libraries}
+```{r load-libraries}
 library(ggplot2)
 library(dplyr)
 ```
@@ -20,7 +20,7 @@ Imagine you're managing a wildlife population. Over the past decade, the annual 
 
 
 ## A Little History of Johan Jensen
-I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he never studied in and published on Mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.
+I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he  studied in and published on topics in mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.
 
 ## Why Jensen's Inequality Matters
 At its core, Jensen's inequality reveals a fundamental mathematical truth: **the average of a function is not the same as the function of the average**, or as an equation:
@@ -69,12 +69,10 @@ ggplot(demo_data, aes(x = x, y = y, color = type)) +
   theme(legend.position = "bottom")
 ```
 
-::: {style="padding: 15px; margin-bottom: 20px; border: 2px solid #3498db; border-radius: 5px; background-color: #ecf0f1;"}
 **Key insight:** 
 - **Convex functions** (curving upward like $x^2$ or $e^x$): The function of the average is *less than* the average of the function.
 - **Concave functions** (curving downward like $\sqrt{x}$ or $\log(x)$): The function of the average is *greater than* the average of the function.
 - **Linear functions**: No difference—the average of the function equals the function of the average.
-:::
 
 ## Population Growth
 
@@ -183,7 +181,9 @@ For those interested in the formal statement:
 
 $$E[f(X)] \geq f(E[X])$$
 
-For a concave function, the inequality reverses ($\leq$).
+For a concave function, the inequality reverses ($\leq$) so:
+
+$$E[f(X)] \leq f(E[X])$$
 
 **In population ecology:**
 - If $N_{t+1} = N_t e^{r_t}$ and $r_t$ varies randomly
@@ -198,37 +198,22 @@ This is why environmental stochasticity matters more for processes with highly n
 
 ## Practical Implications
 
-1. **Never substitute means into nonlinear functions** expecting to get mean outcomes
-
-2. **Report both mean and variance** of vital rates - Both matter for population projections
-
-3. **Use simulation** when analytical solutions are unclear - Stochastic models naturally account for Jensen's inequality
-
-4. **Check your function's curvature** - Is it convex, concave, or linear? This determines the direction of bias
+1. **Never substitute means into nonlinear functions** expecting to get mean outcomes.
+2. **Report both mean and variance** of vital rates - both matter for population projections.
+3. **Use simulation** Stochastic models naturally account for Jensen's inequality.
+4. **Check your function's curvature** - Is it convex, concave, or linear? This determines the direction of bias.
 
 
 ## Conclusion
 
-Jensen's inequality is more than mathematical formalism—it's a fundamental reason why ecological systems surprise us. Every time we substitute an average into a nonlinear relationship, we're making a prediction that's systematically biased.
+Jensen's inequality is more than mathematical formalism—it's a reason why the systems we model surprise us. Every time we substitute an average into a nonlinear relationship, we're making a prediction that's systematically biased. This has relevance beyond ecological systems as well. Consider returns on investment, infection spread, or chemical reaction rates. Jensen's inequality will come into play in all of those cases. 
 
-In population ecology, where growth is exponential (convex), this means:
-- Environmental variability reduces population growth
-- Average conditions can be misleading
-- Variability is as important as the mean
+The next time someone shows you a deterministic population model with "average" parameter values, ask yourself: is this relationship linear? If not, remember Jensen's inequality. 
 
-The next time someone shows you a deterministic population model with "average" parameter values, ask yourself: is this relationship linear? If not, Jensen's inequality is lurking, waiting to make those predictions wrong in predictable ways.
-
-Understanding Jensen's inequality won't just make you better at math—it'll make you better at predicting what real populations actually do.
-
-## Further Reading
-
-- Ruel, J.J. and Ayres, M.P. (1999). Jensen's inequality predicts effects of environmental variation. *Trends in Ecology & Evolution*, 14(9), 361-366.
-- Denny, M. (2017). The fallacy of the average: on the ubiquity, utility and continuing novelty of Jensen's inequality. *Journal of Experimental Biology*, 220(2), 139-146.
-- Lewontin, R.C. and Cohen, D. (1969). On population growth in a randomly varying environment. *Proceedings of the National Academy of Sciences*, 62(4), 1056-1060.
-- [Concave and Convex Functions](https://www.geeksforgeeks.org/engineering-mathematics/convex-and-concave-functions/)
 ---
 
 ## References
 - [https://en.wikipedia.org/wiki/Johan_Jensen_(mathematician)](https://en.wikipedia.org/wiki/Johan_Jensen_(mathematician))
-
 - Doak, D. F., J. A. Estes, B. S. Halpern, U. Jacob, D. R. Lindberg, J. Lovvorn, D. H. Monson, M. T. Tinker, T. M. Williams, J. T. Wootton, I. Carroll, M. Emmerson, F. Micheli, and M. Novak. 2008. Understanding and Predicting Ecological Dynamics: Are Major Surprises Inevitable. Ecology 89:952–961.
+- [Concave and Convex Functions](https://www.geeksforgeeks.org/engineering-mathematics/convex-and-concave-functions/)
+- Denny, M. (2017). The fallacy of the average: on the ubiquity, utility and continuing novelty of Jensen's inequality. *Journal of Experimental Biology*, 220(2), 139-146.

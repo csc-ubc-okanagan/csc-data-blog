@@ -5816,42 +5816,122 @@ b) performing that request, which results in some data being sent back to us.&lt
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
         <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/defining-functions-in-python/</guid>
-        <description>
-
-
-&lt;p&gt;Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.&lt;/p&gt;
+        <description>&lt;p&gt;Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.&lt;/p&gt;
 &lt;p&gt;Simple functions can be in base Python or in different packages. Take these base Python functions for example:&lt;/p&gt;
-&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;sum((1,1))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;max([1, 2, 5, 8, 3])&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 8&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.&lt;/p&gt;
-&lt;p&gt;If we want to understand how the built-in functions work, let’s define our own function for addition. We start by naming it, and then defining the arguments. Here, let’s call it ‘add’ and it will take in two numbers, so we set the arbitrary names of these arguments to x and y.&lt;/p&gt;
-&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def add(x,y):
-    answer = x + y
-    return answer
-
-add(1,1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 2&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is cool, but unnecessary work. It’s much easier to use the built-in function that we use above. This is why packages are so useful. Other people have spent time defining functions to do typical tasks, so we can use the existing work rather than duplicating effort.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 8
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.&lt;/p&gt;
+&lt;p&gt;If we want to understand how the built-in functions work, let’s define our own function for addition. We start by naming it, and then defining the arguments. Here, let&amp;rsquo;s call it &amp;lsquo;add&amp;rsquo; and it will take in two numbers, so we set the arbitrary names of these arguments to x and y.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;answer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;answer&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;This is cool, but unnecessary work. It’s much easier to use the built-in function that we use above. This is why packages are so useful. Other people have spent time defining functions to do typical tasks, so we can use the existing work rather than duplicating effort.&lt;/p&gt;
 &lt;p&gt;Note that there may be limitations or unexpected behaviours to a function. What would happen if we added x+y in this function?&lt;/p&gt;
-&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;add(&amp;#39;x&amp;#39;,&amp;#39;y&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## &amp;#39;xy&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is something to consider when creating functions! It may not always be used for its intended use.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;y&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## &amp;#39;xy&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;This is something to consider when creating functions! It may not always be used for its intended use.&lt;/p&gt;
 &lt;p&gt;If we wanted to create a function to reverse a number, we could do that first by defining the name of our function, as well as how many arguments it requires. At the end, a function will need to do something either by using the command &lt;code&gt;return&lt;/code&gt; or &lt;code&gt;print&lt;/code&gt; or something else, otherwise it serves no purpose.&lt;/p&gt;
 &lt;p&gt;With this function, if we input the number 12345, we would expect it to return 54321.&lt;/p&gt;
-&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def reverse_num(number):
-  num = number
-  reversed_num = 0
-  while num != 0:
-    digit = num % 10
-    reversed_num = reversed_num * 10 + digit
-    num //= 10
-  print(&amp;quot;Reversed Number: &amp;quot; + str(reversed_num))
-  
-reverse_num(12345)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Reversed Number: 54321&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It works! Can you think of any limitations or unexpected uses for this function?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;reverse_num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;number&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;reversed_num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;digit&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;reversed_num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reversed_num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;digit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;//=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Reversed Number: &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;reversed_num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;reverse_num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12345&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Reversed Number: 54321
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;It works! Can you think of any limitations or unexpected uses for this function?&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -8998,32 +9078,6 @@ reverse_num(12345)&lt;/code&gt;&lt;/pre&gt;
 </description>
         </item>
         <item>
-        <title>Jupyter Notebook</title>
-        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/jupyter-notebook/</link>
-        <pubDate>Mon, 05 Jun 2023 18:00:00 -0800</pubDate>
-        
-        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/jupyter-notebook/</guid>
-        <description>
-
-
-&lt;p&gt;Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python. You can even use both R and Python within the same document.&lt;/p&gt;
-&lt;p&gt;Think of Python (or R) as the language you are writing in, and Jupyter as the pen and pencil. This is how Python and Jupyter are used together.&lt;/p&gt;
-&lt;div id=&#34;note&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Note:&lt;/h3&gt;
-&lt;p&gt;There are many different IDEs (integrated development environment) for Python. To name a few, Programiz, Atom, Visual Studio Code, Spyder, and many more. If a Jupyter install is causing trouble, or if you do not like the interface and want something similar to R Studio, Spyder is a good option because it is a very familiar interface for R Studio users. Programiz is also great because it doesn’t require an install.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;syzygy&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Syzygy&lt;/h2&gt;
-&lt;p&gt;Syzygy (pronunciation up for debate) is a great way to use Jupyter without having to download it to your local computer. However, it does require your UBC login to use. It also can access your local files as well as UBC OneDrive files. To use, simply follow this &lt;a href=&#34;https://ubc.syzygy.ca/&#34;&gt;link&lt;/a&gt;, click the sign on button in the top right, and use your UBC login to sign in. You will be able to creat files, view existing files, and enjoy all of the functionalities that Jupyter has to offer.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;downloading-jupyter&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Downloading Jupyter&lt;/h2&gt;
-&lt;p&gt;If you prefer to download Jupyter, it can be done with Anaconda. This &lt;a href=&#34;https://www.youtube.com/watch?v=WUeBzT43JyY&#34;&gt;video&lt;/a&gt; is a great resource explaining how to download both Jupyter and Anaconda, as well as how to get started using Jupyter.&lt;/p&gt;
-&lt;p&gt;Alternatively, you can follow the instructions on this &lt;a href=&#34;https://www.codecademy.com/article/setting-up-jupyter-notebook&#34;&gt;webpage&lt;/a&gt; to do the same install. Note that it has slightly different instructions for Windows and Mac users.&lt;/p&gt;
-&lt;/div&gt;
-</description>
-        </item>
-        <item>
         <title>Reading Data in Python</title>
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/reading-data-in-python/</link>
         <pubDate>Mon, 05 Jun 2023 11:00:00 -0800</pubDate>
@@ -9105,244 +9159,6 @@ reverse_num(12345)&lt;/code&gt;&lt;/pre&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;There are many other file formats and ways to load files into Python. There are great resources online for any other file formats, but these examples above should get you started.&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Searching for files with the `findR` package</title>
-        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/searching-for-files-with-the-findr-package/</link>
-        <pubDate>Thu, 09 Mar 2023 18:00:00 -0800</pubDate>
-        
-        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/searching-for-files-with-the-findr-package/</guid>
-        <description>
-
-
-&lt;!-- https://chirpy.cotes.page/posts/write-a-new-post/ --&gt;
-&lt;p&gt;It is good practice to have descriptive but concise file names so one can easily find the code they are looking for. But as projects grow, the number of scripts can become quite large (unless you are one of those chaotic people that put everything in a single script…). With UNIX computers, one can easily search for code in the a file explorer window, but this does not work with Windows. It is possible to search for files by name, but it is not possible to search for specific content in &lt;code&gt;R&lt;/code&gt; scripts.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;findR&lt;/code&gt; package allows Windows users to search for specific strings of code within directories using a simple syntax:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;#39;findR&amp;#39;)
-findRscript(pattern = &amp;#39;a string of code&amp;#39;,
-            path = &amp;#39;my-folder&amp;#39;,
-            case.sensitive = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;findR&amp;#39; was built under R version 4.4.3&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;code&gt;pattern&lt;/code&gt; argument can be any code string, but note that single and double quotes need to be escaped by placing a &lt;code&gt;\&lt;/code&gt; before them (i.e., &lt;code&gt;\&#39;&lt;/code&gt; and &lt;code&gt;\&#34;&lt;/code&gt;), while some special characters need to be preceeded by &lt;code&gt;\\&lt;/code&gt;, such as &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;(&lt;/code&gt;. Failing to escape and double-escape special characters will cause the function to miss the files or fail:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;findRscript(&amp;#39;library(\&amp;#39;ctmm\&amp;#39;)&amp;#39;, path = &amp;#39;H:/GitHub/env-var-review/analysis&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## No R scripts found!&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;findRscript(&amp;#39;library\\(\&amp;#39;ctmm\&amp;#39;\\)&amp;#39;, path = &amp;#39;H:/GitHub/env-var-review/analysis&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## No R scripts found!&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The package can also search for &lt;code&gt;R&lt;/code&gt; Markdown files, PDFs, and text (&lt;code&gt;.txt&lt;/code&gt;) files via the &lt;code&gt;findRmd()&lt;/code&gt;, &lt;code&gt;findPDF()&lt;/code&gt;, and &lt;code&gt;findtxt()&lt;/code&gt; functions, respectively. Each of the functions can also copy the files that matched the &lt;code&gt;pattern&lt;/code&gt; argument to a new folder (if &lt;code&gt;copy = TRUE&lt;/code&gt;, but it is &lt;code&gt;FALSE&lt;/code&gt; by default). You can decide which folder the files get copied to using the &lt;code&gt;folder&lt;/code&gt; argument. Note that by default &lt;code&gt;overwrite&lt;/code&gt; is set to &lt;code&gt;TRUE&lt;/code&gt;, so any files present with the same name will be overwritten.&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Data Structures in R</title>
-        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/data-structures-in-r/</link>
-        <pubDate>Tue, 07 Mar 2023 11:00:00 -0800</pubDate>
-        
-        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/data-structures-in-r/</guid>
-        <description>
-
-
-&lt;p&gt;There are many different data structure types in &lt;code&gt;R&lt;/code&gt;, each with varying levels of complexity and uses. The simplest data structure in &lt;code&gt;R&lt;/code&gt; is a vector. Vectors are one-dimensional arrays (i.e., sets of values) of a single class (such as characters, numbers, dates, etc.), and they have a similar structure to the mathematical concept of vectors. For example, the vector &lt;span class=&#34;math inline&#34;&gt;\(\vec v\)&lt;/span&gt; with values 1, 4, 6, 2 would be:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\vec v = \begin{bmatrix}1 \\ 4 \\ 6 \\ 2\end{bmatrix}.\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;In &lt;code&gt;R&lt;/code&gt; we can create vectors using the &lt;code&gt;c()&lt;/code&gt; function, as follows:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;v &amp;lt;- c(1, 4, 6, 2)
-v&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 1 4 6 2&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(&lt;code&gt;R&lt;/code&gt; prints vectors in a line rather than as columns to improve readability.)&lt;/p&gt;
-&lt;p&gt;Since vectors can only contain elements of a common type, &lt;code&gt;c()&lt;/code&gt; will force all elements to be of a single class. In the example below, I create a vector with the number 1, the letter “a”, today’s date, and the value &lt;code&gt;TRUE&lt;/code&gt; (a boolean value), but &lt;code&gt;c()&lt;/code&gt; coerces all values to be characters:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;c(1, &amp;#39;a&amp;#39;, Sys.Date(), TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;1&amp;quot;     &amp;quot;a&amp;quot;     &amp;quot;20418&amp;quot; &amp;quot;TRUE&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If we place two vectors (of the same class) side by side, we can create a matrix. Matrices are thus two-dimensional arrays&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# 2D arrays: matrices
-matrix(data = 1:8, nrow = 2)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3] [,4]
-## [1,]    1    3    5    7
-## [2,]    2    4    6    8&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;matrix(data = 1:8, ncol = 2)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      [,1] [,2]
-## [1,]    1    5
-## [2,]    2    6
-## [3,]    3    7
-## [4,]    4    8&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;matrix(data = 1:8, ncol = 2, byrow = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      [,1] [,2]
-## [1,]    1    2
-## [2,]    3    4
-## [3,]    5    6
-## [4,]    7    8&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# matrix operations
-matrix(1:9, ncol = 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3]
-## [1,]    1    4    7
-## [2,]    2    5    8
-## [3,]    3    6    9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;matrix(1:9, ncol = 3) + 3&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3]
-## [1,]    4    7   10
-## [2,]    5    8   11
-## [3,]    6    9   12&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;matrix(1:9, ncol = 3) * 2 # NOT matrix multiplication&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3]
-## [1,]    2    8   14
-## [2,]    4   10   16
-## [3,]    6   12   18&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;matrix(1:9, ncol = 3) %*% 6:8 # matrix multiplication&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      [,1]
-## [1,]   90
-## [2,]  111
-## [3,]  132&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;matrix(1:9, ncol = 3) %*% matrix(1:6, ncol = 2)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      [,1] [,2]
-## [1,]   30   66
-## [2,]   36   81
-## [3,]   42   96&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If we want to create an object that has different data types, a matrix or vector won’t work because &lt;code&gt;R&lt;/code&gt; will force all items to be of the same type.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(c(0, 2))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;numeric&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(c(0, 2, &amp;#39;a&amp;#39;)) # coerces all items to text&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;character&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Instead, we need to use a list.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# grouping objects with different and types: lists
-l &amp;lt;- list(letters = c(&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;),
-          numbers = 1:10,
-          today = Sys.Date())
-l&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## $letters
-## [1] &amp;quot;a&amp;quot; &amp;quot;b&amp;quot; &amp;quot;c&amp;quot;
-## 
-## $numbers
-##  [1]  1  2  3  4  5  6  7  8  9 10
-## 
-## $today
-## [1] &amp;quot;2025-11-26&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;l$letters&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;a&amp;quot; &amp;quot;b&amp;quot; &amp;quot;c&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;l$today&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2025-11-26&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If we want a list that has a table-like structure (which will likely be the case for a lot of the data you use in &lt;code&gt;R&lt;/code&gt;), we can use a data frame.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data.frame(num = 1:10,
-           abc = LETTERS[1:10])&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##    num abc
-## 1    1   A
-## 2    2   B
-## 3    3   C
-## 4    4   D
-## 5    5   E
-## 6    6   F
-## 7    7   G
-## 8    8   H
-## 9    9   I
-## 10  10   J&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data.frame(num = 1:5,
-           abc = LETTERS[1:10])&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##    num abc
-## 1    1   A
-## 2    2   B
-## 3    3   C
-## 4    4   D
-## 5    5   E
-## 6    1   F
-## 7    2   G
-## 8    3   H
-## 9    4   I
-## 10   5   J&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data.frame(num = 1:10,
-           abc = LETTERS[1:9])&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Error in data.frame(num = 1:10, abc = LETTERS[1:9]): arguments imply differing number of rows: 10, 9&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The tidyverse set of packages provides a “fancy data frame” that does not recycle elements (unless they are a single value), and allows you to reference other columns you previously created:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;#39;tibble&amp;#39;)
-tibble(num = 1:10,
-       abc = LETTERS[num])&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 10 × 2
-##      num abc  
-##    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;
-##  1     1 A    
-##  2     2 B    
-##  3     3 C    
-##  4     4 D    
-##  5     5 E    
-##  6     6 F    
-##  7     7 G    
-##  8     8 H    
-##  9     9 I    
-## 10    10 J&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tibble(num = 1:5,
-       abc = LETTERS[1:10])&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Error in `tibble()`:
-## ! Tibble columns must have compatible sizes.
-## • Size 5: Existing data.
-## • Size 10: Column `abc`.
-## ℹ Only values of size one are recycled.&lt;/code&gt;&lt;/pre&gt;
-</description>
-        </item>
-        <item>
-        <title>Making Colorblind-Friendly Figures</title>
-        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/</link>
-        <pubDate>Sat, 11 Feb 2023 10:00:00 -0800</pubDate>
-        
-        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/</guid>
-        <description>
-
-
-&lt;!-- https://chirpy.cotes.page/posts/write-a-new-post/ --&gt;
-&lt;p&gt;The default color palettes &lt;code&gt;ggplot2&lt;/code&gt; provides are generally good enough for a quick check, but they are overused and do not have very high contrast:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;#39;ggplot2&amp;#39;)     # for fancy figures
-library(&amp;#39;khroma&amp;#39;)      # for fancy palettes
-library(&amp;#39;cowplot&amp;#39;)     # for fancy multi-panel figures
-library(&amp;#39;colorspace&amp;#39;)  # required by colorblindr
-library(&amp;#39;colorblindr&amp;#39;) # to simulate colorblind vision
-
-theme_set(theme_bw()) # change default ggplot theme
-
-p &amp;lt;-
-  ggplot(mtcars, aes(disp, mpg, color = factor(carb))) +
-  geom_point() +
-  labs(x = &amp;#39;Displacement (cubic inches)&amp;#39;, y = &amp;#39;Miles per gallon (US)&amp;#39;,
-       color = &amp;#39;Carburetors&amp;#39;)
-p&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Additionally, they are not colorblind-friendly:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cvd_grid(p)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;While &lt;code&gt;ggplot2&lt;/code&gt; offers additional color palettes with more contrast, many of them are still not colorblind-friendly:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p + scale_color_brewer(type = &amp;#39;qual&amp;#39;, palette = 6)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cvd_grid(p + scale_color_brewer(type = &amp;#39;qual&amp;#39;, palette = 6))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-3-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;And while the &lt;code&gt;viridis&lt;/code&gt; palette (from the &lt;code&gt;viridisLite&lt;/code&gt; package and included in the &lt;code&gt;ggplot2&lt;/code&gt; package) can be a good option for continuous palettes, it can still be hard to distinguish between colors in qualitative palettes:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p + scale_color_viridis_d()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cvd_grid(p + scale_color_viridis_d())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-4-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;khroma&lt;/code&gt; package provides multiple high-contrast, colorblind-friendly palettes for qualitative, diverging and sequential data, based on the work of Paul Tol (&lt;a href=&#34;https://personal.sron.nl/~pault/&#34; class=&#34;uri&#34;&gt;https://personal.sron.nl/~pault/&lt;/a&gt;) and Fabio Crameri (&lt;a href=&#34;https://www.fabiocrameri.ch/&#34; class=&#34;uri&#34;&gt;https://www.fabiocrameri.ch/&lt;/a&gt;).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p + khroma::scale_color_bright()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cvd_grid(p + scale_color_bright())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-5-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;However, it is best to also use different shapes (in addition to different colors), when possible, to ensure people are able to distinguish between each legend item (which can be difficult with many colors – compare colors for 3 and 8 for deutan and protan versions, as well as the desaturated version). We can do this by specifying the &lt;code&gt;shape&lt;/code&gt; argument. Note that we also need to change the name of the shape legend to ensure we get a single legend:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p_sh &amp;lt;-
-  ggplot(mtcars, aes(disp, mpg, color = factor(carb))) +
-  geom_point(aes(shape = factor(carb))) +
-  labs(x = &amp;#39;Displacement (cubic inches)&amp;#39;, y = &amp;#39;Miles per gallon (US)&amp;#39;,
-       color = &amp;#39;Carburetors&amp;#39;, shape = &amp;#39;Carburetors&amp;#39;)
-p_sh&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cvd_grid(p_sh)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/making-colorblind-friendly-figures/index.en_files/figure-html/unnamed-chunk-6-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;div id=&#34;continuous-vs-discrete-khroma-color-palettes&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Continuous vs discrete &lt;code&gt;khroma&lt;/code&gt; color palettes&lt;/h3&gt;
-&lt;p&gt;Unlike with the &lt;code&gt;ggplot&lt;/code&gt; functions for color palettes, the &lt;code&gt;khroma&lt;/code&gt; function names do not specify whether the function will produce a continuous or discrete color palette. To avoid confusion, you can type &lt;code&gt;khroma::scale_color_&lt;/code&gt; and press &lt;code&gt;Tab&lt;/code&gt; to see what functions the package offers, and a helpful window should show up beside the function suggestion:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;images/khroma-function-help.png&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;(&lt;em&gt;If you want to change your RStudio theme, see &lt;a href=&#34;https://csc-ubc-okanagan.github.io/R-Python-Blog/posts/changing-rstudio-theme/&#34;&gt;this tutorial&lt;/a&gt;.&lt;/em&gt;)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;installing-the-necessary-packages&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Installing the necessary packages&lt;/h3&gt;
-&lt;p&gt;To install &lt;code&gt;colorblindr&lt;/code&gt;, you will first need to install the &lt;code&gt;cowplot&lt;/code&gt; and &lt;code&gt;colorspace&lt;/code&gt; packages:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;remotes::install_github(&amp;quot;wilkelab/cowplot&amp;quot;)
-install.packages(&amp;quot;colorspace&amp;quot;, repos = &amp;quot;http://R-Forge.R-project.org&amp;quot;)
-remotes::install_github(&amp;quot;clauswilke/colorblindr&amp;quot;)
-install.packages(&amp;#39;khroma&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To read the help files for any of the functions in the packages, use the &lt;code&gt;?&lt;/code&gt; function, e.g. &lt;code&gt;?scale_color_bright&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
 </description>
         </item>
         <item>
@@ -9480,6 +9296,449 @@ To add use this theme, go to &lt;code&gt;Tools &amp;gt; Global Options&lt;/code&
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</guid>
+        <description>&lt;!-- https://chirpy.cotes.page/posts/write-a-new-post/ --&gt;
+&lt;p&gt;The default color palettes &lt;code&gt;ggplot2&lt;/code&gt; provides are generally good enough
+for a quick check, but they are overused and do not have very high
+contrast:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(&#39;ggplot2&#39;)     # for fancy figures
+library(&#39;khroma&#39;)      # for fancy palettes
+library(&#39;cowplot&#39;)     # for fancy multi-panel figures
+library(&#39;colorspace&#39;)  # required by colorblindr
+#library(&#39;colorblindr&#39;) # to simulate colorblind vision
+
+theme_set(theme_bw()) # change default ggplot theme
+
+p &amp;lt;-
+  ggplot(mtcars, aes(disp, mpg, color = factor(carb))) +
+  geom_point() +
+  labs(x = &#39;Displacement (cubic inches)&#39;, y = &#39;Miles per gallon (US)&#39;,
+       color = &#39;Carburetors&#39;)
+p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_f94482936c216725.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_fdcb0251c971a0c4.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Additionally, they are not colorblind-friendly:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#cvd_grid(p)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;While &lt;code&gt;ggplot2&lt;/code&gt; offers additional color palettes with more contrast,
+many of them are still not colorblind-friendly:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;p + scale_color_brewer(type = &#39;qual&#39;, palette = 6)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-3-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-3-1_hu_9d5bc2c368c8c726.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-3-1_hu_ebdc546c9d66a829.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#cvd_grid(p + scale_color_brewer(type = &#39;qual&#39;, palette = 6))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And while the &lt;code&gt;viridis&lt;/code&gt; palette (from the &lt;code&gt;viridisLite&lt;/code&gt; package and
+included in the &lt;code&gt;ggplot2&lt;/code&gt; package) can be a good option for continuous
+palettes, it can still be hard to distinguish between colors in
+qualitative palettes:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;p + scale_color_viridis_d()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-4-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-4-1_hu_c37dc52e389b707b.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-4-1_hu_5f3279f2d80fc769.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#cvd_grid(p + scale_color_viridis_d())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;khroma&lt;/code&gt; package provides multiple high-contrast,
+colorblind-friendly palettes for qualitative, diverging and sequential
+data, based on the work of Paul Tol (&lt;a class=&#34;link&#34; href=&#34;https://personal.sron.nl/~pault/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://personal.sron.nl/~pault/&lt;/a&gt;)
+and Fabio Crameri (&lt;a class=&#34;link&#34; href=&#34;https://www.fabiocrameri.ch/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.fabiocrameri.ch/&lt;/a&gt;).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;p + khroma::scale_color_bright()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-5-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-5-1_hu_67533657bc6282ee.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-5-1_hu_49cf5d9fe90095f2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#cvd_grid(p + scale_color_bright())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, it is best to also use different shapes (in addition to
+different colors), when possible, to ensure people are able to
+distinguish between each legend item (which can be difficult with many
+colors – compare colors for 3 and 8 for deutan and protan versions, as
+well as the desaturated version). We can do this by specifying the
+&lt;code&gt;shape&lt;/code&gt; argument. Note that we also need to change the name of the shape
+legend to ensure we get a single legend:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;p_sh &amp;lt;-
+  ggplot(mtcars, aes(disp, mpg, color = factor(carb))) +
+  geom_point(aes(shape = factor(carb))) +
+  labs(x = &#39;Displacement (cubic inches)&#39;, y = &#39;Miles per gallon (US)&#39;,
+       color = &#39;Carburetors&#39;, shape = &#39;Carburetors&#39;)
+p_sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-6-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-6-1_hu_6802cda966a82cff.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-6-1_hu_a561b96c0a595db0.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#cvd_grid(p_sh)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;continuous-vs-discrete-khroma-color-palettes&#34;&gt;Continuous vs discrete &lt;code&gt;khroma&lt;/code&gt; color palettes
+&lt;/h3&gt;&lt;p&gt;Unlike with the &lt;code&gt;ggplot&lt;/code&gt; functions for color palettes, the &lt;code&gt;khroma&lt;/code&gt;
+function names do not specify whether the function will produce a
+continuous or discrete color palette. To avoid confusion, you can type
+&lt;code&gt;khroma::scale_color_&lt;/code&gt; and press &lt;code&gt;Tab&lt;/code&gt; to see what functions the package
+offers, and a helpful window should show up beside the function
+suggestion:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/images/khroma-function-help.png&#34;
+	width=&#34;1349&#34;
+	height=&#34;323&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/images/khroma-function-help_hu_2c6c5dde28533773.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/images/khroma-function-help_hu_2a9926ef87f7fb75.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;417&#34;
+		data-flex-basis=&#34;1002px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;(&lt;em&gt;If you want to change your RStudio theme, see &lt;a class=&#34;link&#34; href=&#34;https://csc-ubc-okanagan.github.io/R-Python-Blog/posts/changing-rstudio-theme/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;this
+tutorial&lt;/a&gt;.&lt;/em&gt;)&lt;/p&gt;
+&lt;h3 id=&#34;installing-the-necessary-packages&#34;&gt;Installing the necessary packages
+&lt;/h3&gt;&lt;p&gt;To install &lt;code&gt;colorblindr&lt;/code&gt;, you will first need to install the &lt;code&gt;cowplot&lt;/code&gt;
+and &lt;code&gt;colorspace&lt;/code&gt; packages:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;remotes::install_github(&amp;quot;wilkelab/cowplot&amp;quot;)
+install.packages(&amp;quot;colorspace&amp;quot;, repos = &amp;quot;http://R-Forge.R-project.org&amp;quot;)
+remotes::install_github(&amp;quot;clauswilke/colorblindr&amp;quot;)
+install.packages(&#39;khroma&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To read the help files for any of the functions in the packages, use the
+&lt;code&gt;?&lt;/code&gt; function, e.g. &lt;code&gt;?scale_color_bright&lt;/code&gt;.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</guid>
+        <description>&lt;p&gt;There are many different data structure types in &lt;code&gt;R&lt;/code&gt;, each with varying
+levels of complexity and uses. The simplest data structure in &lt;code&gt;R&lt;/code&gt; is a
+vector. Vectors are one-dimensional arrays (i.e., sets of values) of a
+single class (such as characters, numbers, dates, etc.), and they have a
+similar structure to the mathematical concept of vectors. For example,
+the vector &lt;em&gt;v⃗&lt;/em&gt; with values 1, 4, 6, 2 would be:&lt;/p&gt;
+$$\vec v = \begin{bmatrix}1 \\ 4 \\ 6 \\ 2\end{bmatrix}.$$&lt;p&gt;In &lt;code&gt;R&lt;/code&gt; we can create vectors using the &lt;code&gt;c()&lt;/code&gt; function, as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;v &amp;lt;- c(1, 4, 6, 2)
+v
+
+## [1] 1 4 6 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(&lt;code&gt;R&lt;/code&gt; prints vectors in a line rather than as columns to improve
+readability.)&lt;/p&gt;
+&lt;p&gt;Since vectors can only contain elements of a common type, &lt;code&gt;c()&lt;/code&gt; will
+force all elements to be of a single class. In the example below, I
+create a vector with the number 1, the letter “a”, today’s date, and the
+value &lt;code&gt;TRUE&lt;/code&gt; (a boolean value), but &lt;code&gt;c()&lt;/code&gt; coerces all values to be
+characters:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;c(1, &#39;a&#39;, Sys.Date(), TRUE)
+
+## [1] &amp;quot;1&amp;quot;     &amp;quot;a&amp;quot;     &amp;quot;20472&amp;quot; &amp;quot;TRUE&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we place two vectors (of the same class) side by side, we can create
+a matrix. Matrices are thus two-dimensional arrays&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 2D arrays: matrices
+matrix(data = 1:8, nrow = 2)
+
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    3    5    7
+## [2,]    2    4    6    8
+
+matrix(data = 1:8, ncol = 2)
+
+##      [,1] [,2]
+## [1,]    1    5
+## [2,]    2    6
+## [3,]    3    7
+## [4,]    4    8
+
+matrix(data = 1:8, ncol = 2, byrow = TRUE)
+
+##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4
+## [3,]    5    6
+## [4,]    7    8
+
+# matrix operations
+matrix(1:9, ncol = 3)
+
+##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9
+
+matrix(1:9, ncol = 3) + 3
+
+##      [,1] [,2] [,3]
+## [1,]    4    7   10
+## [2,]    5    8   11
+## [3,]    6    9   12
+
+matrix(1:9, ncol = 3) * 2 # NOT matrix multiplication
+
+##      [,1] [,2] [,3]
+## [1,]    2    8   14
+## [2,]    4   10   16
+## [3,]    6   12   18
+
+matrix(1:9, ncol = 3) %*% 6:8 # matrix multiplication
+
+##      [,1]
+## [1,]   90
+## [2,]  111
+## [3,]  132
+
+matrix(1:9, ncol = 3) %*% matrix(1:6, ncol = 2)
+
+##      [,1] [,2]
+## [1,]   30   66
+## [2,]   36   81
+## [3,]   42   96
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we want to create an object that has different data types, a matrix
+or vector won’t work because &lt;code&gt;R&lt;/code&gt; will force all items to be of the same
+type.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class(c(0, 2))
+
+## [1] &amp;quot;numeric&amp;quot;
+
+class(c(0, 2, &#39;a&#39;)) # coerces all items to text
+
+## [1] &amp;quot;character&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Instead, we need to use a list.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# grouping objects with different and types: lists
+l &amp;lt;- list(letters = c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;),
+          numbers = 1:10,
+          today = Sys.Date())
+l
+
+## $letters
+## [1] &amp;quot;a&amp;quot; &amp;quot;b&amp;quot; &amp;quot;c&amp;quot;
+## 
+## $numbers
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## $today
+## [1] &amp;quot;2026-01-19&amp;quot;
+
+l$letters
+
+## [1] &amp;quot;a&amp;quot; &amp;quot;b&amp;quot; &amp;quot;c&amp;quot;
+
+l$today
+
+## [1] &amp;quot;2026-01-19&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we want a list that has a table-like structure (which will likely be
+the case for a lot of the data you use in &lt;code&gt;R&lt;/code&gt;), we can use a data frame.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data.frame(num = 1:10,
+           abc = LETTERS[1:10])
+
+##    num abc
+## 1    1   A
+## 2    2   B
+## 3    3   C
+## 4    4   D
+## 5    5   E
+## 6    6   F
+## 7    7   G
+## 8    8   H
+## 9    9   I
+## 10  10   J
+
+data.frame(num = 1:5,
+           abc = LETTERS[1:10])
+
+##    num abc
+## 1    1   A
+## 2    2   B
+## 3    3   C
+## 4    4   D
+## 5    5   E
+## 6    1   F
+## 7    2   G
+## 8    3   H
+## 9    4   I
+## 10   5   J
+
+data.frame(num = 1:10,
+           abc = LETTERS[1:9])
+
+## Error in `data.frame()`:
+## ! arguments imply differing number of rows: 10, 9
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The tidyverse set of packages provides a “fancy data frame” that does
+not recycle elements (unless they are a single value), and allows you to
+reference other columns you previously created:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(&#39;tibble&#39;)
+tibble(num = 1:10,
+       abc = LETTERS[num])
+
+## # A tibble: 10 × 2
+##      num abc  
+##    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;
+##  1     1 A    
+##  2     2 B    
+##  3     3 C    
+##  4     4 D    
+##  5     5 E    
+##  6     6 F    
+##  7     7 G    
+##  8     8 H    
+##  9     9 I    
+## 10    10 J
+
+tibble(num = 1:5,
+       abc = LETTERS[1:10])
+
+## Error in `tibble()`:
+## ! Tibble columns must have compatible sizes.
+## • Size 5: Existing data.
+## • Size 10: Column `abc`.
+## ℹ Only values of size one are recycled.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</guid>
+        <description>&lt;!-- https://chirpy.cotes.page/posts/write-a-new-post/ --&gt;
+&lt;p&gt;It is good practice to have descriptive but concise file names so one
+can easily find the code they are looking for. But as projects grow, the
+number of scripts can become quite large (unless you are one of those
+chaotic people that put everything in a single script…). With UNIX
+computers, one can easily search for code in the a file explorer window,
+but this does not work with Windows. It is possible to search for files
+by name, but it is not possible to search for specific content in &lt;code&gt;R&lt;/code&gt;
+scripts.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;findR&lt;/code&gt; package allows Windows users to search for specific strings
+of code within directories using a simple syntax:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(&#39;findR&#39;)
+findRscript(pattern = &#39;a string of code&#39;,
+            path = &#39;my-folder&#39;,
+            case.sensitive = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;pattern&lt;/code&gt; argument can be any code string, but note that single and
+double quotes need to be escaped by placing a &lt;code&gt;\&lt;/code&gt; before them (i.e.,
+&lt;code&gt;\&#39;&lt;/code&gt; and &lt;code&gt;\&amp;quot;&lt;/code&gt;), while some special characters need to be preceeded by
+&lt;code&gt;\\&lt;/code&gt;, such as &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;(&lt;/code&gt;. Failing to escape and double-escape special
+characters will cause the function to miss the files or fail:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;findRscript(&#39;library(\&#39;ctmm\&#39;)&#39;, path = &#39;H:/GitHub/env-var-review/analysis&#39;)
+
+## No R scripts found!
+
+findRscript(&#39;library\\(\&#39;ctmm\&#39;\\)&#39;, path = &#39;H:/GitHub/env-var-review/analysis&#39;)
+
+## No R scripts found!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The package can also search for &lt;code&gt;R&lt;/code&gt; Markdown files, PDFs, and text
+(&lt;code&gt;.txt&lt;/code&gt;) files via the &lt;code&gt;findRmd()&lt;/code&gt;, &lt;code&gt;findPDF()&lt;/code&gt;, and &lt;code&gt;findtxt()&lt;/code&gt;
+functions, respectively. Each of the functions can also copy the files
+that matched the &lt;code&gt;pattern&lt;/code&gt; argument to a new folder (if &lt;code&gt;copy = TRUE&lt;/code&gt;,
+but it is &lt;code&gt;FALSE&lt;/code&gt; by default). You can decide which folder the files get
+copied to using the &lt;code&gt;folder&lt;/code&gt; argument. Note that by default &lt;code&gt;overwrite&lt;/code&gt;
+is set to &lt;code&gt;TRUE&lt;/code&gt;, so any files present with the same name will be
+overwritten.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</guid>
+        <description>&lt;p&gt;Jupyter Notebook is a web-based interactive computing platform, and it
+can be used for many things, aside from Python. You can even use both R
+and Python within the same document.&lt;/p&gt;
+&lt;p&gt;Think of Python (or R) as the language you are writing in, and Jupyter
+as the pen and pencil. This is how Python and Jupyter are used together.&lt;/p&gt;
+&lt;h3 id=&#34;note&#34;&gt;Note:
+&lt;/h3&gt;&lt;p&gt;There are many different IDEs (integrated development environment) for
+Python. To name a few, Programiz, Atom, Visual Studio Code, Spyder, and
+many more. If a Jupyter install is causing trouble, or if you do not
+like the interface and want something similar to R Studio, Spyder is a
+good option because it is a very familiar interface for R Studio users.
+Programiz is also great because it doesn’t require an install.&lt;/p&gt;
+&lt;h2 id=&#34;syzygy&#34;&gt;Syzygy
+&lt;/h2&gt;&lt;p&gt;Syzygy (pronunciation up for debate) is a great way to use Jupyter
+without having to download it to your local computer. However, it does
+require your UBC login to use. It also can access your local files as
+well as UBC OneDrive files. To use, simply follow this
+&lt;a class=&#34;link&#34; href=&#34;https://ubc.syzygy.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt;, click the sign on button in the top
+right, and use your UBC login to sign in. You will be able to creat
+files, view existing files, and enjoy all of the functionalities that
+Jupyter has to offer.&lt;/p&gt;
+&lt;h2 id=&#34;downloading-jupyter&#34;&gt;Downloading Jupyter
+&lt;/h2&gt;&lt;p&gt;If you prefer to download Jupyter, it can be done with Anaconda. This
+&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=WUeBzT43JyY&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;video&lt;/a&gt; is a great resource
+explaining how to download both Jupyter and Anaconda, as well as how to
+get started using Jupyter.&lt;/p&gt;
+&lt;p&gt;Alternatively, you can follow the instructions on this
+&lt;a class=&#34;link&#34; href=&#34;https://www.codecademy.com/article/setting-up-jupyter-notebook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;webpage&lt;/a&gt;
+to do the same install. Note that it has slightly different instructions
+for Windows and Mac users.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/</guid>
         <description>&lt;pre&gt;&lt;code&gt;library(ggplot2)
 library(dplyr)
 &lt;/code&gt;&lt;/pre&gt;
@@ -9493,9 +9752,9 @@ Wrong. And Jensen’s inequality explains why.&lt;/p&gt;
 important finding is named after because it helps me remember it. Johan
 Ludwig William Valdemar Jensen was a Danish mathematician and engineer
 and president of the Danish Mathematical Society from 1892 to 1903.
-Although he never studied in and published on Mathematics he never held
-an academic position in the subject. He instead worked as an engineer
-for the Copenhagen Telephone Company.&lt;/p&gt;
+Although he studied in and published on topics in mathematics he never
+held an academic position in the subject. He instead worked as an
+engineer for the Copenhagen Telephone Company.&lt;/p&gt;
 &lt;h2 id=&#34;why-jensens-inequality-matters&#34;&gt;Why Jensen’s Inequality Matters
 &lt;/h2&gt;&lt;p&gt;At its core, Jensen’s inequality reveals a fundamental mathematical
 truth: &lt;strong&gt;the average of a function is not the same as the function of
@@ -9547,7 +9806,7 @@ ggplot(demo_data, aes(x = x, y = y, color = type)) +
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_b2910d78959dfbf8.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_778ecd8674c15216.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_e0b7326cc1da70fa.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_c7bec50d38edcc46.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -9654,7 +9913,7 @@ theme_minimal()
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_2298bfa3946c230a.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_f463050241e56702.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_9ef1be663301dadd.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_a78e618326157dad.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -9677,7 +9936,10 @@ model predicts 435, while the geometric mean is only 521&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
 \[*f*(*X*)\]&lt;p&gt; ≥ &lt;em&gt;f&lt;/em&gt;(&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
 \[*X*\]&lt;p&gt;)&lt;/p&gt;
-&lt;p&gt;For a concave function, the inequality reverses (≤).&lt;/p&gt;
+&lt;p&gt;For a concave function, the inequality reverses (≤) so:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*f*(*X*)\]&lt;p&gt; ≤ &lt;em&gt;f&lt;/em&gt;(&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*X*\]&lt;p&gt;)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;In population ecology:&lt;/strong&gt; - If
 &lt;em&gt;N&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt; + 1&lt;/sub&gt; = &lt;em&gt;N&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt;&lt;/sub&gt;&lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;r&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt;&lt;/sub&gt;&lt;/sup&gt;
 and &lt;em&gt;r&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt;&lt;/sub&gt; varies randomly - Then
@@ -9691,73 +9953,42 @@ gap&lt;/p&gt;
 highly nonlinear relationships.&lt;/p&gt;
 &lt;h2 id=&#34;practical-implications&#34;&gt;Practical Implications
 &lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Never substitute means into nonlinear functions&lt;/strong&gt; expecting to get
-mean outcomes&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Report both mean and variance&lt;/strong&gt; of vital rates - Both matter for
-population projections&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Use simulation&lt;/strong&gt; when analytical solutions are unclear -
-Stochastic models naturally account for Jensen’s inequality&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Check your function’s curvature&lt;/strong&gt; - Is it convex, concave, or
-linear? This determines the direction of bias&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Never substitute means into nonlinear functions&lt;/strong&gt; expecting to get
+mean outcomes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Report both mean and variance&lt;/strong&gt; of vital rates - both matter for
+population projections.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Use simulation&lt;/strong&gt; Stochastic models naturally account for Jensen’s
+inequality.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Check your function’s curvature&lt;/strong&gt; - Is it convex, concave, or
+linear? This determines the direction of bias.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
-&lt;/h2&gt;&lt;p&gt;Jensen’s inequality is more than mathematical formalism—it’s a
-fundamental reason why ecological systems surprise us. Every time we
-substitute an average into a nonlinear relationship, we’re making a
-prediction that’s systematically biased.&lt;/p&gt;
-&lt;p&gt;In population ecology, where growth is exponential (convex), this
-means: - Environmental variability reduces population growth - Average
-conditions can be misleading - Variability is as important as the mean&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;Jensen’s inequality is more than mathematical formalism—it’s a reason
+why the systems we model surprise us. Every time we substitute an
+average into a nonlinear relationship, we’re making a prediction that’s
+systematically biased. This has relevance beyond ecological systems as
+well. Consider returns on investment, infection spread, or chemical
+reaction rates. Jensen’s inequality will come into play in all of those
+cases.&lt;/p&gt;
 &lt;p&gt;The next time someone shows you a deterministic population model with
 “average” parameter values, ask yourself: is this relationship linear?
-If not, Jensen’s inequality is lurking, waiting to make those
-predictions wrong in predictable ways.&lt;/p&gt;
-&lt;p&gt;Understanding Jensen’s inequality won’t just make you better at
-math—it’ll make you better at predicting what real populations actually
-do.&lt;/p&gt;
-&lt;h2 id=&#34;further-reading&#34;&gt;Further Reading
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Ruel, J.J. and Ayres, M.P. (1999). Jensen’s inequality predicts
-effects of environmental variation. &lt;em&gt;Trends in Ecology &amp;amp; Evolution&lt;/em&gt;,
-14(9), 361-366.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Denny, M. (2017). The fallacy of the average: on the ubiquity,
-utility and continuing novelty of Jensen’s inequality. &lt;em&gt;Journal of
-Experimental Biology&lt;/em&gt;, 220(2), 139-146.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Lewontin, R.C. and Cohen, D. (1969). On population growth in a
-randomly varying environment. &lt;em&gt;Proceedings of the National Academy
-of Sciences&lt;/em&gt;, 62(4), 1056-1060.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;h2 id=&#34;concave-and-convex-functions&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.geeksforgeeks.org/engineering-mathematics/convex-and-concave-functions/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Concave and Convex Functions&lt;/a&gt;
-&lt;/h2&gt;&lt;/li&gt;
-&lt;/ul&gt;
+If not, remember Jensen’s inequality.&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2 id=&#34;references&#34;&gt;References
 &lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Johan_Jensen_%28mathematician%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://en.wikipedia.org/wiki/Johan_Jensen_(mathematician)&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Doak, D. F., J. A. Estes, B. S. Halpern, U. Jacob, D. R.
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Johan_Jensen_%28mathematician%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://en.wikipedia.org/wiki/Johan_Jensen_(mathematician)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Doak, D. F., J. A. Estes, B. S. Halpern, U. Jacob, D. R.
 Lindberg, J. Lovvorn, D. H. Monson, M. T. Tinker, T. M.
 Williams, J. T. Wootton, I. Carroll, M. Emmerson, F. Micheli, and M.
 Novak. 2008. Understanding and Predicting Ecological Dynamics: Are
-Major Surprises Inevitable. Ecology 89:952–961.&lt;/p&gt;
-&lt;/li&gt;
+Major Surprises Inevitable. Ecology 89:952–961.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.geeksforgeeks.org/engineering-mathematics/convex-and-concave-functions/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Concave and Convex
+Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Denny, M. (2017). The fallacy of the average: on the ubiquity,
+utility and continuing novelty of Jensen’s inequality. &lt;em&gt;Journal of
+Experimental Biology&lt;/em&gt;, 220(2), 139-146.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>

@@ -5,11 +5,13 @@ date: 2026-01-11
 slug: jensens-inequality-population-ecology
 categories: ["R"]
 tags: ["Modelling"]
-params:
-    math: true
+output: 
+  html_document:
+    keep_md: TRUE
+math: true
 ---
 
-```{r load libraries}
+```{r load-libraries}
 library(ggplot2)
 library(dplyr)
 ```

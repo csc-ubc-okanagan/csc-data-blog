@@ -306,8 +306,6 @@
     <li><a href="#the-math-behind-it">The Math Behind It</a></li>
     <li><a href="#practical-implications">Practical Implications</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
-    <li><a href="#further-reading">Further Reading</a></li>
-    <li><a href="#concave-and-convex-functions">Concave and Convex Functions</a></li>
     <li><a href="#references">References</a></li>
   </ol>
 </nav>
@@ -380,9 +378,9 @@ Wrong. And Jensen’s inequality explains why.</p>
 important finding is named after because it helps me remember it. Johan
 Ludwig William Valdemar Jensen was a Danish mathematician and engineer
 and president of the Danish Mathematical Society from 1892 to 1903.
-Although he never studied in and published on Mathematics he never held
-an academic position in the subject. He instead worked as an engineer
-for the Copenhagen Telephone Company.</p>
+Although he studied in and published on topics in mathematics he never
+held an academic position in the subject. He instead worked as an
+engineer for the Copenhagen Telephone Company.</p>
 <h2 id="why-jensens-inequality-matters">Why Jensen’s Inequality Matters
 </h2><p>At its core, Jensen’s inequality reveals a fundamental mathematical
 truth: <strong>the average of a function is not the same as the function of
@@ -434,7 +432,7 @@ ggplot(demo_data, aes(x = x, y = y, color = type)) +
 <p><img src="/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1.png"
 	width="672"
 	height="480"
-	srcset="/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_b2910d78959dfbf8.png 480w, /csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_778ecd8674c15216.png 1024w"
+	srcset="/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_e0b7326cc1da70fa.png 480w, /csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_c7bec50d38edcc46.png 1024w"
 	loading="lazy"
 	
 	
@@ -541,7 +539,7 @@ theme_minimal()
 <p><img src="/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1.png"
 	width="672"
 	height="480"
-	srcset="/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_2298bfa3946c230a.png 480w, /csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_f463050241e56702.png 1024w"
+	srcset="/csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_9ef1be663301dadd.png 480w, /csc-data-blog/p/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_a78e618326157dad.png 1024w"
 	loading="lazy"
 	
 	
@@ -564,7 +562,10 @@ model predicts 435, while the geometric mean is only 521</p>
 <p><em>E</em></p>
 \[*f*(*X*)\]<p> ≥ <em>f</em>(<em>E</em></p>
 \[*X*\]<p>)</p>
-<p>For a concave function, the inequality reverses (≤).</p>
+<p>For a concave function, the inequality reverses (≤) so:</p>
+<p><em>E</em></p>
+\[*f*(*X*)\]<p> ≤ <em>f</em>(<em>E</em></p>
+\[*X*\]<p>)</p>
 <p><strong>In population ecology:</strong> - If
 <em>N</em><sub><em>t</em> + 1</sub> = <em>N</em><sub><em>t</em></sub><em>e</em><sup><em>r</em><sub><em>t</em></sub></sup>
 and <em>r</em><sub><em>t</em></sub> varies randomly - Then
@@ -578,73 +579,42 @@ gap</p>
 highly nonlinear relationships.</p>
 <h2 id="practical-implications">Practical Implications
 </h2><ol>
-<li>
-<p><strong>Never substitute means into nonlinear functions</strong> expecting to get
-mean outcomes</p>
-</li>
-<li>
-<p><strong>Report both mean and variance</strong> of vital rates - Both matter for
-population projections</p>
-</li>
-<li>
-<p><strong>Use simulation</strong> when analytical solutions are unclear -
-Stochastic models naturally account for Jensen’s inequality</p>
-</li>
-<li>
-<p><strong>Check your function’s curvature</strong> - Is it convex, concave, or
-linear? This determines the direction of bias</p>
-</li>
+<li><strong>Never substitute means into nonlinear functions</strong> expecting to get
+mean outcomes.</li>
+<li><strong>Report both mean and variance</strong> of vital rates - both matter for
+population projections.</li>
+<li><strong>Use simulation</strong> Stochastic models naturally account for Jensen’s
+inequality.</li>
+<li><strong>Check your function’s curvature</strong> - Is it convex, concave, or
+linear? This determines the direction of bias.</li>
 </ol>
 <h2 id="conclusion">Conclusion
-</h2><p>Jensen’s inequality is more than mathematical formalism—it’s a
-fundamental reason why ecological systems surprise us. Every time we
-substitute an average into a nonlinear relationship, we’re making a
-prediction that’s systematically biased.</p>
-<p>In population ecology, where growth is exponential (convex), this
-means: - Environmental variability reduces population growth - Average
-conditions can be misleading - Variability is as important as the mean</p>
+</h2><p>Jensen’s inequality is more than mathematical formalism—it’s a reason
+why the systems we model surprise us. Every time we substitute an
+average into a nonlinear relationship, we’re making a prediction that’s
+systematically biased. This has relevance beyond ecological systems as
+well. Consider returns on investment, infection spread, or chemical
+reaction rates. Jensen’s inequality will come into play in all of those
+cases.</p>
 <p>The next time someone shows you a deterministic population model with
 “average” parameter values, ask yourself: is this relationship linear?
-If not, Jensen’s inequality is lurking, waiting to make those
-predictions wrong in predictable ways.</p>
-<p>Understanding Jensen’s inequality won’t just make you better at
-math—it’ll make you better at predicting what real populations actually
-do.</p>
-<h2 id="further-reading">Further Reading
-</h2><ul>
-<li>
-<p>Ruel, J.J. and Ayres, M.P. (1999). Jensen’s inequality predicts
-effects of environmental variation. <em>Trends in Ecology &amp; Evolution</em>,
-14(9), 361-366.</p>
-</li>
-<li>
-<p>Denny, M. (2017). The fallacy of the average: on the ubiquity,
-utility and continuing novelty of Jensen’s inequality. <em>Journal of
-Experimental Biology</em>, 220(2), 139-146.</p>
-</li>
-<li>
-<p>Lewontin, R.C. and Cohen, D. (1969). On population growth in a
-randomly varying environment. <em>Proceedings of the National Academy
-of Sciences</em>, 62(4), 1056-1060.</p>
-</li>
-<li>
-<h2 id="concave-and-convex-functions"><a class="link" href="https://www.geeksforgeeks.org/engineering-mathematics/convex-and-concave-functions/"  target="_blank" rel="noopener"
-    >Concave and Convex Functions</a>
-</h2></li>
-</ul>
+If not, remember Jensen’s inequality.</p>
+<hr>
 <h2 id="references">References
 </h2><ul>
-<li>
-<p><a class="link" href="https://en.wikipedia.org/wiki/Johan_Jensen_%28mathematician%29"  target="_blank" rel="noopener"
-    >https://en.wikipedia.org/wiki/Johan_Jensen_(mathematician)</a></p>
-</li>
-<li>
-<p>Doak, D. F., J. A. Estes, B. S. Halpern, U. Jacob, D. R.
+<li><a class="link" href="https://en.wikipedia.org/wiki/Johan_Jensen_%28mathematician%29"  target="_blank" rel="noopener"
+    >https://en.wikipedia.org/wiki/Johan_Jensen_(mathematician)</a></li>
+<li>Doak, D. F., J. A. Estes, B. S. Halpern, U. Jacob, D. R.
 Lindberg, J. Lovvorn, D. H. Monson, M. T. Tinker, T. M.
 Williams, J. T. Wootton, I. Carroll, M. Emmerson, F. Micheli, and M.
 Novak. 2008. Understanding and Predicting Ecological Dynamics: Are
-Major Surprises Inevitable. Ecology 89:952–961.</p>
-</li>
+Major Surprises Inevitable. Ecology 89:952–961.</li>
+<li><a class="link" href="https://www.geeksforgeeks.org/engineering-mathematics/convex-and-concave-functions/"  target="_blank" rel="noopener"
+    >Concave and Convex
+Functions</a></li>
+<li>Denny, M. (2017). The fallacy of the average: on the ubiquity,
+utility and continuing novelty of Jensen’s inequality. <em>Journal of
+Experimental Biology</em>, 220(2), 139-146.</li>
 </ul>
 
 </section>
