@@ -5,7 +5,7 @@
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/</link>
         <description>Recent content in Categories on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language>
+        <language>en-us</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
         <lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>R</title>
@@ -125,14 +125,6 @@
         <pubDate>Sat, 11 Feb 2023 10:00:00 -0800</pubDate>
         
         <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_visualization/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>R_IDE</title>
-        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_ide/</link>
-        <pubDate>Sat, 11 Feb 2023 09:00:00 -0800</pubDate>
-        
-        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_ide/</guid>
         <description></description>
         </item>
         <item>

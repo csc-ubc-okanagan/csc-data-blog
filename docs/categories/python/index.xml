@@ -5,7 +5,7 @@
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/python/</link>
         <description>Recent content in Python on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language>
+        <language>en-us</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
         <lastBuildDate>Tue, 09 Apr 2024 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/python/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Sample Data Generation</title>
@@ -314,7 +314,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
 	width=&#34;361&#34;
 	height=&#34;67&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_2933a893e8dcb518.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_6e55a61257255ca9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -327,7 +327,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
 	width=&#34;409&#34;
 	height=&#34;58&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_869ebba147b83bd0.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_b0b180b2184811ba.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -342,7 +342,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
 	width=&#34;654&#34;
 	height=&#34;597&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_a9841c249532f94e.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_88ddd9c397082061.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1507,7 +1507,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png&#34;
 	width=&#34;577&#34;
 	height=&#34;415&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_9aa72ccd5a04fb91.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_470f6ef2684e5514.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1555,7 +1555,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png&#34;
 	width=&#34;577&#34;
 	height=&#34;415&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_9aa72ccd5a04fb91.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_470f6ef2684e5514.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1573,122 +1573,42 @@
         <pubDate>Thu, 15 Jun 2023 09:00:00 -0800</pubDate>
         
         <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/defining-functions-in-python/</guid>
-        <description>&lt;p&gt;Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.&lt;/p&gt;
+        <description>
+
+
+&lt;p&gt;Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.&lt;/p&gt;
 &lt;p&gt;Simple functions can be in base Python or in different packages. Take these base Python functions for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 2
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 8
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.&lt;/p&gt;
-&lt;p&gt;If we want to understand how the built-in functions work, let’s define our own function for addition. We start by naming it, and then defining the arguments. Here, let&amp;rsquo;s call it &amp;lsquo;add&amp;rsquo; and it will take in two numbers, so we set the arbitrary names of these arguments to x and y.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;answer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;answer&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 2
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;This is cool, but unnecessary work. It’s much easier to use the built-in function that we use above. This is why packages are so useful. Other people have spent time defining functions to do typical tasks, so we can use the existing work rather than duplicating effort.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;sum((1,1))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;max([1, 2, 5, 8, 3])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 8&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.&lt;/p&gt;
+&lt;p&gt;If we want to understand how the built-in functions work, let’s define our own function for addition. We start by naming it, and then defining the arguments. Here, let’s call it ‘add’ and it will take in two numbers, so we set the arbitrary names of these arguments to x and y.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def add(x,y):
+    answer = x + y
+    return answer
+
+add(1,1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is cool, but unnecessary work. It’s much easier to use the built-in function that we use above. This is why packages are so useful. Other people have spent time defining functions to do typical tasks, so we can use the existing work rather than duplicating effort.&lt;/p&gt;
 &lt;p&gt;Note that there may be limitations or unexpected behaviours to a function. What would happen if we added x+y in this function?&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;y&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## &amp;#39;xy&amp;#39;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;This is something to consider when creating functions! It may not always be used for its intended use.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;add(&amp;#39;x&amp;#39;,&amp;#39;y&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;xy&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is something to consider when creating functions! It may not always be used for its intended use.&lt;/p&gt;
 &lt;p&gt;If we wanted to create a function to reverse a number, we could do that first by defining the name of our function, as well as how many arguments it requires. At the end, a function will need to do something either by using the command &lt;code&gt;return&lt;/code&gt; or &lt;code&gt;print&lt;/code&gt; or something else, otherwise it serves no purpose.&lt;/p&gt;
 &lt;p&gt;With this function, if we input the number 12345, we would expect it to return 54321.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;reverse_num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;number&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;reversed_num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;digit&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;reversed_num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reversed_num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;digit&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;//=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Reversed Number: &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;reversed_num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;reverse_num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12345&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## Reversed Number: 54321
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;It works! Can you think of any limitations or unexpected uses for this function?&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;def reverse_num(number):
+  num = number
+  reversed_num = 0
+  while num != 0:
+    digit = num % 10
+    reversed_num = reversed_num * 10 + digit
+    num //= 10
+  print(&amp;quot;Reversed Number: &amp;quot; + str(reversed_num))
+  
+reverse_num(12345)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Reversed Number: 54321&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It works! Can you think of any limitations or unexpected uses for this function?&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -3833,7 +3753,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_8965a6352949dbb0.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_cf3d97e0bf3f3dcb.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_b6d9adde58b4952d.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_abe76518a57163c3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3856,7 +3776,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_de91657534bd0924.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_f8740278c98dce0.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_20acd5cd4a2ec522.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_1a87630288baa819.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3883,7 +3803,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_f93da701f86fe6a7.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_beac72ad1edac27d.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_17faf4f009eaf310.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_2f0233779566ad93.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4003,7 +3923,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1.png&#34;
 	width=&#34;727&#34;
 	height=&#34;532&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1874d2bc01d2ac2f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1938496062bff387.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_ba553a9def429fee.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_7b34488d5e21a295.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4071,7 +3991,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2.png&#34;
 	width=&#34;811&#34;
 	height=&#34;546&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_84db04d5cc781b58.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_8441e27a842f27ba.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_3426884b337e1932.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_15663c4153feb60d.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4142,7 +4062,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3.png&#34;
 	width=&#34;799&#34;
 	height=&#34;547&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_fce32b199e2908cd.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_7c58be6de9ca5c5f.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_196a31cc8a6d315.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_62b42bf82774b616.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4214,7 +4134,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4.png&#34;
 	width=&#34;805&#34;
 	height=&#34;550&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_deddf48cc9791f41.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_348931b8f31186f8.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_5bfebaebb4be4272.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_1d7802eda270156f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4287,7 +4207,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5.png&#34;
 	width=&#34;801&#34;
 	height=&#34;543&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_ca4b3be62cc78a74.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_b53ef2bf4377d833.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_3a09c1b4e68acded.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_89a3072ddcf6b195.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4359,7 +4279,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6.png&#34;
 	width=&#34;799&#34;
 	height=&#34;546&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_dc24295bc16b5242.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_a0ea4b3cc32a89f.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_1de5ab28ee50d71e.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_ab8d24cd1a6f1bc.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4432,7 +4352,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7.png&#34;
 	width=&#34;826&#34;
 	height=&#34;550&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_393caf51f4eb1bcd.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_983b4f02ea5c3b69.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_224e51b1b813be90.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_6650faa1e69e9890.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4502,7 +4422,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8.png&#34;
 	width=&#34;810&#34;
 	height=&#34;550&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_42c636a426cd9b9b.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_bf2bd73b2d68c601.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_b4801f52fd3bc464.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_8de72fa13dc7974a.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4586,7 +4506,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9.png&#34;
 	width=&#34;535&#34;
 	height=&#34;370&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_5c4803576fe1c9d4.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_2494b2f3b59cd176.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_808c356378e29a30.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_d512132e5ebaef42.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4661,7 +4581,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10.png&#34;
 	width=&#34;727&#34;
 	height=&#34;579&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_59d20a59e8f45c15.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_fa9c1abc3dff7955.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_6f69fb5d9390112.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_81273c4c2a794bac.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4731,7 +4651,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11.png&#34;
 	width=&#34;811&#34;
 	height=&#34;583&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_6a49397665201850.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_e0d254e93f982df9.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_9eb5dbf56693a27.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_dc0522f465315149.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4753,18 +4673,24 @@
         <pubDate>Mon, 05 Jun 2023 18:00:00 -0800</pubDate>
         
         <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/jupyter-notebook/</guid>
-        <description>&lt;p&gt;Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python. You can even use both R and Python within the same document.&lt;/p&gt;
+        <description>
+
+
+&lt;p&gt;Jupyter Notebook is a web-based interactive computing platform, and it can be used for many things, aside from Python. You can even use both R and Python within the same document.&lt;/p&gt;
 &lt;p&gt;Think of Python (or R) as the language you are writing in, and Jupyter as the pen and pencil. This is how Python and Jupyter are used together.&lt;/p&gt;
-&lt;h3 id=&#34;note&#34;&gt;Note:
-&lt;/h3&gt;&lt;p&gt;There are many different IDEs (integrated development environment) for Python. To name a few, Programiz, Atom, Visual Studio Code, Spyder, and many more. If a Jupyter install is causing trouble, or if you do not like the interface and want something similar to R Studio, Spyder is a good option because it is a very familiar interface for R Studio users. Programiz is also great because it doesn&amp;rsquo;t require an install.&lt;/p&gt;
-&lt;h2 id=&#34;syzygy&#34;&gt;Syzygy
-&lt;/h2&gt;&lt;p&gt;Syzygy (pronunciation up for debate) is a great way to use Jupyter without having to download it to your local computer. However, it does require your UBC login to use. It also can access your local files as well as UBC OneDrive files. To use, simply follow this &lt;a class=&#34;link&#34; href=&#34;https://ubc.syzygy.ca/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;link&lt;/a&gt;, click the sign on button in the top right, and use your UBC login to sign in. You will be able to creat files, view existing files, and enjoy all of the functionalities that Jupyter has to offer.&lt;/p&gt;
-&lt;h2 id=&#34;downloading-jupyter&#34;&gt;Downloading Jupyter
-&lt;/h2&gt;&lt;p&gt;If you prefer to download Jupyter, it can be done with Anaconda. This &lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=WUeBzT43JyY&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;video&lt;/a&gt; is a great resource explaining how to download both Jupyter and Anaconda, as well as how to get started using Jupyter.&lt;/p&gt;
-&lt;p&gt;Alternatively, you can follow the instructions on this &lt;a class=&#34;link&#34; href=&#34;https://www.codecademy.com/article/setting-up-jupyter-notebook&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;webpage&lt;/a&gt; to do the same install. Note that it has slightly different instructions for Windows and Mac users.&lt;/p&gt;
+&lt;div id=&#34;note&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Note:&lt;/h3&gt;
+&lt;p&gt;There are many different IDEs (integrated development environment) for Python. To name a few, Programiz, Atom, Visual Studio Code, Spyder, and many more. If a Jupyter install is causing trouble, or if you do not like the interface and want something similar to R Studio, Spyder is a good option because it is a very familiar interface for R Studio users. Programiz is also great because it doesn’t require an install.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;syzygy&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Syzygy&lt;/h2&gt;
+&lt;p&gt;Syzygy (pronunciation up for debate) is a great way to use Jupyter without having to download it to your local computer. However, it does require your UBC login to use. It also can access your local files as well as UBC OneDrive files. To use, simply follow this &lt;a href=&#34;https://ubc.syzygy.ca/&#34;&gt;link&lt;/a&gt;, click the sign on button in the top right, and use your UBC login to sign in. You will be able to creat files, view existing files, and enjoy all of the functionalities that Jupyter has to offer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;downloading-jupyter&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Downloading Jupyter&lt;/h2&gt;
+&lt;p&gt;If you prefer to download Jupyter, it can be done with Anaconda. This &lt;a href=&#34;https://www.youtube.com/watch?v=WUeBzT43JyY&#34;&gt;video&lt;/a&gt; is a great resource explaining how to download both Jupyter and Anaconda, as well as how to get started using Jupyter.&lt;/p&gt;
+&lt;p&gt;Alternatively, you can follow the instructions on this &lt;a href=&#34;https://www.codecademy.com/article/setting-up-jupyter-notebook&#34;&gt;webpage&lt;/a&gt; to do the same install. Note that it has slightly different instructions for Windows and Mac users.&lt;/p&gt;
+&lt;/div&gt;
 </description>
         </item>
         <item>
@@ -4849,116 +4775,6 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;There are many other file formats and ways to load files into Python. There are great resources online for any other file formats, but these examples above should get you started.&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Introduction to Python</title>
-        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/introduction-to-python/</link>
-        <pubDate>Wed, 15 Feb 2023 09:00:00 -0800</pubDate>
-        
-        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/introduction-to-python/</guid>
-        <description>&lt;h2 id=&#34;python-can-be-used-as-a-calculator&#34;&gt;Python can be used as a calculator
-&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 2
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## -1
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 3.0
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 12
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;Since Python is so widely used, there are many people who contribute to continuously improving and developing it. Let&amp;rsquo;s imagine Python as a base version. It can do basic calculations, but it requires extra efforts to do more complicated things. People have created extras or add-ons to help create shortcuts for more complicated specific tasks or functions. These &amp;lsquo;add-ons&amp;rsquo; are called packages. Packages can be imported to use to help make things easier. For example, there is a Python package called math that helps with basic mathematical operations. Let&amp;rsquo;s look at an example here of calling the package using the &lt;code&gt;import&lt;/code&gt; command.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;math&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sqrt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 3.0
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;Once it has been imported, it does not need to be re-imported for the rest of this document. You can also import multiple packages within the same document. We will get into more useful packages later on!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;## 4.605170185988092
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;For now, practice typing basic calculations into your Python terminal to get used to the syntax, and see how easy it is to calculate things!&lt;/p&gt;
 </description>
         </item>
         

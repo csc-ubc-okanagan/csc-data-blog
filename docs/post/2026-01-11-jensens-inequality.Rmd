@@ -1,0 +1,388 @@
+---
+title: "Creating plots with openAlexR"
+author: ["Alex Jack"]
+date: 2025-11-25
+slug: making-plots-with-openalexr
+categories: ["R"]
+tags: ["R_Visualization"]
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, 
+                      fig.width = 8, fig.height = 5)
+library(ggplot2)
+library(dplyr)
+
+theme_set(theme_minimal(base_size = 12))
+```
+
+## Introduction
+
+Imagine you're managing a wildlife population. Over the past decade, the annual growth rate has averaged 5% per year. Simple math suggests the population should have grown by about 50% over that period, right? Wrong. And Jensen's inequality explains why.
+
+At its core, Jensen's inequality reveals a fundamental truth: **the average of a function is not the same as the function of the average**. This matters profoundly in ecology because our processes are almost never linear.
+
+## What Are Convex and Concave Functions?
+
+Before diving into population ecology, let's understand what we mean by convex and concave functions—these terms describe the "shape" of a curve.
+
+```{r convex-concave-demo}
+# Create data for demonstration
+x <- seq(0, 10, length.out = 100)
+
+# Convex function: curves upward (like a smile)
+convex_y <- x^2
+
+# Concave function: curves downward (like a frown)
+concave_y <- sqrt(x) * 10
+
+# Linear function for comparison
+linear_y <- x * 10
+
+# Combine into dataframe
+demo_data <- data.frame(
+  x = rep(x, 3),
+  y = c(convex_y, concave_y, linear_y),
+  type = rep(c("Convex (curves up)", "Concave (curves down)", "Linear"), 
+             each = length(x))
+)
+
+ggplot(demo_data, aes(x = x, y = y, color = type)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c("Convex (curves up)" = "#E69F00",
+                                 "Concave (curves down)" = "#0072B2",
+                                 "Linear" = "gray50")) +
+  labs(
+    title = "Understanding Function Shapes",
+    subtitle = "The curvature determines how Jensen's inequality applies",
+    x = "Input (x)",
+    y = "Output f(x)",
+    color = "Function Type"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+**Key insight:** 
+- **Convex functions** (curving upward like $x^2$ or $e^x$): The function of the average is *less than* the average of the function
+- **Concave functions** (curving downward like $\sqrt{x}$ or $\log(x)$): The function of the average is *greater than* the average of the function
+- **Linear functions**: No difference—the average of the function equals the function of the average
+
+## Jensen's Inequality Visualized
+
+Let's see Jensen's inequality in action with a simple example.
+
+```{r jensens-visual}
+# Simple convex function: f(x) = x^2
+f <- function(x) x^2
+
+# Two values and their average
+x1 <- 2
+x2 <- 8
+x_mean <- mean(c(x1, x2))
+
+# Calculate f(x) values
+f_x1 <- f(x1)
+f_x2 <- f(x2)
+f_mean_x <- mean(c(f_x1, f_x2))  # Average of f(x)
+f_of_mean <- f(x_mean)            # f(average x)
+
+# Plot
+x_vals <- seq(0, 10, length.out = 100)
+ggplot(data.frame(x = x_vals, y = f(x_vals)), aes(x, y)) +
+  geom_line(linewidth = 1.2, color = "#0072B2") +
+  # The two points
+  geom_point(data = data.frame(x = c(x1, x2), y = c(f_x1, f_x2)),
+             size = 4, color = "#E69F00") +
+  # Line connecting them (average of function)
+  geom_segment(aes(x = x1, y = f_x1, xend = x2, yend = f_x2),
+               color = "#E69F00", linewidth = 1, linetype = "dashed") +
+  geom_point(aes(x = x_mean, y = f_mean_x), size = 4, color = "#E69F00") +
+  # Function of average
+  geom_point(aes(x = x_mean, y = f_of_mean), size = 4, color = "#009E73") +
+  geom_segment(aes(x = x_mean, y = 0, xend = x_mean, yend = f_of_mean),
+               color = "#009E73", linewidth = 1, linetype = "dotted") +
+  # Annotations
+  annotate("text", x = x_mean + 0.5, y = f_mean_x, 
+           label = "E[f(x)] = Average of function",
+           hjust = 0, color = "#E69F00", size = 4) +
+  annotate("text", x = x_mean + 0.5, y = f_of_mean - 3,
+           label = "f(E[x]) = Function of average",
+           hjust = 0, color = "#009E73", size = 4) +
+  annotate("text", x = 5, y = 90,
+           label = paste0("Gap = ", round(f_mean_x - f_of_mean, 1)),
+           size = 5, fontface = "bold") +
+  labs(
+    title = "Jensen's Inequality for Convex Functions",
+    subtitle = "For f(x) = x², the average of f(x) is greater than f(average x)",
+    x = "x",
+    y = "f(x) = x²"
+  ) +
+  ylim(0, 100)
+```
+
+For this convex function ($f(x) = x^2$), Jensen's inequality states:
+
+$$E[f(x)] \geq f(E[x])$$
+
+The average of the function (orange dot) is *above* the function evaluated at the average input (green dot). This gap is what causes problems in population ecology.
+
+## Population Growth: The Classic Example
+
+Population growth is typically exponential, which is a convex function. Let's see what happens when growth rates vary from year to year.
+
+```{r population-growth}
+set.seed(123)
+
+# Simulation parameters
+n_years <- 50
+n_simulations <- 1000
+N0 <- 100
+
+# Growth rate varies: mean = 0.03 (3%), SD = 0.15 (15%)
+r_mean <- 0.03
+r_sd <- 0.15
+
+# Simulate population trajectories
+simulate_population <- function() {
+  N <- numeric(n_years)
+  N[1] <- N0
+  
+  # Random growth rates each year
+  r <- rnorm(n_years - 1, mean = r_mean, sd = r_sd)
+  
+  for (t in 2:n_years) {
+    N[t] <- N[t-1] * exp(r[t-1])
+  }
+  
+  return(N)
+}
+
+# Run simulations
+all_sims <- replicate(n_simulations, simulate_population())
+
+# Calculate average trajectory
+N_stochastic_mean <- rowMeans(all_sims)
+
+# Deterministic prediction using average growth rate
+N_deterministic <- N0 * exp(r_mean * (0:(n_years-1)))
+
+# Combine for plotting
+plot_data <- data.frame(
+  year = 1:n_years,
+  stochastic = N_stochastic_mean,
+  deterministic = N_deterministic
+)
+
+# Plot
+ggplot(plot_data, aes(x = year)) +
+  geom_line(aes(y = deterministic, color = "Deterministic (using E[r])"), 
+            linewidth = 1.2) +
+  geom_line(aes(y = stochastic, color = "Stochastic (actual E[N])"), 
+            linewidth = 1.2) +
+  scale_color_manual(
+    values = c("Deterministic (using E[r])" = "#E69F00",
+               "Stochastic (actual E[N])" = "#0072B2")
+  ) +
+  labs(
+    title = "Environmental Stochasticity Reduces Population Growth",
+    subtitle = paste0("Mean growth rate = ", r_mean*100, "% per year, SD = ", 
+                     r_sd*100, "%"),
+    x = "Year",
+    y = "Population Size",
+    color = "Model"
+  ) +
+  theme(legend.position = c(0.02, 0.98), 
+        legend.justification = c(0, 1),
+        legend.background = element_rect(fill = "white", color = "gray80"))
+```
+
+The deterministic model (orange) uses the average growth rate and predicts steady exponential growth. But the actual average population size (blue) grows much more slowly. After 50 years, the deterministic model predicts a population of `r round(N_deterministic[50], 0)`, while the true average is only `r round(N_stochastic_mean[50], 0)`.
+
+**Why?** Because $e^x$ is convex. By Jensen's inequality:
+
+$$E[e^r] > e^{E[r]}$$
+
+Variability in growth rates reduces long-term population growth, even when the average environment appears favorable.
+
+## How Much Does Variability Matter?
+
+Let's explore how the amount of environmental variation affects population outcomes.
+
+```{r variance-effect}
+# Test different levels of variability
+sd_values <- seq(0, 0.25, length.out = 10)
+n_sims_per_sd <- 500
+years <- 30
+
+results <- data.frame()
+
+for (r_sd in sd_values) {
+  sims <- replicate(n_sims_per_sd, {
+    N <- N0
+    for (t in 1:years) {
+      r <- rnorm(1, mean = r_mean, sd = r_sd)
+      N <- N * exp(r)
+    }
+    N
+  })
+  
+  results <- rbind(results, data.frame(
+    sd = r_sd,
+    mean_N = mean(sims),
+    deterministic_N = N0 * exp(r_mean * years)
+  ))
+}
+
+# Calculate percent reduction
+results$percent_reduction <- (1 - results$mean_N / results$deterministic_N) * 100
+
+ggplot(results, aes(x = sd * 100, y = percent_reduction)) +
+  geom_line(linewidth = 1.2, color = "#0072B2") +
+  geom_point(size = 3, color = "#0072B2") +
+  labs(
+    title = "Greater Variability = Greater Reduction in Population Growth",
+    subtitle = paste0("After ", years, " years with mean growth rate = ", 
+                     r_mean*100, "%"),
+    x = "Standard Deviation of Annual Growth Rate (%)",
+    y = "Reduction in Final Population Size (%)"
+  ) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50")
+```
+
+The relationship is clear: more variable environments lead to substantially lower population sizes, even when mean conditions are identical. At 15% annual variability in growth rates, the population ends up `r round(results$percent_reduction[results$sd == 0.15], 1)`% smaller than the deterministic prediction!
+
+## Arithmetic vs Geometric Mean Growth
+
+This connects to an important ecological concept: the difference between arithmetic and geometric mean growth rates.
+
+```{r growth-rate-comparison}
+# Example: alternating good and bad years
+r_good <- 0.30   # 30% growth
+r_bad <- -0.20   # 20% decline
+
+# Arithmetic mean
+r_arithmetic <- mean(c(r_good, r_bad))
+
+# Geometric mean (what actually matters for long-term growth)
+r_geometric <- log(mean(exp(c(r_good, r_bad))))
+
+# Simulate 20 years alternating good/bad
+years_sim <- 20
+N_alternating <- numeric(years_sim + 1)
+N_alternating[1] <- 100
+
+for (t in 1:years_sim) {
+  r_t <- ifelse(t %% 2 == 1, r_good, r_bad)
+  N_alternating[t + 1] <- N_alternating[t] * exp(r_t)
+}
+
+# Predictions
+N_arith <- 100 * exp(r_arithmetic * (0:years_sim))
+N_geom <- 100 * exp(r_geometric * (0:years_sim))
+
+# Plot
+plot_df <- data.frame(
+  year = rep(0:years_sim, 3),
+  N = c(N_alternating, N_arith, N_geom),
+  type = rep(c("Actual (alternating years)", 
+               "Using arithmetic mean", 
+               "Using geometric mean"),
+             each = years_sim + 1)
+)
+
+ggplot(plot_df, aes(x = year, y = N, color = type, linetype = type)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c("Actual (alternating years)" = "black",
+                                 "Using arithmetic mean" = "#E69F00",
+                                 "Using geometric mean" = "#0072B2")) +
+  scale_linetype_manual(values = c("Actual (alternating years)" = "solid",
+                                    "Using arithmetic mean" = "dashed",
+                                    "Using geometric mean" = "dotted")) +
+  labs(
+    title = "Arithmetic Mean Misleads, Geometric Mean Predicts",
+    subtitle = paste0("Alternating years: r = ", r_good*100, "% and r = ", 
+                     r_bad*100, "%"),
+    x = "Year",
+    y = "Population Size",
+    color = NULL,
+    linetype = NULL
+  ) +
+  theme(legend.position = "bottom")
+```
+
+The arithmetic mean growth rate ($\bar{r}$ = `r round(r_arithmetic*100, 1)`%) suggests slow growth, but the actual long-term growth rate (geometric mean = `r round(r_geometric*100, 1)`%) is `r ifelse(r_geometric < 0, "negative", "lower")`! The geometric mean, not the arithmetic mean, determines long-term population fate.
+
+## The Math Behind It
+
+For those interested in the formal statement:
+
+**Jensen's Inequality:** For a convex function $f$ and random variable $X$:
+
+$$E[f(X)] \geq f(E[X])$$
+
+For a concave function, the inequality reverses ($\leq$).
+
+**In population ecology:**
+- If $N_{t+1} = N_t e^{r_t}$ and $r_t$ varies randomly
+- Then $E[N_t] \neq N_0 e^{\bar{r} \cdot t}$
+- Because $e^x$ is convex (curves upward)
+
+The **size of the gap** depends on:
+1. **Variance of $X$**: More variable → bigger gap
+2. **Curvature of $f$**: More nonlinear → bigger gap
+
+This is why environmental stochasticity matters more for processes with highly nonlinear relationships.
+
+## Practical Implications
+
+**For population managers:**
+
+1. **Don't use average growth rates in exponential models** - You'll systematically overestimate population size
+
+2. **Variability matters as much as the mean** - A population with $\bar{r} = 5\%$ and high variance may decline, while one with $\bar{r} = 3\%$ and low variance may thrive
+
+3. **Use geometric means for long-term predictions** - Or better yet, use stochastic simulations
+
+4. **Environmental variance is a form of habitat degradation** - Even if mean conditions don't change, increasing variability harms populations
+
+**For researchers:**
+
+1. **Never substitute means into nonlinear functions** expecting to get mean outcomes
+
+2. **Report both mean and variance** of vital rates - Both matter for population projections
+
+3. **Use simulation** when analytical solutions are unclear - Stochastic models naturally account for Jensen's inequality
+
+4. **Check your function's curvature** - Is it convex, concave, or linear? This determines the direction of bias
+
+## A Real-World Example
+
+Consider a harvested fish population where managers want to maintain sustainable yields. If they calculate maximum sustainable yield (MSY) using average recruitment rates, Jensen's inequality means:
+
+- The true average yield will be **lower** than predicted (because recruitment is typically a convex function of spawner abundance)
+- Populations will be **smaller** than expected
+- The risk of **overfishing is underestimated**
+
+This is one reason why many fisheries have collapsed despite appearing to follow "sustainable" harvest levels—the models didn't account for environmental variability properly.
+
+## Conclusion
+
+Jensen's inequality is more than mathematical formalism—it's a fundamental reason why ecological systems surprise us. Every time we substitute an average into a nonlinear relationship, we're making a prediction that's systematically biased.
+
+In population ecology, where growth is exponential (convex), this means:
+- Environmental variability reduces population growth
+- Average conditions can be misleading
+- Variability is as important as the mean
+
+The next time someone shows you a deterministic population model with "average" parameter values, ask yourself: is this relationship linear? If not, Jensen's inequality is lurking, waiting to make those predictions wrong in predictable ways.
+
+Understanding Jensen's inequality won't just make you better at math—it'll make you better at predicting what real populations actually do.
+
+## Further Reading
+
+- Ruel, J.J. and Ayres, M.P. (1999). Jensen's inequality predicts effects of environmental variation. *Trends in Ecology & Evolution*, 14(9), 361-366.
+- Denny, M. (2017). The fallacy of the average: on the ubiquity, utility and continuing novelty of Jensen's inequality. *Journal of Experimental Biology*, 220(2), 139-146.
+- Lewontin, R.C. and Cohen, D. (1969). On population growth in a randomly varying environment. *Proceedings of the National Academy of Sciences*, 62(4), 1056-1060.
+
+---
+
+*Understanding why we can't simply plug averages into nonlinear models is crucial for any ecologist. Jensen's inequality provides the mathematical foundation for why environmental variability matters—and why managing for average conditions is a recipe for disappointment.*

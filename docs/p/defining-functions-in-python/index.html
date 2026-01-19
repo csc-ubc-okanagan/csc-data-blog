@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.\nSimple functions can be in base Python or in different packages. Take these base Python functions for example:\n1 sum((1,1)) 1 ## 2 1 max([1, 2, 5, 8, 3]) 1 ## 8 Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.\nSimple functions can be in base Python or in different packages. Take these base Python functions for example:\nsum((1,1)) ## 2 max([1, 2, 5, 8, 3]) ## 8 Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.\n">
 <title>Defining Functions in Python</title>
 
 <link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/defining-functions-in-python/'>
 
 <link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Defining Functions in Python">
-<meta property='og:description' content="Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.\nSimple functions can be in base Python or in different packages. Take these base Python functions for example:\n1 sum((1,1)) 1 ## 2 1 max([1, 2, 5, 8, 3]) 1 ## 8 Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.\n">
+<meta property='og:description' content="Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.\nSimple functions can be in base Python or in different packages. Take these base Python functions for example:\nsum((1,1)) ## 2 max([1, 2, 5, 8, 3]) ## 8 Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.\n">
 <meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/defining-functions-in-python/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2023-06-15T09:00:00-08:00'/><meta property='article:modified_time' content='2023-06-15T09:00:00-08:00'/>
 <meta name="twitter:title" content="Defining Functions in Python">
-<meta name="twitter:description" content="Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.\nSimple functions can be in base Python or in different packages. Take these base Python functions for example:\n1 sum((1,1)) 1 ## 2 1 max([1, 2, 5, 8, 3]) 1 ## 8 Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.\n">
+<meta name="twitter:description" content="Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.\nSimple functions can be in base Python or in different packages. Take these base Python functions for example:\nsum((1,1)) ## 2 max([1, 2, 5, 8, 3]) ## 8 Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.\n">
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -70,7 +70,7 @@
                     
                     
                         
-                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
+                        <img src="/csc-data-blog/img/avatar_hu_9d57c2c90efce4bf.png" width="300"
                             height="303" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -351,122 +351,42 @@
     <section class="article-content">
     
     
-    <p>Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.</p>
+    
+
+
+<p>Functions take in data and do things with that data. We can write our own functions, but generally in Python we’ll be using functions that have already been written or built.</p>
 <p>Simple functions can be in base Python or in different packages. Take these base Python functions for example:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">sum</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 2
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">max</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 8
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.</p>
-<p>If we want to understand how the built-in functions work, let’s define our own function for addition. We start by naming it, and then defining the arguments. Here, let&rsquo;s call it &lsquo;add&rsquo; and it will take in two numbers, so we set the arbitrary names of these arguments to x and y.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">answer</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">answer</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 2
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>This is cool, but unnecessary work. It’s much easier to use the built-in function that we use above. This is why packages are so useful. Other people have spent time defining functions to do typical tasks, so we can use the existing work rather than duplicating effort.</p>
+<pre class="python"><code>sum((1,1))</code></pre>
+<pre><code>## 2</code></pre>
+<pre class="python"><code>max([1, 2, 5, 8, 3])</code></pre>
+<pre><code>## 8</code></pre>
+<p>Calling a function requires 2 things: the function itself and any arguments the function allows us to specify – one of these arguments is the data source, but there are usually other parameters we can specify.</p>
+<p>If we want to understand how the built-in functions work, let’s define our own function for addition. We start by naming it, and then defining the arguments. Here, let’s call it ‘add’ and it will take in two numbers, so we set the arbitrary names of these arguments to x and y.</p>
+<pre class="python"><code>def add(x,y):
+    answer = x + y
+    return answer
+
+add(1,1)</code></pre>
+<pre><code>## 2</code></pre>
+<p>This is cool, but unnecessary work. It’s much easier to use the built-in function that we use above. This is why packages are so useful. Other people have spent time defining functions to do typical tasks, so we can use the existing work rather than duplicating effort.</p>
 <p>Note that there may be limitations or unexpected behaviours to a function. What would happen if we added x+y in this function?</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">add</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## &#39;xy&#39;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>This is something to consider when creating functions! It may not always be used for its intended use.</p>
+<pre class="python"><code>add(&#39;x&#39;,&#39;y&#39;)</code></pre>
+<pre><code>## &#39;xy&#39;</code></pre>
+<p>This is something to consider when creating functions! It may not always be used for its intended use.</p>
 <p>If we wanted to create a function to reverse a number, we could do that first by defining the name of our function, as well as how many arguments it requires. At the end, a function will need to do something either by using the command <code>return</code> or <code>print</code> or something else, otherwise it serves no purpose.</p>
 <p>With this function, if we input the number 12345, we would expect it to return 54321.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">reverse_num</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">  <span class="n">num</span> <span class="o">=</span> <span class="n">number</span>
-</span></span><span class="line"><span class="cl">  <span class="n">reversed_num</span> <span class="o">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="n">num</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">digit</span> <span class="o">=</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl">    <span class="n">reversed_num</span> <span class="o">=</span> <span class="n">reversed_num</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">digit</span>
-</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">//=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Reversed Number: &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">reversed_num</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl"><span class="n">reverse_num</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Reversed Number: 54321
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>It works! Can you think of any limitations or unexpected uses for this function?</p>
+<pre class="python"><code>def reverse_num(number):
+  num = number
+  reversed_num = 0
+  while num != 0:
+    digit = num % 10
+    reversed_num = reversed_num * 10 + digit
+    num //= 10
+  print(&quot;Reversed Number: &quot; + str(reversed_num))
+  
+reverse_num(12345)</code></pre>
+<pre><code>## Reversed Number: 54321</code></pre>
+<p>It works! Can you think of any limitations or unexpected uses for this function?</p>
 
 </section>
 
@@ -575,7 +495,7 @@
         
             2020 - 
         
-        2025 Center for Scholarly Communication, UBC Okanagan
+        2026 Center for Scholarly Communication, UBC Okanagan
     </section>
     
     <section class="powerby">
