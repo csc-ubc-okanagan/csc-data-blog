@@ -5,6 +5,7 @@ date: 2025-11-25
 slug: making-plots-with-openalexr
 categories: ["R"]
 tags: ["R_Visualization"]
+math: TRUE
 ---
   
 Writing a thesis or paper introduction? Don't just *say* your field is growing or that your topic is becoming important—**show it**. With a a few lines of R, you can create compelling visualizations that demonstrate trends in your field and precisely why what you're talking about is *important*.

@@ -311,6 +311,265 @@ Similarly, binary indicators like smoking status (smoker vs non-smoker) or other
 </description>
         </item>
         <item>
+        <title>Jensen&#39;s Inequality: Why Averages Mislead</title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/</link>
+        <pubDate>Sat, 11 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/</guid>
+        <description>&lt;pre&gt;&lt;code&gt;library(ggplot2)
+library(dplyr)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+&lt;/h2&gt;&lt;p&gt;Imagine you’re managing a wildlife population. Over the past decade, the
+annual growth rate has averaged 5% per year. Simple math suggests the
+population should have grown by about 50% over that period, right?
+Wrong. And Jensen’s inequality explains why.&lt;/p&gt;
+&lt;h2 id=&#34;a-little-history-of-johan-jensen&#34;&gt;A Little History of Johan Jensen
+&lt;/h2&gt;&lt;p&gt;I always like to know a tiny bit about the person that a theorem or
+important finding is named after because it helps me remember it. Johan
+Ludwig William Valdemar Jensen was a Danish mathematician and engineer
+and president of the Danish Mathematical Society from 1892 to 1903.
+Although he studied in and published on topics in mathematics he never
+held an academic position in the subject. He instead worked as an
+engineer for the Copenhagen Telephone Company.&lt;/p&gt;
+&lt;h2 id=&#34;why-jensens-inequality-matters&#34;&gt;Why Jensen’s Inequality Matters
+&lt;/h2&gt;&lt;p&gt;At its core, Jensen’s inequality reveals a fundamental mathematical
+truth: &lt;strong&gt;the average of a function is not the same as the function of
+the average&lt;/strong&gt;, or as an equation:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*f*(*x*)\]&lt;p&gt; ≠ &lt;em&gt;f&lt;/em&gt;(&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*x*\]&lt;p&gt;)&lt;/p&gt;
+&lt;p&gt;The fact that this is true matters for broadly when we are tasked with
+modeling rates of change (whether these be population growth or return
+rates on a investment).&lt;/p&gt;
+&lt;h2 id=&#34;what-are-concave-and-convex-functions&#34;&gt;What Are Concave and Convex Functions?
+&lt;/h2&gt;&lt;p&gt;Before diving into population ecology, let’s understand what we mean by
+convex and concave functions—these terms describe the “shape” of a
+curve.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# create some dummy data for demonstration
+x &amp;lt;- seq(0, 10, length.out = 100)
+
+# convex function: curves upward (like a smile or the letter &#39;u&#39;)
+convex_y &amp;lt;- x^2
+
+# Concave function: curves downward (down like a frown)
+concave_y &amp;lt;- sqrt(x) * 10
+
+# Linear function for comparison
+linear_y &amp;lt;- x * 10
+
+# Combine into dataframe
+demo_data &amp;lt;- data.frame(
+  x = rep(x, 3),
+  y = c(convex_y, concave_y, linear_y),
+  type = rep(c(&amp;quot;Convex (curves up)&amp;quot;, &amp;quot;Concave (curves down)&amp;quot;, &amp;quot;Linear&amp;quot;), 
+             each = length(x))
+)
+
+ggplot(demo_data, aes(x = x, y = y, color = type)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c(&amp;quot;Convex (curves up)&amp;quot; = &amp;quot;#E69F00&amp;quot;,
+                                 &amp;quot;Concave (curves down)&amp;quot; = &amp;quot;#0072B2&amp;quot;,
+                                 &amp;quot;Linear&amp;quot; = &amp;quot;gray50&amp;quot;)) +
+  labs(
+    title = &amp;quot;Understanding Function Shapes&amp;quot;,
+    subtitle = &amp;quot;The curvature determines how Jensen&#39;s inequality applies&amp;quot;,
+    x = &amp;quot;Input (x)&amp;quot;,
+    y = &amp;quot;Output f(x)&amp;quot;,
+    color = &amp;quot;Function Type&amp;quot;
+  ) +
+  theme(legend.position = &amp;quot;bottom&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-1-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_e0b7326cc1da70fa.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_c7bec50d38edcc46.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Key insight:&lt;/strong&gt; - &lt;strong&gt;Convex functions&lt;/strong&gt; (curving upward like
+&lt;em&gt;x&lt;/em&gt;&lt;sup&gt;2&lt;/sup&gt; or &lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;x&lt;/em&gt;&lt;/sup&gt;): The function of the average is
+&lt;em&gt;less than&lt;/em&gt; the average of the function. - &lt;strong&gt;Concave functions&lt;/strong&gt;
+(curving downward like $\sqrt{x}$ or log (&lt;em&gt;x&lt;/em&gt;)): The function of the
+average is &lt;em&gt;greater than&lt;/em&gt; the average of the function. - &lt;strong&gt;Linear
+functions&lt;/strong&gt;: No difference—the average of the function equals the
+function of the average.&lt;/p&gt;
+&lt;h2 id=&#34;population-growth&#34;&gt;Population Growth
+&lt;/h2&gt;&lt;p&gt;Population growth rates provide a perfect example of why Jensen’s
+inequality matters in ecology. Consider the classic exponential growth
+model:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;N&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt;&lt;/sub&gt; = &lt;em&gt;N&lt;/em&gt;&lt;sub&gt;0&lt;/sub&gt;&lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;k**t&lt;/em&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;where: - &lt;em&gt;N&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt;&lt;/sub&gt; = population size at time &lt;em&gt;t&lt;/em&gt; -
+&lt;em&gt;N&lt;/em&gt;&lt;sub&gt;0&lt;/sub&gt; = initial population size - &lt;em&gt;k&lt;/em&gt; = growth rate - &lt;em&gt;t&lt;/em&gt; =
+time&lt;/p&gt;
+&lt;p&gt;This model tells us that to predict population size at any future time
+&lt;em&gt;t&lt;/em&gt;, we multiply the starting population by &lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;k**t&lt;/em&gt;&lt;/sup&gt;. Simple
+enough—but here’s the rub.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# as always we want to set the seed for reproducibility
+set.seed(123)
+
+# Simulation parameters
+n_years &amp;lt;- 200 # number of years to simulate
+n_simulations &amp;lt;- 500 # number of simulations per year
+N0 &amp;lt;- 100 # initial population size
+
+# Growth rate varies: mean = 0.03 (3%), SD = 0.15 (15%)
+r_mean &amp;lt;- 0.03
+r_sd &amp;lt;- 0.3
+
+# Simulate population trajectories
+simulate_population &amp;lt;- function() {
+  N &amp;lt;- numeric(n_years)
+  N[1] &amp;lt;- N0
+  
+  # Random growth rates each year
+  r &amp;lt;- rnorm(n_years - 1, mean = r_mean, sd = r_sd)
+  
+  for (t in 2:n_years) {
+    N[t] &amp;lt;- N[t-1] * exp(r[t-1])
+  }
+  
+  return(N)
+}
+
+# Run simulations
+all_sims &amp;lt;- replicate(n_simulations, simulate_population())
+
+# E[N(t)] - Average of the function (actual mean trajectory)
+N_geometric_mean &amp;lt;- exp(rowMeans(log(all_sims)))
+# N(E[r]) - Function of the average (using mean growth rate)
+N_function_of_mean &amp;lt;- N0 * exp(r_mean * (0:(n_years-1)))
+
+# We&#39;ll plot this to show the variation
+sim_data &amp;lt;- data.frame(
+  year = rep(1:n_years, n_simulations),
+  N = as.vector(all_sims),
+  sim = rep(1:n_simulations, each = n_years)
+)
+
+
+# combine for plotting
+plot_data &amp;lt;- data.frame(
+  year = 1:n_years,
+  stochastic = N_geometric_mean,
+  deterministic = N_function_of_mean
+)
+
+# Plot
+ggplot(plot_data, aes(x = year)) +
+  geom_line(data = sim_data, 
+            aes(x = year, y = N, group = sim),
+            color = &amp;quot;gray50&amp;quot;, alpha = 0.3, linewidth = 0.3) +
+  geom_line(aes(y = deterministic, color = &amp;quot;Deterministic (N(E[r]))&amp;quot;), 
+            linewidth = 1.2) +
+  geom_line(aes(y = stochastic, color = &amp;quot;Stochastic (E[N(t)])&amp;quot;), 
+            linewidth = 1.2) +
+  scale_color_manual(
+    values = c(&amp;quot;Deterministic (N(E[r]))&amp;quot; = &amp;quot;#E69F00&amp;quot;,
+               &amp;quot;Stochastic (E[N(t)])&amp;quot; = &amp;quot;#0072B2&amp;quot;)
+  ) +
+  labs(
+    title = &amp;quot;Environmental Stochasticity Reduces Population Growth&amp;quot;,
+    subtitle = paste0(&amp;quot;Mean growth rate = &amp;quot;, r_mean*100, &amp;quot;% per year, SD = &amp;quot;, 
+                     r_sd*100, &amp;quot;%&amp;quot;),
+    x = &amp;quot;Year&amp;quot;,
+    y = &amp;quot;Population Size&amp;quot;,
+    color = &amp;quot;Model&amp;quot;
+  ) +
+    coord_cartesian(ylim = c(0, 20000)) +  # Focus on the relevant range
+  theme(legend.position = c(0.02, 0.98), 
+        legend.justification = c(0, 1),
+        legend.background = element_rect(fill = &amp;quot;white&amp;quot;, color = &amp;quot;gray80&amp;quot;))+
+theme_minimal()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-2-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_9ef1be663301dadd.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_a78e618326157dad.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;The deterministic model (orange) overestimates population growth
+compared to the geometric mean (blue). After 50 years, the deterministic
+model predicts 435, while the geometric mean is only 521&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why?&lt;/strong&gt; Because &lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;x&lt;/em&gt;&lt;/sup&gt; is convex. By Jensen’s inequality:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*e*&lt;sup&gt;*r*&lt;/sup&gt;\]&lt;p&gt; &amp;gt; &lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*r*\]&lt;p&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;h2 id=&#34;the-math-behind-it&#34;&gt;The Math Behind It
+&lt;/h2&gt;&lt;p&gt;For those interested in the formal statement:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Jensen’s Inequality:&lt;/strong&gt; For a convex function &lt;em&gt;f&lt;/em&gt; and random variable
+&lt;em&gt;X&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*f*(*X*)\]&lt;p&gt; ≥ &lt;em&gt;f&lt;/em&gt;(&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*X*\]&lt;p&gt;)&lt;/p&gt;
+&lt;p&gt;For a concave function, the inequality reverses (≤) so:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*f*(*X*)\]&lt;p&gt; ≤ &lt;em&gt;f&lt;/em&gt;(&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*X*\]&lt;p&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;In population ecology:&lt;/strong&gt; - If
+&lt;em&gt;N&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt; + 1&lt;/sub&gt; = &lt;em&gt;N&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt;&lt;/sub&gt;&lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;r&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt;&lt;/sub&gt;&lt;/sup&gt;
+and &lt;em&gt;r&lt;/em&gt;&lt;sub&gt;&lt;em&gt;t&lt;/em&gt;&lt;/sub&gt; varies randomly - Then
+&lt;em&gt;E&lt;/em&gt;&lt;/p&gt;
+\[*N*&lt;sub&gt;*t*&lt;/sub&gt;\]&lt;p&gt; ≠ &lt;em&gt;N&lt;/em&gt;&lt;sub&gt;0&lt;/sub&gt;&lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;r̄&lt;/em&gt; ⋅ &lt;em&gt;t&lt;/em&gt;&lt;/sup&gt; -
+Because &lt;em&gt;e&lt;/em&gt;&lt;sup&gt;&lt;em&gt;x&lt;/em&gt;&lt;/sup&gt; is convex (curves upward)&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;size of the gap&lt;/strong&gt; depends on: 1. &lt;strong&gt;Variance of &lt;em&gt;X&lt;/em&gt;&lt;/strong&gt;: More
+variable → bigger gap 2. &lt;strong&gt;Curvature of &lt;em&gt;f&lt;/em&gt;&lt;/strong&gt;: More nonlinear → bigger
+gap&lt;/p&gt;
+&lt;p&gt;This is why environmental stochasticity matters more for processes with
+highly nonlinear relationships.&lt;/p&gt;
+&lt;h2 id=&#34;practical-implications&#34;&gt;Practical Implications
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Never substitute means into nonlinear functions&lt;/strong&gt; expecting to get
+mean outcomes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Report both mean and variance&lt;/strong&gt; of vital rates - both matter for
+population projections.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Use simulation&lt;/strong&gt; Stochastic models naturally account for Jensen’s
+inequality.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Check your function’s curvature&lt;/strong&gt; - Is it convex, concave, or
+linear? This determines the direction of bias.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;Jensen’s inequality is more than mathematical formalism—it’s a reason
+why the systems we model surprise us. Every time we substitute an
+average into a nonlinear relationship, we’re making a prediction that’s
+systematically biased. This has relevance beyond ecological systems as
+well. Consider returns on investment, infection spread, or chemical
+reaction rates. Jensen’s inequality will come into play in all of those
+cases.&lt;/p&gt;
+&lt;p&gt;The next time someone shows you a deterministic population model with
+“average” parameter values, ask yourself: is this relationship linear?
+If not, remember Jensen’s inequality.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;references&#34;&gt;References
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Johan_Jensen_%28mathematician%29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://en.wikipedia.org/wiki/Johan_Jensen_(mathematician)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Doak, D. F., J. A. Estes, B. S. Halpern, U. Jacob, D. R.
+Lindberg, J. Lovvorn, D. H. Monson, M. T. Tinker, T. M.
+Williams, J. T. Wootton, I. Carroll, M. Emmerson, F. Micheli, and M.
+Novak. 2008. Understanding and Predicting Ecological Dynamics: Are
+Major Surprises Inevitable. Ecology 89:952–961.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.geeksforgeeks.org/engineering-mathematics/convex-and-concave-functions/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Concave and Convex
+Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Denny, M. (2017). The fallacy of the average: on the ubiquity,
+utility and continuing novelty of Jensen’s inequality. &lt;em&gt;Journal of
+Experimental Biology&lt;/em&gt;, 220(2), 139-146.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>Basic Model Fitting in R</title>
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-model-fitting-in-r/</link>
         <pubDate>Tue, 01 Aug 2023 09:00:00 -0800</pubDate>
