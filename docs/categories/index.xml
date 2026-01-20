@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 11 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>R</title>
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r/</link>
-        <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
+        <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
         
         <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r/</guid>
         <description></description>
@@ -117,6 +117,22 @@
         <pubDate>Wed, 14 Jun 2023 09:00:00 -0800</pubDate>
         
         <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_getting-started/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>R_Visualization</title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_visualization/</link>
+        <pubDate>Sat, 11 Feb 2023 10:00:00 -0800</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_visualization/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>R_IDE</title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_ide/</link>
+        <pubDate>Sat, 11 Feb 2023 09:00:00 -0800</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/r_ide/</guid>
         <description></description>
         </item>
         <item>
