@@ -91,7 +91,7 @@ ggplot(demo_data, aes(x = x, y = y, color = type)) +
   theme(legend.position = "bottom")
 ```
 
-<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" />
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 
 **Key insight:** 
 
@@ -101,7 +101,7 @@ ggplot(demo_data, aes(x = x, y = y, color = type)) +
 
 ## Population Growth
 
-Population growth rates provide a perfect example of why Jensen's inequality matters in ecology. Consider the classic exponential growth model:\
+Population growth rates provide a perfect example of why Jensen's inequality matters in ecology. Consider the classic exponential growth model:
 
  $$
  N_t = N_0 e^{kt}
@@ -196,9 +196,9 @@ ggplot(plot_data, aes(x = year)) +
 theme_minimal()
 ```
 
-<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" />
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
-The deterministic model (orange) overestimates population growth compared to the geometric mean (blue). After 50 years, the deterministic model predicts 435, while the geometric mean is only 521
+The deterministic model (orange) underestimates population growth compared to the geometric mean (blue). After 50 years, the deterministic model predicts 435, while the geometric mean is only 521
 
 **Why?** Because $ e^x$ is convex. By Jensen's inequality:
 
