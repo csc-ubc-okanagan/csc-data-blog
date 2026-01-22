@@ -5,7 +5,7 @@ date: 2026-01-11
 slug: jensens-inequality-population-ecology
 categories: ["R"]
 tags: ["Modelling"]
-math: true
+math: true  
 ---
 
 ```{r load-libraries}
@@ -22,9 +22,9 @@ Imagine you're managing a wildlife population. Over the past decade, the annual 
 I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he  studied in and published on topics in mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.
 
 ## Why Jensen's Inequality Matters
-At its core, Jensen's inequality reveals a fundamental mathematical truth: **the average of a function is not the same as the function of the average**, or as an equation:
+At its core, Jensen's inequality reveals a fundamental mathematical truth: **the average of a function is not the same as the function of the average**, or as an equation:\
 
-$$E[f(x)] \neq f(E[x])$$
+$$Ef(x) \neq f(Ex)$$
 
 The fact that this is true matters for broadly when we are tasked with modeling rates of change (whether these be population growth or return rates on a investment). 
 
@@ -75,9 +75,9 @@ ggplot(demo_data, aes(x = x, y = y, color = type)) +
 
 ## Population Growth
 
-Population growth rates provide a perfect example of why Jensen's inequality matters in ecology. Consider the classic exponential growth model:
+Population growth rates provide a perfect example of why Jensen's inequality matters in ecology. Consider the classic exponential growth model:\
 
-$$N_t = N_0 e^{kt}$$
+ \[N_t = N_0 e^{kt}\]
 
 where:
 - $N_t$ = population size at time $t$
@@ -152,14 +152,14 @@ ggplot(plot_data, aes(x = year)) +
                "Stochastic (E[N(t)])" = "#0072B2")
   ) +
   labs(
-    title = "Environmental Stochasticity Reduces Population Growth",
+    title = "Jensen's Inequality in Population Growth",
     subtitle = paste0("Mean growth rate = ", r_mean*100, "% per year, SD = ", 
                      r_sd*100, "%"),
     x = "Year",
     y = "Population Size",
     color = "Model"
   ) +
-    coord_cartesian(ylim = c(0, 20000)) +  # Focus on the relevant range
+    coord_cartesian(ylim = c(0, 20000)) +  # reduce range on the relevant range
   theme(legend.position = c(0.02, 0.98), 
         legend.justification = c(0, 1),
         legend.background = element_rect(fill = "white", color = "gray80"))+
@@ -168,7 +168,7 @@ theme_minimal()
 
 The deterministic model (orange) overestimates population growth compared to the geometric mean (blue). After 50 years, the deterministic model predicts `r round(N_function_of_mean[50], 0)`, while the geometric mean is only `r round(N_geometric_mean[50], 0)`
 
-**Why?** Because $e^x$ is convex. By Jensen's inequality:
+**Why?** Because $e^x$ is convex. By Jensen's inequality:\
 
 $$E[e^r] > e^{E[r]}$$
 
@@ -176,22 +176,17 @@ $$E[e^r] > e^{E[r]}$$
 
 For those interested in the formal statement:
 
-**Jensen's Inequality:** For a convex function $f$ and random variable $X$:
+**Jensen's Inequality:** For a convex function $f$ and random variable $X$:\
 
 $$E[f(X)] \geq f(E[X])$$
 
-For a concave function, the inequality reverses ($\leq$) so:
+For a concave function, the inequality reverses ($\leq$) so:\
 
 $$E[f(X)] \leq f(E[X])$$
 
-**In population ecology:**
-- If $N_{t+1} = N_t e^{r_t}$ and $r_t$ varies randomly
-- Then $E[N_t] \neq N_0 e^{\bar{r} \cdot t}$
-- Because $e^x$ is convex (curves upward)
-
-The **size of the gap** depends on:
-1. **Variance of $X$**: More variable → bigger gap
-2. **Curvature of $f$**: More nonlinear → bigger gap
+The **size of the gap** between the expected value and the actual value depends on:
+1. **Variance of $X$**: More variable: bigger gap
+2. **Curvature of $f$**: More nonlinearity: bigger gap
 
 This is why environmental stochasticity matters more for processes with highly nonlinear relationships.
 
@@ -205,7 +200,7 @@ This is why environmental stochasticity matters more for processes with highly n
 
 ## Conclusion
 
-Jensen's inequality is more than mathematical formalism—it's a reason why the systems we model surprise us. Every time we substitute an average into a nonlinear relationship, we're making a prediction that's systematically biased. This has relevance beyond ecological systems as well. Consider returns on investment, infection spread, or chemical reaction rates. Jensen's inequality will come into play in all of those cases. 
+Jensen's inequality is a reason why the systems we model surprise us. Every time we substitute an average into a nonlinear relationship, we're making a prediction that's biased. This has relevance beyond ecological systems as well. Consider returns on investment, infection spread, or chemical reaction rates. Jensen's inequality will come into play in all of those cases. 
 
 The next time someone shows you a deterministic population model with "average" parameter values, ask yourself: is this relationship linear? If not, remember Jensen's inequality. 
 

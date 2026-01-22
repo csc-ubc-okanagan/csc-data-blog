@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="library(ggplot2)\rlibrary(dplyr)\rIntroduction Imagine you’re managing a wildlife population. Over the past decade, the annual growth rate has averaged 5% per year. Simple math suggests the population should have grown by about 50% over that period, right? Wrong. And Jensen’s inequality explains why.\nA Little History of Johan Jensen I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he studied in and published on topics in mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" title: &ldquo;Jensen&rsquo;s Inequality: Why Averages Mislead&rdquo; author: [&ldquo;Alex Jack&rdquo;] date: 2026-01-11 slug: jensens-inequality-population-ecology categories: [&ldquo;R&rdquo;] tags: [&ldquo;Modelling&rdquo;] math: true library(ggplot2)\rlibrary(dplyr)\rIntroduction Imagine you’re managing a wildlife population. Over the past decade, the annual growth rate has averaged 5% per year. Simple math suggests the population should have grown by about 50% over that period, right? Wrong. And Jensen’s inequality explains why.\nA Little History of Johan Jensen I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he studied in and published on topics in mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.\n">
 <title>Jensen&#39;s Inequality: Why Averages Mislead</title>
 
 <link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/'>
 
 <link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Jensen's Inequality: Why Averages Mislead">
-<meta property='og:description' content="library(ggplot2)\rlibrary(dplyr)\rIntroduction Imagine you’re managing a wildlife population. Over the past decade, the annual growth rate has averaged 5% per year. Simple math suggests the population should have grown by about 50% over that period, right? Wrong. And Jensen’s inequality explains why.\nA Little History of Johan Jensen I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he studied in and published on topics in mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.\n">
+<meta property='og:description' content=" title: &ldquo;Jensen&rsquo;s Inequality: Why Averages Mislead&rdquo; author: [&ldquo;Alex Jack&rdquo;] date: 2026-01-11 slug: jensens-inequality-population-ecology categories: [&ldquo;R&rdquo;] tags: [&ldquo;Modelling&rdquo;] math: true library(ggplot2)\rlibrary(dplyr)\rIntroduction Imagine you’re managing a wildlife population. Over the past decade, the annual growth rate has averaged 5% per year. Simple math suggests the population should have grown by about 50% over that period, right? Wrong. And Jensen’s inequality explains why.\nA Little History of Johan Jensen I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he studied in and published on topics in mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.\n">
 <meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/'>
 <meta property='og:site_name' content='R &amp; Python Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Modelling' /><meta property='article:published_time' content='2026-01-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-11T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Modelling' /><meta property='article:published_time' content='2025-01-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-11T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="Jensen's Inequality: Why Averages Mislead">
-<meta name="twitter:description" content="library(ggplot2)\rlibrary(dplyr)\rIntroduction Imagine you’re managing a wildlife population. Over the past decade, the annual growth rate has averaged 5% per year. Simple math suggests the population should have grown by about 50% over that period, right? Wrong. And Jensen’s inequality explains why.\nA Little History of Johan Jensen I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he studied in and published on topics in mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.\n">
+<meta name="twitter:description" content=" title: &ldquo;Jensen&rsquo;s Inequality: Why Averages Mislead&rdquo; author: [&ldquo;Alex Jack&rdquo;] date: 2026-01-11 slug: jensens-inequality-population-ecology categories: [&ldquo;R&rdquo;] tags: [&ldquo;Modelling&rdquo;] math: true library(ggplot2)\rlibrary(dplyr)\rIntroduction Imagine you’re managing a wildlife population. Over the past decade, the annual growth rate has averaged 5% per year. Simple math suggests the population should have grown by about 50% over that period, right? Wrong. And Jensen’s inequality explains why.\nA Little History of Johan Jensen I always like to know a tiny bit about the person that a theorem or important finding is named after because it helps me remember it. Johan Ludwig William Valdemar Jensen was a Danish mathematician and engineer and president of the Danish Mathematical Society from 1892 to 1903. Although he studied in and published on topics in mathematics he never held an academic position in the subject. He instead worked as an engineer for the Copenhagen Telephone Company.\n">
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
       <script>
         var doNotTrack = false;
@@ -298,6 +298,13 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
+    <li><a href="#math-true">title: &ldquo;Jensen&rsquo;s Inequality: Why Averages Mislead&rdquo;
+author: [&ldquo;Alex Jack&rdquo;]
+date: 2026-01-11
+slug: jensens-inequality-population-ecology
+categories: [&ldquo;R&rdquo;]
+tags: [&ldquo;Modelling&rdquo;]
+math: true</a></li>
     <li><a href="#introduction">Introduction</a></li>
     <li><a href="#a-little-history-of-johan-jensen">A Little History of Johan Jensen</a></li>
     <li><a href="#why-jensens-inequality-matters">Why Jensen’s Inequality Matters</a></li>
@@ -356,7 +363,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-01-11T00:00:00Z'>Jan 11, 2026</time>
+                <time class="article-time--published" datetime='2025-01-11T00:00:00Z'>Jan 11, 2025</time>
             </div>
         
 
@@ -386,7 +393,15 @@
     <section class="article-content">
     
     
-    <pre><code>library(ggplot2)
+    <hr>
+<h2 id="math-true">title: &ldquo;Jensen&rsquo;s Inequality: Why Averages Mislead&rdquo;
+author: [&ldquo;Alex Jack&rdquo;]
+date: 2026-01-11
+slug: jensens-inequality-population-ecology
+categories: [&ldquo;R&rdquo;]
+tags: [&ldquo;Modelling&rdquo;]
+math: true
+</h2><pre><code>library(ggplot2)
 library(dplyr)
 </code></pre>
 <h2 id="introduction">Introduction
@@ -450,12 +465,16 @@ ggplot(demo_data, aes(x = x, y = y, color = type)) +
   ) +
   theme(legend.position = &quot;bottom&quot;)
 </code></pre>
-<p><img src="/csc-data-blog/index.en_files/figure-markdown_strict/unnamed-chunk-1-1.png"
-	
-	
-	
+<p><img src="/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-1-1.png"
+	width="672"
+	height="480"
+	srcset="/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_13113081c193bf67.png 480w, /csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-1-1_hu_67c83e1c6b4aed1b.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
 	
 ></p>
 <p><strong>Key insight:</strong> - <strong>Convex functions</strong> (curving upward like
@@ -553,12 +572,16 @@ ggplot(plot_data, aes(x = year)) +
         legend.background = element_rect(fill = &quot;white&quot;, color = &quot;gray80&quot;))+
 theme_minimal()
 </code></pre>
-<p><img src="/csc-data-blog/index.en_files/figure-markdown_strict/unnamed-chunk-2-1.png"
-	
-	
-	
+<p><img src="/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-2-1.png"
+	width="672"
+	height="480"
+	srcset="/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_18e278e578c9a41b.png 480w, /csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-markdown_strict/unnamed-chunk-2-1_hu_8aaf37394a743f53.png 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
 	
 ></p>
 <p>The deterministic model (orange) overestimates population growth
