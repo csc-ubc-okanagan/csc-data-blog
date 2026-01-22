@@ -8,9 +8,27 @@ tags: ["Modelling"]
 math: true  
 ---
 
-```{r load-libraries}
+
+``` r
 library(ggplot2)
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
 ```
 
 ## Introduction
@@ -36,7 +54,8 @@ The fact that this is true matters for broadly when we are tasked with modeling 
 
 Before diving into population ecology, let's understand what we mean by convex and concave functions—these terms describe the "shape" of a curve.
 
-```{r}
+
+``` r
 # create some dummy data for demonstration
 x <- seq(0, 10, length.out = 100)
 
@@ -72,6 +91,8 @@ ggplot(demo_data, aes(x = x, y = y, color = type)) +
   theme(legend.position = "bottom")
 ```
 
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" />
+
 **Key insight:** 
 
 - **Convex functions** (curving upward like $ x^2$ or $ e^x$): The function of the average is *less than* the average of the function.
@@ -95,7 +116,8 @@ where:
 
 This model tells us that to predict population size at any future time $ t$, we multiply the starting population by $ e^{kt}$. Simple enough—but here's the rub.
 
-```{r}
+
+``` r
 # as always we want to set the seed for reproducibility
 set.seed(123)
 
@@ -174,7 +196,9 @@ ggplot(plot_data, aes(x = year)) +
 theme_minimal()
 ```
 
-The deterministic model (orange) overestimates population growth compared to the geometric mean (blue). After 50 years, the deterministic model predicts `r round(N_function_of_mean[50], 0)`, while the geometric mean is only `r round(N_geometric_mean[50], 0)`
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" />
+
+The deterministic model (orange) overestimates population growth compared to the geometric mean (blue). After 50 years, the deterministic model predicts 435, while the geometric mean is only 521
 
 **Why?** Because $ e^x$ is convex. By Jensen's inequality:
 
