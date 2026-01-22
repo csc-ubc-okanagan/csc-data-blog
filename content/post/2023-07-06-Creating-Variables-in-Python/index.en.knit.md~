@@ -1,0 +1,33 @@
+---
+title: "Creating Variables in Python"
+author: ["Madison"]
+date: 2023-06-20 09:00:00 -0800
+categories: ["Python", "P_Data"]
+tags: ["python"] # tags always lowercase
+output: 
+  html_document:
+    keep_md: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+Occasionally we need to derive variables form existing information. A good example of this is conversion between scales. If we wanted to change a measurement from metres to kilometres or weight in pounds to kilograms, we could do this simply by performing a basic operation on an entire column. In this situation, let’s start by multiplying two columns together to create a new column. Recall the GDP dataset from previous articles. Let’s say we want to know the total GDP for the country. This could be calculated by multiplying the population by the GDP_per_Cap.
+
+If you are just starting here, let’s re-load in the original Gapminder data:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
