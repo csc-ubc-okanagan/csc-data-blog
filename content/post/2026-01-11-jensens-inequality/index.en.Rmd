@@ -2,7 +2,7 @@
 title: "Jensen's Inequality: Why Averages Mislead"
 author: ["Alex Jack"]
 date: 2026-01-11
-slug: jensens-inequality-population-ecology
+# slug: jensens-inequality-population-ecology
 categories: ["R"]
 tags: ["Modelling"]
 math: true  
