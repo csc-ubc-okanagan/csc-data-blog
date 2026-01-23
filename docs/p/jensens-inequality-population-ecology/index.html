@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 1 2 library(ggplot2) library(dplyr) 1 2 ## ## Attaching package: &#39;dplyr&#39; 1 2 3 ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag 1 2 3 ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union Introduction Imagine you&rsquo;re managing a wildlife population. Over the past decade, the annual growth rate has averaged 5% per year. Simple math suggests the population should have grown by about 50% over that period, right? Wrong. And Jensen&rsquo;s inequality explains why.\n">
 <title>Jensen&#39;s Inequality: Why Averages Mislead</title>
@@ -16,7 +16,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
       <script>
         var doNotTrack = false;
-        if ( true ) {
+        if ( false ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -70,7 +70,7 @@
                     
                     
                         
-                        <img src="/csc-data-blog/img/avatar_hu_9d57c2c90efce4bf.png" width="300"
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
                             height="303" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -513,7 +513,7 @@ $$<p>The fact that this is true matters for broadly when we are tasked with mode
 </span></span><span class="line"><span class="cl">  <span class="nf">theme</span><span class="p">(</span><span class="n">legend.position</span> <span class="o">=</span> <span class="s">&#34;bottom&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" />
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 <p><strong>Key insight:</strong></p>
 <ul>
 <li><strong>Convex functions</strong> (curving upward like $ x^2$ or $ e^x$): The function of the average is <em>less than</em> the average of the function.</li>
@@ -521,7 +521,7 @@ $$<p>The fact that this is true matters for broadly when we are tasked with mode
 <li><strong>Linear functions</strong>: No difference—the average of the function equals the function of the average.</li>
 </ul>
 <h2 id="population-growth">Population Growth
-</h2><p>Population growth rates provide a perfect example of why Jensen&rsquo;s inequality matters in ecology. Consider the classic exponential growth model:\</p>
+</h2><p>Population growth rates provide a perfect example of why Jensen&rsquo;s inequality matters in ecology. Consider the classic exponential growth model:</p>
 $$
  N_t = N_0 e^{kt}
  $$<p>where:</p>
@@ -690,8 +690,8 @@ $$
 </span></span><span class="line"><span class="cl"><span class="nf">theme_minimal</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" />
-<p>The deterministic model (orange) overestimates population growth compared to the geometric mean (blue). After 50 years, the deterministic model predicts 435, while the geometric mean is only 521</p>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/jensens-inequality-population-ecology/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<p>The deterministic model (orange) underestimates population growth compared to the geometric mean (blue). After 50 years, the deterministic model predicts 435, while the geometric mean is only 521</p>
 <p><strong>Why?</strong> Because $ e^x$ is convex. By Jensen&rsquo;s inequality:</p>
 $$
 E[e^r] > e^{E[r]}

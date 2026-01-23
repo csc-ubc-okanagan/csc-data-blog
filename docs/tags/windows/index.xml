@@ -5,7 +5,7 @@
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/windows/</link>
         <description>Recent content in Windows on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
+        <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
         <lastBuildDate>Thu, 09 Mar 2023 18:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/windows/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Searching for files with the `findR` package</title>

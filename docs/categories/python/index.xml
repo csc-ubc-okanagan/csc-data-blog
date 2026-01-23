@@ -5,7 +5,7 @@
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/categories/python/</link>
         <description>Recent content in Python on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
+        <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
         <lastBuildDate>Tue, 09 Apr 2024 09:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/categories/python/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Sample Data Generation</title>
@@ -314,7 +314,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
 	width=&#34;361&#34;
 	height=&#34;67&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_2933a893e8dcb518.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_6e55a61257255ca9.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -327,7 +327,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
 	width=&#34;409&#34;
 	height=&#34;58&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_869ebba147b83bd0.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_b0b180b2184811ba.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -342,7 +342,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
 	width=&#34;654&#34;
 	height=&#34;597&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_a9841c249532f94e.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_88ddd9c397082061.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1507,7 +1507,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png&#34;
 	width=&#34;577&#34;
 	height=&#34;415&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_9aa72ccd5a04fb91.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_470f6ef2684e5514.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1555,7 +1555,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1.png&#34;
 	width=&#34;577&#34;
 	height=&#34;415&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_9aa72ccd5a04fb91.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_470f6ef2684e5514.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_398b9eddfb5d537f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/basic-visualizations-in-python/images/basic-viz-plot-1_hu_c8d80f69414e7656.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3833,7 +3833,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_b6d9adde58b4952d.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_abe76518a57163c3.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_8965a6352949dbb0.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-1_hu_cf3d97e0bf3f3dcb.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3856,7 +3856,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_20acd5cd4a2ec522.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_1a87630288baa819.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_de91657534bd0924.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-2_hu_f8740278c98dce0.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -3883,7 +3883,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3.png&#34;
 	width=&#34;672&#34;
 	height=&#34;480&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_17faf4f009eaf310.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_2f0233779566ad93.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_f93da701f86fe6a7.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-plot-3_hu_beac72ad1edac27d.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4003,7 +4003,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1.png&#34;
 	width=&#34;727&#34;
 	height=&#34;532&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_ba553a9def429fee.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_7b34488d5e21a295.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1874d2bc01d2ac2f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-1_hu_1938496062bff387.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4071,7 +4071,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2.png&#34;
 	width=&#34;811&#34;
 	height=&#34;546&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_3426884b337e1932.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_15663c4153feb60d.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_84db04d5cc781b58.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-2_hu_8441e27a842f27ba.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4142,7 +4142,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3.png&#34;
 	width=&#34;799&#34;
 	height=&#34;547&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_196a31cc8a6d315.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_62b42bf82774b616.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_fce32b199e2908cd.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-3_hu_7c58be6de9ca5c5f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4214,7 +4214,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4.png&#34;
 	width=&#34;805&#34;
 	height=&#34;550&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_5bfebaebb4be4272.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_1d7802eda270156f.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_deddf48cc9791f41.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-4_hu_348931b8f31186f8.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4287,7 +4287,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5.png&#34;
 	width=&#34;801&#34;
 	height=&#34;543&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_3a09c1b4e68acded.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_89a3072ddcf6b195.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_ca4b3be62cc78a74.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-5_hu_b53ef2bf4377d833.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4359,7 +4359,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6.png&#34;
 	width=&#34;799&#34;
 	height=&#34;546&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_1de5ab28ee50d71e.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_ab8d24cd1a6f1bc.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_dc24295bc16b5242.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-6_hu_a0ea4b3cc32a89f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4432,7 +4432,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7.png&#34;
 	width=&#34;826&#34;
 	height=&#34;550&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_224e51b1b813be90.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_6650faa1e69e9890.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_393caf51f4eb1bcd.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-7_hu_983b4f02ea5c3b69.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4502,7 +4502,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8.png&#34;
 	width=&#34;810&#34;
 	height=&#34;550&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_b4801f52fd3bc464.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_8de72fa13dc7974a.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_42c636a426cd9b9b.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-8_hu_bf2bd73b2d68c601.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4586,7 +4586,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9.png&#34;
 	width=&#34;535&#34;
 	height=&#34;370&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_808c356378e29a30.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_d512132e5ebaef42.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_5c4803576fe1c9d4.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-9_hu_2494b2f3b59cd176.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4661,7 +4661,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10.png&#34;
 	width=&#34;727&#34;
 	height=&#34;579&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_6f69fb5d9390112.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_81273c4c2a794bac.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_59d20a59e8f45c15.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-10_hu_fa9c1abc3dff7955.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4731,7 +4731,7 @@
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11.png&#34;
 	width=&#34;811&#34;
 	height=&#34;583&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_9eb5dbf56693a27.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_dc0522f465315149.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_6a49397665201850.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/visualizing-with-altair-in-python/images/altair-11_hu_e0d254e93f982df9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	

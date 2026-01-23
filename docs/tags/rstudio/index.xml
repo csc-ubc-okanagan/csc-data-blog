@@ -5,7 +5,7 @@
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/rstudio/</link>
         <description>Recent content in Rstudio on R &amp; Python Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
+        <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
         <lastBuildDate>Fri, 14 Feb 2025 14:00:00 -0800</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/rstudio/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Abacus API</title>
@@ -1125,7 +1125,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;dataset_id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataset_id_body&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;dataset_ver&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataset_id_body&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;latestVersion&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;versionNumber
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file_list_query&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;paste0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;base_url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;datasets_api&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataset_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/versions/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataset_ver&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/files/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file_list_query&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;paste0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;base_url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;datasets_api&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataset_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/versions/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dataset_ver&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/files/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1844,7 +1844,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo.png&#34;
 	width=&#34;666&#34;
 	height=&#34;353&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_7c79bd3eaa6381b6.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_7212bde9719303da.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_e7bf180219c2b1b7.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo_hu_8be83f90981c8645.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1857,7 +1857,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo-options.png&#34;
 	width=&#34;694&#34;
 	height=&#34;780&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_e1e54a227abbe9a4.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_e6ae58228debda11.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_c5e978ac49c939d9.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/new-repo-options_hu_4933a1ef0ab00513.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1876,7 +1876,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/publish-repo.png&#34;
 	width=&#34;931&#34;
 	height=&#34;338&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_c3729aa13fcd42f2.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_5fb3f61c1c1cd7a8.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_852574e63a2b85ca.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/publish-repo_hu_16c8450c10f4fa5c.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1890,7 +1890,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/push-origin.png&#34;
 	width=&#34;618&#34;
 	height=&#34;120&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_4bb35c5d7401f35f.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_2451dae059dcab6c.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_2dd72d951c8e876b.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/getting-started-with-github/images/push-origin_hu_a0ebeceb741af2e6.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1941,7 +1941,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk.png&#34;
 	width=&#34;361&#34;
 	height=&#34;67&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_2933a893e8dcb518.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_6e55a61257255ca9.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_55df813411c7ca7d.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/r-code-chunk_hu_5228893c6b3302d3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1954,7 +1954,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk.png&#34;
 	width=&#34;409&#34;
 	height=&#34;58&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_869ebba147b83bd0.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_b0b180b2184811ba.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_508e35ab1fa9cd94.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/python-code-chunk_hu_2b4b2d620ffa2ed9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1969,7 +1969,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment.png&#34;
 	width=&#34;654&#34;
 	height=&#34;597&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_a9841c249532f94e.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_88ddd9c397082061.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_3946c20166b342e6.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/using-python-in-rstudio-with-reticulate-package/images/environment_hu_9bf021c240f0f6a9.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -1994,7 +1994,7 @@ b) performing that request, which results in some data being sent back to us.&lt
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example.png&#34;
 	width=&#34;3840&#34;
 	height=&#34;2160&#34;
-	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example_hu_7b989cfa8fc8b9e8.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example_hu_b0bca3dfa754c9d1.png 1024w&#34;
+	srcset=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example_hu_2c0157ae4fbf88ed.png 480w, https://csc-ubc-okanagan.github.io/csc-data-blog/p/changing-the-rstudio-theme/images/dark-theme-example_hu_565393bd374aed2e.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
