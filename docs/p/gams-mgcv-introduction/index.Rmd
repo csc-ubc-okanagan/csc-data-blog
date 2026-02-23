@@ -1,0 +1,632 @@
+---
+title: "Smooth Operators: An Introduction to GAMs with mgcv"
+author: ["Alex Jack"]
+date: 2026-01-20
+slug: gams-mgcv-introduction
+categories: ["R"]
+tags: ["R_Modelling", "statistics"]
+math: true
+---
+
+```{r setup, message=FALSE, warning=FALSE}
+library(mgcv)
+library(ggplot2)
+library(dplyr)
+library(gratia)  # For GAM visualization helpers
+```
+
+## Why GAMs?
+
+You've probably fit a linear model before. Maybe even a generalized linear model (GLM). But what happens when your response doesn't follow a straight line—or any parametric form you can easily specify?
+
+Enter **Generalized Additive Models (GAMs)**. GAMs let you model non-linear relationships without committing to a specific functional form. Instead of assuming `y = β₀ + β₁x`, you fit `y = f(x)`, where `f()` is a smooth function learned from the data.
+
+Think of GAMs as the sweet spot between:
+- **Linear models**: Fast, interpretable, but rigid
+- **Machine learning**: Flexible, but often black-box and unstable
+
+GAMs give you flexibility with interpretability—you can see and understand the smooth functions.
+
+## The Basic Idea
+
+A GAM replaces linear predictors with smooth functions:
+
+**Linear Model:**
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
+
+**GAM:**
+$$y_i = \beta_0 + f(x_i) + \epsilon_i$$
+
+where $f()$ is a smooth function estimated from the data.
+
+For multiple predictors:
+$$y_i = \beta_0 + f_1(x_{1i}) + f_2(x_{2i}) + ... + \epsilon_i$$
+
+The magic is in how we estimate these smooth functions—typically using **penalized regression splines**.
+
+## A Simple Example: Temperature and Ice Cream Sales
+
+Let's start with a classic non-linear relationship.
+
+```{r simulate-data}
+set.seed(42)
+
+# Simulate ice cream sales data
+temperature <- seq(0, 35, length.out = 200)
+# Sales follow a non-linear relationship with temperature
+sales <- 100 + 15 * temperature - 0.3 * temperature^2 + 
+         2 * sin(temperature/3) +
+         rnorm(200, 0, 20)
+
+ice_cream <- data.frame(
+  temperature = temperature,
+  sales = pmax(sales, 0)  # Sales can't be negative
+)
+
+# Visualize the relationship
+ggplot(ice_cream, aes(x = temperature, y = sales)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Ice Cream Sales vs Temperature",
+    x = "Temperature (°C)",
+    y = "Sales (units)"
+  ) +
+  theme_minimal()
+```
+
+Clearly non-linear! Let's compare three approaches:
+
+```{r compare-models}
+# 1. Linear model (wrong!)
+lm_fit <- lm(sales ~ temperature, data = ice_cream)
+
+# 2. Polynomial (have to guess the degree)
+poly_fit <- lm(sales ~ poly(temperature, 3), data = ice_cream)
+
+# 3. GAM (let the data decide)
+gam_fit <- gam(sales ~ s(temperature), data = ice_cream)
+
+# Create predictions
+temp_seq <- seq(0, 35, length.out = 200)
+predictions <- data.frame(
+  temperature = temp_seq,
+  Linear = predict(lm_fit, newdata = data.frame(temperature = temp_seq)),
+  Polynomial = predict(poly_fit, newdata = data.frame(temperature = temp_seq)),
+  GAM = predict(gam_fit, newdata = data.frame(temperature = temp_seq))
+)
+
+# Reshape for plotting
+library(tidyr)
+pred_long <- predictions %>%
+  pivot_longer(-temperature, names_to = "Model", values_to = "Prediction")
+
+# Plot
+ggplot() +
+  geom_point(data = ice_cream, aes(x = temperature, y = sales), 
+             alpha = 0.3, color = "gray50") +
+  geom_line(data = pred_long, 
+            aes(x = temperature, y = Prediction, color = Model),
+            linewidth = 1.2) +
+  scale_color_manual(values = c("Linear" = "#E69F00", 
+                                 "Polynomial" = "#009E73",
+                                 "GAM" = "#0072B2")) +
+  labs(
+    title = "Comparing Approaches to Non-linear Relationships",
+    x = "Temperature (°C)",
+    y = "Sales (units)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+The GAM (blue) captures the curve without us having to specify its functional form. The linear model is clearly wrong, and the polynomial works but required us to guess the degree.
+
+## Understanding the GAM: What Did We Fit?
+
+```{r examine-gam}
+# Look at the summary
+summary(gam_fit)
+
+# Visualize the smooth term
+plot(gam_fit, residuals = TRUE, pch = 1, cex = 0.5,
+     shade = TRUE, shade.col = "lightblue",
+     main = "Smooth function of temperature")
+```
+
+Key outputs:
+- **EDF (Estimated Degrees of Freedom)**: How "wiggly" the smooth is. EDF ≈ 1 is nearly linear, higher values are more flexible
+- **p-value**: Is this smooth term significant?
+- **R-squared**: Proportion of variance explained
+
+## The Basis Functions
+
+Behind the scenes, GAMs use **basis functions**—a set of simple functions that combine to create the smooth.
+
+```{r basis-demo}
+# Fit a GAM with specific basis dimension
+gam_k5 <- gam(sales ~ s(temperature, k = 5), data = ice_cream)
+gam_k10 <- gam(sales ~ s(temperature, k = 10), data = ice_cream)
+gam_k20 <- gam(sales ~ s(temperature, k = 20), data = ice_cream)
+
+# Predictions
+preds <- data.frame(
+  temperature = temp_seq,
+  k5 = predict(gam_k5, newdata = data.frame(temperature = temp_seq)),
+  k10 = predict(gam_k10, newdata = data.frame(temperature = temp_seq)),
+  k20 = predict(gam_k20, newdata = data.frame(temperature = temp_seq))
+) %>%
+  pivot_longer(-temperature, names_to = "Basis_k", values_to = "Prediction")
+
+ggplot() +
+  geom_point(data = ice_cream, aes(x = temperature, y = sales), 
+             alpha = 0.2, color = "gray50") +
+  geom_line(data = preds, 
+            aes(x = temperature, y = Prediction, color = Basis_k),
+            linewidth = 1) +
+  labs(
+    title = "Effect of Basis Dimension (k)",
+    subtitle = "Higher k allows more flexibility",
+    x = "Temperature (°C)",
+    y = "Sales (units)",
+    color = "Basis size"
+  ) +
+  theme_minimal()
+```
+
+**The `k` parameter** controls the maximum wiggliness. But don't worry—GAMs use **penalization** to prevent overfitting. A large `k` just gives the model room to be flexible *if needed*.
+
+## Checking Your GAM
+
+Always check your model! `mgcv` has excellent diagnostics.
+
+```{r diagnostics}
+# GAM diagnostic plots
+par(mfrow = c(2, 2))
+gam.check(gam_fit)
+par(mfrow = c(1, 1))
+```
+
+What to look for:
+1. **QQ plot**: Are residuals normally distributed?
+2. **Residuals vs predicted**: Any patterns? (should be random cloud)
+3. **Response vs fitted**: Points should follow the 1:1 line
+4. **k-index**: Should be > 1 (if < 1, try increasing `k`)
+
+## Multiple Predictors
+
+GAMs really shine with multiple predictors. Let's simulate animal home range size.
+
+```{r multi-predictor}
+set.seed(123)
+
+# Simulate home range data
+n <- 300
+habitat_data <- data.frame(
+  body_mass = exp(rnorm(n, 3, 0.5)),  # kg (log-normal)
+  food_availability = runif(n, 0, 100),  # index
+  population_density = runif(n, 0, 50)  # individuals/km²
+)
+
+# Home range size with complex relationships
+habitat_data$home_range <- with(habitat_data,
+  50 * log(body_mass) +  # Allometric scaling
+  -0.3 * food_availability +  # More food = smaller range
+  0.5 * sqrt(population_density) +  # Density-dependent
+  -0.002 * food_availability^2 +  # Diminishing returns
+  rnorm(n, 0, 20)
+)
+
+# Fit multi-predictor GAM
+range_gam <- gam(home_range ~ s(body_mass) + s(food_availability) + 
+                   s(population_density),
+                 data = habitat_data)
+
+summary(range_gam)
+```
+
+## Visualizing Multi-Predictor GAMs
+
+```{r viz-multi}
+# Plot all smooth terms
+par(mfrow = c(2, 2))
+plot(range_gam, pages = 1, residuals = TRUE, pch = 1, cex = 0.5,
+     shade = TRUE, shade.col = "lightblue")
+par(mfrow = c(1, 1))
+```
+
+Each plot shows the **partial effect** of one predictor, holding others constant. This is incredibly useful for interpretation!
+
+## Interactions Between Predictors
+
+Sometimes effects depend on each other. GAMs can model interactions using **tensor product smooths**.
+
+```{r interactions}
+# Simulate data with interaction
+set.seed(456)
+interact_data <- data.frame(
+  x1 = runif(200, 0, 10),
+  x2 = runif(200, 0, 10)
+)
+
+# Response depends on interaction
+interact_data$y <- with(interact_data,
+  10 + 2 * x1 + 3 * x2 + 0.5 * x1 * x2 +  # Interaction
+  sin(x1) * cos(x2) +  # Non-linear interaction
+  rnorm(200, 0, 2)
+)
+
+# Fit interaction GAM using tensor product (te)
+interact_gam <- gam(y ~ te(x1, x2), data = interact_data)
+
+# Visualize the interaction surface
+vis.gam(interact_gam, view = c("x1", "x2"), 
+        theta = 45, phi = 30,
+        color = "terrain",
+        main = "Interaction Surface: y ~ te(x1, x2)")
+```
+
+**Types of interactions in mgcv:**
+- `s(x1, x2)`: Isotropic smooth (assumes same scale for both)
+- `te(x1, x2)`: Tensor product (different scales, more flexible)
+- `ti(x1, x2)`: Tensor product interaction only (excludes main effects)
+
+## Different Response Distributions
+
+Like GLMs, GAMs aren't limited to Gaussian responses. Use the `family` argument.
+
+```{r distributions}
+# Count data example (Poisson)
+set.seed(789)
+count_data <- data.frame(
+  effort = seq(1, 50, length.out = 150)
+)
+
+# Expected counts increase non-linearly with effort
+count_data$lambda <- exp(2 + 0.1 * count_data$effort - 
+                         0.001 * count_data$effort^2)
+count_data$counts <- rpois(150, count_data$lambda)
+
+# Fit Poisson GAM
+count_gam <- gam(counts ~ s(effort), 
+                 data = count_data, 
+                 family = poisson())
+
+# Plot on response scale
+plot_data <- data.frame(
+  effort = seq(1, 50, length.out = 200)
+)
+plot_data$predicted <- predict(count_gam, 
+                               newdata = plot_data, 
+                               type = "response")
+
+ggplot() +
+  geom_point(data = count_data, aes(x = effort, y = counts), alpha = 0.5) +
+  geom_line(data = plot_data, aes(x = effort, y = predicted), 
+            color = "#0072B2", linewidth = 1.2) +
+  labs(
+    title = "Poisson GAM for Count Data",
+    x = "Sampling Effort",
+    y = "Species Count"
+  ) +
+  theme_minimal()
+```
+
+**Common families:**
+- `gaussian()`: Normal response (default)
+- `poisson()`: Count data
+- `binomial()`: Binary or proportion data
+- `Gamma()`: Positive continuous data
+- `nb()`: Negative binomial (overdispersed counts)
+- `tw()`: Tweedie (zero-inflated continuous)
+
+## Temporal Autocorrelation
+
+Ecological data often has temporal structure. GAMs can handle this!
+
+```{r temporal}
+set.seed(101)
+
+# Time series with autocorrelation
+n_years <- 100
+time_data <- data.frame(
+  year = 1:n_years
+)
+
+# Population with trend + cycles + autocorrelation
+time_data$population <- 100 + 
+  0.5 * time_data$year +  # Linear trend
+  20 * sin(2 * pi * time_data$year / 10) +  # 10-year cycle
+  arima.sim(list(ar = 0.7), n = n_years)  # AR(1) noise
+
+# Fit GAM (incorrectly assuming independence)
+time_gam_naive <- gam(population ~ s(year), data = time_data)
+
+# Fit GAM with AR(1) correlation structure
+time_gam_ar <- gamm(population ~ s(year), 
+                    correlation = corAR1(form = ~ year),
+                    data = time_data)
+
+# Compare
+summary(time_gam_ar$gam)
+
+# Plot
+plot_data <- data.frame(year = 1:n_years)
+plot_data$naive <- predict(time_gam_naive, newdata = plot_data)
+plot_data$ar <- predict(time_gam_ar$gam, newdata = plot_data)
+
+ggplot(time_data, aes(x = year, y = population)) +
+  geom_point(alpha = 0.5) +
+  geom_line(data = plot_data, aes(y = naive, color = "Naive GAM")) +
+  geom_line(data = plot_data, aes(y = ar, color = "GAM with AR(1)")) +
+  scale_color_manual(values = c("Naive GAM" = "#E69F00", 
+                                 "GAM with AR(1)" = "#0072B2")) +
+  labs(title = "Accounting for Temporal Autocorrelation",
+       color = "Model") +
+  theme_minimal()
+```
+
+Note: Use `gamm()` (not `gam()`) for mixed models and correlation structures.
+
+## Random Effects in GAMs
+
+GAMs can include random effects for grouped data.
+
+```{r random-effects}
+set.seed(202)
+
+# Multi-site study
+sites <- paste0("Site", 1:10)
+site_data <- expand.grid(
+  site = sites,
+  temperature = seq(0, 30, length.out = 20)
+)
+
+# Random intercept for each site
+site_effects <- rnorm(10, 0, 30)
+names(site_effects) <- sites
+
+site_data$abundance <- with(site_data,
+  100 +  # Global intercept
+  site_effects[as.character(site)] +  # Random intercept
+  5 * temperature - 0.1 * temperature^2 +  # Fixed effect
+  rnorm(nrow(site_data), 0, 10)
+)
+
+# Fit GAM with random effect
+site_gam <- gam(abundance ~ s(temperature) + s(site, bs = "re"),
+                data = site_data)
+
+# Or use gamm for more complex random effects
+# site_gamm <- gamm(abundance ~ s(temperature), 
+#                   random = list(site = ~1),
+#                   data = site_data)
+
+summary(site_gam)
+```
+
+Use `bs = "re"` for random intercepts or `gamm()` for more complex random effect structures.
+
+## Model Selection and Comparison
+
+```{r model-selection}
+# Fit competing models
+m1 <- gam(sales ~ s(temperature), data = ice_cream)
+m2 <- gam(sales ~ temperature, data = ice_cream)  # Linear
+m3 <- gam(sales ~ s(temperature, k = 5), data = ice_cream)  # Restricted
+
+# Compare with AIC
+AIC(m1, m2, m3)
+
+# Use anova for nested models
+anova(m2, m1, test = "F")
+```
+
+**Model selection tips:**
+- Use `AIC()` for non-nested model comparison
+- Check `gam.check()` - is `k` large enough?
+- Look at residual plots
+- Don't overfit: simpler is better if performance is similar
+- Cross-validation for prediction accuracy
+
+## Predictions and Uncertainty
+
+```{r predictions}
+# New data for prediction
+new_temps <- data.frame(temperature = seq(0, 35, by = 0.5))
+
+# Point predictions
+new_temps$predicted <- predict(gam_fit, newdata = new_temps, type = "response")
+
+# Standard errors
+pred_se <- predict(gam_fit, newdata = new_temps, se.fit = TRUE)
+new_temps$se <- pred_se$se.fit
+new_temps$lower <- new_temps$predicted - 1.96 * new_temps$se
+new_temps$upper <- new_temps$predicted + 1.96 * new_temps$se
+
+# Plot with confidence band
+ggplot() +
+  geom_ribbon(data = new_temps, 
+              aes(x = temperature, ymin = lower, ymax = upper),
+              fill = "#0072B2", alpha = 0.2) +
+  geom_line(data = new_temps, 
+            aes(x = temperature, y = predicted),
+            color = "#0072B2", linewidth = 1.2) +
+  geom_point(data = ice_cream, 
+             aes(x = temperature, y = sales),
+             alpha = 0.3) +
+  labs(
+    title = "GAM Predictions with 95% Confidence Bands",
+    x = "Temperature (°C)",
+    y = "Sales (units)"
+  ) +
+  theme_minimal()
+```
+
+## Common Pitfalls and Tips
+
+**1. Don't overfit**
+```r
+# If gam.check() says k-index is fine, don't increase k
+# The model knows how wiggly to be
+```
+
+**2. Basis choice matters**
+```r
+# Default: thin plate regression splines (bs = "tp") - good default
+# Cyclic: bs = "cc" for circular variables (day of year, etc.)
+# Adaptive: bs = "ad" for spatially varying smoothness
+```
+
+**3. Centering constraints**
+```r
+# Smooths are centered (sum to zero)
+# Intercept captures the mean
+# This is why partial effects plots show deviations from mean
+```
+
+**4. Concurvity** (GAM version of collinearity)
+```r
+concurvity(gam_fit, full = TRUE)  # Check this!
+# Values close to 1 indicate problems
+```
+
+**5. Extrapolation**
+```r
+# GAMs extrapolate poorly beyond data range
+# Always check prediction range against training data
+```
+
+## Real Ecological Example: Species Distribution
+
+```{r species-example}
+# Simulate species presence/absence data
+set.seed(303)
+n_obs <- 500
+
+species_data <- data.frame(
+  elevation = runif(n_obs, 0, 3000),
+  precipitation = runif(n_obs, 200, 2000),
+  temperature = runif(n_obs, -5, 25)
+)
+
+# Probability of presence depends on environmental niche
+species_data$prob <- with(species_data,
+  plogis(  # Convert to 0-1 probability
+    -5 +  # Low baseline probability
+    0.003 * elevation - 0.000001 * elevation^2 +  # Unimodal
+    0.005 * precipitation - 0.000003 * precipitation^2 +  # Unimodal
+    0.2 * temperature - 0.01 * temperature^2  # Unimodal
+  )
+)
+
+species_data$presence <- rbinom(n_obs, 1, species_data$prob)
+
+# Fit species distribution model (SDM)
+sdm <- gam(presence ~ s(elevation) + s(precipitation) + s(temperature),
+           data = species_data,
+           family = binomial(),
+           method = "REML")  # REML is more stable for binomial
+
+summary(sdm)
+
+# Visualize response curves
+par(mfrow = c(2, 2))
+plot(sdm, pages = 1, residuals = FALSE, 
+     shade = TRUE, shade.col = "lightblue",
+     rug = FALSE, scale = 0)  # scale = 0 puts all on same scale
+par(mfrow = c(1, 1))
+```
+
+## Advanced: Spatial Smoothing
+
+For spatial data, use 2D smooths.
+
+```{r spatial}
+# Simulate spatial data
+set.seed(404)
+spatial_grid <- expand.grid(
+  x = seq(0, 100, length.out = 30),
+  y = seq(0, 100, length.out = 30)
+)
+
+# Spatial pattern
+spatial_grid$z <- with(spatial_grid,
+  50 * exp(-((x - 50)^2 + (y - 50)^2) / 500) +  # Gaussian bump
+  20 * sin(x / 10) * cos(y / 10) +  # Wavy pattern
+  rnorm(nrow(spatial_grid), 0, 5)
+)
+
+# Fit spatial GAM
+spatial_gam <- gam(z ~ s(x, y), data = spatial_grid)
+
+# Visualize
+vis.gam(spatial_gam, view = c("x", "y"), 
+        plot.type = "contour",
+        color = "terrain",
+        main = "Spatial Smooth: s(x, y)",
+        too.far = 0.05)  # Extrapolation control
+```
+
+## When to Use GAMs
+
+**Use GAMs when:**
+- Relationships are clearly non-linear
+- You want interpretable smooth functions
+- You have enough data (hundreds of observations minimum)
+- Predictors are continuous
+- You need to model interactions
+
+**Don't use GAMs when:**
+- Linear relationships work fine (simpler is better!)
+- Sample size is very small (< 50-100)
+- You need truly causal inference (consider DAGs first)
+- Prediction is more important than interpretation (try ML)
+
+## Summary
+
+GAMs are powerful tools for ecological data analysis:
+
+✓ **Flexible**: Model complex non-linear relationships  
+✓ **Interpretable**: Visualize and understand smooth functions  
+✓ **Automatic**: Penalization prevents overfitting  
+✓ **Extensible**: Handle multiple distributions, random effects, spatial/temporal correlation  
+✓ **Well-supported**: `mgcv` is mature, fast, and well-documented
+
+**Key functions:**
+- `gam()`: Main workhorse
+- `gamm()`: For mixed models and correlation structures
+- `gam.check()`: Diagnostic plots
+- `summary()`: Model results
+- `plot()`: Visualize smooths
+- `predict()`: Make predictions
+
+## Further Reading
+
+- **The GAM Bible**: Wood, S.N. (2017). *Generalized Additive Models: An Introduction with R* (2nd ed.)
+- **mgcv documentation**: `?gam` and package vignettes
+- **gratia package**: Modern ggplot2-based GAM visualization
+- **Noam Ross's GAM course**: Free online resource
+
+## Your Turn
+
+Try fitting a GAM to your own data! Start simple:
+
+```r
+# Basic GAM
+my_gam <- gam(response ~ s(predictor), data = my_data)
+
+# Check it
+gam.check(my_gam)
+
+# Visualize
+plot(my_gam)
+
+# Summarize
+summary(my_gam)
+```
+
+Then build up complexity as needed. Remember: start simple, add complexity only when justified!
+
+---
+
+*GAMs are one of the most useful tools in the ecological modeler's toolkit. They strike the perfect balance between the flexibility needed for real-world data and the interpretability needed for scientific insight.*

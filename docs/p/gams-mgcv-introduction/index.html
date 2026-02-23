@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 1 2 3 4 library(mgcv) library(ggplot2) library(dplyr) library(gratia) # For GAM visualization helpers Why GAMs? You&rsquo;ve probably fit a linear model before. Maybe even a generalized linear model (GLM). But what happens when your response doesn&rsquo;t follow a straight line—or any parametric form you can easily specify?\nEnter Generalized Additive Models (GAMs). GAMs let you model non-linear relationships without committing to a specific functional form. Instead of assuming y = β₀ + β₁x, you fit y = f(x), where f() is a smooth function learned from the data.\n">
+<title>Smooth Operators: An Introduction to GAMs with mgcv</title>
+
+<link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/'>
+
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Smooth Operators: An Introduction to GAMs with mgcv">
+<meta property='og:description' content=" 1 2 3 4 library(mgcv) library(ggplot2) library(dplyr) library(gratia) # For GAM visualization helpers Why GAMs? You&rsquo;ve probably fit a linear model before. Maybe even a generalized linear model (GLM). But what happens when your response doesn&rsquo;t follow a straight line—or any parametric form you can easily specify?\nEnter Generalized Additive Models (GAMs). GAMs let you model non-linear relationships without committing to a specific functional form. Instead of assuming y = β₀ + β₁x, you fit y = f(x), where f() is a smooth function learned from the data.\n">
+<meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/'>
+<meta property='og:site_name' content='R &amp; Python Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R_Modelling' /><meta property='article:tag' content='statistics' /><meta property='article:published_time' content='2026-01-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Smooth Operators: An Introduction to GAMs with mgcv">
+<meta name="twitter:description" content=" 1 2 3 4 library(mgcv) library(ggplot2) library(dplyr) library(gratia) # For GAM visualization helpers Why GAMs? You&rsquo;ve probably fit a linear model before. Maybe even a generalized linear model (GLM). But what happens when your response doesn&rsquo;t follow a straight line—or any parametric form you can easily specify?\nEnter Generalized Additive Models (GAMs). GAMs let you model non-linear relationships without committing to a specific functional form. Instead of assuming y = β₀ + β₁x, you fit y = f(x), where f() is a smooth function learned from the data.\n">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PQ1KG9NWP0');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/csc-data-blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
+                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
+            <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='csc.ok@ubc.ca'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st1 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 66.7px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 133.3;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M133.3,300l206.7,155c35.6,26.7,84.4,26.7,120,0l206.7-155"/>
+  <path class="st2" d="M100,305.9c0-24.2,13.1-46.5,34.3-58.3l233.3-129.6c20.1-11.2,44.6-11.2,64.8,0l233.3,129.6c21.2,11.8,34.3,34.1,34.3,58.3v260.8c0,36.8-29.8,66.7-66.7,66.7H166.7c-36.8,0-66.7-29.8-66.7-66.7v-260.8Z"/>
+  <path class="st0" d="M0,0h800v800H0V0Z"/>
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/csc-ubc-okanagan'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/csc-data-blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#why-gams">Why GAMs?</a></li>
+    <li><a href="#the-basic-idea">The Basic Idea</a></li>
+    <li><a href="#a-simple-example-temperature-and-ice-cream-sales">A Simple Example: Temperature and Ice Cream Sales</a></li>
+    <li><a href="#understanding-the-gam-what-did-we-fit">Understanding the GAM: What Did We Fit?</a></li>
+    <li><a href="#the-basis-functions">The Basis Functions</a></li>
+    <li><a href="#checking-your-gam">Checking Your GAM</a></li>
+    <li><a href="#multiple-predictors">Multiple Predictors</a></li>
+    <li><a href="#visualizing-multi-predictor-gams">Visualizing Multi-Predictor GAMs</a></li>
+    <li><a href="#interactions-between-predictors">Interactions Between Predictors</a></li>
+    <li><a href="#different-response-distributions">Different Response Distributions</a></li>
+    <li><a href="#temporal-autocorrelation">Temporal Autocorrelation</a></li>
+    <li><a href="#random-effects-in-gams">Random Effects in GAMs</a></li>
+    <li><a href="#model-selection-and-comparison">Model Selection and Comparison</a></li>
+    <li><a href="#predictions-and-uncertainty">Predictions and Uncertainty</a></li>
+    <li><a href="#common-pitfalls-and-tips">Common Pitfalls and Tips</a></li>
+    <li><a href="#real-ecological-example-species-distribution">Real Ecological Example: Species Distribution</a></li>
+    <li><a href="#advanced-spatial-smoothing">Advanced: Spatial Smoothing</a></li>
+    <li><a href="#when-to-use-gams">When to Use GAMs</a></li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#further-reading">Further Reading</a></li>
+    <li><a href="#your-turn">Your Turn</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/csc-data-blog/categories/r/" >
+                R
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/csc-data-blog/p/gams-mgcv-introduction/">Smooth Operators: An Introduction to GAMs with mgcv</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-01-20T00:00:00Z'>Jan 20, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    18 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">mgcv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">gratia</span><span class="p">)</span>  <span class="c1"># For GAM visualization helpers</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="why-gams">Why GAMs?
+</h2><p>You&rsquo;ve probably fit a linear model before. Maybe even a generalized linear model (GLM). But what happens when your response doesn&rsquo;t follow a straight line—or any parametric form you can easily specify?</p>
+<p>Enter <strong>Generalized Additive Models (GAMs)</strong>. GAMs let you model non-linear relationships without committing to a specific functional form. Instead of assuming <code>y = β₀ + β₁x</code>, you fit <code>y = f(x)</code>, where <code>f()</code> is a smooth function learned from the data.</p>
+<p>Think of GAMs as the sweet spot between:</p>
+<ul>
+<li><strong>Linear models</strong>: Fast, interpretable, but rigid</li>
+<li><strong>Machine learning</strong>: Flexible, but often black-box and unstable</li>
+</ul>
+<p>GAMs give you flexibility with interpretability—you can see and understand the smooth functions.</p>
+<h2 id="the-basic-idea">The Basic Idea
+</h2><p>A GAM replaces linear predictors with smooth functions:</p>
+<p><strong>Linear Model:</strong>
+<code>$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$</code></p>
+<p><strong>GAM:</strong>
+<code>$$y_i = \beta_0 + f(x_i) + \epsilon_i$$</code></p>
+<p>where <code>\(f()\)</code> is a smooth function estimated from the data.</p>
+<p>For multiple predictors:
+<code>$$y_i = \beta_0 + f_1(x_{1i}) + f_2(x_{2i}) + ... + \epsilon_i$$</code></p>
+<p>The magic is in how we estimate these smooth functions—typically using <strong>penalized regression splines</strong>.</p>
+<h2 id="a-simple-example-temperature-and-ice-cream-sales">A Simple Example: Temperature and Ice Cream Sales
+</h2><p>Let&rsquo;s start with a classic non-linear relationship.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Simulate ice cream sales data</span>
+</span></span><span class="line"><span class="cl"><span class="n">temperature</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Sales follow a non-linear relationship with temperature</span>
+</span></span><span class="line"><span class="cl"><span class="n">sales</span> <span class="o">&lt;-</span> <span class="m">100</span> <span class="o">+</span> <span class="m">15</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">-</span> <span class="m">0.3</span> <span class="o">*</span> <span class="n">temperature^2</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">         <span class="m">2</span> <span class="o">*</span> <span class="nf">sin</span><span class="p">(</span><span class="n">temperature</span><span class="o">/</span><span class="m">3</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">         <span class="nf">rnorm</span><span class="p">(</span><span class="m">200</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ice_cream</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">temperature</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sales</span> <span class="o">=</span> <span class="nf">pmax</span><span class="p">(</span><span class="n">sales</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>  <span class="c1"># Sales can&#39;t be negative</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Visualize the relationship</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">ice_cream</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sales</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Ice Cream Sales vs Temperature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="s">&#34;Temperature (°C)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="s">&#34;Sales (units)&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_minimal</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/simulate-data-1.png" width="672" />
+<p>Clearly non-linear! Let&rsquo;s compare three approaches:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># 1. Linear model (wrong!)</span>
+</span></span><span class="line"><span class="cl"><span class="n">lm_fit</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. Polynomial (have to guess the degree)</span>
+</span></span><span class="line"><span class="cl"><span class="n">poly_fit</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="nf">poly</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="m">3</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. GAM (let the data decide)</span>
+</span></span><span class="line"><span class="cl"><span class="n">gam_fit</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">temperature</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create predictions</span>
+</span></span><span class="line"><span class="cl"><span class="n">temp_seq</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">predictions</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_seq</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Linear</span> <span class="o">=</span> <span class="nf">predict</span><span class="p">(</span><span class="n">lm_fit</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_seq</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Polynomial</span> <span class="o">=</span> <span class="nf">predict</span><span class="p">(</span><span class="n">poly_fit</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_seq</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">GAM</span> <span class="o">=</span> <span class="nf">predict</span><span class="p">(</span><span class="n">gam_fit</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_seq</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reshape for plotting</span>
+</span></span><span class="line"><span class="cl"><span class="nf">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pred_long</span> <span class="o">&lt;-</span> <span class="n">predictions</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">pivot_longer</span><span class="p">(</span><span class="o">-</span><span class="n">temperature</span><span class="p">,</span> <span class="n">names_to</span> <span class="o">=</span> <span class="s">&#34;Model&#34;</span><span class="p">,</span> <span class="n">values_to</span> <span class="o">=</span> <span class="s">&#34;Prediction&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Plot</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sales</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">             <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;gray50&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">pred_long</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Prediction</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Model</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">linewidth</span> <span class="o">=</span> <span class="m">1.2</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_color_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;Linear&#34;</span> <span class="o">=</span> <span class="s">&#34;#E69F00&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                 <span class="s">&#34;Polynomial&#34;</span> <span class="o">=</span> <span class="s">&#34;#009E73&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="s">&#34;GAM&#34;</span> <span class="o">=</span> <span class="s">&#34;#0072B2&#34;</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Comparing Approaches to Non-linear Relationships&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="s">&#34;Temperature (°C)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="s">&#34;Sales (units)&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_minimal</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme</span><span class="p">(</span><span class="n">legend.position</span> <span class="o">=</span> <span class="s">&#34;bottom&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/compare-models-1.png" width="672" />
+<p>The GAM (blue) captures the curve without us having to specify its functional form. The linear model is clearly wrong, and the polynomial works but required us to guess the degree.</p>
+<h2 id="understanding-the-gam-what-did-we-fit">Understanding the GAM: What Did We Fit?
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Look at the summary</span>
+</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">gam_fit</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Family: gaussian 
+</span></span><span class="line"><span class="cl">## Link function: identity 
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Formula:
+</span></span><span class="line"><span class="cl">## sales ~ s(temperature)
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Parametric coefficients:
+</span></span><span class="line"><span class="cl">##             Estimate Std. Error t value Pr(&gt;|t|)    
+</span></span><span class="line"><span class="cl">## (Intercept)  239.203      1.369   174.8   &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Approximate significance of smooth terms:
+</span></span><span class="line"><span class="cl">##                  edf Ref.df     F p-value    
+</span></span><span class="line"><span class="cl">## s(temperature) 3.809  4.712 299.5  &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## R-sq.(adj) =  0.877   Deviance explained = 87.9%
+</span></span><span class="line"><span class="cl">## GCV = 383.88  Scale est. = 374.65    n = 200
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Visualize the smooth term</span>
+</span></span><span class="line"><span class="cl"><span class="nf">plot</span><span class="p">(</span><span class="n">gam_fit</span><span class="p">,</span> <span class="n">residuals</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">cex</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="n">shade</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="n">shade.col</span> <span class="o">=</span> <span class="s">&#34;lightblue&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="n">main</span> <span class="o">=</span> <span class="s">&#34;Smooth function of temperature&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/examine-gam-1.png" width="672" />
+<p>Key outputs:</p>
+<ul>
+<li><strong>EDF (Estimated Degrees of Freedom)</strong>: How &ldquo;wiggly&rdquo; the smooth is. EDF ≈ 1 is nearly linear, higher values are more flexible</li>
+<li><strong>p-value</strong>: Is this smooth term significant?</li>
+<li><strong>R-squared</strong>: Proportion of variance explained</li>
+</ul>
+<h2 id="the-basis-functions">The Basis Functions
+</h2><p>Behind the scenes, GAMs use <strong>basis functions</strong>—a set of simple functions that combine to create the smooth.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Fit a GAM with specific basis dimension</span>
+</span></span><span class="line"><span class="cl"><span class="n">gam_k5</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="m">5</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">gam_k10</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="m">10</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">gam_k20</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="m">20</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Predictions</span>
+</span></span><span class="line"><span class="cl"><span class="n">preds</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_seq</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">k5</span> <span class="o">=</span> <span class="nf">predict</span><span class="p">(</span><span class="n">gam_k5</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_seq</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">k10</span> <span class="o">=</span> <span class="nf">predict</span><span class="p">(</span><span class="n">gam_k10</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_seq</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">k20</span> <span class="o">=</span> <span class="nf">predict</span><span class="p">(</span><span class="n">gam_k20</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_seq</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="o">%&gt;%</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">pivot_longer</span><span class="p">(</span><span class="o">-</span><span class="n">temperature</span><span class="p">,</span> <span class="n">names_to</span> <span class="o">=</span> <span class="s">&#34;Basis_k&#34;</span><span class="p">,</span> <span class="n">values_to</span> <span class="o">=</span> <span class="s">&#34;Prediction&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sales</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">             <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;gray50&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">preds</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Prediction</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Basis_k</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">linewidth</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Effect of Basis Dimension (k)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">subtitle</span> <span class="o">=</span> <span class="s">&#34;Higher k allows more flexibility&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="s">&#34;Temperature (°C)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="s">&#34;Sales (units)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;Basis size&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_minimal</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/basis-demo-1.png" width="672" />
+<p><strong>The <code>k</code> parameter</strong> controls the maximum wiggliness. But don&rsquo;t worry—GAMs use <strong>penalization</strong> to prevent overfitting. A large <code>k</code> just gives the model room to be flexible <em>if needed</em>.</p>
+<h2 id="checking-your-gam">Checking Your GAM
+</h2><p>Always check your model! <code>mgcv</code> has excellent diagnostics.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># GAM diagnostic plots</span>
+</span></span><span class="line"><span class="cl"><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nf">gam.check</span><span class="p">(</span><span class="n">gam_fit</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/diagnostics-1.png" width="672" />
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Method: GCV   Optimizer: magic
+</span></span><span class="line"><span class="cl">## Smoothing parameter selection converged after 6 iterations.
+</span></span><span class="line"><span class="cl">## The RMS GCV score gradient at convergence was 0.01307421 .
+</span></span><span class="line"><span class="cl">## The Hessian was positive definite.
+</span></span><span class="line"><span class="cl">## Model rank =  10 / 10 
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Basis dimension (k) checking results. Low p-value (k-index&lt;1) may
+</span></span><span class="line"><span class="cl">## indicate that k is too low, especially if edf is close to k&#39;.
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">##                  k&#39;  edf k-index p-value
+</span></span><span class="line"><span class="cl">## s(temperature) 9.00 3.81    1.04    0.68
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>What to look for:</p>
+<ol>
+<li><strong>QQ plot</strong>: Are residuals normally distributed?</li>
+<li><strong>Residuals vs predicted</strong>: Any patterns? (should be random cloud)</li>
+<li><strong>Response vs fitted</strong>: Points should follow the 1:1 line</li>
+<li><strong>k-index</strong>: Should be &gt; 1 (if &lt; 1, try increasing <code>k</code>)</li>
+</ol>
+<h2 id="multiple-predictors">Multiple Predictors
+</h2><p>GAMs really shine with multiple predictors. Let&rsquo;s simulate animal home range size.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Simulate home range data</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">&lt;-</span> <span class="m">300</span>
+</span></span><span class="line"><span class="cl"><span class="n">habitat_data</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">body_mass</span> <span class="o">=</span> <span class="nf">exp</span><span class="p">(</span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">0.5</span><span class="p">)),</span>  <span class="c1"># kg (log-normal)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">food_availability</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">100</span><span class="p">),</span>  <span class="c1"># index</span>
+</span></span><span class="line"><span class="cl">  <span class="n">population_density</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">50</span><span class="p">)</span>  <span class="c1"># individuals/km²</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Home range size with complex relationships</span>
+</span></span><span class="line"><span class="cl"><span class="n">habitat_data</span><span class="o">$</span><span class="n">home_range</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">habitat_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="m">50</span> <span class="o">*</span> <span class="nf">log</span><span class="p">(</span><span class="n">body_mass</span><span class="p">)</span> <span class="o">+</span>  <span class="c1"># Allometric scaling</span>
+</span></span><span class="line"><span class="cl">  <span class="m">-0.3</span> <span class="o">*</span> <span class="n">food_availability</span> <span class="o">+</span>  <span class="c1"># More food = smaller range</span>
+</span></span><span class="line"><span class="cl">  <span class="m">0.5</span> <span class="o">*</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">population_density</span><span class="p">)</span> <span class="o">+</span>  <span class="c1"># Density-dependent</span>
+</span></span><span class="line"><span class="cl">  <span class="m">-0.002</span> <span class="o">*</span> <span class="n">food_availability^2</span> <span class="o">+</span>  <span class="c1"># Diminishing returns</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fit multi-predictor GAM</span>
+</span></span><span class="line"><span class="cl"><span class="n">range_gam</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">home_range</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">body_mass</span><span class="p">)</span> <span class="o">+</span> <span class="nf">s</span><span class="p">(</span><span class="n">food_availability</span><span class="p">)</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">                   <span class="nf">s</span><span class="p">(</span><span class="n">population_density</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">data</span> <span class="o">=</span> <span class="n">habitat_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">range_gam</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Family: gaussian 
+</span></span><span class="line"><span class="cl">## Link function: identity 
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Formula:
+</span></span><span class="line"><span class="cl">## home_range ~ s(body_mass) + s(food_availability) + s(population_density)
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Parametric coefficients:
+</span></span><span class="line"><span class="cl">##             Estimate Std. Error t value Pr(&gt;|t|)    
+</span></span><span class="line"><span class="cl">## (Intercept)  132.308      1.188   111.4   &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Approximate significance of smooth terms:
+</span></span><span class="line"><span class="cl">##                         edf Ref.df      F p-value    
+</span></span><span class="line"><span class="cl">## s(body_mass)          3.432  4.230  85.39  &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## s(food_availability)  1.408  1.709 103.58  &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## s(population_density) 1.904  2.373   2.51   0.063 .  
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## R-sq.(adj) =  0.653   Deviance explained = 66.1%
+</span></span><span class="line"><span class="cl">## GCV = 434.43  Scale est. = 423.22    n = 300
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="visualizing-multi-predictor-gams">Visualizing Multi-Predictor GAMs
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Plot all smooth terms</span>
+</span></span><span class="line"><span class="cl"><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nf">plot</span><span class="p">(</span><span class="n">range_gam</span><span class="p">,</span> <span class="n">pages</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">residuals</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">cex</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="n">shade</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="n">shade.col</span> <span class="o">=</span> <span class="s">&#34;lightblue&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/viz-multi-1.png" width="672" />
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Each plot shows the <strong>partial effect</strong> of one predictor, holding others constant. This is incredibly useful for interpretation!</p>
+<h2 id="interactions-between-predictors">Interactions Between Predictors
+</h2><p>Sometimes effects depend on each other. GAMs can model interactions using <strong>tensor product smooths</strong>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Simulate data with interaction</span>
+</span></span><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">456</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">interact_data</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x1</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="m">200</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">10</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x2</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="m">200</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Response depends on interaction</span>
+</span></span><span class="line"><span class="cl"><span class="n">interact_data</span><span class="o">$</span><span class="n">y</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">interact_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="m">10</span> <span class="o">+</span> <span class="m">2</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">+</span> <span class="m">3</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">+</span> <span class="m">0.5</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">+</span>  <span class="c1"># Interaction</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">sin</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="o">*</span> <span class="nf">cos</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="o">+</span>  <span class="c1"># Non-linear interaction</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">rnorm</span><span class="p">(</span><span class="m">200</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fit interaction GAM using tensor product (te)</span>
+</span></span><span class="line"><span class="cl"><span class="n">interact_gam</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">y</span> <span class="o">~</span> <span class="nf">te</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">interact_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Visualize the interaction surface</span>
+</span></span><span class="line"><span class="cl"><span class="nf">vis.gam</span><span class="p">(</span><span class="n">interact_gam</span><span class="p">,</span> <span class="n">view</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;x1&#34;</span><span class="p">,</span> <span class="s">&#34;x2&#34;</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">theta</span> <span class="o">=</span> <span class="m">45</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="m">30</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;terrain&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">main</span> <span class="o">=</span> <span class="s">&#34;Interaction Surface: y ~ te(x1, x2)&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/interactions-1.png" width="672" />
+<p><strong>Types of interactions in mgcv:</strong></p>
+<ul>
+<li><code>s(x1, x2)</code>: Isotropic smooth (assumes same scale for both)</li>
+<li><code>te(x1, x2)</code>: Tensor product (different scales, more flexible)</li>
+<li><code>ti(x1, x2)</code>: Tensor product interaction only (excludes main effects)</li>
+</ul>
+<h2 id="different-response-distributions">Different Response Distributions
+</h2><p>Like GLMs, GAMs aren&rsquo;t limited to Gaussian responses. Use the <code>family</code> argument.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Count data example (Poisson)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">789</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">count_data</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">effort</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">50</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">150</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Expected counts increase non-linearly with effort</span>
+</span></span><span class="line"><span class="cl"><span class="n">count_data</span><span class="o">$</span><span class="n">lambda</span> <span class="o">&lt;-</span> <span class="nf">exp</span><span class="p">(</span><span class="m">2</span> <span class="o">+</span> <span class="m">0.1</span> <span class="o">*</span> <span class="n">count_data</span><span class="o">$</span><span class="n">effort</span> <span class="o">-</span> 
+</span></span><span class="line"><span class="cl">                         <span class="m">0.001</span> <span class="o">*</span> <span class="n">count_data</span><span class="o">$</span><span class="n">effort^2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">count_data</span><span class="o">$</span><span class="n">counts</span> <span class="o">&lt;-</span> <span class="nf">rpois</span><span class="p">(</span><span class="m">150</span><span class="p">,</span> <span class="n">count_data</span><span class="o">$</span><span class="n">lambda</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fit Poisson GAM</span>
+</span></span><span class="line"><span class="cl"><span class="n">count_gam</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">counts</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">effort</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">                 <span class="n">data</span> <span class="o">=</span> <span class="n">count_data</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                 <span class="n">family</span> <span class="o">=</span> <span class="nf">poisson</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Plot on response scale</span>
+</span></span><span class="line"><span class="cl"><span class="n">plot_data</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">effort</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">50</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">200</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plot_data</span><span class="o">$</span><span class="n">predicted</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">count_gam</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                               <span class="n">newdata</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                               <span class="n">type</span> <span class="o">=</span> <span class="s">&#34;response&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">count_data</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">effort</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">counts</span><span class="p">),</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">effort</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">predicted</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;#0072B2&#34;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="m">1.2</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Poisson GAM for Count Data&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="s">&#34;Sampling Effort&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="s">&#34;Species Count&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_minimal</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/distributions-1.png" width="672" />
+<p><strong>Common families:</strong></p>
+<ul>
+<li><code>gaussian()</code>: Normal response (default)</li>
+<li><code>poisson()</code>: Count data</li>
+<li><code>binomial()</code>: Binary or proportion data</li>
+<li><code>Gamma()</code>: Positive continuous data</li>
+<li><code>nb()</code>: Negative binomial (overdispersed counts)</li>
+<li><code>tw()</code>: Tweedie (zero-inflated continuous)</li>
+</ul>
+<h2 id="temporal-autocorrelation">Temporal Autocorrelation
+</h2><p>Ecological data often has temporal structure. GAMs can handle this!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">101</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Time series with autocorrelation</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_years</span> <span class="o">&lt;-</span> <span class="m">100</span>
+</span></span><span class="line"><span class="cl"><span class="n">time_data</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">year</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="n">n_years</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Population with trend + cycles + autocorrelation</span>
+</span></span><span class="line"><span class="cl"><span class="n">time_data</span><span class="o">$</span><span class="n">population</span> <span class="o">&lt;-</span> <span class="m">100</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">  <span class="m">0.5</span> <span class="o">*</span> <span class="n">time_data</span><span class="o">$</span><span class="n">year</span> <span class="o">+</span>  <span class="c1"># Linear trend</span>
+</span></span><span class="line"><span class="cl">  <span class="m">20</span> <span class="o">*</span> <span class="nf">sin</span><span class="p">(</span><span class="m">2</span> <span class="o">*</span> <span class="kc">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="o">$</span><span class="n">year</span> <span class="o">/</span> <span class="m">10</span><span class="p">)</span> <span class="o">+</span>  <span class="c1"># 10-year cycle</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">arima.sim</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">ar</span> <span class="o">=</span> <span class="m">0.7</span><span class="p">),</span> <span class="n">n</span> <span class="o">=</span> <span class="n">n_years</span><span class="p">)</span>  <span class="c1"># AR(1) noise</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fit GAM (incorrectly assuming independence)</span>
+</span></span><span class="line"><span class="cl"><span class="n">time_gam_naive</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">population</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">time_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fit GAM with AR(1) correlation structure</span>
+</span></span><span class="line"><span class="cl"><span class="n">time_gam_ar</span> <span class="o">&lt;-</span> <span class="nf">gamm</span><span class="p">(</span><span class="n">population</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">                    <span class="n">correlation</span> <span class="o">=</span> <span class="nf">corAR1</span><span class="p">(</span><span class="n">form</span> <span class="o">=</span> <span class="o">~</span> <span class="n">year</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">data</span> <span class="o">=</span> <span class="n">time_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Compare</span>
+</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">time_gam_ar</span><span class="o">$</span><span class="n">gam</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Family: gaussian 
+</span></span><span class="line"><span class="cl">## Link function: identity 
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Formula:
+</span></span><span class="line"><span class="cl">## population ~ s(year)
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Parametric coefficients:
+</span></span><span class="line"><span class="cl">##             Estimate Std. Error t value Pr(&gt;|t|)    
+</span></span><span class="line"><span class="cl">## (Intercept)   125.53       4.15   30.25   &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Approximate significance of smooth terms:
+</span></span><span class="line"><span class="cl">##         edf Ref.df     F  p-value    
+</span></span><span class="line"><span class="cl">## s(year)   1      1 12.03 0.000781 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## R-sq.(adj) =  0.478   
+</span></span><span class="line"><span class="cl">##   Scale est. = 200.01    n = 100
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Plot</span>
+</span></span><span class="line"><span class="cl"><span class="n">plot_data</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">year</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="n">n_years</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plot_data</span><span class="o">$</span><span class="n">naive</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">time_gam_naive</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plot_data</span><span class="o">$</span><span class="n">ar</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">time_gam_ar</span><span class="o">$</span><span class="n">gam</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">time_data</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">year</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">population</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">naive</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;Naive GAM&#34;</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">plot_data</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">ar</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;GAM with AR(1)&#34;</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">scale_color_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;Naive GAM&#34;</span> <span class="o">=</span> <span class="s">&#34;#E69F00&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                 <span class="s">&#34;GAM with AR(1)&#34;</span> <span class="o">=</span> <span class="s">&#34;#0072B2&#34;</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Accounting for Temporal Autocorrelation&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;Model&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_minimal</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Don&#39;t know how to automatically pick scale for object of type &lt;ts&gt;. Defaulting
+</span></span><span class="line"><span class="cl">## to continuous.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/temporal-1.png" width="672" />
+<p>Note: Use <code>gamm()</code> (not <code>gam()</code>) for mixed models and correlation structures.</p>
+<h2 id="random-effects-in-gams">Random Effects in GAMs
+</h2><p>GAMs can include random effects for grouped data.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">202</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Multi-site study</span>
+</span></span><span class="line"><span class="cl"><span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#34;Site&#34;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">site_data</span> <span class="o">&lt;-</span> <span class="nf">expand.grid</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">site</span> <span class="o">=</span> <span class="n">sites</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">temperature</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Random intercept for each site</span>
+</span></span><span class="line"><span class="cl"><span class="n">site_effects</span> <span class="o">&lt;-</span> <span class="nf">rnorm</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">names</span><span class="p">(</span><span class="n">site_effects</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">sites</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">site_data</span><span class="o">$</span><span class="n">abundance</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">site_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="m">100</span> <span class="o">+</span>  <span class="c1"># Global intercept</span>
+</span></span><span class="line"><span class="cl">  <span class="n">site_effects</span><span class="nf">[as.character</span><span class="p">(</span><span class="n">site</span><span class="p">)</span><span class="n">]</span> <span class="o">+</span>  <span class="c1"># Random intercept</span>
+</span></span><span class="line"><span class="cl">  <span class="m">5</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">-</span> <span class="m">0.1</span> <span class="o">*</span> <span class="n">temperature^2</span> <span class="o">+</span>  <span class="c1"># Fixed effect</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">rnorm</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">site_data</span><span class="p">),</span> <span class="m">0</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fit GAM with random effect</span>
+</span></span><span class="line"><span class="cl"><span class="n">site_gam</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">abundance</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span> <span class="o">+</span> <span class="nf">s</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">bs</span> <span class="o">=</span> <span class="s">&#34;re&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">data</span> <span class="o">=</span> <span class="n">site_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Or use gamm for more complex random effects</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># site_gamm &lt;- gamm(abundance ~ s(temperature), </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                   random = list(site = ~1),</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                   data = site_data)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">site_gam</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Family: gaussian 
+</span></span><span class="line"><span class="cl">## Link function: identity 
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Formula:
+</span></span><span class="line"><span class="cl">## abundance ~ s(temperature) + s(site, bs = &#34;re&#34;)
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Parametric coefficients:
+</span></span><span class="line"><span class="cl">##             Estimate Std. Error t value Pr(&gt;|t|)    
+</span></span><span class="line"><span class="cl">## (Intercept)  126.877      7.197   17.63   &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Approximate significance of smooth terms:
+</span></span><span class="line"><span class="cl">##                  edf Ref.df     F p-value    
+</span></span><span class="line"><span class="cl">## s(temperature) 3.074  3.819 184.8  &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## s(site)        8.912  9.000 101.1  &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## R-sq.(adj) =   0.89   Deviance explained = 89.7%
+</span></span><span class="line"><span class="cl">## GCV = 108.56  Scale est. = 101.51    n = 200
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Use <code>bs = &quot;re&quot;</code> for random intercepts or <code>gamm()</code> for more complex random effect structures.</p>
+<h2 id="model-selection-and-comparison">Model Selection and Comparison
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Fit competing models</span>
+</span></span><span class="line"><span class="cl"><span class="n">m1</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">temperature</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">m2</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>  <span class="c1"># Linear</span>
+</span></span><span class="line"><span class="cl"><span class="n">m3</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">sales</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="m">5</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">)</span>  <span class="c1"># Restricted</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Compare with AIC</span>
+</span></span><span class="line"><span class="cl"><span class="nf">AIC</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">m3</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">##          df      AIC
+</span></span><span class="line"><span class="cl">## m1 5.809094 1759.526
+</span></span><span class="line"><span class="cl">## m2 3.000000 1968.269
+</span></span><span class="line"><span class="cl">## m3 5.282568 1759.729
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Use anova for nested models</span>
+</span></span><span class="line"><span class="cl"><span class="nf">anova</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="s">&#34;F&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Analysis of Deviance Table
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Model 1: sales ~ temperature
+</span></span><span class="line"><span class="cl">## Model 2: sales ~ s(temperature)
+</span></span><span class="line"><span class="cl">##   Resid. Df Resid. Dev     Df Deviance   F    Pr(&gt;F)    
+</span></span><span class="line"><span class="cl">## 1    198.00     213584                                  
+</span></span><span class="line"><span class="cl">## 2    194.29      73129 3.7118   140455 101 &lt; 2.2e-16 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Model selection tips:</strong></p>
+<ul>
+<li>Use <code>AIC()</code> for non-nested model comparison</li>
+<li>Check <code>gam.check()</code> - is <code>k</code> large enough?</li>
+<li>Look at residual plots</li>
+<li>Don&rsquo;t overfit: simpler is better if performance is similar</li>
+<li>Cross-validation for prediction accuracy</li>
+</ul>
+<h2 id="predictions-and-uncertainty">Predictions and Uncertainty
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># New data for prediction</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_temps</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">temperature</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">35</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Point predictions</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_temps</span><span class="o">$</span><span class="n">predicted</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">gam_fit</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="n">new_temps</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#34;response&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Standard errors</span>
+</span></span><span class="line"><span class="cl"><span class="n">pred_se</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">gam_fit</span><span class="p">,</span> <span class="n">newdata</span> <span class="o">=</span> <span class="n">new_temps</span><span class="p">,</span> <span class="n">se.fit</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_temps</span><span class="o">$</span><span class="n">se</span> <span class="o">&lt;-</span> <span class="n">pred_se</span><span class="o">$</span><span class="n">se.fit</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_temps</span><span class="o">$</span><span class="n">lower</span> <span class="o">&lt;-</span> <span class="n">new_temps</span><span class="o">$</span><span class="n">predicted</span> <span class="o">-</span> <span class="m">1.96</span> <span class="o">*</span> <span class="n">new_temps</span><span class="o">$</span><span class="n">se</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_temps</span><span class="o">$</span><span class="n">upper</span> <span class="o">&lt;-</span> <span class="n">new_temps</span><span class="o">$</span><span class="n">predicted</span> <span class="o">+</span> <span class="m">1.96</span> <span class="o">*</span> <span class="n">new_temps</span><span class="o">$</span><span class="n">se</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Plot with confidence band</span>
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_ribbon</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">new_temps</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">              <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="n">lower</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">upper</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">              <span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;#0072B2&#34;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.2</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_line</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">new_temps</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">predicted</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;#0072B2&#34;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="m">1.2</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">ice_cream</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">             <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sales</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">             <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.3</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;GAM Predictions with 95% Confidence Bands&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="s">&#34;Temperature (°C)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">=</span> <span class="s">&#34;Sales (units)&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_minimal</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/predictions-1.png" width="672" />
+<h2 id="common-pitfalls-and-tips">Common Pitfalls and Tips
+</h2><p><strong>1. Don&rsquo;t overfit</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># If gam.check() says k-index is fine, don&#39;t increase k</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The model knows how wiggly to be</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2. Basis choice matters</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Default: thin plate regression splines (bs = &#34;tp&#34;) - good default</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Cyclic: bs = &#34;cc&#34; for circular variables (day of year, etc.)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Adaptive: bs = &#34;ad&#34; for spatially varying smoothness</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. Centering constraints</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Smooths are centered (sum to zero)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Intercept captures the mean</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This is why partial effects plots show deviations from mean</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>4. Concurvity</strong> (GAM version of collinearity)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">concurvity</span><span class="p">(</span><span class="n">gam_fit</span><span class="p">,</span> <span class="n">full</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>  <span class="c1"># Check this!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Values close to 1 indicate problems</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>5. Extrapolation</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># GAMs extrapolate poorly beyond data range</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Always check prediction range against training data</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="real-ecological-example-species-distribution">Real Ecological Example: Species Distribution
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Simulate species presence/absence data</span>
+</span></span><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">303</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_obs</span> <span class="o">&lt;-</span> <span class="m">500</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">species_data</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">elevation</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="n">n_obs</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">3000</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">precipitation</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="n">n_obs</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">2000</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">temperature</span> <span class="o">=</span> <span class="nf">runif</span><span class="p">(</span><span class="n">n_obs</span><span class="p">,</span> <span class="m">-5</span><span class="p">,</span> <span class="m">25</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Probability of presence depends on environmental niche</span>
+</span></span><span class="line"><span class="cl"><span class="n">species_data</span><span class="o">$</span><span class="n">prob</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">species_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">plogis</span><span class="p">(</span>  <span class="c1"># Convert to 0-1 probability</span>
+</span></span><span class="line"><span class="cl">    <span class="m">-5</span> <span class="o">+</span>  <span class="c1"># Low baseline probability</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0.003</span> <span class="o">*</span> <span class="n">elevation</span> <span class="o">-</span> <span class="m">0.000001</span> <span class="o">*</span> <span class="n">elevation^2</span> <span class="o">+</span>  <span class="c1"># Unimodal</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0.005</span> <span class="o">*</span> <span class="n">precipitation</span> <span class="o">-</span> <span class="m">0.000003</span> <span class="o">*</span> <span class="n">precipitation^2</span> <span class="o">+</span>  <span class="c1"># Unimodal</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0.2</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">-</span> <span class="m">0.01</span> <span class="o">*</span> <span class="n">temperature^2</span>  <span class="c1"># Unimodal</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">species_data</span><span class="o">$</span><span class="n">presence</span> <span class="o">&lt;-</span> <span class="nf">rbinom</span><span class="p">(</span><span class="n">n_obs</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="n">species_data</span><span class="o">$</span><span class="n">prob</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fit species distribution model (SDM)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sdm</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">presence</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">elevation</span><span class="p">)</span> <span class="o">+</span> <span class="nf">s</span><span class="p">(</span><span class="n">precipitation</span><span class="p">)</span> <span class="o">+</span> <span class="nf">s</span><span class="p">(</span><span class="n">temperature</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">           <span class="n">data</span> <span class="o">=</span> <span class="n">species_data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="n">family</span> <span class="o">=</span> <span class="nf">binomial</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">           <span class="n">method</span> <span class="o">=</span> <span class="s">&#34;REML&#34;</span><span class="p">)</span>  <span class="c1"># REML is more stable for binomial</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">sdm</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Family: binomial 
+</span></span><span class="line"><span class="cl">## Link function: logit 
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Formula:
+</span></span><span class="line"><span class="cl">## presence ~ s(elevation) + s(precipitation) + s(temperature)
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Parametric coefficients:
+</span></span><span class="line"><span class="cl">##             Estimate Std. Error z value Pr(&gt;|z|)    
+</span></span><span class="line"><span class="cl">## (Intercept)  -2.3161     0.1929  -12.01   &lt;2e-16 ***
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## Approximate significance of smooth terms:
+</span></span><span class="line"><span class="cl">##                    edf Ref.df Chi.sq  p-value    
+</span></span><span class="line"><span class="cl">## s(elevation)     2.842  3.555   9.91  0.03388 *  
+</span></span><span class="line"><span class="cl">## s(precipitation) 3.392  4.225  33.90 8.21e-07 ***
+</span></span><span class="line"><span class="cl">## s(temperature)   3.042  3.805  17.53  0.00143 ** 
+</span></span><span class="line"><span class="cl">## ---
+</span></span><span class="line"><span class="cl">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</span></span><span class="line"><span class="cl">## 
+</span></span><span class="line"><span class="cl">## R-sq.(adj) =  0.148   Deviance explained = 19.4%
+</span></span><span class="line"><span class="cl">## -REML = 177.36  Scale est. = 1         n = 500
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Visualize response curves</span>
+</span></span><span class="line"><span class="cl"><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nf">plot</span><span class="p">(</span><span class="n">sdm</span><span class="p">,</span> <span class="n">pages</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">residuals</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">     <span class="n">shade</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="n">shade.col</span> <span class="o">=</span> <span class="s">&#34;lightblue&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="n">rug</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>  <span class="c1"># scale = 0 puts all on same scale</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/species-example-1.png" width="672" />
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="advanced-spatial-smoothing">Advanced: Spatial Smoothing
+</h2><p>For spatial data, use 2D smooths.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Simulate spatial data</span>
+</span></span><span class="line"><span class="cl"><span class="nf">set.seed</span><span class="p">(</span><span class="m">404</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">spatial_grid</span> <span class="o">&lt;-</span> <span class="nf">expand.grid</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">30</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Spatial pattern</span>
+</span></span><span class="line"><span class="cl"><span class="n">spatial_grid</span><span class="o">$</span><span class="n">z</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">spatial_grid</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="m">50</span> <span class="o">*</span> <span class="nf">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="m">50</span><span class="p">)</span><span class="n">^2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="m">50</span><span class="p">)</span><span class="n">^2</span><span class="p">)</span> <span class="o">/</span> <span class="m">500</span><span class="p">)</span> <span class="o">+</span>  <span class="c1"># Gaussian bump</span>
+</span></span><span class="line"><span class="cl">  <span class="m">20</span> <span class="o">*</span> <span class="nf">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="m">10</span><span class="p">)</span> <span class="o">*</span> <span class="nf">cos</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="m">10</span><span class="p">)</span> <span class="o">+</span>  <span class="c1"># Wavy pattern</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">rnorm</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">spatial_grid</span><span class="p">),</span> <span class="m">0</span><span class="p">,</span> <span class="m">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fit spatial GAM</span>
+</span></span><span class="line"><span class="cl"><span class="n">spatial_gam</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">z</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">spatial_grid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Visualize</span>
+</span></span><span class="line"><span class="cl"><span class="nf">vis.gam</span><span class="p">(</span><span class="n">spatial_gam</span><span class="p">,</span> <span class="n">view</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;x&#34;</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">plot.type</span> <span class="o">=</span> <span class="s">&#34;contour&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">color</span> <span class="o">=</span> <span class="s">&#34;terrain&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">main</span> <span class="o">=</span> <span class="s">&#34;Spatial Smooth: s(x, y)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">too.far</span> <span class="o">=</span> <span class="m">0.05</span><span class="p">)</span>  <span class="c1"># Extrapolation control</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index_files/figure-html/spatial-1.png" width="672" />
+<h2 id="when-to-use-gams">When to Use GAMs
+</h2><p><strong>Use GAMs when:</strong></p>
+<ul>
+<li>Relationships are clearly non-linear</li>
+<li>You want interpretable smooth functions</li>
+<li>You have enough data (hundreds of observations minimum)</li>
+<li>Predictors are continuous</li>
+<li>You need to model interactions</li>
+</ul>
+<p><strong>Don&rsquo;t use GAMs when:</strong></p>
+<ul>
+<li>Linear relationships work fine (simpler is better!)</li>
+<li>Sample size is very small (&lt; 50-100)</li>
+<li>You need truly causal inference (consider DAGs first)</li>
+<li>Prediction is more important than interpretation (try ML)</li>
+</ul>
+<h2 id="summary">Summary
+</h2><p>GAMs are powerful tools for ecological data analysis:</p>
+<p>✓ <strong>Flexible</strong>: Model complex non-linear relationships<br>
+✓ <strong>Interpretable</strong>: Visualize and understand smooth functions<br>
+✓ <strong>Automatic</strong>: Penalization prevents overfitting<br>
+✓ <strong>Extensible</strong>: Handle multiple distributions, random effects, spatial/temporal correlation<br>
+✓ <strong>Well-supported</strong>: <code>mgcv</code> is mature, fast, and well-documented</p>
+<p><strong>Key functions:</strong></p>
+<ul>
+<li><code>gam()</code>: Main workhorse</li>
+<li><code>gamm()</code>: For mixed models and correlation structures</li>
+<li><code>gam.check()</code>: Diagnostic plots</li>
+<li><code>summary()</code>: Model results</li>
+<li><code>plot()</code>: Visualize smooths</li>
+<li><code>predict()</code>: Make predictions</li>
+</ul>
+<h2 id="further-reading">Further Reading
+</h2><ul>
+<li><strong>The GAM Bible</strong>: Wood, S.N. (2017). <em>Generalized Additive Models: An Introduction with R</em> (2nd ed.)</li>
+<li><strong>mgcv documentation</strong>: <code>?gam</code> and package vignettes</li>
+<li><strong>gratia package</strong>: Modern ggplot2-based GAM visualization</li>
+<li><strong>Noam Ross&rsquo;s GAM course</strong>: Free online resource</li>
+</ul>
+<h2 id="your-turn">Your Turn
+</h2><p>Try fitting a GAM to your own data! Start simple:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># Basic GAM</span>
+</span></span><span class="line"><span class="cl"><span class="n">my_gam</span> <span class="o">&lt;-</span> <span class="nf">gam</span><span class="p">(</span><span class="n">response</span> <span class="o">~</span> <span class="nf">s</span><span class="p">(</span><span class="n">predictor</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">my_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Check it</span>
+</span></span><span class="line"><span class="cl"><span class="nf">gam.check</span><span class="p">(</span><span class="n">my_gam</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Visualize</span>
+</span></span><span class="line"><span class="cl"><span class="nf">plot</span><span class="p">(</span><span class="n">my_gam</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Summarize</span>
+</span></span><span class="line"><span class="cl"><span class="nf">summary</span><span class="p">(</span><span class="n">my_gam</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then build up complexity as needed. Remember: start simple, add complexity only when justified!</p>
+<hr>
+<p><em>GAMs are one of the most useful tools in the ecological modeler&rsquo;s toolkit. They strike the perfect balance between the flexibility needed for real-world data and the interpretability needed for scientific insight.</em></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/csc-data-blog/tags/r_modelling/">R_Modelling</a>
+        
+            <a href="/csc-data-blog/tags/statistics/">Statistics</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/jensens-inequality-population-ecology/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Jensen&#39;s Inequality: Why Averages Mislead</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/making-plots-with-openalexr/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Creating plots with openAlexR</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">When to Consider Random or Fixed Effects in the Model?</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 3</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2026 Center for Scholarly Communication, UBC Okanagan
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
