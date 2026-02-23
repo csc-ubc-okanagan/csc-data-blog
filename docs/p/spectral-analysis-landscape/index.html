@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Overview of spectral analysis What do ghosts, fourier analysis and landscape structure all have in common? Honestly&hellip;not much, but I&rsquo;m here to talk to you about most of those topics anyway! Enter spectral analysis 👻.\nSpectral analysis is the process of taking complex and signals (e.g., sound waves, images, or even landscape composition via rasters) and decomposing them into into periodic functions (i.e., sine and cosine waves) that can be more easily analyzed. Although there are many uses for spectral analysis, in this blog post I will just examine one particular use in the context of ecology&ndash;analyzing landscape structure. I probably don&rsquo;t need to tell you dear reader that habitat (and thereby landscape structure) is a critical to an animal&rsquo;s ability to thrive and reproduce. As such, it&rsquo;s fundamental for wildilfe managers to understand how landscape structure (and our decisions to manage or alter that structure) may or may not impact the wild populations we care about!\n">
+<title>Spooky Land: Spectral Analysis of Landscapes</title>
+
+<link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/spectral-analysis-landscape/'>
+
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Spooky Land: Spectral Analysis of Landscapes">
+<meta property='og:description' content="Overview of spectral analysis What do ghosts, fourier analysis and landscape structure all have in common? Honestly&hellip;not much, but I&rsquo;m here to talk to you about most of those topics anyway! Enter spectral analysis 👻.\nSpectral analysis is the process of taking complex and signals (e.g., sound waves, images, or even landscape composition via rasters) and decomposing them into into periodic functions (i.e., sine and cosine waves) that can be more easily analyzed. Although there are many uses for spectral analysis, in this blog post I will just examine one particular use in the context of ecology&ndash;analyzing landscape structure. I probably don&rsquo;t need to tell you dear reader that habitat (and thereby landscape structure) is a critical to an animal&rsquo;s ability to thrive and reproduce. As such, it&rsquo;s fundamental for wildilfe managers to understand how landscape structure (and our decisions to manage or alter that structure) may or may not impact the wild populations we care about!\n">
+<meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/spectral-analysis-landscape/'>
+<meta property='og:site_name' content='R &amp; Python Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R_Modelling' /><meta property='article:tag' content='statistics' /><meta property='article:published_time' content='2026-02-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Spooky Land: Spectral Analysis of Landscapes">
+<meta name="twitter:description" content="Overview of spectral analysis What do ghosts, fourier analysis and landscape structure all have in common? Honestly&hellip;not much, but I&rsquo;m here to talk to you about most of those topics anyway! Enter spectral analysis 👻.\nSpectral analysis is the process of taking complex and signals (e.g., sound waves, images, or even landscape composition via rasters) and decomposing them into into periodic functions (i.e., sine and cosine waves) that can be more easily analyzed. Although there are many uses for spectral analysis, in this blog post I will just examine one particular use in the context of ecology&ndash;analyzing landscape structure. I probably don&rsquo;t need to tell you dear reader that habitat (and thereby landscape structure) is a critical to an animal&rsquo;s ability to thrive and reproduce. As such, it&rsquo;s fundamental for wildilfe managers to understand how landscape structure (and our decisions to manage or alter that structure) may or may not impact the wild populations we care about!\n">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PQ1KG9NWP0');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/csc-data-blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
+                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
+            <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='csc.ok@ubc.ca'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st1 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 66.7px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 133.3;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M133.3,300l206.7,155c35.6,26.7,84.4,26.7,120,0l206.7-155"/>
+  <path class="st2" d="M100,305.9c0-24.2,13.1-46.5,34.3-58.3l233.3-129.6c20.1-11.2,44.6-11.2,64.8,0l233.3,129.6c21.2,11.8,34.3,34.1,34.3,58.3v260.8c0,36.8-29.8,66.7-66.7,66.7H166.7c-36.8,0-66.7-29.8-66.7-66.7v-260.8Z"/>
+  <path class="st0" d="M0,0h800v800H0V0Z"/>
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/csc-ubc-okanagan'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/csc-data-blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#overview-of-spectral-analysis">Overview of spectral analysis</a></li>
+    <li><a href="#the-spectral-centroid">The Spectral Centroid</a></li>
+    <li><a href="#did-we-make-a-way-to-do-spectral-analysis">Did we make a way to do spectral analysis</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/csc-data-blog/categories/r/" >
+                R
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/csc-data-blog/p/spectral-analysis-landscape/">Spooky Land: Spectral Analysis of Landscapes</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-22T00:00:00Z'>Feb 22, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    17 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="overview-of-spectral-analysis">Overview of spectral analysis
+</h2><p>What do ghosts, fourier analysis and landscape structure all have in common? Honestly&hellip;not much, but I&rsquo;m here to talk to you about most of those topics anyway! Enter <strong>spectral analysis</strong> 👻.</p>
+<p>Spectral analysis is the process of taking complex and signals (e.g., sound waves, images, or even landscape composition via rasters) and decomposing them into into periodic functions (i.e., sine and cosine waves) that can be more easily analyzed. Although there are many uses for spectral analysis, in this blog post I will just examine one particular use in the context of ecology&ndash;analyzing landscape structure. I probably don&rsquo;t need to tell you dear reader that habitat (and thereby landscape structure) is a critical to an animal&rsquo;s ability to thrive and reproduce. As such, it&rsquo;s fundamental for wildilfe managers to understand how landscape structure (and our decisions to manage or alter that structure) may or may not impact the wild populations we care about!</p>
+<p>Motivation aside <strong>spectral analysis</strong> we need a landscape. I&rsquo;ll quickly go ahead and generate one with a handy function that generates landscapes with Gaussian random fields (GRFs).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">generate_grf_landscape</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">matrix</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">grid</span> <span class="o">&lt;-</span> <span class="nf">expand.grid</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="n">size</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sp</span><span class="o">::</span><span class="nf">coordinates</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="o">~</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sp</span><span class="o">::</span><span class="nf">gridded</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vgm_mod</span> <span class="o">&lt;-</span> <span class="n">gstat</span><span class="o">::</span><span class="nf">vgm</span><span class="p">(</span><span class="n">psill</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="s">&#34;Exp&#34;</span><span class="p">,</span> <span class="n">range</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">nugget</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">g</span> <span class="o">&lt;-</span> <span class="nf">gstat</span><span class="p">(</span><span class="n">formula</span> <span class="o">=</span> <span class="n">z</span> <span class="o">~</span> <span class="m">1</span><span class="p">,</span> <span class="n">locations</span> <span class="o">=</span> <span class="o">~</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">dummy</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">vgm_mod</span><span class="p">,</span> <span class="n">nmax</span> <span class="o">=</span> <span class="m">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sim</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">nsim</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">if</span><span class="p">(</span><span class="n">matrix</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">return</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="n">sim</span><span class="o">$</span><span class="n">sim1</span><span class="p">,</span> <span class="n">nrow</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">size</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="kr">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">return</span><span class="p">(</span><span class="nf">rast</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="n">sim</span><span class="o">$</span><span class="n">sim1</span><span class="p">,</span> <span class="n">nrow</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">size</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let&rsquo;s start off by generating a few landscapes with different range parameters (<code>a</code>).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">grf_range_values</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">30</span><span class="p">)</span> <span class="c1"># definitely play around with these</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># stick our landscapes into a list for convenience</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># this generates a landscape for each range parameter `a` of size 100</span>
+</span></span><span class="line"><span class="cl"><span class="n">land_list</span> <span class="o">&lt;-</span> <span class="n">purrr</span><span class="o">::</span><span class="nf">map</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">setNames</span><span class="p">(</span><span class="n">grf_range_values</span><span class="p">,</span> <span class="n">grf_range_values</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="o">~</span> <span class="nf">rast</span><span class="p">(</span><span class="nf">generate_grf_landscape</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="n">.x</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">100</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># helper function</span>
+</span></span><span class="line"><span class="cl"><span class="n">rast_to_df</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">list</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Works for SpatRaster with 1 layer</span>
+</span></span><span class="line"><span class="cl">  <span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="n">list[[name]]</span><span class="p">,</span> <span class="n">xy</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">names</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#34;Easting&#34;</span><span class="p">,</span> <span class="s">&#34;Northing&#34;</span><span class="p">,</span> <span class="s">&#34;value&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">df</span><span class="o">$</span><span class="n">a</span> <span class="o">&lt;-</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">  <span class="n">df</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># now we want to take this and turn it into a list of dataframes for easy plotting</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># using ggplot</span>
+</span></span><span class="line"><span class="cl"><span class="n">rast_df_list</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="nf">names</span><span class="p">(</span><span class="n">land_list</span><span class="p">),</span> <span class="n">rast_to_df</span><span class="p">,</span> <span class="n">list</span> <span class="o">=</span> <span class="n">land_list</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Note that I assumed we were only working with square matrices here&hellip;this is almost never the case in real data, but it&rsquo;s an easy fix and makes things look neater for demonstration. Let&rsquo;s go ahead and generate (and visualize 🔎)
+what the parameter <code>a</code> does&hellip;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># i&#39;ll use these two little calls to get the maximum and miniumum values </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># over each one of our landscapes so that we can plot these on the same scale</span>
+</span></span><span class="line"><span class="cl"><span class="n">g_max</span> <span class="o">&lt;-</span> <span class="nf">max</span><span class="p">(</span><span class="nf">unlist</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">land_list</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="nf">values</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">x</span><span class="p">)))))</span> 
+</span></span><span class="line"><span class="cl"><span class="n">g_min</span> <span class="o">&lt;-</span> <span class="nf">max</span><span class="p">(</span><span class="nf">unlist</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="n">land_list</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="nf">values</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">x</span><span class="p">)))))</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># yet another custom function...sorry about all this</span>
+</span></span><span class="line"><span class="cl"><span class="n">make_land_grid_plot</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">facet</span> <span class="o">=</span> <span class="kc">NULL</span><span class="p">,</span> <span class="n">g_min</span><span class="p">,</span> <span class="n">g_max</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">facet</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dat</span> <span class="o">&lt;-</span> <span class="n">dat</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">.facet_lab</span> <span class="o">=</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">facet</span><span class="p">,</span> <span class="s">&#34;==&#34;</span><span class="p">,</span> <span class="n">.data[[facet]]</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">Easting</span><span class="p">,</span> <span class="n">Northing</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">value</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">geom_raster</span><span class="p">()</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">coord_equal</span><span class="p">(</span><span class="n">expand</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">scale_fill_gradient</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">low</span> <span class="o">=</span> <span class="s">&#34;black&#34;</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="s">&#34;white&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">limits</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="n">g_min</span><span class="p">,</span> <span class="n">g_max</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">name</span> <span class="o">=</span> <span class="kc">NULL</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">&#34;Easting&#34;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">&#34;Northing&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">scale_fill_gradientn</span><span class="p">(</span><span class="n">colours</span> <span class="o">=</span> <span class="nf">terrain.colors</span><span class="p">(</span><span class="m">256</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">theme</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">panel.grid</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">strip.text</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">face</span> <span class="o">=</span> <span class="s">&#34;bold&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">axis.title</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="m">12</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">legend.position</span> <span class="o">=</span> <span class="s">&#34;right&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">facet</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">&lt;-</span> <span class="n">p</span> <span class="o">+</span> <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span> <span class="n">.facet_lab</span><span class="p">,</span> <span class="n">labeller</span> <span class="o">=</span> <span class="n">label_parsed</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">p</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># let&#39;s do one more transform of our land dataframes so we can plug them into this</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># function</span>
+</span></span><span class="line"><span class="cl"><span class="n">land_df</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="n">rast_df_list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># now we can call our custom function to make the plots</span>
+</span></span><span class="line"><span class="cl"><span class="n">land_plot</span> <span class="o">&lt;-</span> <span class="nf">make_land_grid_plot</span><span class="p">(</span><span class="n">land_df</span><span class="p">,</span> <span class="n">facet</span> <span class="o">=</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">g_min</span> <span class="o">=</span> <span class="n">g_min</span><span class="p">,</span> <span class="n">g_max</span> <span class="o">=</span> <span class="n">g_max</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Scale for fill is already present.
+</span></span><span class="line"><span class="cl">## Adding another scale for fill, which will replace the existing scale.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>OK great. That was a lot of work just to look at some GRFs&hellip;but hey&ndash;that&rsquo;s ok.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">land_plot</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/spectral-analysis-landscape/index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+OK so a couple of things to notice here. Remember the value `a` from the previous section? Just by inspection we can see that that the landscape is showing larger (more distinct) patches as the `a` parameter increases. In fancier terms landscape ecologists might say that the landscape is becoming more **autocorrelated**. 
+<p>OK. OK. I hear what you&rsquo;re thinking: &ldquo;Alex, this blog post is about spectral analysis&hellip;and so far all we&rsquo;ve done is plot some fancy looking fake lands&hellip;&rdquo;, and you&rsquo;d be correct! That is in fact all we&rsquo;ve done, but now that we have some fake landscapes with varying degrees of structure (another way of talking about how autocorrelated your landscape is) we can start to analyze them&hellip;this time I promise.</p>
+<p>To do spectral analysis let&rsquo;s start with a concept&hellip;<strong>fourier transformations</strong>. I&rsquo;m not scared&hellip;are you scared?&hellip;(ok I&rsquo;m a little scared). So the big idea behind fourier transformation is that we can decompose a signal (again could be sound, habitat quality, or information compression in computer files) and decompose it into a set of <strong>basis functions</strong>. In essence what we&rsquo;re doing is taking the original data and conducting what&rsquo;s called a <strong>change of basis</strong> more on that <a class="link" href="https://www.statlect.com/matrix-algebra/change-of-basis"  target="_blank" rel="noopener"
+    >here</a> or you could check out <a class="link" href="https://www.khanacademy.org/math/linear-algebra/alternate-bases/change-of-basis/v/linear-algebra-change-of-basis-matrix"  target="_blank" rel="noopener"
+    >Khan Academy</a>. In short, a change of basis changes a dataset from one coordinate system to another one. In our case we take a system of coordinates from our landscape (could be real coordinates or the imaginary coordinates of the landscape I made up) and correlating each coordinate-pair to a value in the <em>frequency domain</em>. Let&rsquo;s look at an example to make this more concrete.</p>
+<p>Remember our handy landscapes from before?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># we&#39;ll just grab the grf land with &#34;moderate&#34; landscape autocorrelation</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># a = 10</span>
+</span></span><span class="line"><span class="cl"><span class="n">grf_a_10</span> <span class="o">&lt;-</span> <span class="n">land_list[[2]]</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">&lt;-</span> <span class="n">terra</span><span class="o">::</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">grf_a_10</span><span class="p">,</span> <span class="n">wide</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># let&#39;s run the fft to get the change of basis</span>
+</span></span><span class="line"><span class="cl"><span class="n">freq_a_10</span> <span class="o">&lt;-</span> <span class="nf">fft</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>A couple of things to notice here. The object <code>freq_a_10</code> is a an object of size 100, 100&hellip;the same dimensions as our grf landscape <code>grf_a_10</code>!! Coincidence&hellip;? Of course not. By the way you&rsquo;re about to run into some math let&rsquo;s refer to the landscape <code>grf_a_10</code> as $ L $ from here on out, deal? Under the hood the function <code>fft()</code> (which stands for <em>fast fourier transform</em> by the way) from the R package <code>stats</code> is doing a change of basis from our original space (habitat values on a coordinate grid) to a totally different space (frequencies on a totally separate but equal grid of indices). The long and short of it is that for each cell in our landscape <code>freq_a_10</code> finds the correlation between the landscape&rsquo;s structure and a pair of cosine and sine functions.</p>
+<p>Let&rsquo;s zoom in a minute:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">freq_a_10[1</span><span class="p">,</span><span class="m">3</span><span class="n">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## [1] -671.5256-1029.249i
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>OK this is weird right? Why is there an <em>i</em> at the end of the number? And why are there two numbers here if it&rsquo;s just correlation between two things? Well, the answer comes from the fourier transform itself. Let&rsquo;s introduce $ \phi(r,c) $ (a basis function) which correlates our landscape index $ (r,c) $ (e.g., (1,0), (53, 15), &hellip;) to a value in the frequency space I mentioned earlier.</p>
+$$
+\phi(r, c) = e^{2\cdot \pi \cdot i \cdot (\frac{kr}{N} + \frac{lc}{M})} (1)
+$$<p>
+So this gets me my correlating value in frequency space&hellip;but how do those values we saw in the object <code>freq_a_10</code>? Well I&rsquo;m glad you asked&hellip;let&rsquo;s calculate just one of those values as an example.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># fft indexes starting at zero like most other things in computer science...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># except R. So we&#39;ll index the cell at [1,3] as [0,2]</span>
+</span></span><span class="line"><span class="cl"><span class="n">k</span> <span class="o">&lt;-</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">l</span> <span class="o">&lt;-</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">N</span>   <span class="o">&lt;-</span> <span class="m">100</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># generate a grid of cell indices</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># notice that we&#39;re generating indicies on the frequency-domain scale</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># i.e., 0-99</span>
+</span></span><span class="line"><span class="cl"><span class="n">r_grid</span> <span class="o">&lt;-</span> <span class="nf">matrix</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="p">(</span><span class="n">N</span><span class="m">-1</span><span class="p">),</span> <span class="n">nrow</span> <span class="o">=</span> <span class="n">N</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">N</span><span class="p">,</span> <span class="n">byrow</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c_grid</span> <span class="o">&lt;-</span> <span class="nf">matrix</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="p">(</span><span class="n">N</span><span class="m">-1</span><span class="p">),</span> <span class="n">nrow</span> <span class="o">=</span> <span class="n">N</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">N</span><span class="p">,</span> <span class="n">byrow</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># phi_kl is just one of of these basis functions</span>
+</span></span><span class="line"><span class="cl"><span class="n">phi_kl</span> <span class="o">&lt;-</span> <span class="nf">exp</span><span class="p">(</span><span class="m">2</span> <span class="o">*</span> <span class="kc">pi</span> <span class="o">*</span> <span class="m">1i</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">r_grid</span> <span class="o">/</span> <span class="n">N</span> <span class="o">+</span> <span class="n">l</span> <span class="o">*</span> <span class="n">c_grid</span> <span class="o">/</span> <span class="n">N</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># notice here that F_02 (which again corresponds to L[1,3] in our landscape-space)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># multiplies just one basis function phi_kl by the entire landscape </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># so we&#39;re getting a correlation between a single basis function and the entire</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># domain we&#39;re interested in. Neat right?</span>
+</span></span><span class="line"><span class="cl"><span class="n">F_02</span> <span class="o">&lt;-</span> <span class="nf">sum</span><span class="p">(</span><span class="nf">as.vector</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="nf">as.vector</span><span class="p">(</span><span class="n">phi_kl</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>OK now if you and I haven&rsquo;t completely lost our sanity&hellip;these values should be the same. Let&rsquo;s check the value returned by <code>fft</code> -671.53 -1029.25i and the value we just calculated&hellip;-671.53 +1029.25i. Bingo! They&rsquo;re the same!! So behind the scenes we&rsquo;re just getting correlations between our landscape and the basis function. In math this means:</p>
+$$
+F(k, l) = \sum_{r \in R} \sum_{c \in C} L(r,c) \cdot e^{2\cdot \pi \cdot i \cdot (\frac{k \cdot r}{N} + \frac{l \cdot c}{M})} \ (1)
+$$<p>
+And remember from <a class="link" href="https://en.wikipedia.org/wiki/Euler%27s_formula"  target="_blank" rel="noopener"
+    >Euler&rsquo;s Formula</a> we can write (1) as:</p>
+$$
+\phi(r, c) = e^{2 \cdot \pi \cdot i \cdot (\frac{kr}{N} + \frac{lc}{M})} = \cos(2 \cdot \pi \cdot (\frac{kr}{N} + \frac{lc}{M})) + i \sin (2 \cdot \pi \cdot (\frac{kr}{N} + \frac{lc}{M}))
+$$<p>So, our landscape can be written as a decomposition of periodic basis vectors!! Yipee!
+This is cool&hellip;but what can we actually do with this? I&rsquo;m glad you asked dear reader. One thing we can now do is numerically quantify the spatial structure of our landscape (or whatever else you personally happen to be interested in). Let&rsquo;s learn about the utility of what we just did with one spectral measure of landscape structure the <strong>spectral centroid</strong>.</p>
+<h2 id="the-spectral-centroid">The Spectral Centroid
+</h2><p>OK so now we have a frequency-domain representation of our landscape. Each
+cell <code>F[k,l]</code> in <code>freq_a_10</code> <strong>tells us how strongly the landscape correlates with a wave that completes k cycles north-south and l cycles east-west</strong>. But we want a single number that summarises the dominant spatial scale—-this is where the <strong>spectral centroid</strong> comes in. Unfortunately, to do discuss the spectral centroid we&rsquo;re going to have to introduce more actors into this play.</p>
+<p>Remember how each of the components in our frequency matrix was an ugly complex number with two components (a real and imaginary one?). Yeah&hellip;let&rsquo;s fix that. To do that I&rsquo;ll introduce the <strong>power spectrum</strong> — the squared magnitude of each element of the frequency matrix from <code>fft()</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># power at each frequency — how strongly does the landscape correlate</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># with each basis wave?</span>
+</span></span><span class="line"><span class="cl"><span class="n">power</span> <span class="o">&lt;-</span> <span class="nf">Mod</span><span class="p">(</span><span class="n">freq_a_10</span><span class="p">)</span><span class="n">^2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The function <code>Mod()</code> collapses the complex number to a single amplitude. Squaring gives us power. Let take a gander at the cell we looked at earlier 1,510,299. See now it&rsquo;s just a nice real number. We like real numbers.</p>
+<p>Next we need to know the actual spatial frequency that each [k,l] index corresponds to — how many cycles per spatial unit, rather than per domain. To do that I will introduce the the <code>dc</code> component. The term <em>dc</em> actually stands for <em>direct current</em> borrowed from electrical engineering. In the out context it represents the zero-frequency term — the global mean habitat value across the landscape. It is directly analogous to (but not necessarily equal to) the nugget in a variogram or the intercept in regression analysis. But the <code>dc</code> component&hellip;it&rsquo;s got to go.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">N</span> <span class="o">&lt;-</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">M</span> <span class="o">&lt;-</span> <span class="nf">ncol</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># frequency in cycles per cell, shifted so DC is at centre</span>
+</span></span><span class="line"><span class="cl"><span class="n">freq_row</span> <span class="o">&lt;-</span> <span class="p">(((</span><span class="nf">seq_len</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">floor</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="m">2</span><span class="p">))</span> <span class="o">%%</span> <span class="n">N</span> <span class="o">-</span> <span class="nf">floor</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="m">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">N</span>
+</span></span><span class="line"><span class="cl"><span class="n">freq_col</span> <span class="o">&lt;-</span> <span class="p">(((</span><span class="nf">seq_len</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">floor</span><span class="p">(</span><span class="n">M</span><span class="o">/</span><span class="m">2</span><span class="p">))</span> <span class="o">%%</span> <span class="n">M</span> <span class="o">-</span> <span class="nf">floor</span><span class="p">(</span><span class="n">M</span><span class="o">/</span><span class="m">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">M</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># radial frequency magnitude at each [k,l] — combining both directions</span>
+</span></span><span class="line"><span class="cl"><span class="n">freq_mat</span> <span class="o">&lt;-</span> <span class="nf">outer</span><span class="p">(</span><span class="n">freq_row</span><span class="p">,</span> <span class="n">freq_col</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">FUN</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">fr</span><span class="p">,</span> <span class="n">fc</span><span class="p">)</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">fr^2</span> <span class="o">+</span> <span class="n">fc^2</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now the <code>freq_mat</code> component gets a little confusing. Since we&rsquo;ve done a change of basis we are no longer working in euclidean space in the classical sense. We&rsquo;re instead working in frequency or cycle space. So the euclidean distance we take <code>sqrt(fr^2 + fc^2)</code> is a measure of how many cycles distant each cell is from <code>dc</code>. This is our unit of measurement in this space. The radial frequency collapses the 2D frequency grid to a single number per cell — the combined spatial frequency regardless of direction. A wave with k=3, l=4 has the same radial frequency as k=4, l=3: they both complete the same number of cycles per unit, just oriented differently.</p>
+<p>Now the spectral centroid (i.e., the power-weighted mean frequency):</p>
+$$
+\omega = \frac{\sum_{k,l} f_{kl} \cdot P_{kl}}{\sum_{k,l} P_{kl}}
+$$<p>
+Here $ \omega $ is the term I&rsquo;m using for the spectral centroid metric. Going from the numerator to the denominator. The $ \sum_{k,l}f_{kl} \cdot P_{kl} $ part. The sum is telling us that we want to continue the operation across <strong>all</strong> of the frequency-space indicies $ k,l $. At each of these indices we want to weight the frequency at a particular index $ f_{k,l} $ by it&rsquo;s corresponding power $ P_{k,l} $. Remember that $ P_{k,l} $ is the square of the correlation matrix.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># exclude DC component (zero frequency — just the landscape mean)</span>
+</span></span><span class="line"><span class="cl"><span class="n">dc_mask</span> <span class="o">&lt;-</span> <span class="n">freq_mat</span> <span class="o">&gt;</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">f_vals</span>  <span class="o">&lt;-</span> <span class="n">freq_mat[dc_mask]</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_vals</span>  <span class="o">&lt;-</span> <span class="n">power[dc_mask]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># power-weighted mean frequency — the &#34;centre of mass&#34; of the power spectrum.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># each frequency f_vals is weighted by how strongly the landscape correlates</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># with that frequency (p_vals), so landscapes with coarse structure pull the</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># centroid toward low frequencies and fine-grained landscapes pull it high.</span>
+</span></span><span class="line"><span class="cl"><span class="n">f_centroid</span> <span class="o">&lt;-</span> <span class="nf">sum</span><span class="p">(</span><span class="n">f_vals</span> <span class="o">*</span> <span class="n">p_vals</span><span class="p">)</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">p_vals</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># convert from frequency (cycles/cell) to wavelength (spatial units)</span>
+</span></span><span class="line"><span class="cl"><span class="n">omega_sc</span> <span class="o">&lt;-</span> <span class="m">1</span> <span class="o">/</span> <span class="n">f_centroid</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">cat</span><span class="p">(</span><span class="s">&#34;Spectral centroid wavelength:&#34;</span><span class="p">,</span> <span class="nf">round</span><span class="p">(</span><span class="n">omega_sc</span><span class="p">,</span> <span class="m">3</span><span class="p">),</span> <span class="s">&#34;spatial units\n&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## Spectral centroid wavelength: 13.541 spatial units
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In short what we did:</p>
+<ul>
+<li><code>fft()</code>— correlate the landscape against every basis wave simultaneously</li>
+<li><code>Mod()^2</code>— how strong is each correlation? (power)</li>
+<li><code>freq_mat</code>— what frequency does each correlation correspond to? (ordered from zero outward)</li>
+<li><code>sum(f*p)/p</code>— or <code>f_centroid</code> where is the centre of mass of those correlations on the frequency axis (note we are talking about how many times the dominant pattern repeats per cell.).</li>
+<li><code>1/f_centroid</code>— convert to wavelength. <code>f_centroid</code> gives us a frequency, but remember that we&rsquo;re interested in the scale of landscape autocorrelation, so we need to convert it to how many spatial units it takes to complete a cycle.</li>
+</ul>
+<p>The final conversion from frequency to wavelength ($ \omega = 1/f $) gives us a spatial scale in the same units as the landscape. Let&rsquo;s visualise what we just computed — the full radial power spectrum with the centroid marked:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># bin power by radial frequency for a clean 1D plot</span>
+</span></span><span class="line"><span class="cl"><span class="n">breaks</span>  <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">f_vals</span><span class="p">),</span> <span class="n">length.out</span> <span class="o">=</span> <span class="m">60</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">bin_idx</span> <span class="o">&lt;-</span> <span class="nf">cut</span><span class="p">(</span><span class="n">f_vals</span><span class="p">,</span> <span class="n">breaks</span> <span class="o">=</span> <span class="n">breaks</span><span class="p">,</span> <span class="n">include.lowest</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">binned</span>  <span class="o">&lt;-</span> <span class="nf">aggregate</span><span class="p">(</span><span class="n">p_vals</span> <span class="o">~</span> <span class="n">bin_idx</span><span class="p">,</span> <span class="n">FUN</span> <span class="o">=</span> <span class="n">sum</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">binned</span><span class="o">$</span><span class="n">freq_mid</span> <span class="o">&lt;-</span> <span class="n">breaks[</span><span class="o">-</span><span class="nf">length</span><span class="p">(</span><span class="n">breaks</span><span class="p">)</span><span class="n">]</span> <span class="o">+</span> <span class="nf">diff</span><span class="p">(</span><span class="n">breaks</span><span class="p">)</span> <span class="o">/</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">binned</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">freq_mid</span><span class="p">,</span> <span class="n">p_vals</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_col</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="s">&#34;grey70&#34;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="nf">diff</span><span class="p">(</span><span class="n">breaks</span><span class="p">)</span><span class="n">[1]</span> <span class="o">*</span> <span class="m">0.9</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_vline</span><span class="p">(</span><span class="n">xintercept</span> <span class="o">=</span> <span class="n">f_centroid</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">             <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;steelblue&#34;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">annotate</span><span class="p">(</span><span class="s">&#34;text&#34;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">f_centroid</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">binned</span><span class="o">$</span><span class="n">p_vals</span><span class="p">)</span> <span class="o">*</span> <span class="m">0.9</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="n">label</span> <span class="o">=</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#34;ω_sc = &#34;</span><span class="p">,</span> <span class="nf">round</span><span class="p">(</span><span class="n">omega_sc</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span> <span class="s">&#34; cells&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">           <span class="n">hjust</span> <span class="o">=</span> <span class="m">-0.1</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;steelblue&#34;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">3.5</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">&#34;radial frequency (cycles / cell)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">y</span> <span class="o">=</span> <span class="s">&#34;summed power&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Radial power spectrum&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">subtitle</span> <span class="o">=</span> <span class="s">&#34;Blue line = spectral centroid&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_bw</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/spectral-analysis-landscape/index.en_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+OK great so for this particular GRF landscape this plot tells us that it takes it takes 14.09 units to complete a cycle on average. OK great, but let's jump back to the original problem.
+<h2 id="did-we-make-a-way-to-do-spectral-analysis">Did we make a way to do spectral analysis
+</h2><p>We wanted a property that would tell us the scale of landscape structure regardless of the actual structure itseslf&hellip;let&rsquo;s see if we&rsquo;ve actually done that. Let&rsquo;s go ahead and write a convient function to summarise the steps we just took to calculate the spectral centroid.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">get_spectral_centroid</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span><span class="n">rast</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Get resolution (mean of x and y res to handle slight differences)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">res_x</span> <span class="o">&lt;-</span> <span class="n">terra</span><span class="o">::</span><span class="nf">xres</span><span class="p">(</span><span class="n">rast</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">res_y</span> <span class="o">&lt;-</span> <span class="n">terra</span><span class="o">::</span><span class="nf">yres</span><span class="p">(</span><span class="n">rast</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cell_size</span> <span class="o">&lt;-</span> <span class="nf">mean</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">res_x</span><span class="p">,</span> <span class="n">res_y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># extract matrix</span>
+</span></span><span class="line"><span class="cl">  <span class="n">m</span> <span class="o">&lt;-</span> <span class="n">terra</span><span class="o">::</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">rast</span><span class="p">,</span> <span class="n">wide</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">nr</span> <span class="o">&lt;-</span> <span class="nf">nrow</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">nc</span> <span class="o">&lt;-</span> <span class="nf">ncol</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># do our fast fourier transform from before</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ft</span>    <span class="o">&lt;-</span> <span class="nf">fft</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># get the actual power or magnitude of the correlation between each basis</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># and the total landscape structure</span>
+</span></span><span class="line"><span class="cl">  <span class="n">power</span> <span class="o">&lt;-</span> <span class="nf">Mod</span><span class="p">(</span><span class="n">ft</span><span class="p">)</span><span class="n">^2</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Frequency arrays (cycles per cell), then convert to cycles per spatial unit</span>
+</span></span><span class="line"><span class="cl">  <span class="n">freq_row</span> <span class="o">&lt;-</span> <span class="p">(((</span><span class="nf">seq_len</span><span class="p">(</span><span class="n">nr</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">floor</span><span class="p">(</span><span class="n">nr</span> <span class="o">/</span> <span class="m">2</span><span class="p">))</span> <span class="o">%%</span> <span class="n">nr</span> <span class="o">-</span> <span class="nf">floor</span><span class="p">(</span><span class="n">nr</span> <span class="o">/</span> <span class="m">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">nr</span>
+</span></span><span class="line"><span class="cl">  <span class="n">freq_col</span> <span class="o">&lt;-</span> <span class="p">(((</span><span class="nf">seq_len</span><span class="p">(</span><span class="n">nc</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">floor</span><span class="p">(</span><span class="n">nc</span> <span class="o">/</span> <span class="m">2</span><span class="p">))</span> <span class="o">%%</span> <span class="n">nc</span> <span class="o">-</span> <span class="nf">floor</span><span class="p">(</span><span class="n">nc</span> <span class="o">/</span> <span class="m">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">nc</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># convert to cycles per spatial unit</span>
+</span></span><span class="line"><span class="cl">  <span class="n">freq_row_spatial</span> <span class="o">&lt;-</span> <span class="n">freq_row</span> <span class="o">/</span> <span class="n">res_y</span>
+</span></span><span class="line"><span class="cl">  <span class="n">freq_col_spatial</span> <span class="o">&lt;-</span> <span class="n">freq_col</span> <span class="o">/</span> <span class="n">res_x</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># build frequency magnitude grid (2D radial frequency in cycles / spatial unit)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># remember these are our &#39;indicies&#39; for our new domain</span>
+</span></span><span class="line"><span class="cl">  <span class="n">freq_mat</span> <span class="o">&lt;-</span> <span class="nf">outer</span><span class="p">(</span><span class="n">freq_row_spatial</span><span class="p">,</span> <span class="n">freq_col_spatial</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">FUN</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">fr</span><span class="p">,</span> <span class="n">fc</span><span class="p">)</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">fr^2</span> <span class="o">+</span> <span class="n">fc^2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># exclude DC component </span>
+</span></span><span class="line"><span class="cl">  <span class="n">dc_mask</span> <span class="o">&lt;-</span> <span class="n">freq_mat</span> <span class="o">&gt;</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">  <span class="n">f_vals</span>  <span class="o">&lt;-</span> <span class="n">freq_mat[dc_mask]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">p_vals</span>  <span class="o">&lt;-</span> <span class="n">power[dc_mask]</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">f_centroid</span>  <span class="o">&lt;-</span> <span class="nf">sum</span><span class="p">(</span><span class="n">f_vals</span> <span class="o">*</span> <span class="n">p_vals</span><span class="p">)</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">p_vals</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="m">1</span> <span class="o">/</span> <span class="n">f_centroid</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># before we do that let&#39;s generate a few more lands</span>
+</span></span><span class="line"><span class="cl"><span class="n">grf_range_values</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span><span class="m">7</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">13</span><span class="p">,</span> <span class="m">14</span><span class="p">,</span> <span class="m">15</span><span class="p">,</span> <span class="m">16</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">21</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">23</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">27</span><span class="p">,</span> <span class="m">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">land_list_ext</span> <span class="o">&lt;-</span> <span class="n">land_list</span> <span class="o">&lt;-</span> <span class="n">purrr</span><span class="o">::</span><span class="nf">map</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">setNames</span><span class="p">(</span><span class="n">grf_range_values</span><span class="p">,</span> <span class="n">grf_range_values</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="o">~</span> <span class="nf">rast</span><span class="p">(</span><span class="nf">generate_grf_landscape</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="n">.x</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">100</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span><span class="line"><span class="cl">## [using unconditional Gaussian simulation]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="c1"># wrapper function so we can return the names of the list (a values)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># as elements of our dataframe</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># it&#39;s a less fancy (and worse) version of the map approach i took above</span>
+</span></span><span class="line"><span class="cl"><span class="n">process_lands</span> <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">data.frame</span><span class="p">(</span><span class="n">omega</span> <span class="o">=</span> <span class="nf">get_spectral_centroid</span><span class="p">(</span><span class="n">land_list[[x]]</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a_val</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">omega_dat</span> <span class="o">&lt;-</span> <span class="nf">bind_rows</span><span class="p">(</span><span class="nf">lapply</span><span class="p">(</span><span class="nf">names</span><span class="p">(</span><span class="n">land_list_ext</span><span class="p">),</span> <span class="n">process_lands</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Here comes the kind of underwhelming finale.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="nf">ggplot</span><span class="p">(</span><span class="n">omega_dat</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">a_val</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">omega</span><span class="p">))</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_point</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="m">2.5</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">geom_abline</span><span class="p">(</span><span class="n">slope</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">              <span class="n">linetype</span> <span class="o">=</span> <span class="s">&#34;dashed&#34;</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&#34;grey50&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">&#34;true a (GRF range parameter)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="n">y</span> <span class="o">=</span> <span class="nf">expression</span><span class="p">(</span><span class="n">omega</span> <span class="o">~</span> <span class="s">&#34;(cells per cycle)&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">       <span class="n">title</span> <span class="o">=</span> <span class="s">&#34;Spectral centroid vs landscape scale&#34;</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">theme_bw</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/spectral-analysis-landscape/index.en_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+Great! So it's admittedly not a perfect metric (there's some scatter about the one-one line), but considering the messiness of the dastaset we are getting a pretty good idea of the scale of the landscape in a way that's indepedent of the structure and values present!
+<h1 id="references--sources">References &amp; Sources
+</h1><p>Pebesma, E. &amp; Bivand, R. (2023). Spatial Data Science: With Applications in R. Chapman and Hall. Boca Raton FL, United States. <a class="link" href="https://doi.org/10.1201/9780429459016"  target="_blank" rel="noopener"
+    >https://doi.org/10.1201/9780429459016</a>. 10.1201/9780429459016.
+Taboga, Marco (2021). &ldquo;Discrete Fourier Transform - Frequencies&rdquo;, Lectures on matrix algebra. <a class="link" href="https://www.statlect.com/matrix-algebra/discrete-Fourier-transform-frequencies"  target="_blank" rel="noopener"
+    >https://www.statlect.com/matrix-algebra/discrete-Fourier-transform-frequencies</a>.
+Taboga, Marco (2021). &ldquo;Discrete Fourier transform&rdquo;, Lectures on matrix algebra. <a class="link" href="https://www.statlect.com/matrix-algebra/discrete-Fourier-transform"  target="_blank" rel="noopener"
+    >https://www.statlect.com/matrix-algebra/discrete-Fourier-transform</a>.
+Taboga, Marco (2021). &ldquo;Change of basis&rdquo;, Lectures on matrix algebra. <a class="link" href="https://www.statlect.com/matrix-algebra/change-of-basis"  target="_blank" rel="noopener"
+    >https://www.statlect.com/matrix-algebra/change-of-basis</a>.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/csc-data-blog/tags/r_modelling/">R_Modelling</a>
+        
+            <a href="/csc-data-blog/tags/statistics/">Statistics</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/jensens-inequality-population-ecology/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Jensen&#39;s Inequality: Why Averages Mislead</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/making-plots-with-openalexr/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Creating plots with openAlexR</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/when-to-consider-random-or-fixed-effects-in-the-model/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">When to Consider Random or Fixed Effects in the Model?</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/csc-data-blog/p/meta-analysis-on-randomized-clinical-trials-part-3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Meta-Analysis on Randomized Clinical Trials - Part 3</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2026 Center for Scholarly Communication, UBC Okanagan
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

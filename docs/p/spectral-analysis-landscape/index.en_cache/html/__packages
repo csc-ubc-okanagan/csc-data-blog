@@ -1,0 +1,15 @@
+base
+methods
+datasets
+utils
+grDevices
+graphics
+stats
+emoji
+sp
+terra
+gstat
+purrr
+patchwork
+ggplot2
+dplyr

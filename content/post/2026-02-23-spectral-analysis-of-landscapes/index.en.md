@@ -2,6 +2,7 @@
 title: "Spooky Land: Spectral Analysis of Landscapes"
 author: ["Alex Jack"]
 date: 2026-02-22
+slug: spectral-analysis-landscape
 categories: ["R"]
 tags: ["R_Modelling", "statistics"]
 math: true
@@ -141,7 +142,7 @@ freq_a_10[1,3]
 ```
 
 ```
-## [1] 83.78414+1072.479i
+## [1] -671.5256-1029.249i
 ```
 OK this is weird right? Why is there an *i* at the end of the number? And why are there two numbers here if it's just correlation between two things? Well, the answer comes from the fourier transform itself. Let's introduce $ \phi(r,c) $ (a basis function) which correlates our landscape index $ (r,c) $ (e.g., (1,0), (53, 15), ...) to a value in the frequency space I mentioned earlier.
 
@@ -170,7 +171,7 @@ phi_kl <- exp(2 * pi * 1i * (k * r_grid / N + l * c_grid / N))
 # domain we're interested in. Neat right?
 F_02 <- sum(as.vector(m) * as.vector(phi_kl))
 ```
-OK now if you and I haven't completely lost our sanity...these values should be the same. Let's check the value returned by `fft` 83.78 +1072.48i and the value we just calculated...83.78 -1072.48i. Bingo! They're the same!! So behind the scenes we're just getting correlations between our landscape and the basis function. In math this means: 
+OK now if you and I haven't completely lost our sanity...these values should be the same. Let's check the value returned by `fft` -671.53 -1029.25i and the value we just calculated...-671.53 +1029.25i. Bingo! They're the same!! So behind the scenes we're just getting correlations between our landscape and the basis function. In math this means: 
 
 $$
 F(k, l) = \sum_{r \in R} \sum_{c \in C} L(r,c) \cdot e^{2\cdot \pi \cdot i \cdot (\frac{k \cdot r}{N} + \frac{l \cdot c}{M})} \ (1)
@@ -196,7 +197,7 @@ Remember how each of the components in our frequency matrix was an ugly complex 
 # with each basis wave?
 power <- Mod(freq_a_10)^2
 ```
-The function `Mod()` collapses the complex number to a single amplitude. Squaring gives us power. Let take a gander at the cell we looked at earlier 1,157,230. See now it's just a nice real number. We like real numbers.
+The function `Mod()` collapses the complex number to a single amplitude. Squaring gives us power. Let take a gander at the cell we looked at earlier 1,510,299. See now it's just a nice real number. We like real numbers.
 
 Next we need to know the actual spatial frequency that each [k,l] index corresponds to — how many cycles per spatial unit, rather than per domain. To do that I will introduce the the `dc` component. The term *dc* actually stands for *direct current* borrowed from electrical engineering. In the out context it represents the zero-frequency term — the global mean habitat value across the landscape. It is directly analogous to (but not necessarily equal to) the nugget in a variogram or the intercept in regression analysis. But the `dc` component...it's got to go.
 
@@ -241,7 +242,7 @@ cat("Spectral centroid wavelength:", round(omega_sc, 3), "spatial units\n")
 ```
 
 ```
-## Spectral centroid wavelength: 12.618 spatial units
+## Spectral centroid wavelength: 13.541 spatial units
 ```
 
 In short what we did:

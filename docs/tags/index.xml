@@ -7,7 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Sun, 11 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>R_Modelling</title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/r_modelling/</link>
+        <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/r_modelling/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Statistics</title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/statistics/</link>
+        <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/statistics/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Modelling</title>
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/tags/modelling/</link>
         <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
