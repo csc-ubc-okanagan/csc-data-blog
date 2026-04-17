@@ -8,6 +8,10 @@ tags: ["R_Modelling", "statistics"]
 math: true
 ---
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r setup, include=FALSE}
 library(emoji) # the one package to rule them all
 library(sp) # landscape stuff
 library(terra) # more landscape stuff

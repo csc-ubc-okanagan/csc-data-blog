@@ -7,7 +7,408 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/r_modelling/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 16 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/r_modelling/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Smooth Operators 1: An Introduction to GAMs with mgcv</title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/</guid>
+        <description>
+&lt;script src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2) # general plotting purposes
+library(emoji) # very important
+library(dplyr) # data wrangling purposes
+library(mgcv)
+library(gratia)  # For GAM visualization helpers
+library(readr) # for read_csv
+library(knitr) # for pretti pretti tables
+library(kableExtra) # also for pretti pretti tables
+library(tidyverse) # more data wrangling
+library(purrr)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;a-motivating-example-climate-change&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A motivating example: climate change&lt;/h2&gt;
+&lt;p&gt;Let’s suppose you’re tasked with studying atmospheric Co2 concentrations as part of your thesis work. Let’s go ahead and begin our investigation by doing what should come naturally by now, plotting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;load-real-noaa-climate-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Load Real NOAA Climate Data&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# 1. NOAA Global Temperature Anomalies
+url &amp;lt;- &amp;quot;https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv&amp;quot;
+temp &amp;lt;- read_csv(url, skip = 1, show_col_types = FALSE)
+temp_data &amp;lt;- temp %&amp;gt;%                                                                                   
+     select(Year, `J-D`) %&amp;gt;%
+     rename(year = Year, temp_anomaly = `J-D`) %&amp;gt;%
+     filter(!is.na(temp_anomaly))
+# 2. NOAA Mauna Loa CO₂
+co2_url &amp;lt;- &amp;quot;https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_mlo.txt&amp;quot;
+co2_data &amp;lt;- read.table(co2_url, skip = 57, 
+                       col.names = c(&amp;quot;year&amp;quot;, &amp;quot;co2_mean&amp;quot;, &amp;quot;co2_unc&amp;quot;))
+
+# 3. Merge datasets
+climate_data &amp;lt;- inner_join(
+  co2_data %&amp;gt;% select(year, co2_mean),
+  temp_data,
+  by = &amp;quot;year&amp;quot;
+) %&amp;gt;% mutate(co2_mean = as.numeric(co2_mean),
+             temp_anomaly = as.numeric(temp_anomaly))
+
+# Show the data
+head(climate_data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   year co2_mean temp_anomaly
+## 1 1971   326.32        -0.08
+## 2 1972   327.46         0.01
+## 3 1973   329.68         0.16
+## 4 1974   330.19        -0.07
+## 5 1975   331.13        -0.01
+## 6 1976   332.03        -0.10&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-dataset&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The dataset&lt;/h2&gt;
+&lt;p&gt;The CO$ _2 $ dataset consists of observations of atmopsheric concetrations of CO$ _2 $ in parts per million (ppm) recorded at the Mauna Loa atmospheric research station in Mauna Loa Hawaii, USA. The dates of this specific subset of data range from 1971 to 2025. As an additional dimension you were gifted temperature data. They may look a little strange at first glance, but these are average annual temperature anomalies in degrees $ C $. Without further ado, let’s plot it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(climate_data, aes(x = year, y = temp_anomaly)) +
+  geom_point() +
+  labs(x = &amp;quot;Year&amp;quot;, y = &amp;quot;Temp Anomaly (C)&amp;quot;) +
+  labs(title = &amp;quot;Temp Anomalies vs Time&amp;quot;,
+       x = &amp;quot;Year&amp;quot;,
+       y = &amp;quot;Temp Anomaly (C)&amp;quot;,
+       caption = &amp;quot;Sources: NOAA/GML (Co2)&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/plot%20the%20data-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;
+So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 🤣?! I’m glad you asked! Enter GAMs 🦸‍♀️!!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-is-a-gam&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What is a GAM&lt;/h2&gt;
+&lt;p&gt;If you were to do a quick Google search of what a GAM is you might be concerned
+to find that is actually early-mid 20th century Italian slang word for a
+leg (in fact, the Italian surname Gambucci means ‘little’ or ‘distinct’ leg).
+You might in fact fall down a rabbit hole and find out that the Gambino in
+Childlish Gambino is actually from a Wu-Tang Clan random name generator.
+But this blog post is not about random rap-name generators, legs,
+or Italian surnames but in fact about &lt;strong&gt;Generalized Additive Models (GAMs)&lt;/strong&gt;
+(much more exciting right?)$ ^3$. GAMs let you model non-linear relationships
+without committing to a specific functional form (what I mean by functional
+form here is that you are not restricted to a linear, quadratic, cubic
+or any other ‘ic’ relationship). So instead of assuming $ y = _0 + _1 x $,
+you fit $ y = f(x) $, where $ f() $ is a smooth function learned from
+the data (and not assumed a priori). GAMs give you flexibility with
+interpretability—you can see and understand the smooth functions. It’s because
+GAMs do not assume a functional form that they are sometimes called &lt;strong&gt;non-&lt;/strong&gt; or
+&lt;strong&gt;semi-parametric&lt;/strong&gt;.&lt;/p&gt;
+&lt;div id=&#34;does-a-gam-really-work-better-in-this-case&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Does a GAM really work better in this case 🤔?&lt;/h3&gt;
+&lt;p&gt;The answer is yes. Yes it does. Here’s a plot showing it:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(climate_data, aes(x = year, y = temp_anomaly)) +
+  geom_point() +
+  geom_smooth(aes(color = &amp;quot;GAM smooth&amp;quot;), method = &amp;quot;gam&amp;quot;, se = FALSE, formula = y ~ s(x)) +
+  geom_smooth(aes(color = &amp;quot;Linear fit&amp;quot;), method = &amp;quot;lm&amp;quot;, se = FALSE,  formula = y ~ x) +
+  scale_color_manual(
+    name = NULL,
+    values = c(&amp;quot;GAM smooth&amp;quot; = &amp;quot;blue&amp;quot;, &amp;quot;Linear fit&amp;quot; = &amp;quot;red&amp;quot;)
+  ) +
+  labs(x = &amp;quot;Year&amp;quot;, y = &amp;quot;Temp Anomalies (C)&amp;quot;) +
+  labs(title = &amp;quot;Co2 vs Time&amp;quot;,
+       x = &amp;quot;Year&amp;quot;,
+       y = &amp;quot;Temp Anomalies (C)&amp;quot;,
+       caption = &amp;quot;Sources: NOAA/GML (Co2)&amp;quot;) +
+  theme_minimal()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/gam%20v%20lm%20plot-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;I’ll admit these data don’t look particularly wiggly at a glance, but we can
+still see that the &lt;code&gt;lm&lt;/code&gt; (red line) really doesn’t fit the data perfectly.
+Don’t believe me? Well let’s look at it another way.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;m_lm &amp;lt;- gam(temp_anomaly ~ year, data = climate_data, method = &amp;quot;REML&amp;quot;)
+m_gam &amp;lt;- gam(temp_anomaly ~ s(year, k = 10, bs = &amp;quot;cr&amp;quot;), data = climate_data, method = &amp;quot;REML&amp;quot;)
+# Build table
+model_table &amp;lt;- data.frame(
+  Model      = c(&amp;quot;Linear&amp;quot;, &amp;quot;GAM&amp;quot;),
+  LogLik     = c(as.numeric(logLik(m_lm)),  as.numeric(logLik(m_gam))),
+  Parameters = c(attr(logLik(m_lm), &amp;quot;df&amp;quot;),  attr(logLik(m_gam), &amp;quot;df&amp;quot;)),
+  AIC        = c(AIC(m_lm), AIC(m_gam))
+)
+# pretty table with kable
+model_table |&amp;gt;
+  kable(digits = 2, 
+        col.names = c(&amp;quot;Model&amp;quot;, &amp;quot;Log-Likelihood&amp;quot;, &amp;quot;Parameters&amp;quot;, &amp;quot;AIC&amp;quot;)) |&amp;gt;
+  kable_styling(bootstrap_options = c(&amp;quot;striped&amp;quot;, &amp;quot;hover&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table table-striped table-hover&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Model
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Log-Likelihood
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Parameters
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+AIC
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Linear
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+46.41
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3.00
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-86.81
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+GAM
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+52.03
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5.64
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-92.79
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;So above I am comparing the models using Akaike’s Information Criterion (AIC).
+The long and short of AIC is that it compares the log likelihood of your model
+to the number of parameters it took to estimate that model (and penalizes you
+for using more parameters). We can see that the log likelihood is higher
+for our GAM and that AIC is much lower (which is better). This blog post is not about AIC (although I think that doing one on AIC would be useful), but it should be noted that AIC is not a perfect metric. The metric has caused some controversy due to it’s misue in Ecology specifically $ ^{4,5} $.&lt;/p&gt;
+&lt;p&gt;When we fit a GAM we do not actually get ‘parameters’ in the traditional sense. Instead we get something called effective degrees of freedom (edf). So it’s misleading for me to lump these both into a column called ‘parameters’. Unlike a linear model where the number of parameters is fixed and whole (for example in the parameters cell for linear model we have a estimated an intercept, slope and residual variance so we have 3 degrees of freedom used up), a GAM’s smooth is penalized toward simplicity during fitting. The EDF reflects how much flexibility (wiggliness) the smooth actually used — an EDF of 1 means the smooth collapsed to a straight line, while higher values indicate more ‘wiggliness’. It’s called “effective” because it’s not a count of literal parameters but a continuous measure of model complexity that the data and penalty jointly determine. Because GAMs do not have real ‘parameters’ calculating AIC actually uses EDF in their stead.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;wiggly-data-whats-the-basis&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;“Wiggly” data: what’s the basis?&lt;/h3&gt;
+&lt;p&gt;I have mentioned that GAMs work by fitting wiggly lines to the data. I want to build some intuition on how this works. Underneath the hood, when we fit a GAM we are fitting what are called &lt;em&gt;basis functions&lt;/em&gt; to the data. A basis function is essentially a simple “shape” that is fit to your data. The final “smooth” function is weighted by minimizing the residuals between the data and the basis function and the complexity (how wiggly that basis function is) by &lt;code&gt;mgcv&lt;/code&gt; automatically. We can actually see this action with our own data by controlling a parameter called $ k $ (AKA the number of knots or basis functions used to fit the final smooth) in &lt;code&gt;MGCV&lt;/code&gt;. Let’s see this in action by playing around with the $ k $ parameter.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# generate predictions for each knot (k)
+preds &amp;lt;- map(c(2, 5, 10), function(k) {
+  m &amp;lt;- gam(temp_anomaly ~ s(year, k = k, bs = &amp;quot;cr&amp;quot;), data = climate_data, method = &amp;quot;REML&amp;quot;)
+  tibble(
+    year  = climate_data$year,
+    temp   = fitted(m),
+    k     = paste0(&amp;quot;k = &amp;quot;, k)
+  )
+}) %&amp;gt;% 
+  bind_rows() %&amp;gt;%
+  mutate(k = factor(k, levels = c(&amp;quot;k = 2&amp;quot;, &amp;quot;k = 5&amp;quot;, &amp;quot;k = 10&amp;quot;)))
+# Plot
+ggplot(climate_data, aes(x = year, y = temp_anomaly), alpha = 0.4) +
+  geom_point() +
+  geom_line(data = preds, aes(x = year, y = temp, color = k), linewidth = 0.8) +
+  scale_color_viridis_d(name = &amp;quot;Model&amp;quot;) +
+  labs(x = &amp;quot;Year&amp;quot;, x = &amp;quot;Temp Anomaly (C)&amp;quot;) +
+  theme_bw() +
+  facet_wrap(~k)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/elucidate%20k-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: By default $ k = 10 $. Also notice that I have introduced the parameter &lt;code&gt;bs&lt;/code&gt;. This stands for &lt;em&gt;basis&lt;/em&gt; and is what we control to change the type of basis function that mgcv uses (essentially the type of basis determines the shape). The most important distinction is that some basis functions are ‘local’ (e.g. &lt;code&gt;cr&lt;/code&gt; which stands for &lt;em&gt;cubic regression spline&lt;/em&gt; used above) whereas others are ‘global’ (e.g., the default &lt;code&gt;bs&lt;/code&gt; parameter &lt;code&gt;tp&lt;/code&gt; which stands for thinplate). A local basis function takes &lt;code&gt;k&lt;/code&gt; to be literal. It finds the ‘densest’ regions of data and assigns one of the &lt;code&gt;k&lt;/code&gt; availble knots to those dense parts and selects the locations of &lt;code&gt;k&lt;/code&gt; that minimize the distance between the function and the data. A global spline (again like the &lt;code&gt;tp&lt;/code&gt; option) fits &lt;code&gt;k&lt;/code&gt; basis functions to the data. Each of those basis functions span the entire dataset. While both methods end up fitting &lt;code&gt;k&lt;/code&gt; basis functions the &lt;code&gt;tp&lt;/code&gt; option (for example) will fit an $ n x n $ matrix (where $ n $ is the number of datapoints) and select the top &lt;code&gt;k&lt;/code&gt; of those functions. So computationally the global option is much more expensive for large datasets.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;m7 &amp;lt;- gam(temp_anomaly ~ s(year, k = 7, bs = &amp;quot;cr&amp;quot;), data = climate_data, method = &amp;quot;REML&amp;quot;)
+
+# let&amp;#39;s start by looking at the basic summary output
+summary(m7)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## temp_anomaly ~ s(year, k = 7, bs = &amp;quot;cr&amp;quot;)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept)  0.48909    0.01316   37.17   &amp;lt;2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Approximate significance of smooth terms:
+##           edf Ref.df     F p-value    
+## s(year) 2.861  3.515 173.8  &amp;lt;2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## R-sq.(adj) =  0.919   Deviance explained = 92.3%
+## -REML = -43.402  Scale est. = 0.009524  n = 55&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The key quantities to notice here are &lt;code&gt;edf&lt;/code&gt; (again the &lt;strong&gt;effective degrees of freedom&lt;/strong&gt;) and it’s associated &lt;code&gt;p-value&lt;/code&gt; (note that this p-value does not have the same interpretation or formula as a p-value in a standard parameteric statistical test, but it does give some notion of the signficance of the shape of the relationship nonetheless). Remember that for this model we manually set $ k = 7 $. The fact that &lt;code&gt;edf&lt;/code&gt; is not close to the $ k $ ceiling that we enforced (but still greater than 2) tells us two things. First, it is statistically true that the relationship between &lt;code&gt;temp_anomaly&lt;/code&gt; and &lt;code&gt;year&lt;/code&gt; is nonlinear. Second, the fact that &lt;code&gt;edf&lt;/code&gt; is not close to &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; tells us that &lt;code&gt;mgcv&lt;/code&gt; may have run out of ‘wiggly-ness’ to assign to the relationship. One thing you may notice is that unlike a typical model fit with &lt;code&gt;lm&lt;/code&gt; (or some other parametric statistical model) we actually don’t get effect sizes here, meaning we get some information about the &lt;strong&gt;shape&lt;/strong&gt; of the relationship between &lt;code&gt;year&lt;/code&gt; and &lt;code&gt;temp_anomaly&lt;/code&gt; but not any information about whether or not that relationship is positively or negatively related. To see whether the relationship is positive or negative we need to look at something called the &lt;strong&gt;partial effect&lt;/strong&gt;. Also notice that the intercept in this case 0.49 is the average temp anomaly across the study years.&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;partial effect&lt;/strong&gt; is just the &lt;em&gt;partial&lt;/em&gt; contribution of a predictor (i.e., &lt;code&gt;year&lt;/code&gt;) to our response (i.e., &lt;code&gt;temp_anomaly&lt;/code&gt;). Thankfully there are handy, programmable ways to see these partial effects clearly with a companion package to &lt;code&gt;mgcv&lt;/code&gt; called &lt;code&gt;gratia&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;draw(m7)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/make%20gratia%20partial%20plot-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;So this still looks pretty smooth and linear (and also the confidence bounds are pretty small), but regardless we can interpret. The partial effect of year on temperature anomalies is early in the time period and positive later in the time period. This is consistent with the general trend of global warming where global temperatures have been rising (relatively steadily) year over year since the dawn of the industrial revolution.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;another-helpful-function&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Another helpful function&lt;/h2&gt;
+&lt;p&gt;One other thing to know in this basic gam writeup is the function &lt;code&gt;gam.check()&lt;/code&gt;. Actually though &lt;code&gt;gam.check()&lt;/code&gt; returns plots 🫥 so we can call it’s dependency &lt;code&gt;k.check()&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;m2 &amp;lt;- gam(temp_anomaly ~ s(year, k = 2, bs = &amp;quot;cr&amp;quot;), data = climate_data, method = &amp;quot;REML&amp;quot;)
+m5 &amp;lt;- gam(temp_anomaly ~ s(year, k = 5, bs = &amp;quot;cr&amp;quot;), data = climate_data, method = &amp;quot;REML&amp;quot;)
+check_results &amp;lt;- map(list(m2, m5, m7), function(mod){
+  k_check &amp;lt;- k.check(mod)
+  tibble::tibble(
+    k            = mod$smooth[[1]]$bs.dim,
+    edf          = round(k_check[, &amp;quot;edf&amp;quot;], 2),
+    k_index      = round(k_check[, &amp;quot;k-index&amp;quot;], 2),
+    p_value      = round(k_check[, &amp;quot;p-value&amp;quot;], 2)
+  )
+}) %&amp;gt;% bind_rows()
+# send it to a pretty kable table
+check_results %&amp;gt;%
+  kable(col.names = c(&amp;quot;k&amp;quot;, &amp;quot;EDF&amp;quot;, &amp;quot;k-index&amp;quot;, &amp;quot;p-value&amp;quot;)) %&amp;gt;%
+  kable_styling(bootstrap_options = c(&amp;quot;striped&amp;quot;, &amp;quot;hover&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table table-striped table-hover&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+k
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+EDF
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+k-index
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+p-value
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.86
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.78
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.05
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2.75
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.84
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.06
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2.86
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.84
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.09
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Looking at the table a patern emerges. Between $ k = 3 $ and $ k = 5 $ the &lt;code&gt;k-index&lt;/code&gt; is essentially plateaus with very little additional information coming from $ k = 7 $. The &lt;code&gt;k-index&lt;/code&gt; is a ratio of the difference between residuals that are close together in parameter space over what would be expected if the residual structure was totally random (i.e., white noise). In this sense it acts as a sort of $ R^2 $ where values closer to 1 are better (i.e., the neighboring residuals are what you’d expect from white noise so the model is doing its job). Or to put it another way, there is no &lt;em&gt;structure&lt;/em&gt; to the residuals. A k-index less than 1 indicates that the numerator is smaller than the denominator (that there is structure to neighboring residuals leftover). So what this is telling us is that at $ k = 5 $ knots we are actually sufficiently wiggly to describe the relationship.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;multiple-covariates&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Multiple covariates&lt;/h2&gt;
+&lt;p&gt;Quickly I would like to extend our model to include multiple covariates and demonstrate how to fit, plot, and interpret those effects.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;m_multi &amp;lt;- gam(temp_anomaly ~ s(year, k = 7, bs = &amp;quot;cr&amp;quot;) + s(co2_mean, k = 10, bs = &amp;quot;cr&amp;quot;),
+               data = climate_data, method = &amp;quot;REML&amp;quot;)
+
+summary(m_multi)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## temp_anomaly ~ s(year, k = 7, bs = &amp;quot;cr&amp;quot;) + s(co2_mean, k = 10, 
+##     bs = &amp;quot;cr&amp;quot;)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept)  0.48909    0.01188   41.16   &amp;lt;2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Approximate significance of smooth terms:
+##               edf Ref.df     F p-value   
+## s(year)     3.925   4.84 2.002 0.09163 . 
+## s(co2_mean) 1.000   1.00 9.598 0.00322 **
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## R-sq.(adj) =  0.934   Deviance explained =   94%
+## -REML = -48.225  Scale est. = 0.0077663  n = 55&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s notice a few things here. First, we get one line per smooth. So each smooth term gets it’s own &lt;code&gt;edf&lt;/code&gt; and &lt;code&gt;p-value&lt;/code&gt; (it’s own statistical estimation of the smoothness of the relationship between the predictor and the outcome). Second, notice that the &lt;code&gt;edf&lt;/code&gt; for &lt;code&gt;s(co2_mean)&lt;/code&gt; is 1. This means that we could adequately describe our relationship between CO$ _2 $ and temperature anomalies as a linear one.&lt;/p&gt;
+&lt;div id=&#34;plot-with-gratia&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Plot with &lt;code&gt;gratia&lt;/code&gt;&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gratia::draw(m_multi)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/unnamed-chunk-1-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Notice that we get two side-by-side plots (one per smoothed term)…but these plots no longer seem so sensible. In fact, let’s check to see that this is the case by running a model with &lt;code&gt;co2_mean&lt;/code&gt; and &lt;code&gt;temp_anomaly&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;m_co2_mean &amp;lt;- gam(temp_anomaly ~ s(co2_mean, bs = &amp;quot;cr&amp;quot;), data = climate_data)
+gratia::draw(m_co2_mean)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/unnamed-chunk-2-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;OK so something very funky is going on with the multi-variate GAM partial effects above…Thankfully, I have a pretty strong hunch about what’s going on. To confirm that hunch, let’s take a look at one more function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mgcv::concurvity(m_multi)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                  para   s(year) s(co2_mean)
+## worst    1.843496e-28 0.9999336   0.9999336
+## observed 1.843496e-28 0.9998354   0.9997859
+## estimate 1.843496e-28 0.9978072   0.7275050&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The mgcv function &lt;code&gt;concurvity&lt;/code&gt; measures the…well concurvity between two smoothed predictors. This is analogous to the idea of multicollinearity in parametric space, and what the output of the concurvity test is saying is…telling. Concurvity is a more generalized than that. It actually is a measure of how well &lt;code&gt;s(year)&lt;/code&gt; can predict &lt;code&gt;s(co2_mean)&lt;/code&gt; (and vice versa). So the first column is how well &lt;code&gt;s(year)&lt;/code&gt; is predicted by &lt;code&gt;s(co2_mean)&lt;/code&gt; and the second is how well &lt;code&gt;s(co2_mean)&lt;/code&gt; is predicted by &lt;code&gt;s(year)&lt;/code&gt;. The rows correspond to the worst case (i.e., an upper limit on the concurvity), the observed case (based on the actual fitted values), and the &lt;code&gt;estimate&lt;/code&gt; case (generally the most realistic and relevant). What we cansay is that all of these terms are highly concurve with one another and making it difficult to suss out true variation. In this case it would likely be wise to drop one of these covariates entirely.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;recap&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Recap&lt;/h2&gt;
+&lt;p&gt;Let’s bring it all together. Here’s what we covered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;What is a GAM?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Basis functions&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Interpreting the output of a gam from &lt;code&gt;mgcv&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Choosing $ k $&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Multiple predictors&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Concurvity&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;further-reading&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Further Reading&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The GAM Bible&lt;/strong&gt;: Wood, S.N. (2017). &lt;em&gt;Generalized Additive Models: An Introduction with R&lt;/em&gt; (2nd ed.)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;mgcv documentation&lt;/strong&gt;: &lt;code&gt;?gam&lt;/code&gt; and package vignettes&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gratia package&lt;/strong&gt;: Modern ggplot2-based GAM visualization&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Noam Ross’s GAM course&lt;/strong&gt;: Free online resource&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sources-cited&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sources Cited&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Raupach, M. R., G. Marland, P. Ciais, C. Le Quéré, J. G. Canadell, G. Klepper, and C. B. Field. 2007. Global and regional drivers of accelerating CO2 emissions. Proceedings of the National Academy of Sciences 104:10288–10293.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Donald_Glover&#34;&gt;Needless reference to Childish Gambino&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wood, S.N. (2011) Fast stable restricted maximum likelihood and marginal
+likelihood estimation of semiparametric generalized linear models. Journal of the
+Royal Statistical Society (B) 73(1):3-36&lt;/li&gt;
+&lt;li&gt;Arnold, T. W. 2010. Uninformative Parameters and Model Selection Using Akaike’s Information Criterion. Journal of Wildlife Management 74:1175–1178.&lt;/li&gt;
+&lt;li&gt;Sutherland, C., D. Hare, P. J. Johnson, D. W. Linden, R. A. Montgomery, and E. Droge. 2023. Practical advice on variable selection and reporting using Akaike information criterion. Proceedings of the Royal Society B: Biological Sciences 290:20231261.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        <item>
         <title>Spooky Land: Spectral Analysis of Landscapes</title>
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/spectral-analysis-landscape/</link>
         <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
