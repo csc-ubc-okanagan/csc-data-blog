@@ -30,7 +30,7 @@ library(tidyverse) # more data wrangling
 library(purrr)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;a-motivating-example-climate-change&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;A motivating example: climate change&lt;/h2&gt;
-&lt;p&gt;Let’s suppose you’re tasked with studying atmospheric Co2 concentrations as part of your thesis work. Let’s go ahead and begin our investigation by doing what should come naturally by now, plotting.&lt;/p&gt;
+&lt;p&gt;Let’s suppose you’re tasked with studying global temperatures over as part of your thesis work. Let’s go ahead and begin our investigation by doing what should come naturally by now, plotting.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;load-real-noaa-climate-data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Load Real NOAA Climate Data&lt;/h2&gt;
@@ -66,7 +66,7 @@ head(climate_data)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-dataset&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;The dataset&lt;/h2&gt;
-&lt;p&gt;The CO$ _2 $ dataset consists of observations of atmopsheric concetrations of CO$ _2 $ in parts per million (ppm) recorded at the Mauna Loa atmospheric research station in Mauna Loa Hawaii, USA. The dates of this specific subset of data range from 1971 to 2025. As an additional dimension you were gifted temperature data. They may look a little strange at first glance, but these are average annual temperature anomalies in degrees $ C $. Without further ado, let’s plot it.&lt;/p&gt;
+&lt;p&gt;The dataset consists of observations of atmopsheric concetrations of CO$ _2 $ in parts per million (ppm) recorded at the Mauna Loa atmospheric research station in Mauna Loa Hawaii, USA. The dates of this specific subset of data range from 1971 to 2025. As an additional dimension you were gifted temperature data. They may look a little strange at first glance, but these are average annual temperature anomalies in degrees $ C $. Without further ado, let’s plot it.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(climate_data, aes(x = year, y = temp_anomaly)) +
   geom_point() +
   labs(x = &amp;quot;Year&amp;quot;, y = &amp;quot;Temp Anomaly (C)&amp;quot;) +
@@ -74,8 +74,8 @@ head(climate_data)&lt;/code&gt;&lt;/pre&gt;
        x = &amp;quot;Year&amp;quot;,
        y = &amp;quot;Temp Anomaly (C)&amp;quot;,
        caption = &amp;quot;Sources: NOAA/GML (Co2)&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/plot%20the%20data-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;
-So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 🤣?! I’m glad you asked! Enter GAMs 🦸‍♀️!!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/plot%20the%20data-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 😿?! I’m glad you asked! Enter GAMs 🦸‍♂️!!&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;what-is-a-gam&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;What is a GAM&lt;/h2&gt;
@@ -92,7 +92,7 @@ form here is that you are not restricted to a linear, quadratic, cubic
 or any other ‘ic’ relationship). So instead of assuming $ y = _0 + _1 x $,
 you fit $ y = f(x) $, where $ f() $ is a smooth function learned from
 the data (and not assumed a priori). GAMs give you flexibility with
-interpretability—you can see and understand the smooth functions. It’s because
+interpretability—you can see and understand the smooth functions. Because
 GAMs do not assume a functional form that they are sometimes called &lt;strong&gt;non-&lt;/strong&gt; or
 &lt;strong&gt;semi-parametric&lt;/strong&gt;.&lt;/p&gt;
 &lt;div id=&#34;does-a-gam-really-work-better-in-this-case&#34; class=&#34;section level3&#34;&gt;
@@ -107,7 +107,7 @@ GAMs do not assume a functional form that they are sometimes called &lt;strong&g
     values = c(&amp;quot;GAM smooth&amp;quot; = &amp;quot;blue&amp;quot;, &amp;quot;Linear fit&amp;quot; = &amp;quot;red&amp;quot;)
   ) +
   labs(x = &amp;quot;Year&amp;quot;, y = &amp;quot;Temp Anomalies (C)&amp;quot;) +
-  labs(title = &amp;quot;Co2 vs Time&amp;quot;,
+  labs(title = &amp;quot;Temp Anomalies vs Time&amp;quot;,
        x = &amp;quot;Year&amp;quot;,
        y = &amp;quot;Temp Anomalies (C)&amp;quot;,
        caption = &amp;quot;Sources: NOAA/GML (Co2)&amp;quot;) +
@@ -240,7 +240,7 @@ summary(m7)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;A &lt;strong&gt;partial effect&lt;/strong&gt; is just the &lt;em&gt;partial&lt;/em&gt; contribution of a predictor (i.e., &lt;code&gt;year&lt;/code&gt;) to our response (i.e., &lt;code&gt;temp_anomaly&lt;/code&gt;). Thankfully there are handy, programmable ways to see these partial effects clearly with a companion package to &lt;code&gt;mgcv&lt;/code&gt; called &lt;code&gt;gratia&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;draw(m7)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/make%20gratia%20partial%20plot-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;So this still looks pretty smooth and linear (and also the confidence bounds are pretty small), but regardless we can interpret. The partial effect of year on temperature anomalies is early in the time period and positive later in the time period. This is consistent with the general trend of global warming where global temperatures have been rising (relatively steadily) year over year since the dawn of the industrial revolution.&lt;/p&gt;
+&lt;p&gt;So this plotstill looks pretty smooth and linear (and also the confidence bounds are pretty small), but regardless we can interpret it. The partial effect of year on temperature anomalies is early in the time period and positive later in the time period. This is consistent with the general trend of global warming where global temperatures have been rising (relatively steadily) year over year since the dawn of the industrial revolution.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;another-helpful-function&#34; class=&#34;section level2&#34;&gt;
@@ -304,7 +304,7 @@ p-value
 0.84
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
-0.06
+0.12
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -318,12 +318,12 @@ p-value
 0.84
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
-0.09
+0.10
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Looking at the table a patern emerges. Between $ k = 3 $ and $ k = 5 $ the &lt;code&gt;k-index&lt;/code&gt; is essentially plateaus with very little additional information coming from $ k = 7 $. The &lt;code&gt;k-index&lt;/code&gt; is a ratio of the difference between residuals that are close together in parameter space over what would be expected if the residual structure was totally random (i.e., white noise). In this sense it acts as a sort of $ R^2 $ where values closer to 1 are better (i.e., the neighboring residuals are what you’d expect from white noise so the model is doing its job). Or to put it another way, there is no &lt;em&gt;structure&lt;/em&gt; to the residuals. A k-index less than 1 indicates that the numerator is smaller than the denominator (that there is structure to neighboring residuals leftover). So what this is telling us is that at $ k = 5 $ knots we are actually sufficiently wiggly to describe the relationship.&lt;/p&gt;
+&lt;p&gt;Looking at the table a pattern emerges. Between $ k = 3 $ and $ k = 5 $ the &lt;code&gt;k-index&lt;/code&gt; essentially plateaus with very little additional information coming from $ k = 7 $. The &lt;code&gt;k-index&lt;/code&gt; is a ratio of the difference between residuals that are close together in parameter space over what would be expected if the residual structure was totally random (i.e., white noise). In this sense it acts as a sort of $ R^2 $ where values closer to 1 are better (i.e., the neighboring residuals are what you’d expect from white noise so the model is doing its job). Or to put it another way, there is no &lt;em&gt;structure&lt;/em&gt; to the residuals. A k-index less than 1 indicates that the numerator is smaller than the denominator (that there is structure to neighboring residuals leftover). So what this is telling us is that at $ k = 5 $ knots we are actually sufficiently wiggly to describe the relationship.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;multiple-covariates&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Multiple covariates&lt;/h2&gt;
@@ -379,7 +379,7 @@ gratia::draw(m_co2_mean)&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;What is a GAM?&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Basis functions&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Interpreting the output of a gam from &lt;code&gt;mgcv&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Interpreting the output of a GAM from &lt;code&gt;mgcv&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Choosing $ k $&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Multiple predictors&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Concurvity&lt;/p&gt;&lt;/li&gt;

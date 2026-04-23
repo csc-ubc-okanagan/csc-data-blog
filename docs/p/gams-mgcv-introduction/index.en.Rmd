@@ -26,7 +26,7 @@ library(purrr)
 ```
 
 ## A motivating example: climate change
-Let's suppose you're tasked with studying atmospheric Co2 concentrations as part of your thesis work. Let's go ahead and begin our investigation by doing what should come naturally by now, plotting. 
+Let's suppose you're tasked with studying global temperatures over as part of your thesis work. Let's go ahead and begin our investigation by doing what should come naturally by now, plotting. 
 
 ## Load Real NOAA Climate Data
 ```{r load noaa data}
@@ -56,7 +56,7 @@ head(climate_data)
 ```
 ## The dataset
 
-The CO$ _2 $ dataset consists of observations of atmopsheric concetrations of CO$ _2 $ in parts per million (ppm) recorded at the Mauna Loa atmospheric research station in Mauna Loa Hawaii, USA. The dates of this specific subset of data range from `r min(climate_data$year)` to `r max(climate_data$year)`. As an additional dimension you were gifted temperature data. They may look a little strange at first glance, but these are average annual temperature anomalies in degrees $ C $. Without further ado, let's plot it.
+The dataset consists of observations of atmopsheric concetrations of CO$ _2 $ in parts per million (ppm) recorded at the Mauna Loa atmospheric research station in Mauna Loa Hawaii, USA. The dates of this specific subset of data range from `r min(climate_data$year)` to `r max(climate_data$year)`. As an additional dimension you were gifted temperature data. They may look a little strange at first glance, but these are average annual temperature anomalies in degrees $ C $. Without further ado, let's plot it.
 
 ```{r plot the data}
 ggplot(climate_data, aes(x = year, y = temp_anomaly)) +
@@ -67,6 +67,7 @@ ggplot(climate_data, aes(x = year, y = temp_anomaly)) +
        y = "Temp Anomaly (C)",
        caption = "Sources: NOAA/GML (Co2)")
 ```
+
 So looking at this, it might strike you that this doesn't quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this `r emoji("crying")`?! I'm glad you asked! Enter GAMs `r emoji("hero")`!!
 
 ## What is a GAM
@@ -84,7 +85,7 @@ form here is that you are not restricted to a linear, quadratic, cubic
 or any other 'ic' relationship). So instead of assuming $ y = \beta_0 + \beta_1 \cdot x $,
 you fit $ y = f(x) $, where $ f(\cdot) $ is a smooth function learned from
 the data (and not assumed a priori). GAMs give you flexibility with
-interpretability—you can see and understand the smooth functions. It's because 
+interpretability—you can see and understand the smooth functions. Because 
 GAMs do not assume a functional form that they are sometimes called **non-** or
 **semi-parametric**.
 
@@ -102,7 +103,7 @@ ggplot(climate_data, aes(x = year, y = temp_anomaly)) +
     values = c("GAM smooth" = "blue", "Linear fit" = "red")
   ) +
   labs(x = "Year", y = "Temp Anomalies (C)") +
-  labs(title = "Co2 vs Time",
+  labs(title = "Temp Anomalies vs Time",
        x = "Year",
        y = "Temp Anomalies (C)",
        caption = "Sources: NOAA/GML (Co2)") +
@@ -182,7 +183,7 @@ A **partial effect** is just the *partial* contribution of a predictor (i.e., `y
 draw(m7)
 ```
 
-So this still looks pretty smooth and linear (and also the confidence bounds are pretty small), but regardless we can interpret. The partial effect of year on temperature anomalies is early in the time period and positive later in the time period. This is consistent with the general trend of global warming where global temperatures have been rising (relatively steadily) year over year since the dawn of the industrial revolution.
+So this plotstill looks pretty smooth and linear (and also the confidence bounds are pretty small), but regardless we can interpret it. The partial effect of year on temperature anomalies is early in the time period and positive later in the time period. This is consistent with the general trend of global warming where global temperatures have been rising (relatively steadily) year over year since the dawn of the industrial revolution.
 
 ## Another helpful function
 
@@ -205,7 +206,7 @@ check_results %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
-Looking at the table a patern emerges. Between $ k = 3 $ and $ k =  5 $ the `k-index` is essentially plateaus with very little additional information coming from $ k = 7 $. The `k-index` is a ratio of the difference between residuals that are close together in parameter space over what would be expected if the residual structure was totally random (i.e., white noise). In this sense it acts as a sort of $ R^2 $ where values closer to 1 are better (i.e., the neighboring residuals are what you'd expect from white noise so the model is doing its job). Or to put it another way, there is no *structure* to the residuals. A k-index less than 1 indicates that the numerator is smaller than the denominator (that there is structure to neighboring residuals leftover). So what this is telling us is that at $ k = 5 $ knots we are actually sufficiently wiggly to describe the relationship.
+Looking at the table a pattern emerges. Between $ k = 3 $ and $ k =  5 $ the `k-index` essentially plateaus with very little additional information coming from $ k = 7 $. The `k-index` is a ratio of the difference between residuals that are close together in parameter space over what would be expected if the residual structure was totally random (i.e., white noise). In this sense it acts as a sort of $ R^2 $ where values closer to 1 are better (i.e., the neighboring residuals are what you'd expect from white noise so the model is doing its job). Or to put it another way, there is no *structure* to the residuals. A k-index less than 1 indicates that the numerator is smaller than the denominator (that there is structure to neighboring residuals leftover). So what this is telling us is that at $ k = 5 $ knots we are actually sufficiently wiggly to describe the relationship.
 
 ## Multiple covariates
 
@@ -249,7 +250,7 @@ Let's bring it all together. Here's what we covered:
 
 - Basis functions 
 
-- Interpreting the output of a gam from `mgcv`
+- Interpreting the output of a GAM from `mgcv`
 
 - Choosing $ k $
 

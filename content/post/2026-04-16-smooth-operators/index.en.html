@@ -24,7 +24,7 @@ library(tidyverse) # more data wrangling
 library(purrr)</code></pre>
 <div id="a-motivating-example-climate-change" class="section level2">
 <h2>A motivating example: climate change</h2>
-<p>Let’s suppose you’re tasked with studying atmospheric Co2 concentrations as part of your thesis work. Let’s go ahead and begin our investigation by doing what should come naturally by now, plotting.</p>
+<p>Let’s suppose you’re tasked with studying global temperatures over as part of your thesis work. Let’s go ahead and begin our investigation by doing what should come naturally by now, plotting.</p>
 </div>
 <div id="load-real-noaa-climate-data" class="section level2">
 <h2>Load Real NOAA Climate Data</h2>
@@ -60,7 +60,7 @@ head(climate_data)</code></pre>
 </div>
 <div id="the-dataset" class="section level2">
 <h2>The dataset</h2>
-<p>The CO$ _2 $ dataset consists of observations of atmopsheric concetrations of CO$ _2 $ in parts per million (ppm) recorded at the Mauna Loa atmospheric research station in Mauna Loa Hawaii, USA. The dates of this specific subset of data range from 1971 to 2025. As an additional dimension you were gifted temperature data. They may look a little strange at first glance, but these are average annual temperature anomalies in degrees $ C $. Without further ado, let’s plot it.</p>
+<p>The dataset consists of observations of atmopsheric concetrations of CO$ _2 $ in parts per million (ppm) recorded at the Mauna Loa atmospheric research station in Mauna Loa Hawaii, USA. The dates of this specific subset of data range from 1971 to 2025. As an additional dimension you were gifted temperature data. They may look a little strange at first glance, but these are average annual temperature anomalies in degrees $ C $. Without further ado, let’s plot it.</p>
 <pre class="r"><code>ggplot(climate_data, aes(x = year, y = temp_anomaly)) +
   geom_point() +
   labs(x = &quot;Year&quot;, y = &quot;Temp Anomaly (C)&quot;) +
@@ -68,8 +68,8 @@ head(climate_data)</code></pre>
        x = &quot;Year&quot;,
        y = &quot;Temp Anomaly (C)&quot;,
        caption = &quot;Sources: NOAA/GML (Co2)&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/plot%20the%20data-1.png" alt="" width="672" />
-So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 🤣?! I’m glad you asked! Enter GAMs 🦸‍♀️!!</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/plot%20the%20data-1.png" alt="" width="672" /></p>
+<p>So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 😿?! I’m glad you asked! Enter GAMs 🦸‍♂️!!</p>
 </div>
 <div id="what-is-a-gam" class="section level2">
 <h2>What is a GAM</h2>
@@ -86,7 +86,7 @@ form here is that you are not restricted to a linear, quadratic, cubic
 or any other ‘ic’ relationship). So instead of assuming $ y = _0 + _1 x $,
 you fit $ y = f(x) $, where $ f() $ is a smooth function learned from
 the data (and not assumed a priori). GAMs give you flexibility with
-interpretability—you can see and understand the smooth functions. It’s because
+interpretability—you can see and understand the smooth functions. Because
 GAMs do not assume a functional form that they are sometimes called <strong>non-</strong> or
 <strong>semi-parametric</strong>.</p>
 <div id="does-a-gam-really-work-better-in-this-case" class="section level3">
@@ -101,7 +101,7 @@ GAMs do not assume a functional form that they are sometimes called <strong>non-
     values = c(&quot;GAM smooth&quot; = &quot;blue&quot;, &quot;Linear fit&quot; = &quot;red&quot;)
   ) +
   labs(x = &quot;Year&quot;, y = &quot;Temp Anomalies (C)&quot;) +
-  labs(title = &quot;Co2 vs Time&quot;,
+  labs(title = &quot;Temp Anomalies vs Time&quot;,
        x = &quot;Year&quot;,
        y = &quot;Temp Anomalies (C)&quot;,
        caption = &quot;Sources: NOAA/GML (Co2)&quot;) +
@@ -234,7 +234,7 @@ summary(m7)</code></pre>
 <p>A <strong>partial effect</strong> is just the <em>partial</em> contribution of a predictor (i.e., <code>year</code>) to our response (i.e., <code>temp_anomaly</code>). Thankfully there are handy, programmable ways to see these partial effects clearly with a companion package to <code>mgcv</code> called <code>gratia</code>.</p>
 <pre class="r"><code>draw(m7)</code></pre>
 <p><img src="{{< blogdown/postref >}}index.en_files/figure-html/make%20gratia%20partial%20plot-1.png" alt="" width="672" /></p>
-<p>So this still looks pretty smooth and linear (and also the confidence bounds are pretty small), but regardless we can interpret. The partial effect of year on temperature anomalies is early in the time period and positive later in the time period. This is consistent with the general trend of global warming where global temperatures have been rising (relatively steadily) year over year since the dawn of the industrial revolution.</p>
+<p>So this plotstill looks pretty smooth and linear (and also the confidence bounds are pretty small), but regardless we can interpret it. The partial effect of year on temperature anomalies is early in the time period and positive later in the time period. This is consistent with the general trend of global warming where global temperatures have been rising (relatively steadily) year over year since the dawn of the industrial revolution.</p>
 </div>
 </div>
 <div id="another-helpful-function" class="section level2">
@@ -298,7 +298,7 @@ p-value
 0.84
 </td>
 <td style="text-align:right;">
-0.06
+0.12
 </td>
 </tr>
 <tr>
@@ -312,12 +312,12 @@ p-value
 0.84
 </td>
 <td style="text-align:right;">
-0.09
+0.10
 </td>
 </tr>
 </tbody>
 </table>
-<p>Looking at the table a patern emerges. Between $ k = 3 $ and $ k = 5 $ the <code>k-index</code> is essentially plateaus with very little additional information coming from $ k = 7 $. The <code>k-index</code> is a ratio of the difference between residuals that are close together in parameter space over what would be expected if the residual structure was totally random (i.e., white noise). In this sense it acts as a sort of $ R^2 $ where values closer to 1 are better (i.e., the neighboring residuals are what you’d expect from white noise so the model is doing its job). Or to put it another way, there is no <em>structure</em> to the residuals. A k-index less than 1 indicates that the numerator is smaller than the denominator (that there is structure to neighboring residuals leftover). So what this is telling us is that at $ k = 5 $ knots we are actually sufficiently wiggly to describe the relationship.</p>
+<p>Looking at the table a pattern emerges. Between $ k = 3 $ and $ k = 5 $ the <code>k-index</code> essentially plateaus with very little additional information coming from $ k = 7 $. The <code>k-index</code> is a ratio of the difference between residuals that are close together in parameter space over what would be expected if the residual structure was totally random (i.e., white noise). In this sense it acts as a sort of $ R^2 $ where values closer to 1 are better (i.e., the neighboring residuals are what you’d expect from white noise so the model is doing its job). Or to put it another way, there is no <em>structure</em> to the residuals. A k-index less than 1 indicates that the numerator is smaller than the denominator (that there is structure to neighboring residuals leftover). So what this is telling us is that at $ k = 5 $ knots we are actually sufficiently wiggly to describe the relationship.</p>
 </div>
 <div id="multiple-covariates" class="section level2">
 <h2>Multiple covariates</h2>
@@ -373,7 +373,7 @@ gratia::draw(m_co2_mean)</code></pre>
 <ul>
 <li><p>What is a GAM?</p></li>
 <li><p>Basis functions</p></li>
-<li><p>Interpreting the output of a gam from <code>mgcv</code></p></li>
+<li><p>Interpreting the output of a GAM from <code>mgcv</code></p></li>
 <li><p>Choosing $ k $</p></li>
 <li><p>Multiple predictors</p></li>
 <li><p>Concurvity</p></li>
