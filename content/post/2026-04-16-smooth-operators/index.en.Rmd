@@ -82,8 +82,8 @@ or Italian surnames but in fact about **Generalized Additive Models (GAMs)**
 (much more exciting right?)$ ^3$. GAMs let you model non-linear relationships 
 without committing to a specific functional form (what I mean by functional
 form here is that you are not restricted to a linear, quadratic, cubic
-or any other 'ic' relationship). So instead of assuming $ y = \beta_0 + \beta_1 \cdot x $,
-you fit $ y = f(x) $, where $ f(\cdot) $ is a smooth function learned from
+or any other 'ic' relationship). So instead of assuming $y = \beta_0 + \beta_1 \cdot x$,
+you fit $y = f(x)$, where $f(\cdot)$ is a smooth function learned from
 the data (and not assumed a priori). GAMs give you flexibility with
 interpretability—you can see and understand the smooth functions. Because 
 GAMs do not assume a functional form that they are sometimes called **non-** or

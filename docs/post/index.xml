@@ -75,7 +75,7 @@ head(climate_data)&lt;/code&gt;&lt;/pre&gt;
        y = &amp;quot;Temp Anomaly (C)&amp;quot;,
        caption = &amp;quot;Sources: NOAA/GML (Co2)&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/plot%20the%20data-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 😿?! I’m glad you asked! Enter GAMs 🦸‍♂️!!&lt;/p&gt;
+&lt;p&gt;So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 😂?! I’m glad you asked! Enter GAMs 🦸‍♀️!!&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;what-is-a-gam&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;What is a GAM&lt;/h2&gt;
@@ -89,8 +89,8 @@ or Italian surnames but in fact about &lt;strong&gt;Generalized Additive Models 
 (much more exciting right?)$ ^3$. GAMs let you model non-linear relationships
 without committing to a specific functional form (what I mean by functional
 form here is that you are not restricted to a linear, quadratic, cubic
-or any other ‘ic’ relationship). So instead of assuming $ y = _0 + _1 x $,
-you fit $ y = f(x) $, where $ f() $ is a smooth function learned from
+or any other ‘ic’ relationship). So instead of assuming &lt;span class=&#34;math inline&#34;&gt;\(y = \beta_0 + \beta_1 \cdot x\)&lt;/span&gt;,
+you fit &lt;span class=&#34;math inline&#34;&gt;\(y = f(x)\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(f(\cdot)\)&lt;/span&gt; is a smooth function learned from
 the data (and not assumed a priori). GAMs give you flexibility with
 interpretability—you can see and understand the smooth functions. Because
 GAMs do not assume a functional form that they are sometimes called &lt;strong&gt;non-&lt;/strong&gt; or
@@ -290,7 +290,7 @@ p-value
 0.78
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
-0.05
+0.04
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -304,7 +304,7 @@ p-value
 0.84
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
-0.12
+0.09
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -318,7 +318,7 @@ p-value
 0.84
 &lt;/td&gt;
 &lt;td style=&#34;text-align:right;&#34;&gt;
-0.10
+0.11
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;

@@ -409,7 +409,7 @@ head(climate_data)</code></pre>
        y = &quot;Temp Anomaly (C)&quot;,
        caption = &quot;Sources: NOAA/GML (Co2)&quot;)</code></pre>
 <p><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/index.en_files/figure-html/plot%20the%20data-1.png" alt="" width="672" /></p>
-<p>So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 😿?! I’m glad you asked! Enter GAMs 🦸‍♂️!!</p>
+<p>So looking at this, it might strike you that this doesn’t quite look like a linear relationship does it? So what is a researcher (tasked with the incredibly vague task of looking at temperature anomalies over time) to do upon seeing this 😂?! I’m glad you asked! Enter GAMs 🦸‍♀️!!</p>
 </div>
 <div id="what-is-a-gam" class="section level2">
 <h2>What is a GAM</h2>
@@ -423,8 +423,8 @@ or Italian surnames but in fact about <strong>Generalized Additive Models (GAMs)
 (much more exciting right?)$ ^3$. GAMs let you model non-linear relationships
 without committing to a specific functional form (what I mean by functional
 form here is that you are not restricted to a linear, quadratic, cubic
-or any other ‘ic’ relationship). So instead of assuming $ y = _0 + _1 x $,
-you fit $ y = f(x) $, where $ f() $ is a smooth function learned from
+or any other ‘ic’ relationship). So instead of assuming <span class="math inline">\(y = \beta_0 + \beta_1 \cdot x\)</span>,
+you fit <span class="math inline">\(y = f(x)\)</span>, where <span class="math inline">\(f(\cdot)\)</span> is a smooth function learned from
 the data (and not assumed a priori). GAMs give you flexibility with
 interpretability—you can see and understand the smooth functions. Because
 GAMs do not assume a functional form that they are sometimes called <strong>non-</strong> or
@@ -624,7 +624,7 @@ p-value
 0.78
 </td>
 <td style="text-align:right;">
-0.05
+0.04
 </td>
 </tr>
 <tr>
@@ -638,7 +638,7 @@ p-value
 0.84
 </td>
 <td style="text-align:right;">
-0.12
+0.09
 </td>
 </tr>
 <tr>
@@ -652,7 +652,7 @@ p-value
 0.84
 </td>
 <td style="text-align:right;">
-0.10
+0.11
 </td>
 </tr>
 </tbody>
