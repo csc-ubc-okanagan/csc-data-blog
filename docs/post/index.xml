@@ -35,7 +35,7 @@
 &lt;h2&gt;An empty cell is not empty&lt;/h2&gt;
 &lt;p&gt;Every grad student has opened a dataset, run &lt;code&gt;summary()&lt;/code&gt;, and seen it: the dreaded &lt;code&gt;NA&lt;/code&gt; 😱. The usual reaction (and my own past reaction…in the past…I swear) is logistical. &lt;em&gt;How do I get rid of these?&lt;/em&gt; Drop the rows, move on to the interesting part.&lt;/p&gt;
 &lt;p&gt;Here I argue that &lt;code&gt;NA&lt;/code&gt; &lt;em&gt;is&lt;/em&gt; an interesting part. An empty cell is not a lack of information. It is a record that something happened: a participant didn’t answer, a mouse ate my homework, or a question didn’t apply. The blank has a cause, and that cause is entangled with the very things we’re trying to learn about.&lt;/p&gt;
-&lt;p&gt;Put philosophically: &lt;strong&gt;missing data is a problem about the relationship between the world and our observations of it.&lt;/strong&gt; Our dataset is not the population. It is the population &lt;em&gt;filtered through a process that decides what we get to see.&lt;/em&gt; Every method for handling missingness is, implicitly, a claim about what that filter looks like. And as we’ll see, the most consequential of those claims can never be verified from the data we have.&lt;/p&gt;
+&lt;p&gt;Put philosophically: &lt;strong&gt;missing data is a problem about the relationship between the world and our observations of it.&lt;/strong&gt; Our dataset is not the population. It is the population &lt;em&gt;filtered through a process that decides what we get to see.&lt;/em&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;three-questions-to-ask-before-any-method&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Three questions to ask before any method&lt;/h2&gt;

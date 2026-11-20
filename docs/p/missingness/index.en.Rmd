@@ -54,7 +54,7 @@ Every grad student has opened a dataset, run `summary()`, and seen it: the dread
 
 Here I argue that `NA` *is* an interesting part. An empty cell is not a lack of information. It is a record that something happened: a participant didn't answer, a mouse ate my homework, or a question didn't apply. The blank has a cause, and that cause is entangled with the very things we're trying to learn about.
 
-Put philosophically: **missing data is a problem about the relationship between the world and our observations of it.** Our dataset is not the population. It is the population *filtered through a process that decides what we get to see.* Every method for handling missingness is, implicitly, a claim about what that filter looks like. And as we'll see, the most consequential of those claims can never be verified from the data we have. 
+Put philosophically: **missing data is a problem about the relationship between the world and our observations of it.** Our dataset is not the population. It is the population *filtered through a process that decides what we get to see.*  
 
 ## Three questions to ask before any method
 
