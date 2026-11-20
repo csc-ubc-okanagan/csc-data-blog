@@ -7,7 +7,252 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Center for Scholarly Communication, UBC Okanagan</copyright>
-        <lastBuildDate>Thu, 16 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/r_modelling/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 19 Nov 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://csc-ubc-okanagan.github.io/csc-data-blog/tags/r_modelling/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Of mice and Missingness: A Philosopher&#39;s Guide to Missingness</title>
+        <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/missingness/</link>
+        <pubDate>Thu, 19 Nov 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://csc-ubc-okanagan.github.io/csc-data-blog/p/missingness/</guid>
+        <description>
+
+
+&lt;!-- CSS for setting up aside box --&gt;
+&lt;style&gt;
+.aside-box {
+  padding: 15px;
+  margin: 10px 0;
+  border-left: 5px solid #0073e6;
+  background-color: #f4f9ff; 
+  border-radius: 4px;
+}
+.aside-box-title {
+  font-weight: bold;
+  color: #0073e6;
+  margin-top: 0;
+}
+&lt;/style&gt;
+&lt;div id=&#34;an-empty-cell-is-not-empty&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An empty cell is not empty&lt;/h2&gt;
+&lt;p&gt;Every grad student has opened a dataset, run &lt;code&gt;summary()&lt;/code&gt;, and seen it: the dreaded &lt;code&gt;NA&lt;/code&gt; 😱. The usual reaction (and my own past reaction…in the past…I swear) is logistical. &lt;em&gt;How do I get rid of these?&lt;/em&gt; Drop the rows, move on to the interesting part.&lt;/p&gt;
+&lt;p&gt;Here I argue that &lt;code&gt;NA&lt;/code&gt; &lt;em&gt;is&lt;/em&gt; an interesting part. An empty cell is not a lack of information. It is a record that something happened: a participant didn’t answer, a mouse ate my homework, or a question didn’t apply. The blank has a cause, and that cause is entangled with the very things we’re trying to learn about.&lt;/p&gt;
+&lt;p&gt;Put philosophically: &lt;strong&gt;missing data is a problem about the relationship between the world and our observations of it.&lt;/strong&gt; Our dataset is not the population. It is the population &lt;em&gt;filtered through a process that decides what we get to see.&lt;/em&gt; Every method for handling missingness is, implicitly, a claim about what that filter looks like. And as we’ll see, the most consequential of those claims can never be verified from the data we have (mic drop: David Hume).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;three-questions-to-ask-before-any-method&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Three questions to ask before any method&lt;/h2&gt;
+&lt;p&gt;Before grasping for a technique, it helps to separate three different questions that often get blurred together:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Does the value exist?&lt;/strong&gt; A non-response on an income question hides a real number. But “income at age 40” for someone who passed away at 35 doesn’t hide anything; there’s no value to recover. “Quality of life after death,” or “rating of a product never purchased” are not &lt;em&gt;unknown&lt;/em&gt;, they are &lt;em&gt;undefined&lt;/em&gt;. Treating them as ordinary missing data and imputing them produces answers to questions that don’t have answers.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;What is the target?&lt;/strong&gt; If you want the average outcome among everyone &lt;em&gt;who would complete&lt;/em&gt; the study, dropout is part of the definition, not a nuisance. If you want the average outcome &lt;em&gt;had everyone completed&lt;/em&gt;, you’re asking a counterfactual question. Missing-data methods can only be judged relative to an estimand.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Why is it missing?&lt;/strong&gt; This is the question Rubin’s taxonomy addresses, and it’s what the rest of this post discusses.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;aside-box&#34;&gt;
+&lt;p class=&#34;aside-box-title&#34;&gt;
+Aside
+&lt;/p&gt;
+&lt;p&gt;If you have read any of my other posts you’ll know that I can’t help but insert &lt;em&gt;a little&lt;/em&gt; history in…sorry. Donald Rubin is an esteemed American statistician born December 22, 1943 in Washington, D.C. USA. His pioneering work has generated important statistical methods and insights including the expectation-maximization (EM) algorithm (a methodology to estimate statistical parameters for latent variables now widely used in machine learning), the Gelman-Rubin statistic (if you’ve ever fit a Bayesian model then you’ll know what I mean), the Rubin causal model (an important method that helped move modern statistics from estimating associations to causation), and most importantly for this the missing data framework and multiple imputation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;theres-a-hole-in-the-bottom-of-the-data-sea-rubins-missing-data-framework&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;There’s a hole in the bottom of the (data) sea: Rubin’s missing data framework&lt;/h2&gt;
+&lt;p&gt;In his seminal 1976 publication &lt;em&gt;Inference and missing data&lt;/em&gt; in the journal &lt;em&gt;Biometrika&lt;/em&gt; (a statistics journal co-founded by Karl Pearson who ran the worlds first statistics department at University College London), Donald Rubin gave us a vocabulary we still use. Let &lt;span class=&#34;math inline&#34;&gt;\(Y_{comp}\)&lt;/span&gt; be the data we &lt;em&gt;wish&lt;/em&gt; we had (the complete dataset), split into an observed part &lt;span class=&#34;math inline&#34;&gt;\(Y_{obs}\)&lt;/span&gt; and a missing part &lt;span class=&#34;math inline&#34;&gt;\(Y_{mis}\)&lt;/span&gt;. Let &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; be a grid the same shape as the data, with a 1 wherever we observed a value and a 0 wherever it’s missing; a map of the holes in the dataset (or in jargon the indicator matrix). A key move by Rubin was to treat &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; as a random variable with its own distribution, the &lt;strong&gt;missingness mechanism&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P(R \mid Y_{obs}, Y_{mis}, \psi).
+\]&lt;/span&gt;
+{#eq-missinginess-dist}&lt;/p&gt;
+&lt;p&gt;In Equation &lt;span class=&#34;citation&#34;&gt;@eq-missingness-dist&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt; is our map of holes, &lt;span class=&#34;math inline&#34;&gt;\(Y_{\text{obs}}\)&lt;/span&gt; are the observed data, &lt;span class=&#34;math inline&#34;&gt;\(Y_{\text{mis}}\)&lt;/span&gt; are the missing data, and &lt;span class=&#34;math inline&#34;&gt;\(\psi\)&lt;/span&gt; are the parameters that control the missingness. reframes ‘missingness’ as a something to wring our hands about and &lt;em&gt;wish&lt;/em&gt; would go away into just another part of the data itself. Now that we can reason we can categorize the processes that may have given rise to our dataset.&lt;/p&gt;
+&lt;div id=&#34;category-1-missing-completely-at-random-mcar&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Category 1: Missing Completely At Random (MCAR)&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P(R \mid Y_{obs}, Y_{mis}) = P(R)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Whether a value is missing has nothing to do with the data it is instead random: a lab tech drops a random subset of test tubes or a roving band of mice chews through 20% of the a stack of questionnaires 🐭. The complete cases are a truly random sample of all cases.&lt;/p&gt;
+&lt;p&gt;MCAR is the only mechanism under which “just drop the incomplete rows” is safe in general, and even then it’s only just OK: your estimates stay unbiased, but you are still throwing away information. Also, proving it is a tough row to hoe: the reasons data go missing often relate to something about the study subject or the measurement itself even if we don’t often have the data to show it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;category-2-missing-at-random-mar&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Category 2: Missing At Random (MAR)&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+P(R \mid Y_{obs}, Y_{mis}) = P(R \mid Y_{obs})
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Missingness can depend on things you &lt;em&gt;observed&lt;/em&gt;. Say we recorded whether each respondent lives in a rural or urban area, and rural respondents keep their questionnaires in barns, where roving bands of mice destroy more of them. Rural respondents are then more likely to have missing data, but within rural respondents (and within urban ones) the mice can’t read and hence don’t care what anyone wrote: the upshot being that people who complete the survey (completers) and those who don’t (non-completers) look alike on the outcome.&lt;/p&gt;
+&lt;p&gt;Confusingly, MAR does not actually mean missingness is random in the everyday “that was random!” sense; it is often systematic. A better term might be &lt;strong&gt;“random conditional on what we know.”&lt;/strong&gt; It says that the variables you recorded are enough to explain who goes missing. That doesn’t make the problem go away on its own: in the mice example, a naive average of completers still over-represents urban respondents.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;category-3-missing-not-at-random-mnar&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Category 3: Missing Not At Random (MNAR)&lt;/h3&gt;
+&lt;p&gt;Missingness depends on the unobserved values themselves, even after conditioning on everything observed. Let’s make it concrete…so, back to the mice. Suppose the questionnaire asks how bad each respondent’s rodent problem is. Respondents with the worst infestations are exactly the ones whose questionnaires get eaten, so the most severe answers (those who scored themselves highest on the ’ scale from 1 to 10 how bad is your pest problem’) are the most likely to vanish. Knowing whether someone is rural or urban doesn’t fix this: even among rural respondents, the ones with more mice lose more paperwork.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ignorability&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Ignorability&lt;/h3&gt;
+&lt;p&gt;Under MAR, the missing mechanism is &lt;strong&gt;ignorable&lt;/strong&gt;. You can fit a model to the observed data and get valid inference without ever writing down a model for the probability of &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;. Must be nice…&lt;/p&gt;
+&lt;p&gt;Ignorability says in short: &lt;em&gt;you may stop worrying about why the data are missing, provided the reasons live entirely in what you observed.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;its-a-small-world-after-all-simulating-missingness&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;It’s a small world after all: simulating missingness&lt;/h2&gt;
+&lt;p&gt;Definitions only go so far. To make this a bit more concrete let’s build a (very) small world where we know the truth, then hide parts of our small world according to our different missingness paradigms.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n &amp;lt;- 5000                          # true population size
+# covariate
+x &amp;lt;- rnorm(n)                      # fully observed covariate
+# our &amp;quot;true&amp;quot; linear predictor of y 
+y &amp;lt;- 2 + 1.5 * x + rnorm(n)        # outcome we&amp;#39;ll make partly missing
+# benchmark: estimates from the complete data, before anything goes missing
+truth &amp;lt;- c(mean_y = mean(y), slope = unname(coef(lm(y ~ x))[2]))
+truth&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   mean_y    slope 
+## 2.003321 1.482776&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let’s make our three missingness mechanisms, each programmed to hide roughly 30-odd % of our data (&lt;code&gt;y&lt;/code&gt;):&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;z &amp;lt;- function(v) (v - mean(v)) / sd(v)
+
+r_mcar &amp;lt;- rbinom(n, 1, 0.35)                       # depends on nothing    (MCAR)
+r_mar  &amp;lt;- rbinom(n, 1, plogis(-0.7 + 1.5 * z(x)))  # depends on observed x (MAR)
+r_mnar &amp;lt;- rbinom(n, 1, plogis(-0.7 + 1.5 * z(y)))  # depends on y itself   (MNAR)
+
+# small helper function that conditionally assigns `NA` if the bernoulli trial
+# [i.e. rbinom(n, 1, plogist(...))] spat out a value of 1 and just keeps the true value of `y`
+# otherwise
+hide &amp;lt;- function(r) ifelse(r == 1, NA, y)
+
+# hide our data according to our missness mechanisms
+dat &amp;lt;- list(
+  MCAR = data.frame(x, y = hide(r_mcar)), # MCAR
+  MAR  = data.frame(x, y = hide(r_mar)),  # MAR
+  MNAR = data.frame(x, y = hide(r_mnar))  # MNAR
+)
+
+# sanity check: returns the per-mechanism mean proportion
+# of missing data
+sapply(dat, function(d) round(mean(is.na(d$y)), 2))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## MCAR  MAR MNAR 
+## 0.36 0.39 0.38&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;aside-box&#34;&gt;
+&lt;p class=&#34;aside-box-title&#34;&gt;
+Coding missingness
+&lt;/p&gt;
+&lt;p&gt;If you want a brief primer on the above code read this, otherwise feel free to move on 😄. The &lt;code&gt;plogis()&lt;/code&gt; function (the logistic cumulative distribution function, or inverse logit) takes in a linear predictor on the log-odds scale (or a set of quantiles) and returns a probability (a value between 0 and 1). The formula for &lt;code&gt;plogis()&lt;/code&gt; is as follows:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+F(x) = \frac{1}{1 + e^{-\frac{x-\mu}{\sigma}}}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; is your vector of quantiles (or log-odds), &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt; is the location parameter (equal to the mean, default &lt;code&gt;0&lt;/code&gt;), and &lt;span class=&#34;math inline&#34;&gt;\(\sigma\)&lt;/span&gt; is the scale parameter controlling the spread of the distribution (default &lt;code&gt;1&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;So above, when we call &lt;code&gt;rbinom(n, 1, plogis(-0.7 + 1.5 * z(x)))&lt;/code&gt;, we are generating &lt;code&gt;n&lt;/code&gt; Bernoulli trials (binomial draws with &lt;code&gt;1&lt;/code&gt; trial each) where each observation’s probability of success (&lt;code&gt;1&lt;/code&gt;) is &lt;span class=&#34;math inline&#34;&gt;\(\frac{1}{1 + e^{-(-0.7 + 1.5 \cdot z(x))}}\)&lt;/span&gt;. Here, &lt;code&gt;-0.7&lt;/code&gt; sets the baseline log-odds (a (&lt;span class=&#34;math inline&#34;&gt;\(\frac{1}{1 - e^{-(-0.7)}} \approx 0.33\)&lt;/span&gt;) of 33% when &lt;span class=&#34;math inline&#34;&gt;\(z(x) = 0\)&lt;/span&gt;), and &lt;code&gt;1.5&lt;/code&gt; shifts those log-odds based on the z-score of our covariate &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Here’s what each mechanism hides. The grey curve is the full distribution of &lt;code&gt;y&lt;/code&gt;; the coloured curve is what survives.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# make a dataframe for plotting purposes
+# rbind the true values and the missing datasets together
+plot_df &amp;lt;- do.call(rbind, lapply(names(dat), function(m) {
+  rbind(
+    # true y&amp;#39;s
+    data.frame(mechanism = m, which = &amp;quot;All values (truth)&amp;quot;, y = y),
+    # missing y&amp;#39;s
+    data.frame(mechanism = m, which = &amp;quot;Observed only&amp;quot;,
+               y = dat[[m]]$y[!is.na(dat[[m]]$y)])
+  )
+}))
+# recode as factors
+plot_df$mechanism &amp;lt;- factor(plot_df$mechanism, levels = c(&amp;quot;MCAR&amp;quot;, &amp;quot;MAR&amp;quot;, &amp;quot;MNAR&amp;quot;))
+
+# plot response (y) as density curves colour coded by missingness
+# or completeness mechanisms
+ggplot(plot_df, aes(y, colour = which, fill = which)) +
+  geom_density(alpha = 0.25) +
+  facet_wrap(~ mechanism) +
+  scale_colour_manual(values = c(&amp;quot;grey40&amp;quot;, &amp;quot;#2C7FB8&amp;quot;)) +
+  scale_fill_manual(values = c(&amp;quot;grey70&amp;quot;, &amp;quot;#2C7FB8&amp;quot;)) +
+  labs(x = &amp;quot;y&amp;quot;, y = NULL, colour = NULL, fill = NULL) +
+  theme(legend.position = &amp;quot;bottom&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/missingness/index.en_files/figure-html/plot-observed-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Under MCAR, the observed data are a faithful miniature of the true dataset. Under both MAR and MNAR, high values of &lt;code&gt;y&lt;/code&gt; are under-represented.&lt;/p&gt;
+&lt;div id=&#34;what-missingness-hides-complete-case-analysis&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What missingness hides: complete-case analysis&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cc &amp;lt;- t(sapply(dat, function(d) {
+  d &amp;lt;- na.omit(d)
+  c(mean_y = mean(d$y), slope = unname(coef(lm(y ~ x, data = d))[2]))
+}))
+round(rbind(Truth = truth, cc), 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       mean_y slope
+## Truth  2.003 1.483
+## MCAR   2.005 1.492
+## MAR    1.379 1.472
+## MNAR   1.293 1.327&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Three takeaways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;MCAR:&lt;/strong&gt; both the mean and the slope are fine. Dropping rows does not cost validity.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MAR:&lt;/strong&gt; the mean of &lt;code&gt;y&lt;/code&gt; is biased (we lost the high-&lt;code&gt;x&lt;/code&gt;, high-&lt;code&gt;y&lt;/code&gt; data). But the &lt;strong&gt;regression slope is fine&lt;/strong&gt;. Because missingness depends only on &lt;code&gt;x&lt;/code&gt;, and we’re modelling &lt;code&gt;y&lt;/code&gt; &lt;em&gt;given&lt;/em&gt; &lt;code&gt;x&lt;/code&gt;, selection on the predictor doesn’t distort the conditional relationship.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MNAR:&lt;/strong&gt; both are biased, including the slope, which is shrunk (or attenuated if you wanna be that kind of stats person) because we preferentially lost large residuals (remember the value of our probability in our Bernoulli trials depended on &lt;span class=&#34;math inline&#34;&gt;\(z(x)\)&lt;/span&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;multiple-imputation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Multiple imputation&lt;/h3&gt;
+&lt;p&gt;Multiple imputation fills in each missing value several times with plausible draws from a model fit to the observed data, analyses each completed dataset, and pools the results with Rubin’s rules. Let’s estimate the mean of &lt;code&gt;y&lt;/code&gt; under each mechanism.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# estimate the mean of y via multiple imputation, for each mechanism
+mi_mean &amp;lt;- function(d, m = 20) {
+  imp &amp;lt;- mice(d, m = m, method = &amp;quot;norm&amp;quot;, printFlag = FALSE, seed = 1)
+  summary(pool(with(imp, lm(y ~ 1))))$estimate
+}
+
+mi &amp;lt;- sapply(dat, mi_mean)
+
+round(rbind(
+  Truth                 = rep(unname(truth[&amp;quot;mean_y&amp;quot;]), 3),
+  `Complete case`       = cc[, &amp;quot;mean_y&amp;quot;],
+  `Multiple imputation` = mi
+), 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                      MCAR   MAR  MNAR
+## Truth               2.003 2.003 2.003
+## Complete case       2.005 1.379 1.293
+## Multiple imputation 1.995 1.980 1.728&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;mice()&lt;/code&gt; call above fills in each missing value with the following equation:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[y_{\text{imputed}} = \text{intercept}^* + \text{slope}^* \times x + \text{noise}, \quad \text{noise} \sim N(0, \sigma^{*2})\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The intercept, slope and residual SD are estimated from the rows where y was observed (unlike our Truth benchmark, which used every row). The asterisks mark that each of the 20 imputations draws slightly different versions of these values, to reflect uncertainty in the estimates. Each missing value then gets its own zero-centred noise term, with spread set by &lt;span class=&#34;math inline&#34;&gt;\(\sigma^*\)&lt;/span&gt;. The result is 20 slightly different completed datasets, whose estimates are pooled with Rubin’s rules.&lt;/p&gt;
+&lt;p&gt;Let’s turn our attention to the table that little chunk output. Under MAR, imputation &lt;strong&gt;recovers the truth&lt;/strong&gt;: it uses &lt;code&gt;x&lt;/code&gt; to predict what the missing &lt;code&gt;y&lt;/code&gt; values probably were, and since &lt;code&gt;x&lt;/code&gt; fully explains the selection, the predictions are right on average.&lt;/p&gt;
+&lt;p&gt;Under MNAR, imputation improves on complete-case analysis, closing roughly 60% of the gap to the truth (1.29 &lt;span class=&#34;math inline&#34;&gt;\(\rightarrow\)&lt;/span&gt; 1.73, vs. a true 2.00), but it stops well short. That leaves it the worst of the three imputation estimates. But it’s working exactly as designed, assuming the missing people look like observed people with the same &lt;code&gt;x&lt;/code&gt;, and that assumption is false here. The imputation model can’t know that the missing values are systematically higher &lt;em&gt;even among people with the same &lt;code&gt;x&lt;/code&gt;&lt;/em&gt;, because nothing in the observed data says so.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;unknown-unknowns&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Unknown unknowns&lt;/h2&gt;
+&lt;p&gt;This brings us to the philosophical heart of the problem.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You cannot distinguish MAR from MNAR using the data you have.&lt;/strong&gt; The information that would tell you whether the missing values differ from the observed ones is precisely the information that’s missing (Molenberghs et al. 2008). In short, MNAR and MAR models agree about everything you can see and disagree only about what you can’t.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MAR is a met claim, rather than a statistical one.&lt;/strong&gt; Defending it means arguing, from knowledge of how the data were collected ,, . That argument belongs in your methods section in plain text, not hidden behind “data were assumed MAR.” Collecting “auxiliary” variables that predict data loss, such as reasons for leaving a study or mouse infestation status, is often an effective means of combating missing data, and critically, it is something that occurs at study design stage rather than the data analysis stage.&lt;/p&gt;
+&lt;p&gt;There’s a epistemic flavor here. We can never prove the unseen resembles the seen; we can merely assume it. We’re always inferring the unobserved from the observed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;if-you-cant-test-it-vary-it&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;If you can’t test it, vary it&lt;/h2&gt;
+&lt;p&gt;If the key assumption (MAR) is untestable, the most defensible response is not to pick an assumption at all, but instead show how much your conclusion depends on it. A simple and widely used approach is delta adjustment: impute (i.e., fill each missing value with plausible values predicted from the observed data) under MAR, then shift the imputed values by some usually small amount &lt;span class=&#34;math inline&#34;&gt;\(\delta\)&lt;/span&gt;, representing the hypothesis that missing people differ systematically from observed people with the same covariates. Repeat for a range of &lt;span class=&#34;math inline&#34;&gt;\(\delta\)&lt;/span&gt; values and watch what happens to your estimate.&lt;/p&gt;
+&lt;p&gt;The output lets you say something like: &lt;em&gt;“Our estimate holds up unless non-responders score more than [x] points higher than comparable responders, which would be [plausible or implausible] because…well…yada yada yada”&lt;/em&gt; That sentence (apart from the yadas) is much more informative than an estimate with an unstated assumption underneath it, and it turns a hidden assumption into a visible one.&lt;/p&gt;
+&lt;p&gt;Choosing a plausible range for &lt;span class=&#34;math inline&#34;&gt;\(\delta\)&lt;/span&gt; is a subject matter for a later post. However, just know that it’s ultimately question for &lt;em&gt;you&lt;/em&gt; dear researcher (and subject-matter expert) about subject-matter knowledge rather than something that fancy statistics can solve.&lt;/p&gt;
+&lt;p&gt;If you want to try the delta methods yourself, the R package &lt;code&gt;mice&lt;/code&gt; supports delta adjustment directly through its &lt;code&gt;post&lt;/code&gt; argument. A good place to jump off is the &lt;code&gt;mice&lt;/code&gt; documentation itself:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;van Buuren’s &lt;em&gt;Flexible Imputation of Missing Data&lt;/em&gt; (the guy who cowrote the &lt;code&gt;mice&lt;/code&gt; package), &lt;a href=&#34;https://stefvanbuuren.name/fimd/sec-sensitivity.html&#34;&gt;Section 9.2&lt;/a&gt; (a worked example with &lt;code&gt;mice&lt;/code&gt; code).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;takeaway&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Takeaway&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;code&gt;NA&lt;/code&gt; is a reminder that our datasets are always partial (and often distorted) views of the world, shaped by processes we didn’t fully control. Good missing-data practice isn’t about making the blanks disappear. It’s about being honest about what fills them.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Report missingness transparently&lt;/strong&gt; How much, in which variables, how it relates to observed characteristics, and what you did about it.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Treat &lt;code&gt;NA&lt;/code&gt; as part of the data&lt;/strong&gt; Before choosing a method, write down a short story of why each variable might be missing backed by your domain expertise.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invest in auxiliary variables.&lt;/strong&gt; Measuring what predicts missingness is what makes MAR plausible.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Never claim MAR was “verified.”&lt;/strong&gt; Instead argue for it, and include a sensitivity analysis showing what happens if you’re wrong.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;further-reading&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Further reading&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Rubin, D. B. (1976). Inference and missing data. &lt;em&gt;Biometrika&lt;/em&gt;, 63(3), 581–592.&lt;/li&gt;
+&lt;li&gt;Little, R. J. A., &amp;amp; Rubin, D. B. (2019). &lt;em&gt;Statistical Analysis with Missing Data&lt;/em&gt; (3rd ed.). Wiley.&lt;/li&gt;
+&lt;li&gt;van Buuren, S. (2018). &lt;em&gt;Flexible Imputation of Missing Data&lt;/em&gt; (2nd ed.). CRC Press. Free online at &lt;a href=&#34;https://stefvanbuuren.name/fimd/&#34;&gt;stefvanbuuren.name/fimd&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Seaman, S., Galati, J., Jackson, D., &amp;amp; Carlin, J. (2013). What is meant by “missing at random”? &lt;em&gt;Statistical Science&lt;/em&gt;, 28(2), 257–268.&lt;/li&gt;
+&lt;li&gt;Molenberghs, G., Beunckens, C., Sotto, C., &amp;amp; Kenward, M. G. (2008). Every missingness not at random model has a missingness at random counterpart with equal fit. &lt;em&gt;Journal of the Royal Statistical Society: Series B&lt;/em&gt;, 70(2), 371–388.&lt;/li&gt;
+&lt;li&gt;Mohan, K., &amp;amp; Pearl, J. (2021). Graphical models for processing missing data. &lt;em&gt;Journal of the American Statistical Association&lt;/em&gt;, 116(534), 1023–1037.&lt;/li&gt;
+&lt;li&gt;Little, R. J. A. (1988). A test of missing completely at random for multivariate data with missing values. &lt;em&gt;Journal of the American Statistical Association&lt;/em&gt;, 83(404), 1198–1202.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Biometrika&#34;&gt;Biometrika wikipedia page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www150.statcan.gc.ca/n1/pub/12-001-x/2022002/article/00009/01-eng.htm&#34;&gt;Statistics Canada&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Altman DG, Bland JM. Missing data. BMJ. 2007;334(7590):424. &lt;a href=&#34;doi:10.1136/bmj.38977.682025.2C&#34; class=&#34;uri&#34;&gt;doi:10.1136/bmj.38977.682025.2C&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        <item>
         <title>Smooth Operators 1: An Introduction to GAMs with mgcv</title>
         <link>https://csc-ubc-okanagan.github.io/csc-data-blog/p/gams-mgcv-introduction/</link>
         <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>

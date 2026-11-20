@@ -1,0 +1,291 @@
+---
+title: "Of `mice` and Missingness: A Philosopher's Guide to Missingness"
+author: "Alex Jack"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    code_folding: show
+---
+
+```{r}
+#| label: setup and load packages
+#| include: FALSE
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 7,
+  fig.height = 4,
+  fig.align = "center"
+)
+
+suppressPackageStartupMessages({
+  library(ggplot2)   # the usual plotting suspect
+  library(mice)      # library dedicated to missingness analysis
+  library(emoji)     # very important
+})
+
+theme_set(theme_minimal(base_size = 13))
+set.seed(2026)       # for reproducibility purposes
+```
+
+<!-- CSS for setting up aside box -->
+<style>
+.aside-box {
+  padding: 15px;
+  margin: 10px 0;
+  border-left: 5px solid #0073e6;
+  background-color: #f4f9ff; 
+  border-radius: 4px;
+}
+.aside-box-title {
+  font-weight: bold;
+  color: #0073e6;
+  margin-top: 0;
+}
+</style>
+
+
+## An empty cell is not empty
+
+Every grad student has opened a dataset, run `summary()`, and seen it: the dreaded `NA` `r emoji::emoji('scream')`. The usual reaction (and my own past reaction...in the past...I swear) is logistical. *How do I get rid of these?* Drop the rows, move on to the interesting part.
+
+Here I argue that `NA` *is* an interesting part. An empty cell is not a lack of information. It is a record that something happened: a participant didn't answer, a mouse ate my homework, or a question didn't apply. The blank has a cause, and that cause is entangled with the very things we're trying to learn about.
+
+Put philosophically: **missing data is a problem about the relationship between the world and our observations of it.** Our dataset is not the population. It is the population *filtered through a process that decides what we get to see.* Every method for handling missingness is, implicitly, a claim about what that filter looks like. And as we'll see, the most consequential of those claims can never be verified from the data we have (mic drop: David Hume). 
+
+## Three questions to ask before any method
+
+Before grasping for a technique, it helps to separate three different questions that often get blurred together:
+
+1. **Does the value exist?** A non-response on an income question hides a real number. But "income at age 40" for someone who passed away at 35 doesn't hide anything; there's no value to recover. "Quality of life after death," or "rating of a product never purchased" are not *unknown*, they are *undefined*. Treating them as ordinary missing data and imputing them produces answers to questions that don't have answers.
+
+2. **What is the target?** If you want the average outcome among everyone *who would complete* the study, dropout is part of the definition, not a nuisance. If you want the average outcome *had everyone completed*, you're asking a counterfactual question. Missing-data methods can only be judged relative to an estimand.
+
+3. **Why is it missing?** This is the question Rubin's taxonomy addresses, and it's what the rest of this post discusses.
+
+::: { .aside-box }
+<p class="aside-box-title"> Aside </p>
+If you have read any of my other posts you'll know that I can't help but insert *a little* history in...sorry. Donald Rubin is an esteemed American statistician born December 22, 1943 in Washington, D.C. USA. His pioneering work has generated important statistical methods and insights including the expectation-maximization (EM) algorithm (a methodology to estimate statistical parameters for latent variables now widely used in machine learning), the Gelman-Rubin statistic (if you've ever fit a Bayesian model then you'll know what I mean), the Rubin causal model (an important method that helped move modern statistics from estimating associations to causation), and most importantly for this the missing data framework and multiple imputation.  
+:::
+
+## There's a hole in the bottom of the (data) sea: Rubin's missing data framework
+
+In his seminal 1976 publication *Inference and missing data* in the journal *Biometrika* (a statistics journal co-founded by Karl Pearson who ran the worlds first statistics department at University College London), Donald Rubin gave us a vocabulary we still use. Let $Y_{comp}$ be the data we *wish* we had (the complete dataset), split into an observed part $Y_{obs}$ and a missing part $Y_{mis}$. Let $R$ be a grid the same shape as the data, with a 1 wherever we observed a value and a 0 wherever it’s missing; a map of the holes in the dataset (or in jargon the indicator matrix). A key move by Rubin was to treat $R$ as a random variable with its own distribution, the **missingness mechanism**
+
+$$
+P(R \mid Y_{obs}, Y_{mis}, \psi).
+$$
+{#eq-missinginess-dist}
+
+In Equation @eq-missingness-dist, $R$ is our map of holes, $Y_{\text{obs}}$ are the observed data, $Y_{\text{mis}}$ are the missing data, and $\psi$ are the parameters that control the missingness.  reframes 'missingness' as a something to wring our hands about and *wish* would go away into just another part of the data itself. Now that we can reason we can categorize the processes that may have given rise to our dataset.
+
+### Category 1: Missing Completely At Random (MCAR)
+
+$$
+P(R \mid Y_{obs}, Y_{mis}) = P(R)
+$$
+
+Whether a value is missing has nothing to do with the data it is instead random: a lab tech drops a random subset of test tubes or a roving band of mice chews through 20% of the a stack of questionnaires `r emoji::emoji('mouse')`. The complete cases are a truly random sample of all cases.
+
+MCAR is the only mechanism under which “just drop the incomplete rows” is safe in general, and even then it’s only just OK: your estimates stay unbiased, but you are still throwing away information. Also, proving it is a tough row to hoe: the reasons data go missing often relate to something about the study subject or the measurement itself even if we don't often have the data to show it.
+
+### Category 2: Missing At Random (MAR)
+
+$$
+P(R \mid Y_{obs}, Y_{mis}) = P(R \mid Y_{obs})
+$$
+
+Missingness can depend on things you *observed*. Say we recorded whether each respondent lives in a rural or urban area, and rural respondents keep their questionnaires in barns, where roving bands of mice destroy more of them. Rural respondents are then more likely to have missing data, but within rural respondents (and within urban ones) the mice can't read and hence don’t care what anyone wrote: the upshot being that people who complete the survey (completers) and those who don't (non-completers) look alike on the outcome.
+
+Confusingly, MAR does not actually mean missingness is random in the everyday "that was random!" sense; it is often systematic. A better term might be **"random conditional on what we know."** It says that the variables you recorded are enough to explain who goes missing. That doesn’t make the problem go away on its own: in the mice example, a naive average of completers still over-represents urban respondents.
+
+### Category 3: Missing Not At Random (MNAR)
+
+Missingness depends on the unobserved values themselves, even after conditioning on everything observed. Let's make it concrete...so, back to the mice. Suppose the questionnaire asks how bad each respondent’s rodent problem is. Respondents with the worst infestations are exactly the ones whose questionnaires get eaten, so the most severe answers (those who scored themselves highest on the ' scale from 1 to 10 how bad is your pest problem') are the most likely to vanish. Knowing whether someone is rural or urban doesn’t fix this: even among rural respondents, the ones with more mice lose more paperwork.
+
+### Ignorability
+
+Under MAR, the missing mechanism is **ignorable**. You can fit a model to the observed data and get valid inference without ever writing down a model for the probability of $R$. Must be nice...
+
+Ignorability says in short: *you may stop worrying about why the data are missing, provided the reasons live entirely in what you observed.*
+
+## It's a small world after all: simulating missingness
+
+Definitions only go so far. To make this a bit more concrete let's build a (very) small world where we know the truth, then hide parts of our small world according to our different missingness paradigms.
+
+```{r}
+#| label: simulate the truth
+
+n <- 5000                          # true population size
+# covariate
+x <- rnorm(n)                      # fully observed covariate
+# our "true" linear predictor of y 
+y <- 2 + 1.5 * x + rnorm(n)        # outcome we'll make partly missing
+# benchmark: estimates from the complete data, before anything goes missing
+truth <- c(mean_y = mean(y), slope = unname(coef(lm(y ~ x))[2]))
+truth
+```
+
+Now let's make our three missingness mechanisms, each programmed to hide roughly 30-odd \% of our data (`y`):
+
+```{r three mechanisms}
+z <- function(v) (v - mean(v)) / sd(v)
+
+r_mcar <- rbinom(n, 1, 0.35)                       # depends on nothing    (MCAR)
+r_mar  <- rbinom(n, 1, plogis(-0.7 + 1.5 * z(x)))  # depends on observed x (MAR)
+r_mnar <- rbinom(n, 1, plogis(-0.7 + 1.5 * z(y)))  # depends on y itself   (MNAR)
+
+# small helper function that conditionally assigns `NA` if the bernoulli trial
+# [i.e. rbinom(n, 1, plogist(...))] spat out a value of 1 and just keeps the true value of `y`
+# otherwise
+hide <- function(r) ifelse(r == 1, NA, y)
+
+# hide our data according to our missness mechanisms
+dat <- list(
+  MCAR = data.frame(x, y = hide(r_mcar)), # MCAR
+  MAR  = data.frame(x, y = hide(r_mar)),  # MAR
+  MNAR = data.frame(x, y = hide(r_mnar))  # MNAR
+)
+
+# sanity check: returns the per-mechanism mean proportion
+# of missing data
+sapply(dat, function(d) round(mean(is.na(d$y)), 2))
+```
+
+::: { .aside-box }
+<p class="aside-box-title"> Coding missingness </p>
+If you want a brief primer on the above code read this, otherwise feel free to move on `r emoji::emoji('smile')`. The `plogis()` function (the logistic cumulative distribution function, or inverse logit) takes in a linear predictor on the log-odds scale (or a set of quantiles) and returns a probability (a value between 0 and 1). The formula for `plogis()` is as follows:
+
+$$
+F(x) = \frac{1}{1 + e^{-\frac{x-\mu}{\sigma}}}
+$$
+
+where $x$ is your vector of quantiles (or log-odds), $\mu$ is the location parameter (equal to the mean, default `0`), and $\sigma$ is the scale parameter controlling the spread of the distribution (default `1`). 
+
+So above, when we call `rbinom(n, 1, plogis(-0.7 + 1.5 * z(x)))`, we are generating `n` Bernoulli trials (binomial draws with `1` trial each) where each observation's probability of success (`1`) is $\frac{1}{1 + e^{-(-0.7 + 1.5 \cdot z(x))}}$. Here, `-0.7` sets the baseline log-odds (a ($\frac{1}{1 - e^{-(-0.7)}} \approx 0.33$) of 33%  when $z(x) = 0$), and `1.5` shifts those log-odds based on the z-score of our covariate $x$.
+:::
+
+Here's what each mechanism hides. The grey curve is the full distribution of `y`; the coloured curve is what survives.
+
+```{r plot-observed, fig.height=3.5}
+# make a dataframe for plotting purposes
+# rbind the true values and the missing datasets together
+plot_df <- do.call(rbind, lapply(names(dat), function(m) {
+  rbind(
+    # true y's
+    data.frame(mechanism = m, which = "All values (truth)", y = y),
+    # missing y's
+    data.frame(mechanism = m, which = "Observed only",
+               y = dat[[m]]$y[!is.na(dat[[m]]$y)])
+  )
+}))
+# recode as factors
+plot_df$mechanism <- factor(plot_df$mechanism, levels = c("MCAR", "MAR", "MNAR"))
+
+# plot response (y) as density curves colour coded by missingness
+# or completeness mechanisms
+ggplot(plot_df, aes(y, colour = which, fill = which)) +
+  geom_density(alpha = 0.25) +
+  facet_wrap(~ mechanism) +
+  scale_colour_manual(values = c("grey40", "#2C7FB8")) +
+  scale_fill_manual(values = c("grey70", "#2C7FB8")) +
+  labs(x = "y", y = NULL, colour = NULL, fill = NULL) +
+  theme(legend.position = "bottom")
+```
+
+Under MCAR, the observed data are a faithful miniature of the true dataset. Under both MAR and MNAR, high values of `y` are under-represented.
+
+### What missingness hides: complete-case analysis
+
+```{r complete-case}
+cc <- t(sapply(dat, function(d) {
+  d <- na.omit(d)
+  c(mean_y = mean(d$y), slope = unname(coef(lm(y ~ x, data = d))[2]))
+}))
+round(rbind(Truth = truth, cc), 3)
+```
+
+Three takeaways:
+
+- **MCAR:** both the mean and the slope are fine. Dropping rows does not cost validity.
+- **MAR:** the mean of `y` is biased (we lost the high-`x`, high-`y` data). But the **regression slope is fine**. Because missingness depends only on `x`, and we're modelling `y` *given* `x`, selection on the predictor doesn't distort the conditional relationship.
+- **MNAR:** both are biased, including the slope, which is shrunk (or attenuated if you wanna be that kind of stats person) because we preferentially lost large residuals (remember the value of our probability in our Bernoulli trials depended on $z(x)$).
+
+### Multiple imputation
+
+Multiple imputation fills in each missing value several times with plausible draws from a model fit to the observed data, analyses each completed dataset, and pools the results with Rubin's rules. Let's estimate the mean of `y` under each mechanism.
+
+```{r mi}
+# estimate the mean of y via multiple imputation, for each mechanism
+mi_mean <- function(d, m = 20) {
+  imp <- mice(d, m = m, method = "norm", printFlag = FALSE, seed = 1)
+  summary(pool(with(imp, lm(y ~ 1))))$estimate
+}
+
+mi <- sapply(dat, mi_mean)
+
+round(rbind(
+  Truth                 = rep(unname(truth["mean_y"]), 3),
+  `Complete case`       = cc[, "mean_y"],
+  `Multiple imputation` = mi
+), 3)
+```
+
+The `mice()` call above fills in each missing value with the following equation:
+
+$$y_{\text{imputed}} = \text{intercept}^* + \text{slope}^* \times x + \text{noise}, \quad \text{noise} \sim N(0, \sigma^{*2})$$
+
+The intercept, slope and residual SD are estimated from the rows where y was observed (unlike our Truth benchmark, which used every row). The asterisks mark that each of the 20 imputations draws slightly different versions of these values, to reflect uncertainty in the estimates. Each missing value then gets its own zero-centred noise term, with spread set by $\sigma^*$. The result is 20 slightly different completed datasets, whose estimates are pooled with Rubin’s rules.
+
+Let's turn our attention to the table that little chunk output. Under MAR, imputation **recovers the truth**: it uses `x` to predict what the missing `y` values probably were, and since `x` fully explains the selection, the predictions are right on average.
+
+Under MNAR, imputation improves on complete-case analysis, closing roughly 60% of the gap to the truth (1.29 $\rightarrow$ 1.73, vs. a true 2.00), but it stops well short. That leaves it the worst of the three imputation estimates. But it's working exactly as designed, assuming the missing people look like observed people with the same `x`, and that assumption is false here. The imputation model can't know that the missing values are systematically higher *even among people with the same `x`*, because nothing in the observed data says so.
+
+## Unknown unknowns
+
+This brings us to the philosophical heart of the problem.
+
+**You cannot distinguish MAR from MNAR using the data you have.** The information that would tell you whether the missing values differ from the observed ones is precisely the information that's missing (Molenberghs et al. 2008). In short, MNAR and MAR models agree about everything you can see and disagree only about what you can't.
+
+**MAR is a met claim, rather than a statistical one.** Defending it means arguing, from knowledge of how the data were collected ,, . That argument belongs in your methods section in plain text, not hidden behind "data were assumed MAR." Collecting "auxiliary" variables that predict data loss, such as reasons for leaving a study or mouse infestation status, is often an effective means of combating missing data, and critically, it is something that occurs at study design stage rather than the data analysis stage.
+
+There's a epistemic flavor here. We can never prove the unseen resembles the seen; we can merely assume it. We're always inferring the unobserved from the observed.
+
+## If you can't test it, vary it
+
+If the key assumption (MAR) is untestable, the most defensible response is not to pick an assumption at all, but instead show how much your conclusion depends on it. A simple and widely used approach is delta adjustment: impute (i.e., fill each missing value with plausible values predicted from the observed data) under MAR, then shift the imputed values by some usually small amount $\delta$, representing the hypothesis that missing people differ systematically from observed people with the same covariates. Repeat for a range of $\delta$ values and watch what happens to your estimate.
+
+The output lets you say something like: *"Our estimate holds up unless non-responders score more than  [x] points higher than comparable responders, which would be [plausible or implausible] because...well...yada yada yada"* That sentence (apart from the yadas) is much more informative than an estimate with an unstated assumption underneath it, and it turns a hidden assumption into a visible one.
+
+Choosing a plausible range for $\delta$ is a subject matter for a later post. However, just know that it's ultimately question for *you* dear researcher (and subject-matter expert) about subject-matter knowledge rather than something that fancy statistics can solve.
+
+If you want to try the delta methods yourself, the R package `mice` supports delta adjustment directly through its `post` argument. A good place to jump off is the `mice` documentation itself:
+
+- van Buuren's *Flexible Imputation of Missing Data* (the guy who cowrote the `mice` package), [Section 9.2](https://stefvanbuuren.name/fimd/sec-sensitivity.html) (a worked example with `mice` code).
+
+## Takeaway
+
+> *`NA` is a reminder that our datasets are always partial (and often distorted) views of the world, shaped by processes we didn't fully control. Good missing-data practice isn't about making the blanks disappear. It's about being honest about what fills them.*
+
+- **Report missingness transparently** How much, in which variables, how it relates to observed characteristics, and what you did about it.
+- **Treat `NA` as part of the data** Before choosing a method, write down a short story of why each variable might be missing backed by your domain expertise.
+- **Invest in auxiliary variables.** Measuring what predicts missingness is what makes MAR plausible.
+- **Never claim MAR was "verified."** Instead argue for it, and include a sensitivity analysis showing what happens if you're wrong.
+
+## Further reading
+
+- Rubin, D. B. (1976). Inference and missing data. *Biometrika*, 63(3), 581–592.
+- Little, R. J. A., & Rubin, D. B. (2019). *Statistical Analysis with Missing Data* (3rd ed.). Wiley.
+- van Buuren, S. (2018). *Flexible Imputation of Missing Data* (2nd ed.). CRC Press. Free online at [stefvanbuuren.name/fimd](https://stefvanbuuren.name/fimd/).
+- Seaman, S., Galati, J., Jackson, D., & Carlin, J. (2013). What is meant by "missing at random"? *Statistical Science*, 28(2), 257–268.
+- Molenberghs, G., Beunckens, C., Sotto, C., & Kenward, M. G. (2008). Every missingness not at random model has a missingness at random counterpart with equal fit. *Journal of the Royal Statistical Society: Series B*, 70(2), 371–388.
+- Mohan, K., & Pearl, J. (2021). Graphical models for processing missing data. *Journal of the American Statistical Association*, 116(534), 1023–1037.
+- Little, R. J. A. (1988). A test of missing completely at random for multivariate data with missing values. *Journal of the American Statistical Association*, 83(404), 1198–1202.
+- [Biometrika wikipedia page](https://en.wikipedia.org/wiki/Biometrika)
+- [Statistics Canada](https://www150.statcan.gc.ca/n1/pub/12-001-x/2022002/article/00009/01-eng.htm)
+- Altman DG, Bland JM. Missing data. BMJ. 2007;334(7590):424. doi:10.1136/bmj.38977.682025.2C

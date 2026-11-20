@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="\rAn empty cell is not empty\rEvery grad student has opened a dataset, run summary(), and seen it: the dreaded NA 😱. The usual reaction (and my own past reaction…in the past…I swear) is logistical. How do I get rid of these? Drop the rows, move on to the interesting part.\n">
+<title>The Data That Isn&#39;t There: A Philosophical Field Guide to Missingness</title>
+
+<link rel='canonical' href='https://csc-ubc-okanagan.github.io/csc-data-blog/p/the-data-that-isnt-there-a-philosophical-field-guide-to-missingness/'>
+
+<link rel="stylesheet" href="/csc-data-blog/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="The Data That Isn't There: A Philosophical Field Guide to Missingness">
+<meta property='og:description' content="\rAn empty cell is not empty\rEvery grad student has opened a dataset, run summary(), and seen it: the dreaded NA 😱. The usual reaction (and my own past reaction…in the past…I swear) is logistical. How do I get rid of these? Drop the rows, move on to the interesting part.\n">
+<meta property='og:url' content='https://csc-ubc-okanagan.github.io/csc-data-blog/p/the-data-that-isnt-there-a-philosophical-field-guide-to-missingness/'>
+<meta property='og:site_name' content='R &amp; Python Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-11-02T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="The Data That Isn't There: A Philosophical Field Guide to Missingness">
+<meta name="twitter:description" content="\rAn empty cell is not empty\rEvery grad student has opened a dataset, run summary(), and seen it: the dreaded NA 😱. The usual reaction (and my own past reaction…in the past…I swear) is logistical. How do I get rid of these? Drop the rows, move on to the interesting part.\n">
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ1KG9NWP0"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PQ1KG9NWP0');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/csc-data-blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/csc-data-blog/img/avatar_hu_365c3288643681d2.png" width="300"
+                            height="303" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/csc-data-blog">R &amp; Python Blog</a></h1>
+            <h2 class="site-description">Brought to you by UBCO&#39;s Center for Scholarly Communication</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='csc.ok@ubc.ca'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st1 {
+        stroke-linejoin: round;
+      }
+
+      .st1, .st2 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-width: 66.7px;
+      }
+
+      .st2 {
+        stroke-miterlimit: 133.3;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M133.3,300l206.7,155c35.6,26.7,84.4,26.7,120,0l206.7-155"/>
+  <path class="st2" d="M100,305.9c0-24.2,13.1-46.5,34.3-58.3l233.3-129.6c20.1-11.2,44.6-11.2,64.8,0l233.3,129.6c21.2,11.8,34.3,34.1,34.3,58.3v260.8c0,36.8-29.8,66.7-66.7,66.7H166.7c-36.8,0-66.7-29.8-66.7-66.7v-260.8Z"/>
+  <path class="st0" d="M0,0h800v800H0V0Z"/>
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/csc-ubc-okanagan'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/csc-data-blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/csc-data-blog/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/csc-data-blog/p/the-data-that-isnt-there-a-philosophical-field-guide-to-missingness/">The Data That Isn&#39;t There: A Philosophical Field Guide to Missingness</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-11-02T00:00:00Z'>Nov 02, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    13 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    
+
+
+<style>
+.aside-box {
+  padding: 15px;
+  margin: 10px 0;
+  border-left: 5px solid #0073e6;
+  background-color: #f4f9ff;
+  border-radius: 4px;
+}
+.aside-box-title {
+  font-weight: bold;
+  color: #0073e6;
+  margin-top: 0;
+}
+</style>
+<div id="an-empty-cell-is-not-empty" class="section level2">
+<h2>An empty cell is not empty</h2>
+<p>Every grad student has opened a dataset, run <code>summary()</code>, and seen it: the dreaded <code>NA</code> 😱. The usual reaction (and my own past reaction…in the past…I swear) is logistical. <em>How do I get rid of these?</em> Drop the rows, move on to the interesting part.</p>
+<p>This post argues that the <code>NA</code> <em>is</em> an interesting part. An empty cell is not a lack of information. It is a record that something happened: a participant didn’t answer, a sensor failed, a patient left the study, a question didn’t apply. The blank has a cause, and that cause is entangled with the very things we’re trying to learn about.</p>
+<p>Put philosophically: <strong>missing data is a problem about the relationship between the world and our observations of it.</strong> Our dataset is not the population. It is the population <em>filtered through a process that decides what we get to see.</em> Every method for handling missingness is, implicitly, a claim about what that filter looks like. And as we’ll see, the most consequential of those claims can never be verified from the data we have.</p>
+</div>
+<div id="three-questions-to-ask-before-any-method" class="section level2">
+<h2>Three questions to ask before any method</h2>
+<p>Before reaching for a technique, it helps to separate three different questions that often get blurred together:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Does the value exist?</strong> A non-response on an income question hides a real number. But “income at age 40” for someone who died at 35 doesn’t hide anything; there’s no value to recover. “Quality of life after death,” “pregnancy status of male participants,” or “rating of a product never purchased” are not <em>unknown</em>, they are <em>undefined</em>. Treating them as ordinary missing data and imputing them produces answers to questions nobody should be asking.</li>
+<li><strong>What is the target?</strong> If you want the average outcome among everyone <em>who would complete</em> the study, dropout is part of the definition, not a nuisance. If you want the average outcome <em>had everyone completed</em>, you’re asking a counterfactual question. Missing-data methods can only be judged relative to an estimand.</li>
+<li><strong>Why is it missing?</strong> This is the question Rubin’s taxonomy addresses, and it’s where the rest of this post lives.</li>
+</ol>
+<p>Questions 1 and 2 are conceptual, not statistical. No software will answer them for you, and getting them wrong makes question 3 irrelevant.</p>
+<div class="aside-box">
+<p class="aside-box-title">
+History aside
+</p>
+<p>If you have read any of my other posts you’ll know that I can’t help but insert <em>a little</em> history in…sorry. Donald Rubin is an esteemed American statistician born December 22, 1943 in Washington, D.C. USA. His pioneering work has generated important statistical methods and insights including the expectation-maximization algorithm (a methodology to estimate statistical parameters for latent variables now widely used in machine learning), the Rubin causal model (an important method that helped move modern statistics from estimating associations to causation), and most importantly for this the missing data framework and multiple imputation.</p>
+</div>
+</div>
+<div id="rubins-missing-data-framework" class="section level2">
+<h2>Rubin’s missing data framework</h2>
+<p>In 1976, Donald Rubin gave us the vocabulary we still use. Let <span class="math inline">\(Y\)</span> be the complete data we <em>wish</em> we had, split into an observed part <span class="math inline">\(Y_{obs}\)</span> and a missing part <span class="math inline">\(Y_{mis}\)</span>. Let <span class="math inline">\(R\)</span> be an indicator matrix recording which values we actually see. The key move is to treat <span class="math inline">\(R\)</span> as a random variable with its own distribution, the <strong>missingness mechanism</strong>:</p>
+<p><span class="math display">\[
+P(R \mid Y_{obs}, Y_{mis}, \psi)
+\]</span></p>
+<p>That one line reframes the whole problem. Missingness isn’t a defect in the data; it is <em>data</em>, generated by a process we can reason about. The three categories describe what that process is allowed to depend on.</p>
+<div id="mcar-missing-completely-at-random" class="section level3">
+<h3>MCAR: Missing Completely At Random</h3>
+<p><span class="math display">\[
+P(R \mid Y_{obs}, Y_{mis}) = P(R)
+\]</span></p>
+<p>Whether a value is missing has nothing to do with anything, observed or not. A lab tech drops a random subset of test tubes. A survey platform randomly shows a question to 70% of respondents. The observed cases are a simple random sample of all cases.</p>
+<p>MCAR is the only mechanism under which “just drop the incomplete rows” is generally unbiased. It’s also the rarest in practice, because people and instruments rarely fail at random.</p>
+</div>
+<div id="mar-missing-at-random" class="section level3">
+<h3>MAR: Missing At Random</h3>
+<p><span class="math display">\[
+P(R \mid Y_{obs}, Y_{mis}) = P(R \mid Y_{obs})
+\]</span></p>
+<p>Missingness can depend on things you <em>observed</em>, but not on the missing values themselves once you account for those. Older participants are less likely to complete an online follow-up, and you recorded age. Within any age group, completers and non-completers look alike on the outcome.</p>
+<p>The name is famously bad. MAR does not mean missingness is random in any everyday sense; it can be strongly systematic. A better gloss is <strong>“random conditional on what we know.”</strong> It’s a statement about whether your observed variables are sufficient to explain away the selection.</p>
+</div>
+<div id="mnar-missing-not-at-random" class="section level3">
+<h3>MNAR: Missing Not At Random</h3>
+<p>Anything else. Missingness depends on the unobserved values themselves, even after conditioning on everything observed. People with high incomes skip the income question. Patients whose symptoms worsen drop out of the trial. The value is missing <em>because of what it is</em>.</p>
+</div>
+<div id="ignorability" class="section level3">
+<h3>Ignorability</h3>
+<p>Why does the MAR line matter so much? Because under MAR (plus a technical condition that the parameters of the data model and the missingness model are distinct), the mechanism is <strong>ignorable</strong> for likelihood-based and Bayesian inference. You can fit a model to the observed data and get valid inference without ever writing down a model for <span class="math inline">\(R\)</span>. Multiple imputation, full-information maximum likelihood, and mixed models all lean on this.</p>
+<p>Ignorability is a kind of epistemic permission slip: <em>you may stop worrying about why the data are missing, provided the reasons live entirely in what you observed.</em></p>
+</div>
+</div>
+<div id="seeing-it-in-a-simulation" class="section level2">
+<h2>Seeing it in a simulation</h2>
+<p>Abstract definitions only go so far. Let’s build a world where we know the truth, then hide parts of it in different ways.</p>
+<pre class="r"><code>set.seed(2026)
+n &lt;- 5000
+
+x &lt;- rnorm(n)                      # fully observed covariate
+y &lt;- 2 + 1.5 * x + rnorm(n)        # outcome we&#39;ll make partly missing
+
+truth &lt;- c(mean_y = mean(y), slope = unname(coef(lm(y ~ x))[2]))
+truth</code></pre>
+<pre><code>##   mean_y    slope 
+## 2.003321 1.482776</code></pre>
+<p>Now three missingness mechanisms, each tuned to hide roughly 35–40% of <code>y</code>:</p>
+<pre class="r"><code>z &lt;- function(v) (v - mean(v)) / sd(v)
+
+r_mcar &lt;- rbinom(n, 1, 0.35)                     # depends on nothing
+r_mar  &lt;- rbinom(n, 1, plogis(-0.7 + 1.5 * z(x)))  # depends on observed x
+r_mnar &lt;- rbinom(n, 1, plogis(-0.7 + 1.5 * z(y)))  # depends on y itself
+
+hide &lt;- function(r) ifelse(r == 1, NA, y)
+
+dat &lt;- list(
+  MCAR = data.frame(x, y = hide(r_mcar)),
+  MAR  = data.frame(x, y = hide(r_mar)),
+  MNAR = data.frame(x, y = hide(r_mnar))
+)
+
+sapply(dat, function(d) round(mean(is.na(d$y)), 2))</code></pre>
+<pre><code>## MCAR  MAR MNAR 
+## 0.36 0.39 0.38</code></pre>
+<p>Here’s what each mechanism hides. The grey curve is the full distribution of <code>y</code>; the coloured curve is what survives.</p>
+<pre class="r"><code>plot_df &lt;- do.call(rbind, lapply(names(dat), function(m) {
+  rbind(
+    data.frame(mechanism = m, which = &quot;All values (truth)&quot;, y = y),
+    data.frame(mechanism = m, which = &quot;Observed only&quot;,
+               y = dat[[m]]$y[!is.na(dat[[m]]$y)])
+  )
+}))
+plot_df$mechanism &lt;- factor(plot_df$mechanism, levels = c(&quot;MCAR&quot;, &quot;MAR&quot;, &quot;MNAR&quot;))
+
+ggplot(plot_df, aes(y, colour = which, fill = which)) +
+  geom_density(alpha = 0.25) +
+  facet_wrap(~ mechanism) +
+  scale_colour_manual(values = c(&quot;grey40&quot;, &quot;#2C7FB8&quot;)) +
+  scale_fill_manual(values = c(&quot;grey70&quot;, &quot;#2C7FB8&quot;)) +
+  labs(x = &quot;y&quot;, y = NULL, colour = NULL, fill = NULL) +
+  theme(legend.position = &quot;bottom&quot;)</code></pre>
+<p><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/the-data-that-isnt-there-a-philosophical-field-guide-to-missingness/index.en_files/figure-html/plot-observed-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Under MCAR, the observed data are a faithful miniature of the whole. Under both MAR and MNAR, high values of <code>y</code> are under-represented. <strong>Look at the MAR and MNAR panels side by side: from the plot alone, you can’t tell which is which.</strong> Hold onto that thought.</p>
+<div id="complete-case-analysis-the-default-most-of-us-use" class="section level3">
+<h3>Complete-case analysis: the default most of us use</h3>
+<pre class="r"><code>cc &lt;- t(sapply(dat, function(d) {
+  d &lt;- na.omit(d)
+  c(mean_y = mean(d$y), slope = unname(coef(lm(y ~ x, data = d))[2]))
+}))
+round(rbind(Truth = truth, cc), 3)</code></pre>
+<pre><code>##       mean_y slope
+## Truth  2.003 1.483
+## MCAR   2.005 1.492
+## MAR    1.379 1.472
+## MNAR   1.293 1.327</code></pre>
+<p>Three lessons, one of which usually surprises people:</p>
+<ul>
+<li><strong>MCAR:</strong> both the mean and the slope are fine. Dropping rows costs power, not validity.</li>
+<li><strong>MAR:</strong> the mean of <code>y</code> is biased (we lost the high-<code>x</code>, high-<code>y</code> people). But the <strong>regression slope is fine</strong>. Because missingness depends only on <code>x</code>, and we’re modelling <code>y</code> <em>given</em> <code>x</code>, selection on the predictor doesn’t distort the conditional relationship. Whether complete-case analysis is “biased” depends on the question you ask, not just the mechanism.</li>
+<li><strong>MNAR:</strong> both are biased, including the slope, which is attenuated because we preferentially lost large residuals.</li>
+</ul>
+</div>
+<div id="multiple-imputation-powerful-but-not-magic" class="section level3">
+<h3>Multiple imputation: powerful, but not magic</h3>
+<p>Multiple imputation fills in each missing value several times with plausible draws from a model fit to the observed data, analyses each completed dataset, and pools the results with Rubin’s rules. Let’s estimate the mean of <code>y</code> under each mechanism.</p>
+<pre class="r"><code>mi_mean &lt;- function(d, m = 20) {
+  imp &lt;- mice(d, m = m, method = &quot;norm&quot;, printFlag = FALSE, seed = 1)
+  est &lt;- summary(pool(with(imp, lm(y ~ 1))))
+  est$estimate
+}
+
+mi &lt;- sapply(dat, mi_mean)
+round(rbind(
+  Truth          = rep(truth[&quot;mean_y&quot;], 3),
+  `Complete case` = cc[, &quot;mean_y&quot;],
+  `Multiple imputation` = mi
+), 3)</code></pre>
+<pre><code>##                     mean_y mean_y mean_y
+## Truth                2.003  2.003  2.003
+## Complete case        2.005  1.379  1.293
+## Multiple imputation  1.995  1.980  1.728</code></pre>
+<p>Under MAR, imputation <strong>recovers the truth</strong>: it uses <code>x</code> to predict what the missing <code>y</code> values probably were, and since <code>x</code> fully explains the selection, the predictions are right on average.</p>
+<p>Under MNAR, imputation gets us partway but stops short. It helps because <code>x</code> is correlated with <code>y</code>, so using <code>x</code> recovers <em>some</em> of the lost high values. But it’s working exactly as designed, assuming the missing people look like observed people with the same <code>x</code>, and that assumption is false here. The imputation model can’t know that the missing values are systematically higher <em>even among people with the same <code>x</code></em>, because nothing in the observed data says so.</p>
+</div>
+</div>
+<div id="the-untestable-heart-of-the-problem" class="section level2">
+<h2>The untestable heart of the problem</h2>
+<p>This brings us to the philosophically uncomfortable part.</p>
+<p><strong>You cannot distinguish MAR from MNAR using the data you have.</strong> The information that would tell you whether the missing values differ from the observed ones is precisely the information that’s missing. Molenberghs and colleagues (2008) made this precise: for every MNAR model, there is an MAR model that fits the observed data <em>exactly as well</em>. The two models agree about everything you can see and disagree only about what you can’t.</p>
+<p>This has a few consequences worth sitting with:</p>
+<ul>
+<li><strong>Tests for “random” missingness only go so far.</strong> Little’s MCAR test, or comparing completers to non-completers on baseline variables, can provide evidence <em>against</em> MCAR. Nothing can provide evidence <em>for</em> MAR over MNAR. A non-significant test is not a certificate.</li>
+<li><strong>MAR is a substantive claim, not a statistical one.</strong> Defending it means arguing, from knowledge of how the data were collected, that you measured the things that drive missingness. That argument belongs in your methods section in plain words, not hidden behind “data were assumed MAR.”</li>
+<li><strong>The mechanism is a property of the variables you include.</strong> The same dataset can be MNAR given one set of covariates and (approximately) MAR given a richer set. Collecting “auxiliary” variables that predict dropout, such as reasons for leaving, engagement measures, or a final short-form outcome, is often the single most effective thing you can do about missing data, and it happens at the design stage, not the analysis stage.</li>
+</ul>
+<p>There’s a Humean flavour here. We’re always inferring the unobserved from the observed, and that inference rests on an assumption of uniformity the observed data can’t justify on their own. MAR is the specific uniformity assumption missing-data analysis needs: that within strata of what we’ve seen, the unseen resembles the seen.</p>
+</div>
+<div id="if-you-cant-test-it-vary-it-sensitivity-analysis" class="section level2">
+<h2>If you can’t test it, vary it: sensitivity analysis</h2>
+<p>If the key assumption is untestable, the honest response is not to pick one and pretend, but to show how much your conclusion depends on it. A simple and widely used approach is <strong>delta adjustment</strong>: impute under MAR, then shift the imputed values by some amount <span class="math inline">\(\delta\)</span>, representing the hypothesis that missing people differ systematically from observed people with the same covariates.</p>
+<p><code>mice</code> makes this easy through its post-processing hook:</p>
+<pre class="r"><code>delta_mean &lt;- function(d, delta, m = 20) {
+  ini  &lt;- mice(d, maxit = 0, printFlag = FALSE)
+  post &lt;- ini$post
+  post[&quot;y&quot;] &lt;- paste(&quot;imp[[j]][, i] &lt;- imp[[j]][, i] +&quot;, delta)
+  imp &lt;- mice(d, m = m, method = &quot;norm&quot;, post = post,
+              printFlag = FALSE, seed = 1)
+  summary(pool(with(imp, lm(y ~ 1))))$estimate
+}
+
+deltas &lt;- seq(0, 1.5, by = 0.25)
+sens &lt;- data.frame(
+  delta = deltas,
+  estimate = sapply(deltas, function(dl) delta_mean(dat$MNAR, dl))
+)
+
+ggplot(sens, aes(delta, estimate)) +
+  geom_line(colour = &quot;#2C7FB8&quot;, linewidth = 1) +
+  geom_point(colour = &quot;#2C7FB8&quot;, size = 2.5) +
+  geom_hline(yintercept = truth[&quot;mean_y&quot;], linetype = &quot;dashed&quot;) +
+  annotate(&quot;text&quot;, x = 0.05, y = truth[&quot;mean_y&quot;] + 0.04,
+           label = &quot;true mean&quot;, hjust = 0, size = 3.5) +
+  labs(x = expression(delta ~ &quot;(how much higher are the missing values?)&quot;),
+       y = &quot;Estimated mean of y&quot;)</code></pre>
+<p><img src="https://csc-ubc-okanagan.github.io/csc-data-blog/p/the-data-that-isnt-there-a-philosophical-field-guide-to-missingness/index.en_files/figure-html/sensitivity-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>In real life, you don’t get the dashed line. What you get is the rest of the plot, which lets you say something like: <em>“Our estimate holds up unless non-responders score more than about 0.5 points higher than comparable responders, which would be [plausible / implausible] because …”</em> That sentence is far more informative than a single point estimate with an unstated assumption underneath it. It turns a hidden assumption into a visible, debatable one.</p>
+<p>Choosing a plausible range for <span class="math inline">\(\delta\)</span> is, again, not a statistical question. It’s a question for subject-matter knowledge, previous studies, or follow-up of a sample of non-responders.</p>
+</div>
+<div id="beyond-rubin-a-causal-view" class="section level2">
+<h2>Beyond Rubin: a causal view</h2>
+<p>Rubin’s framework is defined in terms of conditional probabilities, which makes it precise but sometimes hard to apply when you have many variables with missingness in several of them. A more recent line of work, associated with Karthika Mohan and Judea Pearl, represents missingness indicators as nodes in a causal graph (“m-graphs”). Instead of asking “is this MAR?” globally, you ask “given this causal story about why values go missing, is <em>this particular quantity</em> recoverable from the observed data?”</p>
+<p>This sharpens a point our simulation already showed: whether missingness causes bias is not a blanket property of a dataset. It depends on the relationship between the missingness process and the specific estimand. Complete-case regression was fine for the slope under MAR-on-<code>x</code> and biased for the mean. Thinking causally about <em>why</em> data went missing helps you see which of your results are safe.</p>
+</div>
+<div id="practical-takeaways" class="section level2">
+<h2>Practical takeaways</h2>
+<ul>
+<li><strong>Treat <code>NA</code> as data about your data-collection process.</strong> Before choosing a method, write down a short story of why each variable might be missing.</li>
+<li><strong>Decide your estimand first.</strong> Distinguish values that exist but are unobserved from values that don’t exist at all.</li>
+<li><strong>Default methods carry default assumptions.</strong> Listwise deletion assumes (roughly) MCAR, or MAR on predictors for regression slopes. Multiple imputation and FIML assume MAR. Mean imputation is almost never a good idea, since it shrinks variances and distorts relationships under any mechanism.</li>
+<li><strong>Invest in auxiliary variables.</strong> Measuring what predicts missingness is what makes MAR plausible.</li>
+<li><strong>Never claim MAR was “verified.”</strong> Argue for it on substantive grounds, and report a sensitivity analysis showing what happens if you’re wrong.</li>
+<li><strong>Report missingness transparently.</strong> How much, in which variables, how it relates to observed characteristics, and what you did about it.</li>
+</ul>
+<p>The empty cell is a reminder that our datasets are always partial views of the world, shaped by processes we didn’t fully control. Good missing-data practice isn’t about making the blanks disappear. It’s about being honest about what fills them.</p>
+</div>
+<div id="further-reading" class="section level2">
+<h2>Further reading</h2>
+<ul>
+<li>Rubin, D. B. (1976). Inference and missing data. <em>Biometrika</em>, 63(3), 581–592.</li>
+<li>Little, R. J. A., &amp; Rubin, D. B. (2019). <em>Statistical Analysis with Missing Data</em> (3rd ed.). Wiley.</li>
+<li>van Buuren, S. (2018). <em>Flexible Imputation of Missing Data</em> (2nd ed.). CRC Press. Free online at <a href="https://stefvanbuuren.name/fimd/">stefvanbuuren.name/fimd</a>.</li>
+<li>Seaman, S., Galati, J., Jackson, D., &amp; Carlin, J. (2013). What is meant by “missing at random”? <em>Statistical Science</em>, 28(2), 257–268.</li>
+<li>Molenberghs, G., Beunckens, C., Sotto, C., &amp; Kenward, M. G. (2008). Every missingness not at random model has a missingness at random counterpart with equal fit. <em>Journal of the Royal Statistical Society: Series B</em>, 70(2), 371–388.</li>
+<li>Mohan, K., &amp; Pearl, J. (2021). Graphical models for processing missing data. <em>Journal of the American Statistical Association</em>, 116(534), 1023–1037.</li>
+<li>Little, R. J. A. (1988). A test of missing completely at random for multivariate data with missing values. <em>Journal of the American Statistical Association</em>, 83(404), 1198–1202.</li>
+</ul>
+<hr />
+<pre><code>## Built with R 4.6.1 | mice 3.19.0 | ggplot2 4.0.3</code></pre>
+</div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2026 Center for Scholarly Communication, UBC Okanagan
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/csc-data-blog/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
