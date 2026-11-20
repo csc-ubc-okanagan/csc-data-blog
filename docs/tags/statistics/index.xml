@@ -16,18 +16,18 @@
         <description>
 
 
-&lt;!-- CSS for setting up aside box --&gt;
-&lt;style&gt;
+&lt;style type=&#34;text/css&#34;&gt;
 .aside-box {
   padding: 15px;
   margin: 10px 0;
-  border-left: 5px solid #0073e6;
-  background-color: #f4f9ff; 
+  border-left: 5px solid #3b82f6;
+  background-color: rgba(59, 130, 246, 0.10);
   border-radius: 4px;
+  color: inherit;
 }
 .aside-box-title {
   font-weight: bold;
-  color: #0073e6;
+  color: #3b82f6;
   margin-top: 0;
 }
 &lt;/style&gt;
@@ -65,24 +65,23 @@ P(R \mid Y_{obs}, Y_{mis}, \psi). \ (1)
 P(R \mid Y_{obs}, Y_{mis}) = P(R) \  (2)
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Whether a value is missing has nothing to do with the data it is instead random: a lab tech drops a random subset of test tubes or a roving band of mice chews through 20% of the a stack of questionnaires 🐭. The complete cases are a truly random sample of all cases.&lt;/p&gt;
-&lt;p&gt;MCAR is the only mechanism under which “just drop the incomplete rows” is safe in general, and even then it’s only just OK: your estimates stay unbiased, but you are still throwing away information. Also, proving it is a tough row to hoe: the reasons data go missing often relate to something about the study subject or the measurement itself even if we don’t often have the data to show it.&lt;/p&gt;
+&lt;p&gt;MCAR is the only mechanism under which “just drop the incomplete rows” is safe in general, and even then it’s only just OK: your estimates stay unbiased, but you are still throwing away information. Also, proving it is a tough row to hoe: the reasons data go missing often relate to some aspect of the study subject or the measurement itself even if we don’t often have the data to show it.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;category-2-missing-at-random-mar&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Category 2: Missing At Random (MAR)&lt;/h3&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 P(R \mid Y_{obs}, Y_{mis}) = P(R \mid Y_{obs}) \ (3)
 \]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Missingness can depend on things you &lt;em&gt;observed&lt;/em&gt;. Say we recorded whether each respondent lives in a rural or urban area, and rural respondents keep their questionnaires in barns, where roving bands of mice destroy more of them. Rural respondents are then more likely to have missing data, but within rural respondents (and within urban ones) the mice can’t read and hence don’t care what anyone wrote: the upshot being that people who complete the survey (completers) and those who don’t (non-completers) look alike on the outcome.&lt;/p&gt;
-&lt;p&gt;Confusingly, MAR does not actually mean missingness is random in the everyday “that was random!” sense; it is often systematic. A better term might be &lt;strong&gt;“random conditional on what we know.”&lt;/strong&gt; It says that the variables you recorded are enough to explain who goes missing. That doesn’t make the problem go away on its own: in the mice example, a naive average of completers still over-represents urban respondents.&lt;/p&gt;
+&lt;p&gt;Missingness can depend on things you &lt;em&gt;observed&lt;/em&gt;. Say we recorded whether each respondent lives in a rural or urban area, and rural respondents keep their questionnaires in barns, where roving bands of mice destroy more of them. Rural respondents are then more likely to have missing data, but within each group (rural and urban) the mice can’t read and hence don’t care what anyone wrote: the upshot being that people who complete the survey (completers) and those who don’t (non-completers) look alike on the outcome.&lt;/p&gt;
+&lt;p&gt;Confusingly, MAR does not actually mean missingness is random in the everyday “that was random!” sense; it is still often systematic. A better term might be &lt;strong&gt;“random conditional on what we observed.”&lt;/strong&gt; It says that the variables you recorded are enough to explain who goes missing. That doesn’t make the problem go away on its own: in the mice example, a simple average of completers still over-represents urban respondents.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;category-3-missing-not-at-random-mnar&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Category 3: Missing Not At Random (MNAR)&lt;/h3&gt;
-&lt;p&gt;Missingness depends on the unobserved values themselves, even after conditioning on everything observed. Let’s make it concrete…so, back to the mice. Suppose the questionnaire asks how bad each respondent’s rodent problem is. Respondents with the worst infestations are exactly the ones whose questionnaires get eaten, so the most severe answers (those who scored themselves highest on the ’ scale from 1 to 10 how bad is your pest problem’) are the most likely to vanish. Knowing whether someone is rural or urban doesn’t fix this: even among rural respondents, the ones with more mice lose more paperwork.&lt;/p&gt;
+&lt;p&gt;Missingness depends on the unobserved values themselves, even after conditioning on everything observed. Let’s make it concrete…so, back to the mice. Suppose the questionnaire asks how bad each respondent’s rodent problem is. Respondents with the worst infestations are exactly the ones whose questionnaires get eaten, so the most severe answers (those who scored themselves highest on the ‘scale from 1 to 10 how bad is your pest problem’) are the most likely to vanish. Knowing whether someone is rural or urban doesn’t fix this, even among rural respondents, the ones with more mice lose more paperwork.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ignorability&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Ignorability&lt;/h3&gt;
-&lt;p&gt;Under MAR, the missing mechanism is &lt;strong&gt;ignorable&lt;/strong&gt;. You can fit a model to the observed data and get valid inference without ever writing down a model for the probability of &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;. Must be nice…&lt;/p&gt;
-&lt;p&gt;Ignorability says in short: &lt;em&gt;you may stop worrying about why the data are missing, provided the reasons live entirely in what you observed.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Under MAR, the missing mechanism is &lt;strong&gt;ignorable&lt;/strong&gt;. That’s just a fancy way of saying that you can fit a model to the observed data and get valid inference without ever writing down a model for the probability of &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;. Must be nice…&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;its-a-small-world-after-all-simulating-missingness&#34; class=&#34;section level2&#34;&gt;
@@ -98,7 +97,7 @@ truth &amp;lt;- c(mean_y = mean(y), slope = unname(coef(lm(y ~ x))[2]))
 truth&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##   mean_y    slope 
 ## 2.003321 1.482776&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now let’s make our three missingness mechanisms, each programmed to hide roughly 30-odd % of our data (&lt;code&gt;y&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;Now let’s make our three missingness mechanisms, each programmed to hide roughly 30 % of our data (&lt;code&gt;y&lt;/code&gt;):&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;z &amp;lt;- function(v) (v - mean(v)) / sd(v)
 
 r_mcar &amp;lt;- rbinom(n, 1, 0.35)                       # depends on nothing    (MCAR)
@@ -158,9 +157,10 @@ ggplot(plot_df, aes(y, colour = which, fill = which)) +
   labs(x = &amp;quot;y&amp;quot;, y = NULL, colour = NULL, fill = NULL) +
   theme(legend.position = &amp;quot;bottom&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://csc-ubc-okanagan.github.io/csc-data-blog/p/missingness/index.en_files/figure-html/plot-observed-1.png&#34; alt=&#34;&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Under MCAR, the observed data are a faithful miniature of the true dataset. Under both MAR and MNAR, high values of &lt;code&gt;y&lt;/code&gt; are under-represented.&lt;/p&gt;
+&lt;p&gt;Under MCAR, the observed data are a close to the true dataset. Under both MAR and MNAR, high values of &lt;code&gt;y&lt;/code&gt; are under-represented.&lt;/p&gt;
 &lt;div id=&#34;what-missingness-hides-complete-case-analysis&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;What missingness hides: complete-case analysis&lt;/h3&gt;
+&lt;p&gt;I’ve been talking a lot about how MCAR, MAR and MNAR differ, so let’s see what each one does to our estimates. Below, I use complete-case analysis by dropping every row with a missing y and analyzing what’s left. From each dataset I estimate the mean of y (&lt;code&gt;mean_y&lt;/code&gt;) and the regression slope of y on x, then compare them against the benchmark from our full, untouched data.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cc &amp;lt;- t(sapply(dat, function(d) {
   d &amp;lt;- na.omit(d)
   c(mean_y = mean(d$y), slope = unname(coef(lm(y ~ x, data = d))[2]))
@@ -173,14 +173,15 @@ round(rbind(Truth = truth, cc), 3)&lt;/code&gt;&lt;/pre&gt;
 ## MNAR   1.293 1.327&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Three takeaways:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;MCAR:&lt;/strong&gt; both the mean and the slope are fine. Dropping rows does not cost validity.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;MAR:&lt;/strong&gt; the mean of &lt;code&gt;y&lt;/code&gt; is biased (we lost the high-&lt;code&gt;x&lt;/code&gt;, high-&lt;code&gt;y&lt;/code&gt; data). But the &lt;strong&gt;regression slope is fine&lt;/strong&gt;. Because missingness depends only on &lt;code&gt;x&lt;/code&gt;, and we’re modelling &lt;code&gt;y&lt;/code&gt; &lt;em&gt;given&lt;/em&gt; &lt;code&gt;x&lt;/code&gt;, selection on the predictor doesn’t distort the conditional relationship.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MCAR:&lt;/strong&gt; both the mean and the slope are fine.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MAR:&lt;/strong&gt; the mean of y is biased, because we lost mostly high-x, high-y data. But the regression slope is fine. A regression line runs through the middle of the data cloud at each value of x. Under MAR, deletion depends only on x, so at any given x it’s equally likely to remove a point above the line as below it. The middle of the data cloud stays put, so the line, and its slope, stays put too.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;MNAR:&lt;/strong&gt; both are biased, including the slope, which is shrunk (or attenuated if you wanna be that kind of stats person) because we preferentially lost large residuals (remember the value of our probability in our Bernoulli trials depended on &lt;span class=&#34;math inline&#34;&gt;\(z(x)\)&lt;/span&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div id=&#34;multiple-imputation&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Multiple imputation&lt;/h3&gt;
-&lt;p&gt;Multiple imputation fills in each missing value several times with plausible draws from a model fit to the observed data, analyses each completed dataset, and pools the results with Rubin’s rules. Let’s estimate the mean of &lt;code&gt;y&lt;/code&gt; under each mechanism.&lt;/p&gt;
+&lt;p&gt;Multiple imputation is a statistical technique for dealing with missing data. The idea, in essence, is to turn one incomplete dataset into several plausible complete ones by ‘filling in’ the missing values from a statistical model (we’ll see a really simple example of such a model below). The history behind it is actually quite interesting. In the 1970s, Donald Rubin was thinking about agencies like the U.S. Census Bureau, which released large survey datasets to outside researchers and had to fill in the gaps before doing so. The standard approach filled each gap once, but a single filled-in value gets treated as if it were real data, so every downstream analysis came out more confident than it should have been. Rubin’s solution was to fill in each gap several times with different plausible values, so the disagreement between the copies carries the uncertainty that a single imputation hides.&lt;/p&gt;
+&lt;p&gt;As stated above, multiple imputation fills in each missing value several times with plausible draws from a model fit to the observed data, analyses each completed dataset, and pools the results with Rubin’s rules. Let’s estimate the mean of &lt;code&gt;y&lt;/code&gt; under each mechanism.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# estimate the mean of y via multiple imputation, for each mechanism
 mi_mean &amp;lt;- function(d, m = 20) {
   imp &amp;lt;- mice(d, m = m, method = &amp;quot;norm&amp;quot;, printFlag = FALSE, seed = 1)
@@ -208,8 +209,8 @@ round(rbind(
 &lt;div id=&#34;unknown-unknowns&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Unknown unknowns&lt;/h2&gt;
 &lt;p&gt;This brings us to the philosophical heart of the problem.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;You cannot distinguish MAR from MNAR using the data you have.&lt;/strong&gt; The information that would tell you whether the missing values differ from the observed ones is precisely the information that’s missing (Molenberghs et al. 2008). In short, MNAR and MAR models agree about everything you can see and disagree only about what you can’t.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;MAR is a met claim, rather than a statistical one.&lt;/strong&gt; Defending it means arguing, from knowledge of how the data were collected ,, . That argument belongs in your methods section in plain text, not hidden behind “data were assumed MAR.” Collecting “auxiliary” variables that predict data loss, such as reasons for leaving a study or mouse infestation status, is often an effective means of combating missing data, and critically, it is something that occurs at study design stage rather than the data analysis stage.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You cannot distinguish MAR from MNAR using the data you have.&lt;/strong&gt; The information that would tell you whether the missing values differ from the observed ones is precisely the information that’s missing (Molenberghs et al. 2008). In short, MNAR and MAR models agree about everything you can see and disagree about what you can’t.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MAR is an assertion to be tested.&lt;/strong&gt; Defending it means arguing from your knowledge of how the data were collected.&lt;/p&gt;
 &lt;p&gt;There’s a epistemic flavor here. We can never prove the unseen resembles the seen; we can merely assume it. We’re always inferring the unobserved from the observed.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;if-you-cant-test-it-vary-it&#34; class=&#34;section level2&#34;&gt;
@@ -230,8 +231,8 @@ round(rbind(
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Report missingness transparently&lt;/strong&gt; How much, in which variables, how it relates to observed characteristics, and what you did about it.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Treat &lt;code&gt;NA&lt;/code&gt; as part of the data&lt;/strong&gt; Before choosing a method, write down a short story of why each variable might be missing backed by your domain expertise.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Invest in auxiliary variables.&lt;/strong&gt; Measuring what predicts missingness is what makes MAR plausible.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Never claim MAR was “verified.”&lt;/strong&gt; Instead argue for it, and include a sensitivity analysis showing what happens if you’re wrong.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Invest in auxiliary variables early.&lt;/strong&gt; Measuring what predicts missingness is what makes MAR plausible.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Never claim MAR was “verified.”&lt;/strong&gt; Instead argue for it, and include a sensitivity analysis showing what &lt;em&gt;could&lt;/em&gt; happen if you’re wrong.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div id=&#34;further-reading&#34; class=&#34;section level2&#34;&gt;
